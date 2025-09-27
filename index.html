@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manlung Tech City | Cyber Security & Cyber Café</title>
+  <meta name="description" content="Manlung Tech City — advanced cyber security & cyber-cafe services: penetration testing, SOC, eCitizen, KRA services, printing and more.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#000;
+      --neon:#00ff4d;
+      --muted:#cfcfcf;
+      --card: rgba(18,18,18,0.86);
+      --glass: rgba(0,0,0,0.55);
+      --accent:#0df07a;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma, Geneva, Verdana, sans-serif}
+    html,body{height:100%}
+    body{background:var(--bg);color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+
+    /* background grid + scan */
+    .grid-lines{position:fixed;inset:0;background-image:
+      linear-gradient(rgba(0,255,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,0,0.04) 1px, transparent 1px);
+      background-size:60px 60px;z-index:-4}
+    .scan-line{position:fixed;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);animation:scan 5s linear infinite;z-index:-3;top:0}
+    @keyframes scan{0%{top:0%}100%{top:100%}}
+
+    /* floating shapes */
+    .floating-elements{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+    .floating-circle,.floating-ring{position:absolute;border-radius:50%;border:1px solid rgba(0,255,0,0.10);mix-blend-mode:screen;opacity:0.85}
+
+    /* header (logo left, nav right) */
+    header{position:fixed;top:0;left:0;right:0;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.45));backdrop-filter: blur(8px);z-index:1100;border-bottom:1px solid rgba(0,255,0,0.06)}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--neon);font-size:20px;text-shadow:0 0 10px rgba(0,255,0,0.06)}
+    .logo span{color:#fff;font-weight:600}
+    .logo-image-container{width:52px;height:52px;position:relative}
+    .logo-image{width:100%;height:100%;border-radius:50%;object-fit:cover;background:linear-gradient(45deg,var(--neon),#000)}
+    .spinning-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;border-top-color:var(--neon);animation:spin 3s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    nav.primary{margin-left:auto;display:flex;align-items:center;gap:18px}
+    nav.primary ul{display:flex;gap:18px;list-style:none;align-items:center;margin:0;padding:0}
+    nav.primary a{color:#fff;text-decoration:none;font-size:15px;padding:8px 10px;border-radius:8px;position:relative;display:inline-block;transition:.14s}
+    nav.primary a:hover{color:var(--neon);background:rgba(0,255,0,0.02)}
+    nav.primary a::after{content:'';position:absolute;left:0;bottom:-8px;height:2px;width:0;background:var(--neon);transition:.18s}
+    nav.primary a:hover::after{width:100%}
+    .mobile-menu{display:none;color:var(--neon);font-size:22px;cursor:pointer;margin-left:12px}
+
+    /* hero */
+    .hero{height:86vh;display:flex;align-items:center;padding:0 10%;position:relative;margin-top:74px}
+    .hero-content{max-width:780px;z-index:1}
+    h1.main-title{font-size:56px;line-height:1.03;margin-bottom:12px}
+    h1.main-title span{color:var(--neon);text-shadow:0 0 18px rgba(0,255,0,0.28)}
+    .hero p{color:#bdbdbd;margin:18px 0 28px;line-height:1.6;font-size:18px}
+    .cta-button{display:inline-block;padding:12px 28px;border:2px solid var(--neon);color:var(--neon);border-radius:9px;text-decoration:none;font-weight:800;transition:.2s;background:transparent;box-shadow:0 0 16px rgba(0,255,0,0.06)}
+    .cta-button:hover{background:var(--neon);color:#000;box-shadow:0 0 30px rgba(0,255,0,0.45)}
+
+    /* sections */
+    section{padding:92px 10%}
+    .section-title{text-align:left;margin-bottom:18px}
+    .section-title h2{font-size:36px;color:var(--neon);text-shadow:0 0 10px rgba(0,255,0,0.12)}
+    .section-lead{color:#bfbfbf;max-width:920px;line-height:1.6;margin-top:8px;margin-bottom:18px}
+
+    /* services grid */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .service-card{background:var(--card);border:1px solid rgba(0,255,0,0.06);padding:20px;border-radius:12px;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden}
+    .service-card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(0,255,0,0.06);border-color:var(--neon)}
+    .service-icon{font-size:30px;color:var(--neon);margin-bottom:12px}
+    .service-card h3{font-size:20px;margin-bottom:6px;color:#e9ffe9}
+    .service-card p{color:#cfcfcf;line-height:1.45;font-size:14px}
+    .service-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .service-badge{background:rgba(0,255,0,0.06);color:var(--neon);padding:6px 8px;border-radius:8px;font-size:12px;border:1px solid rgba(0,255,0,0.08)}
+    .service-tags{font-size:12px;color:#bfffbf}
+
+    /* two columns */
+    .two-col{display:flex;gap:28px;align-items:flex-start}
+    .col{flex:1}
+
+    /* importance */
+    .importance-list{list-style:none;padding-left:0;margin-top:12px}
+    .importance-list li{margin:10px 0;color:#d7ffd7;font-size:16px;line-height:1.6}
+
+    /* contact & forms */
+    .contact-container{display:flex;gap:30px}
+    .contact-info{flex:1}
+    .contact-info p{color:#cfcfcf;margin:8px 0;display:flex;gap:12px;align-items:center}
+    .contact-form{flex:1}
+    .form-group{margin-bottom:12px}
+    label{display:block;color:#d3ffd3;margin-bottom:8px;font-size:14px}
+    input,textarea,select{width:100%;padding:12px;background:rgba(20,20,20,0.45);border:1px solid rgba(0,255,0,0.06);border-radius:8px;color:#fff}
+    input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 10px rgba(0,255,0,0.08);border-color:var(--neon)}
+    .submit-btn{padding:12px 18px;border-radius:8px;background:transparent;border:2px solid var(--neon);color:var(--neon);font-weight:800;cursor:pointer}
+    .submit-btn:disabled{opacity:0.6;cursor:not-allowed}
+
+    /* login card */
+    .login-card{max-width:420px;margin:12px auto;padding:18px;border-radius:12px;background:rgba(8,8,8,0.9);border:1px solid rgba(0,255,0,0.06)}
+    .login-card h4{color:var(--neon);margin-bottom:10px}
+
+    /* admin panel */
+    .admin-panel{position:fixed;right:18px;top:84px;width:360px;max-height:70vh;overflow:auto;background:rgba(6,6,6,0.96);border:1px solid rgba(0,255,0,0.06);padding:12px;border-radius:8px;z-index:2200;display:none}
+    .admin-panel.open{display:block}
+    .lead-item{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:13px}
+    .admin-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+
+    /* modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:2200;align-items:center;justify-content:center;padding:26px}
+    .modal.open{display:flex}
+    .modal-content{background:rgba(6,6,6,0.98);border:2px solid var(--neon);border-radius:12px;padding:22px;width:95%;max-width:920px;max-height:86vh;overflow:auto;position:relative}
+    .close-modal{position:absolute;right:12px;top:10px;font-size:26px;color:var(--neon);cursor:pointer}
+    .modal-title{color:var(--neon);margin-bottom:10px;font-size:22px}
+    .modal-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+    .modal-section{margin-top:12px}
+
+    /* footer */
+    footer{background:linear-gradient(0deg, rgba(0,0,0,0.95), rgba(2,2,2,0.95));padding:34px 10%;border-top:1px solid rgba(0,255,0,0.06);color:#d7ffd7}
+    .footer-row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .footer-logo{font-weight:900;color:var(--neon);font-size:18px}
+    .paybill{font-weight:800;color:#fff}
+    .export-btn{background:transparent;border:2px solid var(--neon);color:var(--neon);padding:8px 12px;border-radius:8px;cursor:pointer}
+
+    /* notification */
+    .notification{position:fixed;top:18px;right:18px;background:var(--neon);color:#000;padding:12px 14px;border-radius:10px;display:none;font-weight:800;z-index:3000}
+
+    /* responsive */
+    @media (max-width:980px){.two-col{flex-direction:column}}
+    @media (max-width:760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
+    @media (max-width:640px){nav.primary ul{display:none;flex-direction:column;background:rgba(0,0,0,0.6);position:absolute;right:6%;top:64px;padding:10px;border-radius:10px}.mobile-menu{display:block}.admin-panel{position:static;width:auto;max-height:none;margin:10px;border-radius:8px}}
+  </style>
+</head>
+<body>
+  <div class="grid-lines"></div>
+  <div class="floating-elements" id="floatingElements" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <div class="notification" id="notification" role="status" aria-live="polite"></div>
+
+  <!-- header -->
+  <header>
+    <div class="logo" aria-label="Manlung Tech City logo">
+      <div class="logo-image-container" aria-hidden="true">
+        <img class="logo-image" src="https://files.catbox.moe/6f0njf.png" alt="Manlung Tech City" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 60 60&quot;><rect width=&quot;60&quot; height=&quot;60&quot; fill=&quot;black&quot;/></svg>'">
+        <div class="spinning-ring" aria-hidden="true"></div>
+      </div>
+      Manlung <span>Tech City</span>
+    </div>
+
+    <nav class="primary" aria-label="Primary navigation">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#cyber-security">Cyber Security</a></li>
+        <li><a href="#cyber-support">Cyber Support</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="mobile-menu" id="mobileMenuToggle" aria-label="Open menu"><i class="fas fa-bars" style="color:var(--neon)"></i></div>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <section class="hero" id="home" aria-labelledby="heroTitle">
+    <div class="hero-content">
+      <h1 class="main-title" id="heroTitle">Advanced <span>Cyber Security</span> & <span>Cyber Café</span> Services</h1>
+      <p>Protecting digital assets while offering everyday digital services — from penetration testing and real-time monitoring to eCitizen assistance, printing, KRA services, and software support.</p>
+      <a class="cta-button" href="#cyber-security">Explore Cyber Security</a>
+    </div>
+  </section>
+
+  <!-- Cyber Security Services (expanded & human-focused) -->
+  <section id="cyber-security" aria-labelledby="csTitle">
+    <div class="section-title"><h2 id="csTitle">Cyber Security Services</h2></div>
+    <p class="section-lead">At <strong>Manlung Tech City</strong> we provide a full spectrum of cyber security services that combine automated tooling with experienced human analysts. Each service below includes hands-on support, clear deliverables and practical follow-up so people and businesses stay safe.</p>
+
+    <div class="services-grid" id="cyberServicesGrid">
+      <!-- cards injected server-side/JS; fallback copies provided below -->
+      <div class="service-card" data-service="penetration">
+        <div class="service-icon"><i class="fas fa-user-secret"></i></div>
+        <h3>Penetration Testing</h3>
+        <p>Ethical hacking by senior testers to uncover vulnerabilities before attackers do.</p>
+        <div class="service-meta"><div class="service-badge">Human-led</div><div class="service-tags">Report • Remediation Plan • Re-test</div></div>
+      </div>
+
+      <div class="service-card" data-service="incident">
+        <div class="service-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Incident Response & Forensics</h3>
+        <p>Rapid containment, evidence collection and guided recovery with human analysts.</p>
+        <div class="service-meta"><div class="service-badge">24/7 Support</div><div class="service-tags">Containment • Forensics • Root Cause</div></div>
+      </div>
+
+      <div class="service-card" data-service="monitoring">
+        <div class="service-icon"><i class="fas fa-headset"></i></div>
+        <h3>24/7 Monitoring (SOC)</h3>
+        <p>Continuous detection with SIEM and analyst triage to reduce time-to-detect.</p>
+        <div class="service-meta"><div class="service-badge">Managed</div><div class="service-tags">Alerts • Investigation • Response</div></div>
+      </div>
+
+      <div class="service-card" data-service="cloudsec">
+        <div class="service-icon"><i class="fas fa-cloud"></i></div>
+        <h3>Cloud & Infrastructure Security</h3>
+        <p>Secure cloud architecture reviews, IAM hardening and configuration fixes.</p>
+        <div class="service-meta"><div class="service-badge">Expert Review</div><div class="service-tags">Architecture • IAM • DLP</div></div>
+      </div>
+
+      <div class="service-card" data-service="appsec">
+        <div class="service-icon"><i class="fas fa-code-branch"></i></div>
+        <h3>Application Security (DevSecOps)</h3>
+        <p>Secure code reviews, SAST/DAST scans and CI/CD pipeline integration.</p>
+        <div class="service-meta"><div class="service-badge">Dev + Sec</div><div class="service-tags">SAST • DAST • Remediation</div></div>
+      </div>
+
+      <div class="service-card" data-service="iam">
+        <div class="service-icon"><i class="fas fa-id-badge"></i></div>
+        <h3>Identity & Access Management (IAM)</h3>
+        <p>Policies, role modelling and multi-factor setup to reduce account risk.</p>
+        <div class="service-meta"><div class="service-badge">Policy-driven</div><div class="service-tags">MFA • Roles • Reviews</div></div>
+      </div>
+
+      <div class="service-card" data-service="vuln">
+        <div class="service-icon"><i class="fas fa-bug"></i></div>
+        <h3>Vulnerability Management & Patching</h3>
+        <p>Regular scans, prioritization and patch orchestration with human verification.</p>
+        <div class="service-meta"><div class="service-badge">Ongoing</div><div class="service-tags">Scan • Triage • Patching</div></div>
+      </div>
+
+      <div class="service-card" data-service="encryption">
+        <div class="service-icon"><i class="fas fa-lock"></i></div>
+        <h3>Data Protection & Encryption</h3>
+        <p>Data classification, encryption strategies, and secure key management guidance.</p>
+        <div class="service-meta"><div class="service-badge">Compliance-ready</div><div class="service-tags">AES • TLS • KMS</div></div>
+      </div>
+
+      <div class="service-card" data-service="threat">
+        <div class="service-icon"><i class="fas fa-search"></i></div>
+        <h3>Threat Intelligence & Hunting</h3>
+        <p>Proactive threat hunting and local intelligence tailored to your sector.</p>
+        <div class="service-meta"><div class="service-badge">Proactive</div><div class="service-tags">Hunting • Intel • IOC</div></div>
+      </div>
+
+      <div class="service-card" data-service="training">
+        <div class="service-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h3>Security Awareness & Training</h3>
+        <p>Practical workshops, phishing simulations and on-site training for staff & youth.</p>
+        <div class="service-meta"><div class="service-badge">Hands-on</div><div class="service-tags">Workshops • Phishing • Certification</div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Cyber Support & Cyber-Café Services (includes KRA services) -->
+  <section id="cyber-support" aria-labelledby="csupTitle">
+    <div class="section-title"><h2 id="csupTitle">Cyber Support & Cyber-Café Services</h2></div>
+    <p class="section-lead">We pair advanced security with practical services the community needs every day. Quick, reliable and secure — that's the Manlung promise.</p>
+
+    <div class="services-grid">
+      <div class="service-card" data-service="ecitizen"><div class="service-icon"><i class="fas fa-user-check"></i></div><h3>eCitizen & Government</h3><p>Assistance with passports, birth certificates, Good Conduct and more.</p></div>
+
+      <div class="service-card" data-service="printing"><div class="service-icon"><i class="fas fa-print"></i></div><h3>Printing, Scanning & Photocopy</h3><p>Fast color printing, bulk photocopying, scanning to PDF and OCR.</p></div>
+
+      <div class="service-card" data-service="typing"><div class="service-icon"><i class="fas fa-keyboard"></i></div><h3>Typing & CV / Applications</h3><p>Professional CVs, application letters and document formatting.</p></div>
+
+      <div class="service-card" data-service="wifi"><div class="service-icon"><i class="fas fa-wifi"></i></div><h3>Wi-Fi & Internet Access</h3><p>Secured browsing stations and private workspaces.</p></div>
+
+      <div class="service-card" data-service="softwaredev"><div class="service-icon"><i class="fas fa-code"></i></div><h3>Software & Web Services</h3><p>Websites, mobile apps, installations and maintenance.</p></div>
+
+      <div class="service-card" data-service="lamination"><div class="service-icon"><i class="fas fa-id-card"></i></div><h3>Lamination & Binding</h3><p>Document finishing and certificate lamination.</p></div>
+    </div>
+
+    <!-- KRA Services block -->
+    <div style="margin-top:26px">
+      <div class="section-title"><h2 style="font-size:26px;color:var(--neon)">KRA & Tax Services</h2></div>
+      <p class="section-lead">Complete KRA support for individuals and businesses — we guide you through every KRA online process.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
+        <div class="service-card"><h3>KRA PIN Registration</h3><p>Apply for a new KRA PIN for individuals, companies and NGOs.</p></div>
+        <div class="service-card"><h3>PIN Replacement & Updates</h3><p>Update personal details, replace lost PIN certificates and correct records.</p></div>
+        <div class="service-card"><h3>iTax Returns</h3><p>Assistance with filing income tax returns and uploading documents on iTax.</p></div>
+        <div class="service-card"><h3>Tax Compliance Certificates (TCC)</h3><p>Support to obtain and renew Tax Compliance Certificates.</p></div>
+        <div class="service-card"><h3>PAYE & Employer Registration</h3><p>Register your business, set up PAYE and submit employer returns.</p></div>
+        <div class="service-card"><h3>Withholding Tax & VAT</h3><p>Help with filings for VAT, withholding taxes and related reconciliations.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach & Why it matters -->
+  <section id="approach" aria-labelledby="approachTitle">
+    <div class="section-title"><h2 id="approachTitle">Manlung's Approach & Why Cyber Security Matters</h2></div>
+    <div class="two-col">
+      <div class="col">
+        <p class="section-lead">Manlung Tech City protects people and businesses by combining technical expertise, rapid response and community education. We treat security as an ongoing program.</p>
+        <ul class="importance-list">
+          <li>🔒 <strong>Protect personal data</strong> — prevent identity theft and fraud for café users and customers.</li>
+          <li>🛡️ <strong>Protect micro & small businesses</strong> — stop ransomware and data loss with backups and defenses.</li>
+          <li>⚡ <strong>Safe public access</strong> — secure Wi-Fi, session isolation, and browsing filters to protect visitors.</li>
+          <li>📈 <strong>Build digital trust</strong> — secure government & banking interactions for the community.</li>
+          <li>🎓 <strong>Train & empower</strong> — hands-on workshops and awareness campaigns for youth and staff.</li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h3 style="color:var(--neon);margin-bottom:10px">Incident Response & Community SOC</h3>
+        <p style="color:#d6ffde;line-height:1.5">Our incident response procedures identify, isolate and remediate incidents. Manlung provides a local SOC-like capability for monitoring events and coordinating recovery.</p>
+        <h3 style="color:var(--neon);margin-top:14px;margin-bottom:10px">Compliance & Business Support</h3>
+        <p style="color:#d6ffde;line-height:1.5">We help small businesses comply with local digital requirements and assist with KRA/PIN submissions, reducing compliance risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & forms (Formspree integrated) -->
+  <section id="contact" aria-labelledby="contactTitle">
+    <div class="section-title"><h2 id="contactTitle">Contact & Get a Quote</h2></div>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3 style="color:var(--neon)">Get in Touch</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Tech City, Nairobi</p>
+        <p><i class="fas fa-phone"></i> +254 724 356 178</p>
+        <p><i class="fas fa-envelope"></i> info@manlungtechcity.com</p>
+        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+      </div>
+
+      <div class="contact-form" aria-label="Contact form">
+        <!-- Contact form posts to Formspree: replace YOUR_FORMSPREE_ID with your ID -->
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <div class="form-group"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
+          <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
+          <div class="form-group"><label for="subject">Subject</label><input id="subject" name="subject" type="text" required></div>
+          <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
+          <button class="submit-btn" type="submit">Send Message</button>
+        </form>
+
+        <div style="margin-top:14px;color:#bfb">Or request service from a service card — use the "Request Consultation" button in the modal.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer + export leads -->
+  <footer>
+    <div class="footer-row" role="contentinfo">
+      <div class="footer-logo">Manlung Tech City</div>
+      <div><div class="paybill">Paybill: <strong>522522</strong> | Account: <strong>1336980125</strong></div></div>
+      <div><button id="exportLeads" class="export-btn" title="Export leads to CSV"><i class="fas fa-file-csv"></i> Export Leads</button></div>
+    </div>
+    <div style="margin-top:18px;color:#bfffbf;opacity:0.95">&copy; 2025 Manlung Tech City. All rights reserved.</div>
+  </footer>
+
+  <!-- Service modal (details + lead form) -->
+  <div class="modal" id="serviceModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <span class="close-modal" id="closeModal" title="Close">&times;</span>
+      <h2 class="modal-title" id="modalTitle">Service Details</h2>
+      <div id="modalDescription" style="color:#dfe"></div>
+
+      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">What we do</h4><ul id="modalWhat" style="color:#dfe;margin-left:16px"></ul></div>
+      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">Human Support</h4><div id="modalHuman" style="color:#dfe"></div></div>
+      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">Deliverables</h4><ul id="modalDeliver" style="color:#dfe;margin-left:16px"></ul></div>
+
+      <h3 style="color:var(--neon);margin-top:16px">Related Topics</h3>
+      <div class="modal-topics" id="modalTopics"></div>
+
+      <!-- Lead form posts to Formspree as well (replace YOUR_FORMSPREE_ID if you use Formspree) -->
+      <div class="lead-form" id="leadFormContainer" style="margin-top:14px">
+        <h3 style="color:var(--neon)">Request a Free Quote</h3>
+        <form id="leadForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <input id="leadName" name="name" type="text" placeholder="Your name" required style="margin-bottom:8px">
+          <input id="leadEmail" name="email" type="email" placeholder="Your email" required style="margin-bottom:8px">
+          <input id="leadPhone" name="phone" type="tel" placeholder="Phone" required style="margin-bottom:8px">
+          <input id="leadService" name="service" type="hidden" value="">
+          <input type="hidden" name="source" value="service-modal">
+          <button class="cta-button" id="submitLead" type="submit" style="width:100%">Request Consultation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin panel (client-side demo) -->
+  <div class="admin-panel" id="adminPanel" role="region" aria-label="Admin panel">
+    <h4 style="color:var(--neon);margin:6px 0">Admin — Leads</h4>
+    <div id="leadsList" style="max-height:56vh;overflow:auto"></div>
+    <div class="admin-actions"><button id="clearLeads" class="export-btn">Clear All Leads</button></div>
+    <div style="font-size:12px;color:#bfb;margin-top:8px">Demo admin view — use secure server for production.</div>
+  </div>
+
+  <!-- WhatsApp quick -->
+  <div style="position:fixed;right:18px;bottom:18px;z-index:1200">
+    <a href="https://wa.me/254724356178" class="cta-button" style="border-radius:50%;padding:14px 16px;font-size:18px" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script>
+    /* ---------- Data (expanded cyber services) ---------- */
+    const serviceDetails = {
+      penetration:{
+        title:"Penetration Testing",
+        description:"<p>Full-scope penetration tests that mimic real-world attacks to find flaws in networks, systems and web applications.</p>",
+        topics:["Network Pen Testing","Web App Testing","API Security","Privilege Escalation"],
+        human:"Senior ethical hackers with manual validation and remediation coaching.",
+        deliverables:["Executive summary","Technical findings","Remediation priority list","Retest report"]
+      },
+      incident:{
+        title:"Incident Response & Forensics",
+        description:"<p>Rapid triage, containment and post-incident forensics to restore safe operations and preserve evidence.</p>",
+        topics:["Containment","Forensic Collection","Malware Analysis","Recovery"],
+        human:"On-call incident handlers who guide you step-by-step and coordinate recovery.",
+        deliverables:["Containment actions","Forensic timeline","Mitigation plan","Post-incident report"]
+      },
+      monitoring:{
+        title:"24/7 Monitoring (SOC)",
+        description:"<p>Continuous monitoring using SIEM and human analysts to detect and respond to suspicious activity quickly.</p>",
+        topics:["Log Collection","Alert Triage","Threat Hunting","Response"],
+        human:"Dedicated SOC analysts who investigate alerts and escalate real incidents.",
+        deliverables:["Alert summaries","Incident tickets","Monthly SOC report","Tuning guidance"]
+      },
+      cloudsec:{
+        title:"Cloud & Infrastructure Security",
+        description:"<p>Security reviews for cloud environments, secure configuration hardening and IAM improvements.</p>",
+        topics:["Configuration Review","IAM Hardening","Network Controls","Backup Strategy"],
+        human:"Cloud security engineers who implement best-practice controls and training.",
+        deliverables:["Config checklist","Remediation tasks","Architecture guidance"]
+      },
+      appsec:{
+        title:"Application Security (DevSecOps)",
+        description:"<p>Integrate security into your SDLC with code reviews, automated scans and developer training.</p>",
+        topics:["SAST","DAST","Secure SDLC","Dependency Scans"],
+        human:"Appsec engineers and devs who work with your team to fix findings.",
+        deliverables:["Code findings","PR guidance","CI pipeline checks"]
+      },
+      iam:{
+        title:"Identity & Access Management",
+        description:"<p>Design and implement role-based access, MFA and lifecycle processes to reduce account risk.</p>",
+        topics:["MFA","RBAC","Provisioning","Access Reviews"],
+        human:"IAM specialists who run access reviews and cleanups.",
+        deliverables:["Role model","MFA rollout plan","Access review reports"]
+      },
+      vuln:{
+        title:"Vulnerability Management & Patching",
+        description:"<p>Scheduled scanning, human validation, prioritization and patch orchestration to lower attack surface.</p>",
+        topics:["Regular Scans","Triage","Patching","Verification"],
+        human:"Engineers who prioritize findings by risk and coordinate fixes with ops.",
+        deliverables:["Vulnerability dashboard","Risk prioritization","Patch schedule"]
+      },
+      encryption:{
+        title:"Data Protection & Encryption",
+        description:"<p>Data discovery, classification and encryption at-rest/in-transit with key management guidance.</p>",
+        topics:["Data Classification","AES/TLS","KMS Design","Backups"],
+        human:"Data security leads who design key management and retention policies.",
+        deliverables:["Data map","Encryption plan","Key rotation schedule"]
+      },
+      threat:{
+        title:"Threat Intelligence & Hunting",
+        description:"<p>Proactive hunting for indicators of compromise and custom intelligence feeds relevant to your operations.</p>",
+        topics:["Hunting","IOC Tracking","Intel Feeds","Actor Monitoring"],
+        human:"Threat hunters with access to community and commercial feeds.",
+        deliverables:["Hunting report","IOC list","Mitigation guidance"]
+      },
+      training:{
+        title:"Security Awareness & Training",
+        description:"<p>Hands-on workshops, simulated phishing and policy training tailored to staff and youth programs.</p>",
+        topics:["Workshops","Phishing Simulations","Policy Design","Certification"],
+        human:"Experienced trainers who run interactive sessions and simulations.",
+        deliverables:["Training materials","Simulation results","Policy templates"]
+      }
+
+      // Cyber Support services are kept below (original keys exist)
+    };
+
+    // Add support services (existing keys) to the same object so modal can show them
+    Object.assign(serviceDetails, {
+      ecitizen:{title:"eCitizen & Gov Portals",description:"<p>Assistance with passports, birth certificates, Good Conduct and other government forms.</p>",topics:["Passport Apps","Certificate Submissions","Form Filling"],human:"Support staff who guide each online step.",deliverables:["Submission confirmation","Fill assistance"]},
+      printing:{title:"Printing & Photocopy",description:"<p>High-quality printing, posters and bulk photocopying.</p>",topics:["Color Printing","Booklets","Bulk Copies"],human:"Print operators and design support.",deliverables:["Printed materials","Digital PDFs"]},
+      typing:{title:"Typing & CV Services",description:"<p>CVs, application letters and document formatting.</p>",topics:["CV Design","Formatting","Editing"],human:"Office staff who format and proof-read.",deliverables:["Final CV","Cover Letter"]},
+      wifi:{title:"WiFi & Internet Access",description:"<p>Secure browsing stations, managed access and bandwidth packages.</p>",topics:["Managed WiFi","Session Isolation","Bandwidth Plans"],human:"On-site staff to assist with sessions.",deliverables:["Session passes","Bandwidth receipts"]},
+      softwaredev:{title:"Software & Web Services",description:"<p>Websites, mobile apps and local software solutions for small business.</p>",topics:["Web Design","Mobile Apps","Maintenance"],human:"Developers and support engineers.",deliverables:["Site files","Hosting guidance"]},
+      lamination:{title:"Lamination & Binding",description:"<p>Document finishing for certificates and IDs.</p>",topics:["Lamination","Binding","Certificate Finishing"],human:"Print finishers.",deliverables:["Laminated documents"]}
+    });
+
+    /* ---------- local demo backend (localStorage) ---------- */
+    class BackendService {
+      constructor(){ this.storageKey = 'manlung_leads'; }
+      async saveLead(leadData){
+        try{await new Promise(r=>setTimeout(r,600));const existing = JSON.parse(localStorage.getItem(this.storageKey) || '[]');const newLead = {...leadData,id:Date.now(),timestamp:new Date().toISOString(),status:'new'};existing.push(newLead);localStorage.setItem(this.storageKey, JSON.stringify(existing));return {success:true,data:newLead};}catch(e){return {success:false,error:e.message};}
+      }
+    }
+    const backend = new BackendService();
+
+    /* ---------- helpers ---------- */
+    function showNotification(text,timeout=3000){const n=document.getElementById('notification');n.textContent=text;n.style.display='block';clearTimeout(n._t);n._t=setTimeout(()=>n.style.display='none',timeout);}    
+    function downloadCSV(filename,csvContent){const blob=new Blob([csvContent],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
+
+    /* ---------- init UI ---------- */
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // floating bg
+      const floating=document.getElementById('floatingElements');for(let i=0;i<12;i++){const size=Math.floor(Math.random()*80)+20;const c=document.createElement('div');c.className='floating-circle';c.style.width=size+'px';c.style.height=size+'px';c.style.left=Math.random()*100+'%';c.style.top=Math.random()*100+'%';c.style.opacity=(Math.random()*0.6)+0.12;c.style.animationDuration=(Math.random()*26+12)+'s';floating.appendChild(c);const ring=document.createElement('div');ring.className='floating-ring';const rsize=Math.floor(Math.random()*160)+40;ring.style.width=rsize+'px';ring.style.height=rsize+'px';ring.style.left=Math.random()*100+'%';ring.style.top=Math.random()*100+'%';ring.style.opacity=(Math.random()*0.35)+0.06;ring.style.animationDuration=(Math.random()*30+14)+'s';floating.appendChild(ring);}      
+
+      // wire service cards -> modal
+      document.querySelectorAll('.service-card').forEach(card=>{card.addEventListener('click',()=>{openServiceModal(card.getAttribute('data-service'))});});
+
+      // modal close
+      document.getElementById('closeModal').addEventListener('click',closeModal);
+      document.getElementById('serviceModal').addEventListener('click',(e)=>{if(e.target===e.currentTarget)closeModal();});
+
+      // lead form: intercept to save locally and allow Formspree to submit
+      document.getElementById('leadForm').addEventListener('submit',async(e)=>{
+        const form=e.target;const name=form.name.value.trim(),email=form.email.value.trim(),phone=form.phone.value.trim(),service=form.service?.value||'';
+        if(name&&email){await backend.saveLead({name,email,phone,service,source:'service-modal'});}showNotification('Request sent (Formspree) — lead saved locally.');setTimeout(()=>closeModal(),900);
+        // allow default Formspree submit
+      });
+
+      // contact form: also save locally
+      const contactForm=document.getElementById('contactForm');contactForm.addEventListener('submit',async(e)=>{const name=contactForm.name.value.trim(),email=contactForm.email.value.trim(),message=contactForm.message.value.trim();if(name&&email&&message){await backend.saveLead({name,email,phone:'',source:'contact-form',message});}showNotification('Message queued (Formspree) — saved locally.');});
+
+      // mobile menu
+      document.getElementById('mobileMenuToggle').addEventListener('click',()=>{const ul=document.querySelector('nav.primary ul');if(!ul)return;ul.style.display=(ul.style.display==='block')?'none':'block';});
+
+      // export leads
+      document.getElementById('exportLeads').addEventListener('click',()=>{const raw=localStorage.getItem('manlung_leads');if(!raw){showNotification('No leads found');return;}try{const arr=JSON.parse(raw);if(!arr.length){showNotification('No leads to export');return;}const headers=["id","timestamp","name","email","phone","status","service","source","message"];const rows=arr.map(r=>headers.map(h=>{const v=r[h]===undefined?'':String(r[h]).replace(/"/g,'""');return `"${v}"`;}).join(','));const csv=headers.join(',')+"\n"+rows.join('\n');downloadCSV('manlung_leads.csv',csv);}catch(err){showNotification('Error exporting leads');console.error(err);}});
+
+      // render leads function available for admin
+      renderLeads();
+    });
+
+    /* ---------- modal helpers ---------- */
+    function openServiceModal(key){const data=serviceDetails[key];if(!data)return;document.getElementById('modalTitle').textContent=data.title;document.getElementById('modalDescription').innerHTML=data.description||'';const what=document.getElementById('modalWhat');what.innerHTML='';(data.topics||[]).forEach(t=>{const li=document.createElement('li');li.textContent=t;what.appendChild(li);});document.getElementById('modalHuman').textContent=data.human||'';const deliver=document.getElementById('modalDeliver');deliver.innerHTML='';(data.deliverables||data.deliverables||[]).forEach(d=>{const li=document.createElement('li');li.textContent=d;deliver.appendChild(li);});const topics=document.getElementById('modalTopics');topics.innerHTML='';(data.topics||[]).forEach(t=>{const d=document.createElement('div');d.className='topic-item';d.style.padding='8px';d.style.borderLeft='3px solid var(--neon)';d.style.background='rgba(0,255,0,0.03)';d.style.color='#dfffdc';d.textContent=t;topics.appendChild(d);});
+      // set hidden service field for the lead form
+      const leadService = document.getElementById('leadService'); if(leadService) leadService.value = data.title || key;
+      const modal=document.getElementById('serviceModal');modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){const modal=document.getElementById('serviceModal');modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}
+
+    /* ---------- admin panel (client-side) ---------- */
+    function renderLeads(){const container=document.getElementById('leadsList');container.innerHTML='';const raw=localStorage.getItem('manlung_leads');if(!raw){container.innerHTML='<div style="color:#bfb">No leads stored yet.</div>';return;}const arr=JSON.parse(raw).slice().reverse();if(!arr.length){container.innerHTML='<div style="color:#bfb">No leads stored yet.</div>';return;}arr.forEach(l=>{const el=document.createElement('div');el.className='lead-item';el.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px"><div><strong>${l.name||'(no name)'}</strong><div style="font-size:12px;color:#bfb">${l.email||''}${l.phone? ' • '+l.phone: ''}</div><div style="font-size:12px;color:#9f9">${new Date(l.timestamp).toLocaleString()}</div></div><div style="text-align:right"><button data-id="${l.id}" class="export-btn" style="padding:6px 8px;font-size:12px">Delete</button></div></div><div style="margin-top:8px;color:#dfd;font-size:13px">${l.message? l.message : ''}</div>`;container.appendChild(el);});container.querySelectorAll('button[data-id]').forEach(b=>{b.addEventListener('click',()=>{const id=Number(b.getAttribute('data-id'));if(!confirm('Delete this lead?'))return;const raw=JSON.parse(localStorage.getItem('manlung_leads')||'[]');const filtered=raw.filter(x=>x.id!==id);localStorage.setItem('manlung_leads',JSON.stringify(filtered));renderLeads();});});}
+
+    // Clear leads handler
+    document.addEventListener('click', (e)=>{ if(e.target && e.target.id === 'clearLeads'){ if(!confirm('Clear all leads from localStorage? This cannot be undone.')) return; localStorage.removeItem('manlung_leads'); renderLeads(); showNotification('All leads cleared locally.'); } });
+  </script>
+</body>
+</html>
