@@ -127,6 +127,156 @@
     .telegram-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#0088cc;color:white;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:800;transition:.2s;border:2px solid #0088cc;box-shadow:0 0 16px rgba(0,136,204,0.3)}
     .telegram-btn:hover{background:#0077b5;box-shadow:0 0 30px rgba(0,136,204,0.5);color:white}
 
+    /* Contact Form Styles */
+    .contact-form-container {
+      max-width: 500px;
+      width: 100%;
+      background-color: rgba(10, 10, 10, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 255, 77, 0.1);
+      overflow: hidden;
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      margin: 0 auto;
+    }
+
+    .contact-form-header {
+      background: linear-gradient(to right, rgba(0, 255, 77, 0.2), rgba(102, 126, 234, 0.2));
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 255, 77, 0.1);
+    }
+
+    .contact-form-header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--neon);
+    }
+
+    .contact-form-header p {
+      font-size: 14px;
+      opacity: 0.9;
+      color: #cfcfcf;
+    }
+
+    .contact-form-body {
+      padding: 30px;
+    }
+
+    .contact-form-group {
+      margin-bottom: 20px;
+    }
+
+    .contact-form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #d3ffd3;
+    }
+
+    .contact-form-input, .contact-form-textarea {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.3s;
+      color: white;
+    }
+
+    .contact-form-input:focus, .contact-form-textarea:focus {
+      outline: none;
+      border-color: var(--neon);
+      box-shadow: 0 0 0 2px rgba(0, 255, 77, 0.2);
+    }
+
+    .contact-form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-submit-btn {
+      background: linear-gradient(to right, rgba(0, 255, 77, 0.8), rgba(102, 126, 234, 0.8));
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+      border: 1px solid rgba(0, 255, 77, 0.2);
+    }
+
+    .contact-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 77, 0.4);
+    }
+
+    .contact-submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .contact-submit-btn:disabled {
+      background: #333333;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .contact-message {
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .contact-success {
+      background-color: rgba(0, 255, 77, 0.2);
+      color: #00ff4d;
+      border: 1px solid rgba(0, 255, 77, 0.3);
+    }
+
+    .contact-error {
+      background-color: rgba(255, 0, 0, 0.2);
+      color: #ff4d4d;
+      border: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    .contact-loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .contact-footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
+      border-top: 1px solid rgba(0, 255, 77, 0.1);
+    }
+
+    @media (max-width: 480px) {
+      .contact-form-container {
+        border-radius: 8px;
+      }
+      
+      .contact-form-body {
+        padding: 20px;
+      }
+    }
+
     /* responsive */
     @media (max-width:980px){.two-col{flex-direction:column}}
     @media (max-width:760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
@@ -311,6 +461,7 @@
   <!-- Contact & forms (Telegram integrated) -->
   <section id="contact" aria-labelledby="contactTitle">
     <div class="section-title"><h2 id="contactTitle">Contact & Get a Quote</h2></div>
+    
     <div class="contact-container">
       <div class="contact-info">
         <h3 style="color:var(--neon)">Get in Touch</h3>
@@ -320,17 +471,41 @@
         <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
       </div>
 
-      <div class="contact-form" aria-label="Contact form">
-        <!-- Contact form redirects to Telegram -->
-        <form id="contactForm" onsubmit="redirectToTelegram(event, 'general')">
-          <div class="form-group"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
-          <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
-          <div class="form-group"><label for="subject">Subject</label><input id="subject" name="subject" type="text" required></div>
-          <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
-          <button class="telegram-btn" type="submit"><i class="fab fa-telegram-plane"></i> Send via Telegram</button>
-        </form>
-
-        <div style="margin-top:14px;color:#bfb">Or request service from a service card — use the "Request Consultation" button in the modal.</div>
+      <!-- Contact Form -->
+      <div class="contact-form-container">
+        <div class="contact-form-header">
+          <h1>Contact Us</h1>
+          <p>Send us a message and we'll get back to you soon</p>
+        </div>
+        
+        <div class="contact-form-body">
+          <form id="contactForm">
+            <div class="contact-form-group">
+              <label for="name" class="contact-form-label">Full Name</label>
+              <input type="text" id="name" name="name" class="contact-form-input" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="contact-form-group">
+              <label for="phone" class="contact-form-label">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="contact-form-input" placeholder="Enter your phone number" required>
+            </div>
+            
+            <div class="contact-form-group">
+              <label for="message" class="contact-form-label">Message</label>
+              <textarea id="message" name="message" class="contact-form-textarea" placeholder="Enter your message" required></textarea>
+            </div>
+            
+            <button type="submit" class="contact-submit-btn" id="submitBtn">
+              <span id="btnText">Send Message</span>
+            </button>
+            
+            <div id="responseMessage" class="contact-message"></div>
+          </form>
+        </div>
+        
+        <div class="contact-footer">
+          <p>We'll respond to your message as soon as possible</p>
+        </div>
       </div>
     </div>
   </section>
@@ -532,6 +707,75 @@
       // Reset form
       form.reset();
     }
+
+    /* ---------- Contact Form Handler ---------- */
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const responseMessage = document.getElementById('responseMessage');
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const message = document.getElementById('message').value;
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.innerHTML = '<span class="contact-loading"></span> Sending...';
+      
+      // Telegram bot details
+      const botToken = '7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE';
+      const chatId = '7261236992';
+      
+      // Format the message for Telegram
+      const telegramMessage = `👋New message from manlung-Tech-city site :\n\nName💗: ${name}\nPhone👥: ${phone}\nMessage💌: ${message}`;
+      
+      // Send message to Telegram
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: telegramMessage,
+          parse_mode: 'HTML'
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          // Success
+          responseMessage.textContent = 'Message sent successfully! We will contact you soon.';
+          responseMessage.className = 'contact-message contact-success';
+          responseMessage.style.display = 'block';
+          
+          // Reset form
+          document.getElementById('contactForm').reset();
+        } else {
+          // Error from Telegram API
+          throw new Error(data.description || 'Failed to send message');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        responseMessage.textContent = 'Failed to send message. Please try again later.';
+        responseMessage.className = 'contact-message contact-error';
+        responseMessage.style.display = 'block';
+      })
+      .finally(() => {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send Message';
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          responseMessage.style.display = 'none';
+        }, 5000);
+      });
+    });
 
     /* ---------- init UI ---------- */
     document.addEventListener('DOMContentLoaded', ()=>{
