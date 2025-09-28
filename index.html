@@ -123,6 +123,10 @@
     /* notification */
     .notification{position:fixed;top:18px;right:18px;background:var(--neon);color:#000;padding:12px 14px;border-radius:10px;display:none;font-weight:800;z-index:3000}
 
+    /* telegram button */
+    .telegram-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#0088cc;color:white;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:800;transition:.2s;border:2px solid #0088cc;box-shadow:0 0 16px rgba(0,136,204,0.3)}
+    .telegram-btn:hover{background:#0077b5;box-shadow:0 0 30px rgba(0,136,204,0.5);color:white}
+
     /* responsive */
     @media (max-width:980px){.two-col{flex-direction:column}}
     @media (max-width:760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
@@ -304,7 +308,7 @@
     </div>
   </section>
 
-  <!-- Contact & forms (Formspree integrated) -->
+  <!-- Contact & forms (Telegram integrated) -->
   <section id="contact" aria-labelledby="contactTitle">
     <div class="section-title"><h2 id="contactTitle">Contact & Get a Quote</h2></div>
     <div class="contact-container">
@@ -312,18 +316,18 @@
         <h3 style="color:var(--neon)">Get in Touch</h3>
         <p><i class="fas fa-map-marker-alt"></i> Tech City, Nairobi</p>
         <p><i class="fas fa-phone"></i> +254 724 356 178</p>
-        <p><i class="fas fa-envelope"></i> info@manlungtechcity.com</p>
+        <p><i class="fab fa-telegram-plane"></i> @manlungtechcitybot</p>
         <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
       </div>
 
       <div class="contact-form" aria-label="Contact form">
-        <!-- Contact form posts to Formspree: replace YOUR_FORMSPREE_ID with your ID -->
-        <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <!-- Contact form redirects to Telegram -->
+        <form id="contactForm" onsubmit="redirectToTelegram(event, 'general')">
           <div class="form-group"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
           <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
           <div class="form-group"><label for="subject">Subject</label><input id="subject" name="subject" type="text" required></div>
           <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
-          <button class="submit-btn" type="submit">Send Message</button>
+          <button class="telegram-btn" type="submit"><i class="fab fa-telegram-plane"></i> Send via Telegram</button>
         </form>
 
         <div style="margin-top:14px;color:#bfb">Or request service from a service card — use the "Request Consultation" button in the modal.</div>
@@ -341,7 +345,7 @@
     <div style="margin-top:18px;color:#bfffbf;opacity:0.95">&copy; 2025 Manlung Tech City. All rights reserved.</div>
   </footer>
 
-  <!-- Service modal (details + lead form) -->
+  <!-- Service modal (details + Telegram form) -->
   <div class="modal" id="serviceModal" aria-hidden="true">
     <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <span class="close-modal" id="closeModal" title="Close">&times;</span>
@@ -355,16 +359,16 @@
       <h3 style="color:var(--neon);margin-top:16px">Related Topics</h3>
       <div class="modal-topics" id="modalTopics"></div>
 
-      <!-- Lead form posts to Formspree as well (replace YOUR_FORMSPREE_ID if you use Formspree) -->
+      <!-- Telegram consultation request -->
       <div class="lead-form" id="leadFormContainer" style="margin-top:14px">
-        <h3 style="color:var(--neon)">Request a Free Quote</h3>
-        <form id="leadForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <h3 style="color:var(--neon)">Request a Free Quote via Telegram</h3>
+        <form id="leadForm" onsubmit="redirectToTelegram(event, document.getElementById('leadService').value)">
           <input id="leadName" name="name" type="text" placeholder="Your name" required style="margin-bottom:8px">
           <input id="leadEmail" name="email" type="email" placeholder="Your email" required style="margin-bottom:8px">
           <input id="leadPhone" name="phone" type="tel" placeholder="Phone" required style="margin-bottom:8px">
           <input id="leadService" name="service" type="hidden" value="">
           <input type="hidden" name="source" value="service-modal">
-          <button class="cta-button" id="submitLead" type="submit" style="width:100%">Request Consultation</button>
+          <button class="telegram-btn" id="submitLead" type="submit" style="width:100%"><i class="fab fa-telegram-plane"></i> Request Consultation via Telegram</button>
         </form>
       </div>
     </div>
@@ -378,10 +382,10 @@
     <div style="font-size:12px;color:#bfb;margin-top:8px">Demo admin view — use secure server for production.</div>
   </div>
 
-  <!-- WhatsApp quick -->
+  <!-- Telegram quick -->
   <div style="position:fixed;right:18px;bottom:18px;z-index:1200">
-    <a href="https://wa.me/254724356178" class="cta-button" style="border-radius:50%;padding:14px 16px;font-size:18px" aria-label="WhatsApp">
-      <i class="fab fa-whatsapp"></i>
+    <a href="https://t.me/manlungtechcitybot" class="telegram-btn" style="border-radius:50%;padding:14px 16px;font-size:18px" aria-label="Telegram">
+      <i class="fab fa-telegram-plane"></i>
     </a>
   </div>
 
@@ -485,6 +489,50 @@
     function showNotification(text,timeout=3000){const n=document.getElementById('notification');n.textContent=text;n.style.display='block';clearTimeout(n._t);n._t=setTimeout(()=>n.style.display='none',timeout);}    
     function downloadCSV(filename,csvContent){const blob=new Blob([csvContent],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
 
+    /* ---------- Telegram redirect function ---------- */
+    function redirectToTelegram(event, service) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone ? form.phone.value.trim() : '';
+      const subject = form.subject ? form.subject.value.trim() : '';
+      const message = form.message ? form.message.value.trim() : '';
+      
+      // Save lead locally
+      backend.saveLead({
+        name,
+        email,
+        phone,
+        service,
+        subject,
+        message,
+        source: form.name === 'contactForm' ? 'contact-form' : 'service-modal'
+      });
+      
+      // Create a message for Telegram
+      let telegramMessage = `New consultation request from ${name}%0A`;
+      telegramMessage += `Email: ${email}%0A`;
+      if (phone) telegramMessage += `Phone: ${phone}%0A`;
+      if (service) telegramMessage += `Service: ${service}%0A`;
+      if (subject) telegramMessage += `Subject: ${subject}%0A`;
+      if (message) telegramMessage += `Message: ${message}%0A`;
+      
+      // Redirect to Telegram bot
+      window.open(`https://t.me/manlungtechcitybot?start=${encodeURIComponent(telegramMessage)}`, '_blank');
+      
+      showNotification('Redirecting to Telegram for consultation...');
+      
+      // Close modal if it's open
+      if (document.getElementById('serviceModal').classList.contains('open')) {
+        closeModal();
+      }
+      
+      // Reset form
+      form.reset();
+    }
+
     /* ---------- init UI ---------- */
     document.addEventListener('DOMContentLoaded', ()=>{
       // floating bg
@@ -496,16 +544,6 @@
       // modal close
       document.getElementById('closeModal').addEventListener('click',closeModal);
       document.getElementById('serviceModal').addEventListener('click',(e)=>{if(e.target===e.currentTarget)closeModal();});
-
-      // lead form: intercept to save locally and allow Formspree to submit
-      document.getElementById('leadForm').addEventListener('submit',async(e)=>{
-        const form=e.target;const name=form.name.value.trim(),email=form.email.value.trim(),phone=form.phone.value.trim(),service=form.service?.value||'';
-        if(name&&email){await backend.saveLead({name,email,phone,service,source:'service-modal'});}showNotification('Request sent (Formspree) — lead saved locally.');setTimeout(()=>closeModal(),900);
-        // allow default Formspree submit
-      });
-
-      // contact form: also save locally
-      const contactForm=document.getElementById('contactForm');contactForm.addEventListener('submit',async(e)=>{const name=contactForm.name.value.trim(),email=contactForm.email.value.trim(),message=contactForm.message.value.trim();if(name&&email&&message){await backend.saveLead({name,email,phone:'',source:'contact-form',message});}showNotification('Message queued (Formspree) — saved locally.');});
 
       // mobile menu
       document.getElementById('mobileMenuToggle').addEventListener('click',()=>{const ul=document.querySelector('nav.primary ul');if(!ul)return;ul.style.display=(ul.style.display==='block')?'none':'block';});
