@@ -267,20 +267,197 @@
       border-top: 1px solid rgba(0, 255, 77, 0.1);
     }
 
+    /* AI Assistant Styles */
+    .ai-assistant-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 255, 77, 0.1);
+    }
+
+    .ai-header {
+      background: linear-gradient(to right, rgba(0, 255, 77, 0.2), rgba(102, 126, 234, 0.2));
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 255, 77, 0.1);
+    }
+
+    .ai-header h2 {
+      color: var(--neon);
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .ai-header p {
+      color: #cfcfcf;
+      font-size: 16px;
+    }
+
+    .ai-chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+    }
+
+    .ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .ai-message {
+      max-width: 80%;
+      padding: 12px 18px;
+      border-radius: 18px;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .ai-user-message {
+      align-self: flex-end;
+      background: rgba(0, 255, 77, 0.15);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      color: #e9ffe9;
+    }
+
+    .ai-bot-message {
+      align-self: flex-start;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      color: #cfcfcf;
+    }
+
+    .ai-typing-indicator {
+      align-self: flex-start;
+      padding: 12px 18px;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      border-radius: 18px;
+      color: #cfcfcf;
+      display: none;
+    }
+
+    .ai-typing-dots {
+      display: inline-block;
+    }
+
+    .ai-typing-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--neon);
+      margin: 0 2px;
+      animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .ai-typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .ai-typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes typing {
+      0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    .ai-input-container {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid rgba(0, 255, 77, 0.1);
+      background: rgba(10, 10, 10, 0.9);
+    }
+
+    .ai-input {
+      flex: 1;
+      padding: 12px 15px;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      border-radius: 24px;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .ai-input:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 2px rgba(0, 255, 77, 0.2);
+    }
+
+    .ai-send-btn {
+      background: var(--neon);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      margin-left: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .ai-send-btn:hover {
+      background: #0df07a;
+      box-shadow: 0 0 10px rgba(0, 255, 77, 0.5);
+    }
+
+    .ai-send-btn:disabled {
+      background: #333;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    .ai-examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .ai-example-card {
+      background: rgba(20, 20, 20, 0.6);
+      border: 1px solid rgba(0, 255, 77, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ai-example-card:hover {
+      background: rgba(0, 255, 77, 0.1);
+      border-color: var(--neon);
+    }
+
+    .ai-example-card h4 {
+      color: var(--neon);
+      margin-bottom: 8px;
+    }
+
+    .ai-example-card p {
+      color: #cfcfcf;
+      font-size: 14px;
+    }
+
     @media (max-width: 480px) {
-      .contact-form-container {
-        border-radius: 8px;
+      .ai-chat-container {
+        height: 400px;
       }
       
-      .contact-form-body {
-        padding: 20px;
+      .ai-message {
+        max-width: 90%;
       }
     }
 
-    /* responsive */
-    @media (max-width:980px){.two-col{flex-direction:column}}
-    @media (max-width:760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
-    @media (max-width:640px){nav.primary ul{display:none;flex-direction:column;background:rgba(0,0,0,0.6);position:absolute;right:6%;top:64px;padding:10px;border-radius:10px}.mobile-menu{display:block}.admin-panel{position:static;width:auto;max-height:none;margin:10px;border-radius:8px}}
+    @media (max-width: 980px){.two-col{flex-direction:column}}
+    @media (max-width: 760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
+    @media (max-width: 640px){nav.primary ul{display:none;flex-direction:column;background:rgba(0,0,0,0.6);position:absolute;right:6%;top:64px;padding:10px;border-radius:10px}.mobile-menu{display:block}.admin-panel{position:static;width:auto;max-height:none;margin:10px;border-radius:8px}}
   </style>
 </head>
 <body>
@@ -302,6 +479,7 @@
     <nav class="primary" aria-label="Primary navigation">
       <ul>
         <li><a href="#home">Home</a></li>
+        <li><a href="#manlung-ai">Manlung AI</a></li>
         <li><a href="#cyber-security">Cyber Security</a></li>
         <li><a href="#cyber-support">Cyber Support</a></li>
         <li><a href="#approach">Approach</a></li>
@@ -316,7 +494,67 @@
     <div class="hero-content">
       <h1 class="main-title" id="heroTitle">Advanced <span>Cyber Security</span> & <span>Cyber Café</span> Services</h1>
       <p>Protecting digital assets while offering everyday digital services — from penetration testing and real-time monitoring to eCitizen assistance, printing, KRA services, and software support.</p>
-      <a class="cta-button" href="#cyber-security">Explore Cyber Security</a>
+      <a class="cta-button" href="#manlung-ai">Try Manlung AI</a>
+      <a class="cta-button" href="#cyber-security" style="margin-left: 15px;">Explore Cyber Security</a>
+    </div>
+  </section>
+
+  <!-- Manlung AI Assistant -->
+  <section id="manlung-ai" aria-labelledby="aiTitle">
+    <div class="section-title"><h2 id="aiTitle">Manlung AI Assistant</h2></div>
+    <p class="section-lead">Get instant help with our AI assistant. Ask questions about our services, get technical support, or learn more about cybersecurity. Our AI is here to help 24/7.</p>
+
+    <div class="ai-assistant-container">
+      <div class="ai-header">
+        <h2>Manlung AI Assistant</h2>
+        <p>Ask me anything about our services, cybersecurity, or tech support</p>
+      </div>
+      
+      <div class="ai-chat-container">
+        <div class="ai-chat-messages" id="aiChatMessages">
+          <div class="ai-message ai-bot-message">
+            Hello! I'm the Manlung AI Assistant. How can I help you today? You can ask me about our cybersecurity services, cyber café offerings, or get technical support.
+          </div>
+        </div>
+        
+        <div class="ai-typing-indicator" id="aiTypingIndicator">
+          <div class="ai-typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          Manlung AI is typing...
+        </div>
+        
+        <div class="ai-input-container">
+          <input type="text" class="ai-input" id="aiInput" placeholder="Type your message here..." autocomplete="off">
+          <button class="ai-send-btn" id="aiSendBtn">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div style="padding: 20px; border-top: 1px solid rgba(0, 255, 77, 0.1);">
+        <h3 style="color: var(--neon); margin-bottom: 15px; text-align: center;">Try asking me about:</h3>
+        <div class="ai-examples">
+          <div class="ai-example-card" onclick="insertExample('What cybersecurity services do you offer?')">
+            <h4>Cybersecurity Services</h4>
+            <p>Learn about our penetration testing, monitoring, and incident response</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('How can I get help with KRA services?')">
+            <h4>KRA Services</h4>
+            <p>Information about PIN registration, tax returns, and compliance</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('Tell me about your cyber café services')">
+            <h4>Cyber Café</h4>
+            <p>Printing, scanning, typing, and internet access services</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('How do I contact Manlung Tech City?')">
+            <h4>Contact Information</h4>
+            <p>Get our location, phone number, and business hours</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -651,6 +889,135 @@
       lamination:{title:"Lamination & Binding",description:"<p>Document finishing for certificates and IDs.</p>",topics:["Lamination","Binding","Certificate Finishing"],human:"Print finishers.",deliverables:["Laminated documents"]}
     });
 
+    /* ---------- Manlung AI Assistant ---------- */
+    const aiResponses = {
+      greetings: [
+        "Hello! How can I assist you with Manlung Tech City services today?",
+        "Hi there! I'm here to help with cybersecurity, cyber café services, or any tech support you need.",
+        "Welcome! Ask me about our services, pricing, or how we can help secure your digital assets."
+      ],
+      cybersecurity: [
+        "We offer comprehensive cybersecurity services including penetration testing, incident response, 24/7 monitoring, and security training. Our human-led approach ensures personalized protection for your business.",
+        "Our cybersecurity portfolio includes vulnerability management, cloud security, application security, and threat intelligence. We combine automated tools with expert analysis for maximum protection.",
+        "From penetration testing to security awareness training, we provide end-to-end cybersecurity solutions. Each service includes hands-on support and clear deliverables."
+      ],
+      cybercafe: [
+        "Our cyber café services include printing, scanning, photocopying, typing services, CV preparation, and secure Wi-Fi access. We also offer lamination and binding services.",
+        "At our cyber café, you can access eCitizen services, get help with government forms, use our high-speed internet, and get professional document formatting assistance.",
+        "We provide a full range of cyber café services: printing (color and B&W), scanning to PDF, professional typing, CV creation, and secure internet browsing stations."
+      ],
+      kra: [
+        "We offer complete KRA support including PIN registration, PIN replacement, iTax returns filing, Tax Compliance Certificates, and employer registration services.",
+        "Our KRA services cover everything from new PIN applications to tax return filings and compliance certificates. We guide you through every step of the KRA online process.",
+        "Get assistance with all KRA matters: PIN registration for individuals and businesses, tax returns, TCC applications, and employer compliance services."
+      ],
+      contact: [
+        "You can reach us at: Location: Tech City, Nairobi | Phone: +254 724 356 178 | Telegram: @manlungtechcitybot | Hours: Mon-Fri 9AM-6PM",
+        "Contact Manlung Tech City via phone at +254 724 356 178, Telegram @manlungtechcitybot, or visit us at Tech City, Nairobi. We're open Monday to Friday, 9AM to 6PM.",
+        "Get in touch: Call +254 724 356 178, message us on Telegram @manlungtechcitybot, or visit our location in Tech City, Nairobi. Business hours: Mon-Fri 9AM-6PM."
+      ],
+      pricing: [
+        "Pricing varies by service. For cybersecurity services, we offer customized quotes based on your specific needs. Cyber café services have standard rates - contact us for details.",
+        "We provide personalized pricing for cybersecurity services after assessing your requirements. Cyber café services are affordably priced - visit us or contact for current rates.",
+        "Our pricing is tailored to each client's needs. For accurate quotes on cybersecurity services or current cyber café service rates, please contact us directly."
+      ],
+      hours: [
+        "We're open Monday to Friday from 9:00 AM to 6:00 PM. For emergency cybersecurity incidents, we offer 24/7 response services.",
+        "Business hours: Monday-Friday, 9AM-6PM. Our 24/7 cybersecurity monitoring and incident response services are always available for urgent matters.",
+        "Visit us Monday through Friday, 9AM to 6PM. Our cybersecurity SOC operates 24/7 for continuous protection and rapid incident response."
+      ],
+      default: [
+        "I'm not sure I understand. Could you rephrase your question? I can help with cybersecurity, cyber café services, KRA support, or contact information.",
+        "I'm still learning! Try asking about our cybersecurity services, cyber café offerings, KRA support, or how to contact us.",
+        "I'm here to help with Manlung Tech City services. You can ask me about cybersecurity, our cyber café, KRA services, or how to get in touch with us."
+      ]
+    };
+
+    function getAIResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      
+      if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+        return aiResponses.greetings[Math.floor(Math.random() * aiResponses.greetings.length)];
+      }
+      
+      if (lowerMessage.includes('cyber') && lowerMessage.includes('security')) {
+        return aiResponses.cybersecurity[Math.floor(Math.random() * aiResponses.cybersecurity.length)];
+      }
+      
+      if (lowerMessage.includes('cafe') || lowerMessage.includes('café') || lowerMessage.includes('cyber cafe')) {
+        return aiResponses.cybercafe[Math.floor(Math.random() * aiResponses.cybercafe.length)];
+      }
+      
+      if (lowerMessage.includes('kra') || lowerMessage.includes('tax') || lowerMessage.includes('pin')) {
+        return aiResponses.kra[Math.floor(Math.random() * aiResponses.kra.length)];
+      }
+      
+      if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('address') || lowerMessage.includes('location')) {
+        return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
+      }
+      
+      if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('how much')) {
+        return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
+      }
+      
+      if (lowerMessage.includes('hour') || lowerMessage.includes('open') || lowerMessage.includes('time')) {
+        return aiResponses.hours[Math.floor(Math.random() * aiResponses.hours.length)];
+      }
+      
+      if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('provide')) {
+        return "We offer both cybersecurity services (penetration testing, monitoring, incident response) and cyber café services (printing, KRA support, internet access). Which are you interested in?";
+      }
+      
+      return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
+    }
+
+    function addMessageToChat(message, isUser = false) {
+      const chatMessages = document.getElementById('aiChatMessages');
+      const messageElement = document.createElement('div');
+      messageElement.className = `ai-message ${isUser ? 'ai-user-message' : 'ai-bot-message'}`;
+      messageElement.textContent = message;
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const typingIndicator = document.getElementById('aiTypingIndicator');
+      typingIndicator.style.display = 'block';
+      document.getElementById('aiChatMessages').scrollTop = document.getElementById('aiChatMessages').scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+      document.getElementById('aiTypingIndicator').style.display = 'none';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('aiInput');
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      // Add user message to chat
+      addMessageToChat(message, true);
+      
+      // Clear input
+      input.value = '';
+      
+      // Show typing indicator
+      showTypingIndicator();
+      
+      // Simulate AI thinking and response
+      setTimeout(() => {
+        hideTypingIndicator();
+        const response = getAIResponse(message);
+        addMessageToChat(response);
+      }, 1000 + Math.random() * 1000);
+    }
+
+    function insertExample(text) {
+      document.getElementById('aiInput').value = text;
+      document.getElementById('aiInput').focus();
+    }
+
     /* ---------- local demo backend (localStorage) ---------- */
     class BackendService {
       constructor(){ this.storageKey = 'manlung_leads'; }
@@ -794,6 +1161,14 @@
 
       // export leads
       document.getElementById('exportLeads').addEventListener('click',()=>{const raw=localStorage.getItem('manlung_leads');if(!raw){showNotification('No leads found');return;}try{const arr=JSON.parse(raw);if(!arr.length){showNotification('No leads to export');return;}const headers=["id","timestamp","name","email","phone","status","service","source","message"];const rows=arr.map(r=>headers.map(h=>{const v=r[h]===undefined?'':String(r[h]).replace(/"/g,'""');return `"${v}"`;}).join(','));const csv=headers.join(',')+"\n"+rows.join('\n');downloadCSV('manlung_leads.csv',csv);}catch(err){showNotification('Error exporting leads');console.error(err);}});
+
+      // AI Assistant functionality
+      document.getElementById('aiSendBtn').addEventListener('click', sendMessage);
+      document.getElementById('aiInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
 
       // render leads function available for admin
       renderLeads();
