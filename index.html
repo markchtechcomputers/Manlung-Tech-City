@@ -552,6 +552,314 @@
       cursor: pointer;
     }
 
+    /* Cybersecurity Hacker Animation - COMPACT VERSION */
+    .cyber-animation-container {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      margin: 20px 0 40px 0;
+      overflow: hidden;
+    }
+    
+    .cyber-scene {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #0a0a1a, #1a1a2e);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 100, 255, 0.2);
+      border: 1px solid #1e2a3a;
+    }
+    
+    .cyber-desk {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(to bottom, #2d1b0e, #1a1008);
+      border-top: 2px solid #3a2515;
+    }
+    
+    .cyber-hacker {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 150px;
+    }
+    
+    .cyber-hacker-silhouette {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(0, 255, 0, 0.6) 0%, transparent 70%);
+      border-radius: 50% 50% 40% 40%;
+      box-shadow: 
+        0 0 20px #00ff00,
+        0 0 40px #00ff00,
+        0 0 60px #00ff00;
+      filter: blur(3px);
+    }
+    
+    .cyber-hacker-head {
+      position: absolute;
+      top: 10%;
+      left: 25%;
+      width: 50%;
+      height: 30%;
+      background: rgba(0, 255, 0, 0.2);
+      border-radius: 50%;
+      box-shadow: 0 0 15px #00ff00;
+    }
+    
+    .cyber-laptop-container {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 110px;
+      z-index: 5;
+    }
+    
+    .cyber-laptop {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      border-radius: 6px 6px 0 0;
+      box-shadow: 0 0 12px rgba(0, 100, 255, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cyber-laptop-screen {
+      width: 90%;
+      height: 70%;
+      background: #0a0a1a;
+      border: 1px solid #00aaff;
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .cyber-screen-image {
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1548092372-0d1bd40894a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80') no-repeat center center;
+      background-size: cover;
+      filter: brightness(0.8) contrast(1.2);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .cyber-screen-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      overflow: hidden;
+    }
+    
+    .cyber-attack-messages {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .cyber-attack-line {
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: #ff0000;
+      padding: 1px 0;
+      white-space: nowrap;
+      text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
+      position: absolute;
+      width: 100%;
+      animation: cyberAttackScrollVertical 4s linear infinite;
+    }
+    
+    .cyber-attack-line:nth-child(1) { left: 0%; animation-delay: 0s; }
+    .cyber-attack-line:nth-child(2) { left: 10%; animation-delay: 0.4s; }
+    .cyber-attack-line:nth-child(3) { left: 20%; animation-delay: 0.8s; }
+    .cyber-attack-line:nth-child(4) { left: 30%; animation-delay: 1.2s; }
+    .cyber-attack-line:nth-child(5) { left: 40%; animation-delay: 1.6s; }
+    .cyber-attack-line:nth-child(6) { left: 50%; animation-delay: 2s; }
+    .cyber-attack-line:nth-child(7) { left: 60%; animation-delay: 2.4s; }
+    .cyber-attack-line:nth-child(8) { left: 70%; animation-delay: 2.8s; }
+    .cyber-attack-line:nth-child(9) { left: 80%; animation-delay: 3.2s; }
+    .cyber-attack-line:nth-child(10) { left: 90%; animation-delay: 3.6s; }
+    
+    .cyber-laptop-keyboard {
+      width: 95%;
+      height: 25%;
+      background: #222;
+      border-radius: 3px;
+      margin-top: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .cyber-keyboard-light {
+      width: 6px;
+      height: 6px;
+      background: #ff0000;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #ff0000, 0 0 12px #00ff00;
+      animation: cyberBlink 1s infinite;
+    }
+    
+    .cyber-padlock {
+      position: absolute;
+      bottom: 140px;
+      right: 80px;
+      font-size: 24px;
+      animation: cyberLockToggle 3s ease-in-out infinite;
+      z-index: 5;
+      filter: drop-shadow(0 0 6px currentColor);
+    }
+    
+    .cyber-security-status {
+      position: absolute;
+      bottom: 120px;
+      right: 70px;
+      font-size: 10px;
+      color: #ff0000;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      animation: cyberStatusPulse 3s ease-in-out infinite;
+    }
+    
+    .cyber-data-flow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .cyber-data-node {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #ff0000;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #ff0000, 0 0 8px #00ff00;
+      animation: cyberDataFlow 4s linear infinite;
+    }
+    
+    .cyber-full-screen-attacks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    .cyber-full-screen-line {
+      position: absolute;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      color: #ff0000;
+      white-space: nowrap;
+      text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
+      animation: cyberFullScreenScroll 6s linear infinite;
+    }
+    
+    .cyber-footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 10px;
+      color: #6080a0;
+    }
+    
+    @keyframes cyberLockToggle {
+      0%, 50% {
+        color: #ff0000;
+      }
+      51%, 100% {
+        color: #00ff00;
+      }
+    }
+    
+    @keyframes cyberStatusPulse {
+      0%, 50% {
+        color: #ff0000;
+        text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
+      }
+      51%, 100% {
+        color: #00ff00;
+        text-shadow: 0 0 3px #00ff00, 0 0 6px #ff0000;
+      }
+    }
+    
+    @keyframes cyberBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    @keyframes cyberAttackScrollVertical {
+      0% { 
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      10% { 
+        opacity: 1;
+      }
+      90% { 
+        opacity: 1;
+      }
+      100% { 
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes cyberDataFlow {
+      0% { 
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% { 
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes cyberFullScreenScroll {
+      0% { 
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      5% { 
+        opacity: 1;
+      }
+      95% { 
+        opacity: 1;
+      }
+      100% { 
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+
     @media (max-width: 480px) {
       .ai-chat-container {
         height: 400px;
@@ -569,6 +877,35 @@
       
       .volume-slider {
         width: 60px;
+      }
+
+      .cyber-animation-container {
+        height: 200px;
+        margin: 15px 0 30px 0;
+      }
+      
+      .cyber-laptop-container {
+        width: 140px;
+        height: 85px;
+        bottom: 80px;
+      }
+      
+      .cyber-hacker {
+        width: 80px;
+        height: 100px;
+        bottom: 60px;
+      }
+      
+      .cyber-padlock {
+        bottom: 100px;
+        right: 50px;
+        font-size: 18px;
+      }
+      
+      .cyber-security-status {
+        bottom: 85px;
+        right: 45px;
+        font-size: 8px;
       }
     }
 
@@ -642,64 +979,60 @@
     </div>
   </section>
 
-  <!-- Manlung AI Assistant -->
-  <section id="manlung-ai" aria-labelledby="aiTitle">
-    <div class="section-title"><h2 id="aiTitle">Manlung AI Assistant</h2></div>
-    <p class="section-lead">Get instant help with our AI assistant. Ask questions about our services, get technical support, or learn more about cybersecurity. Our AI is here to help 24/7.</p>
-
-    <div class="ai-assistant-container">
-      <div class="ai-header">
-        <h2>Manlung AI Assistant</h2>
-        <p>Ask me anything about our services, cybersecurity, or tech support</p>
+  <!-- Compact Cybersecurity Hacker Animation -->
+  <div class="cyber-animation-container">
+    <div class="cyber-scene">
+      <div class="cyber-desk"></div>
+      
+      <div class="cyber-hacker">
+        <div class="cyber-hacker-silhouette"></div>
+        <div class="cyber-hacker-head"></div>
       </div>
       
-      <div class="ai-chat-container">
-        <div class="ai-chat-messages" id="aiChatMessages">
-          <div class="ai-message ai-bot-message">
-            Hello! I'm the Manlung AI Assistant. How can I help you today? You can ask me about our cybersecurity services, cyber café offerings, or get technical support.
+      <div class="cyber-laptop-container">
+        <div class="cyber-laptop">
+          <div class="cyber-laptop-screen">
+            <div class="cyber-screen-image"></div>
+            <div class="cyber-screen-overlay">
+              <div class="cyber-attack-messages">
+                <div class="cyber-attack-line">ATTACK: 40%</div>
+                <div class="cyber-attack-line">ATTACK: 50%</div>
+                <div class="cyber-attack-line">ATTACK: 60%</div>
+                <div class="cyber-attack-line">ATTACK: 70%</div>
+                <div class="cyber-attack-line">ATTACK: 80%</div>
+                <div class="cyber-attack-line">SENDING FILE</div>
+                <div class="cyber-attack-line">PORT 443</div>
+                <div class="cyber-attack-line">FIREWALL BYPASSED</div>
+                <div class="cyber-attack-line">DATA TRANSFER</div>
+                <div class="cyber-attack-line">SYSTEM 20%</div>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <div class="ai-typing-indicator" id="aiTypingIndicator">
-          <div class="ai-typing-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="cyber-laptop-keyboard">
+            <div class="cyber-keyboard-light"></div>
           </div>
-          Manlung AI is typing...
-        </div>
-        
-        <div class="ai-input-container">
-          <input type="text" class="ai-input" id="aiInput" placeholder="Type your message here..." autocomplete="off">
-          <button class="ai-send-btn" id="aiSendBtn">
-            <i class="fas fa-paper-plane"></i>
-          </button>
         </div>
       </div>
       
-      <div style="padding: 20px; border-top: 1px solid rgba(0, 255, 77, 0.1);">
-        <h3 style="color: var(--neon); margin-bottom: 15px; text-align: center;">Try asking me about:</h3>
-        <div class="ai-examples">
-          <div class="ai-example-card" onclick="insertExample('What cybersecurity services do you offer?')">
-            <h4>Cybersecurity Services</h4>
-            <p>Learn about our penetration testing, monitoring, and incident response</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('How can I get help with KRA services?')">
-            <h4>KRA Services</h4>
-            <p>Information about PIN registration, tax returns, and compliance</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('Tell me about your cyber café services')">
-            <h4>Cyber Café</h4>
-            <p>Printing, scanning, typing, and internet access services</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('How do I contact Manlung Tech City?')">
-            <h4>Contact Information</h4>
-            <p>Get our location, phone number, and business hours</p>
-          </div>
-        </div>
+      <div class="cyber-padlock">
+        <i class="fas fa-lock"></i>
+      </div>
+      
+      <div class="cyber-security-status">BREACHED</div>
+      
+      <div class="cyber-data-flow">
+        <!-- Data nodes will be generated by JavaScript -->
+      </div>
+      
+      <div class="cyber-full-screen-attacks">
+        <!-- Full screen attack messages will be generated by JavaScript -->
       </div>
     </div>
-  </section>
+    
+    <div class="cyber-footer">
+      CYBERSECURITY SYSTEMS COMPROMISED | INITIATING COUNTERMEASURES | LAST SCAN: JUST NOW
+    </div>
+  </div>
 
   <!-- Cyber Security Services (expanded & human-focused) -->
   <section id="cyber-security" aria-labelledby="csTitle">
@@ -775,6 +1108,65 @@
         <h3>Security Awareness & Training</h3>
         <p>Practical workshops, phishing simulations and on-site training for staff & youth.</p>
         <div class="service-meta"><div class="service-badge">Hands-on</div><div class="service-tags">Workshops • Phishing • Certification</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manlung AI Assistant -->
+  <section id="manlung-ai" aria-labelledby="aiTitle">
+    <div class="section-title"><h2 id="aiTitle">Manlung AI Assistant</h2></div>
+    <p class="section-lead">Get instant help with our AI assistant. Ask questions about our services, get technical support, or learn more about cybersecurity. Our AI is here to help 24/7.</p>
+
+    <div class="ai-assistant-container">
+      <div class="ai-header">
+        <h2>Manlung AI Assistant</h2>
+        <p>Ask me anything about our services, cybersecurity, or tech support</p>
+      </div>
+      
+      <div class="ai-chat-container">
+        <div class="ai-chat-messages" id="aiChatMessages">
+          <div class="ai-message ai-bot-message">
+            Hello! I'm the Manlung AI Assistant. How can I help you today? You can ask me about our cybersecurity services, cyber café offerings, or get technical support.
+          </div>
+        </div>
+        
+        <div class="ai-typing-indicator" id="aiTypingIndicator">
+          <div class="ai-typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          Manlung AI is typing...
+        </div>
+        
+        <div class="ai-input-container">
+          <input type="text" class="ai-input" id="aiInput" placeholder="Type your message here..." autocomplete="off">
+          <button class="ai-send-btn" id="aiSendBtn">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div style="padding: 20px; border-top: 1px solid rgba(0, 255, 77, 0.1);">
+        <h3 style="color: var(--neon); margin-bottom: 15px; text-align: center;">Try asking me about:</h3>
+        <div class="ai-examples">
+          <div class="ai-example-card" onclick="insertExample('What cybersecurity services do you offer?')">
+            <h4>Cybersecurity Services</h4>
+            <p>Learn about our penetration testing, monitoring, and incident response</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('How can I get help with KRA services?')">
+            <h4>KRA Services</h4>
+            <p>Information about PIN registration, tax returns, and compliance</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('Tell me about your cyber café services')">
+            <h4>Cyber Café</h4>
+            <p>Printing, scanning, typing, and internet access services</p>
+          </div>
+          <div class="ai-example-card" onclick="insertExample('How do I contact Manlung Tech City?')">
+            <h4>Contact Information</h4>
+            <p>Get our location, phone number, and business hours</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1013,6 +1405,99 @@
         muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
       }
     });
+
+    // ========== CYBER ANIMATION FUNCTIONALITY ==========
+    // Create data flow nodes
+    const cyberDataFlow = document.querySelector('.cyber-data-flow');
+    for (let i = 0; i < 20; i++) {
+      const node = document.createElement('div');
+      node.classList.add('cyber-data-node');
+      node.style.left = Math.random() * 100 + '%';
+      node.style.animationDelay = Math.random() * 5 + 's';
+      cyberDataFlow.appendChild(node);
+    }
+    
+    // Add some random movement to the hacker silhouette
+    const cyberHacker = document.querySelector('.cyber-hacker-silhouette');
+    setInterval(() => {
+      const glow = 20 + Math.random() * 10;
+      cyberHacker.style.boxShadow = `0 0 ${glow}px #00ff00, 0 0 ${glow * 2}px #00ff00, 0 0 ${glow * 3}px #00ff00`;
+    }, 1000);
+    
+    // Create full screen attack messages
+    const cyberFullScreenAttacks = document.querySelector('.cyber-full-screen-attacks');
+    const cyberAttackMessages = [
+      "ATTACK DETECTED: 40% PENETRATION",
+      "ATTACK DETECTED: 50% PENETRATION",
+      "ATTACK DETECTED: 60% PENETRATION",
+      "ATTACK DETECTED: 70% PENETRATION",
+      "ATTACK DETECTED: 80% PENETRATION",
+      "SENDING FILE: confidential_data.zip",
+      "INTRUSION: Port 443 compromised",
+      "BREACH: Firewall bypassed",
+      "EXFILTRATION: Data transfer in progress",
+      "ALERT: System integrity at 20%",
+      "MALWARE DETECTED: Trojan.Hydra",
+      "UNAUTHORIZED ACCESS: Admin credentials",
+      "DATA LEAK: 2.4GB transferred",
+      "BACKDOOR INSTALLED: System compromised",
+      "RANSOMWARE ACTIVATED: Files encrypted"
+    ];
+    
+    // Create initial full screen attack lines
+    for (let i = 0; i < 10; i++) {
+      const line = document.createElement('div');
+      line.classList.add('cyber-full-screen-line');
+      line.textContent = cyberAttackMessages[Math.floor(Math.random() * cyberAttackMessages.length)];
+      line.style.left = Math.random() * 80 + '%';
+      line.style.animationDelay = Math.random() * 6 + 's';
+      line.style.animationDuration = (4 + Math.random() * 3) + 's';
+      cyberFullScreenAttacks.appendChild(line);
+    }
+    
+    // Add new attack lines periodically
+    setInterval(() => {
+      const line = document.createElement('div');
+      line.classList.add('cyber-full-screen-line');
+      line.textContent = cyberAttackMessages[Math.floor(Math.random() * cyberAttackMessages.length)];
+      line.style.left = Math.random() * 80 + '%';
+      line.style.animationDuration = (4 + Math.random() * 3) + 's';
+      cyberFullScreenAttacks.appendChild(line);
+      
+      // Remove old lines to prevent too many elements
+      if (cyberFullScreenAttacks.children.length > 15) {
+        cyberFullScreenAttacks.removeChild(cyberFullScreenAttacks.children[0]);
+      }
+    }, 1500);
+    
+    // Randomize laptop attack messages for more dynamic effect
+    const cyberLaptopAttackMessages = document.querySelectorAll('.cyber-attack-line');
+    const cyberShortMessages = [
+      "ATTACK: 40%",
+      "ATTACK: 50%",
+      "ATTACK: 60%",
+      "ATTACK: 70%",
+      "ATTACK: 80%",
+      "SENDING FILE",
+      "PORT 443",
+      "FIREWALL BYPASSED",
+      "DATA TRANSFER",
+      "SYSTEM 20%",
+      "MALWARE DETECTED",
+      "UNAUTHORIZED ACCESS",
+      "DATA LEAK",
+      "BACKDOOR INSTALLED",
+      "RANSOMWARE"
+    ];
+    
+    setInterval(() => {
+      cyberLaptopAttackMessages.forEach(line => {
+        const randomMessage = cyberShortMessages[Math.floor(Math.random() * cyberShortMessages.length)];
+        line.textContent = randomMessage;
+        // Randomize animation duration for more dynamic effect
+        line.style.animationDuration = (3 + Math.random() * 3) + 's';
+      });
+    }, 5000);
 
     // ========== SERVICE DATA ==========
     const serviceDetails = {
