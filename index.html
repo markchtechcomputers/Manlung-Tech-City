@@ -445,6 +445,113 @@
       font-size: 14px;
     }
 
+    /* Audio overlay */
+    #audioOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+    }
+    
+    #audioOverlay .audio-card {
+      background: rgba(8,8,8,0.98);
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid var(--neon);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 40px rgba(0,255,77,0.3);
+    }
+    
+    #audioOverlay h3 {
+      color: var(--neon);
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+    
+    #audioOverlay p {
+      color: #dfe;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    #audioOverlay button {
+      background: var(--neon);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    #audioOverlay button:hover {
+      background: #0df07a;
+      box-shadow: 0 0 20px rgba(0,255,77,0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Music controls */
+    .music-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid var(--neon);
+      border-radius: 50px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .music-controls button {
+      background: transparent;
+      border: none;
+      color: var(--neon);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .music-controls button:hover {
+      background: rgba(0,255,77,0.2);
+    }
+    
+    .volume-slider {
+      width: 80px;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(0,255,77,0.3);
+      border-radius: 2px;
+      outline: none;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--neon);
+      cursor: pointer;
+    }
+
     @media (max-width: 480px) {
       .ai-chat-container {
         height: 400px;
@@ -452,6 +559,16 @@
       
       .ai-message {
         max-width: 90%;
+      }
+      
+      .music-controls {
+        bottom: 10px;
+        left: 10px;
+        padding: 8px 12px;
+      }
+      
+      .volume-slider {
+        width: 60px;
       }
     }
 
@@ -461,6 +578,32 @@
   </style>
 </head>
 <body>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/1k7fw1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Audio Enable Overlay -->
+  <div id="audioOverlay">
+    <div class="audio-card">
+      <h3>🎵 Background Music</h3>
+      <p>Would you like to enable background music while browsing our website?</p>
+      <button id="enableAudioBtn">Enable Music</button>
+    </div>
+  </div>
+
+  <!-- Music Controls -->
+  <div class="music-controls" id="musicControls" style="display: none;">
+    <button id="playPauseBtn">
+      <i class="fas fa-play"></i>
+    </button>
+    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="0.3">
+    <button id="muteBtn">
+      <i class="fas fa-volume-up"></i>
+    </button>
+  </div>
+
   <div class="grid-lines"></div>
   <div class="floating-elements" id="floatingElements" aria-hidden="true"></div>
   <div class="scan-line" aria-hidden="true"></div>
@@ -564,7 +707,6 @@
     <p class="section-lead">At <strong>Manlung Tech City</strong> we provide a full spectrum of cyber security services that combine automated tooling with experienced human analysts. Each service below includes hands-on support, clear deliverables and practical follow-up so people and businesses stay safe.</p>
 
     <div class="services-grid" id="cyberServicesGrid">
-      <!-- cards injected server-side/JS; fallback copies provided below -->
       <div class="service-card" data-service="penetration">
         <div class="service-icon"><i class="fas fa-user-secret"></i></div>
         <h3>Penetration Testing</h3>
@@ -634,7 +776,6 @@
         <p>Practical workshops, phishing simulations and on-site training for staff & youth.</p>
         <div class="service-meta"><div class="service-badge">Hands-on</div><div class="service-tags">Workshops • Phishing • Certification</div></div>
       </div>
-
     </div>
   </section>
 
@@ -803,93 +944,193 @@
   </div>
 
   <script>
-    /* ---------- Data (expanded cyber services) ---------- */
-    const serviceDetails = {
-      penetration:{
-        title:"Penetration Testing",
-        description:"<p>Full-scope penetration tests that mimic real-world attacks to find flaws in networks, systems and web applications.</p>",
-        topics:["Network Pen Testing","Web App Testing","API Security","Privilege Escalation"],
-        human:"Senior ethical hackers with manual validation and remediation coaching.",
-        deliverables:["Executive summary","Technical findings","Remediation priority list","Retest report"]
-      },
-      incident:{
-        title:"Incident Response & Forensics",
-        description:"<p>Rapid triage, containment and post-incident forensics to restore safe operations and preserve evidence.</p>",
-        topics:["Containment","Forensic Collection","Malware Analysis","Recovery"],
-        human:"On-call incident handlers who guide you step-by-step and coordinate recovery.",
-        deliverables:["Containment actions","Forensic timeline","Mitigation plan","Post-incident report"]
-      },
-      monitoring:{
-        title:"24/7 Monitoring (SOC)",
-        description:"<p>Continuous monitoring using SIEM and human analysts to detect and respond to suspicious activity quickly.</p>",
-        topics:["Log Collection","Alert Triage","Threat Hunting","Response"],
-        human:"Dedicated SOC analysts who investigate alerts and escalate real incidents.",
-        deliverables:["Alert summaries","Incident tickets","Monthly SOC report","Tuning guidance"]
-      },
-      cloudsec:{
-        title:"Cloud & Infrastructure Security",
-        description:"<p>Security reviews for cloud environments, secure configuration hardening and IAM improvements.</p>",
-        topics:["Configuration Review","IAM Hardening","Network Controls","Backup Strategy"],
-        human:"Cloud security engineers who implement best-practice controls and training.",
-        deliverables:["Config checklist","Remediation tasks","Architecture guidance"]
-      },
-      appsec:{
-        title:"Application Security (DevSecOps)",
-        description:"<p>Integrate security into your SDLC with code reviews, automated scans and developer training.</p>",
-        topics:["SAST","DAST","Secure SDLC","Dependency Scans"],
-        human:"Appsec engineers and devs who work with your team to fix findings.",
-        deliverables:["Code findings","PR guidance","CI pipeline checks"]
-      },
-      iam:{
-        title:"Identity & Access Management",
-        description:"<p>Design and implement role-based access, MFA and lifecycle processes to reduce account risk.</p>",
-        topics:["MFA","RBAC","Provisioning","Access Reviews"],
-        human:"IAM specialists who run access reviews and cleanups.",
-        deliverables:["Role model","MFA rollout plan","Access review reports"]
-      },
-      vuln:{
-        title:"Vulnerability Management & Patching",
-        description:"<p>Scheduled scanning, human validation, prioritization and patch orchestration to lower attack surface.</p>",
-        topics:["Regular Scans","Triage","Patching","Verification"],
-        human:"Engineers who prioritize findings by risk and coordinate fixes with ops.",
-        deliverables:["Vulnerability dashboard","Risk prioritization","Patch schedule"]
-      },
-      encryption:{
-        title:"Data Protection & Encryption",
-        description:"<p>Data discovery, classification and encryption at-rest/in-transit with key management guidance.</p>",
-        topics:["Data Classification","AES/TLS","KMS Design","Backups"],
-        human:"Data security leads who design key management and retention policies.",
-        deliverables:["Data map","Encryption plan","Key rotation schedule"]
-      },
-      threat:{
-        title:"Threat Intelligence & Hunting",
-        description:"<p>Proactive hunting for indicators of compromise and custom intelligence feeds relevant to your operations.</p>",
-        topics:["Hunting","IOC Tracking","Intel Feeds","Actor Monitoring"],
-        human:"Threat hunters with access to community and commercial feeds.",
-        deliverables:["Hunting report","IOC list","Mitigation guidance"]
-      },
-      training:{
-        title:"Security Awareness & Training",
-        description:"<p>Hands-on workshops, simulated phishing and policy training tailored to staff and youth programs.</p>",
-        topics:["Workshops","Phishing Simulations","Policy Design","Certification"],
-        human:"Experienced trainers who run interactive sessions and simulations.",
-        deliverables:["Training materials","Simulation results","Policy templates"]
-      }
+    // ========== MUSIC PLAYER FUNCTIONALITY ==========
+    const bgMusic = document.getElementById('bgMusic');
+    const audioOverlay = document.getElementById('audioOverlay');
+    const enableAudioBtn = document.getElementById('enableAudioBtn');
+    const musicControls = document.getElementById('musicControls');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const muteBtn = document.getElementById('muteBtn');
 
-      // Cyber Support services are kept below (original keys exist)
-    };
+    // Initialize music settings
+    let musicEnabled = false;
+    bgMusic.volume = 0.3; // Default volume
 
-    // Add support services (existing keys) to the same object so modal can show them
-    Object.assign(serviceDetails, {
-      ecitizen:{title:"eCitizen & Gov Portals",description:"<p>Assistance with passports, birth certificates, Good Conduct and other government forms.</p>",topics:["Passport Apps","Certificate Submissions","Form Filling"],human:"Support staff who guide each online step.",deliverables:["Submission confirmation","Fill assistance"]},
-      printing:{title:"Printing & Photocopy",description:"<p>High-quality printing, posters and bulk photocopying.</p>",topics:["Color Printing","Booklets","Bulk Copies"],human:"Print operators and design support.",deliverables:["Printed materials","Digital PDFs"]},
-      typing:{title:"Typing & CV Services",description:"<p>CVs, application letters and document formatting.</p>",topics:["CV Design","Formatting","Editing"],human:"Office staff who format and proof-read.",deliverables:["Final CV","Cover Letter"]},
-      wifi:{title:"WiFi & Internet Access",description:"<p>Secure browsing stations, managed access and bandwidth packages.</p>",topics:["Managed WiFi","Session Isolation","Bandwidth Plans"],human:"On-site staff to assist with sessions.",deliverables:["Session passes","Bandwidth receipts"]},
-      softwaredev:{title:"Software & Web Services",description:"<p>Websites, mobile apps and local software solutions for small business.</p>",topics:["Web Design","Mobile Apps","Maintenance"],human:"Developers and support engineers.",deliverables:["Site files","Hosting guidance"]},
-      lamination:{title:"Lamination & Binding",description:"<p>Document finishing for certificates and IDs.</p>",topics:["Lamination","Binding","Certificate Finishing"],human:"Print finishers.",deliverables:["Laminated documents"]}
+    // Show audio overlay on page load
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        audioOverlay.style.display = 'flex';
+      }, 1000);
     });
 
-    /* ---------- Manlung AI Assistant ---------- */
+    // Enable audio when user clicks the button
+    enableAudioBtn.addEventListener('click', function() {
+      bgMusic.play()
+        .then(() => {
+          musicEnabled = true;
+          audioOverlay.style.display = 'none';
+          musicControls.style.display = 'flex';
+          showNotification('Background music enabled! 🎵');
+        })
+        .catch(error => {
+          console.error('Audio playback failed:', error);
+          showNotification('Could not play audio. Please check browser permissions.', 'error');
+        });
+    });
+
+    // Play/Pause functionality
+    playPauseBtn.addEventListener('click', function() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      } else {
+        bgMusic.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+    });
+
+    // Volume control
+    volumeSlider.addEventListener('input', function() {
+      bgMusic.volume = this.value;
+      // Update mute button icon based on volume
+      if (this.value == 0) {
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else if (this.value < 0.5) {
+        muteBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+      } else {
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+    });
+
+    // Mute functionality
+    muteBtn.addEventListener('click', function() {
+      if (bgMusic.muted) {
+        bgMusic.muted = false;
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      } else {
+        bgMusic.muted = true;
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      }
+    });
+
+    // ========== SERVICE DATA ==========
+    const serviceDetails = {
+      penetration: {
+        title: "Penetration Testing",
+        description: "<p>Full-scope penetration tests that mimic real-world attacks to find flaws in networks, systems and web applications.</p>",
+        topics: ["Network Pen Testing", "Web App Testing", "API Security", "Privilege Escalation"],
+        human: "Senior ethical hackers with manual validation and remediation coaching.",
+        deliverables: ["Executive summary", "Technical findings", "Remediation priority list", "Retest report"]
+      },
+      incident: {
+        title: "Incident Response & Forensics",
+        description: "<p>Rapid triage, containment and post-incident forensics to restore safe operations and preserve evidence.</p>",
+        topics: ["Containment", "Forensic Collection", "Malware Analysis", "Recovery"],
+        human: "On-call incident handlers who guide you step-by-step and coordinate recovery.",
+        deliverables: ["Containment actions", "Forensic timeline", "Mitigation plan", "Post-incident report"]
+      },
+      monitoring: {
+        title: "24/7 Monitoring (SOC)",
+        description: "<p>Continuous monitoring using SIEM and human analysts to detect and respond to suspicious activity quickly.</p>",
+        topics: ["Log Collection", "Alert Triage", "Threat Hunting", "Response"],
+        human: "Dedicated SOC analysts who investigate alerts and escalate real incidents.",
+        deliverables: ["Alert summaries", "Incident tickets", "Monthly SOC report", "Tuning guidance"]
+      },
+      cloudsec: {
+        title: "Cloud & Infrastructure Security",
+        description: "<p>Security reviews for cloud environments, secure configuration hardening and IAM improvements.</p>",
+        topics: ["Configuration Review", "IAM Hardening", "Network Controls", "Backup Strategy"],
+        human: "Cloud security engineers who implement best-practice controls and training.",
+        deliverables: ["Config checklist", "Remediation tasks", "Architecture guidance"]
+      },
+      appsec: {
+        title: "Application Security (DevSecOps)",
+        description: "<p>Integrate security into your SDLC with code reviews, automated scans and developer training.</p>",
+        topics: ["SAST", "DAST", "Secure SDLC", "Dependency Scans"],
+        human: "Appsec engineers and devs who work with your team to fix findings.",
+        deliverables: ["Code findings", "PR guidance", "CI pipeline checks"]
+      },
+      iam: {
+        title: "Identity & Access Management",
+        description: "<p>Design and implement role-based access, MFA and lifecycle processes to reduce account risk.</p>",
+        topics: ["MFA", "RBAC", "Provisioning", "Access Reviews"],
+        human: "IAM specialists who run access reviews and cleanups.",
+        deliverables: ["Role model", "MFA rollout plan", "Access review reports"]
+      },
+      vuln: {
+        title: "Vulnerability Management & Patching",
+        description: "<p>Scheduled scanning, human validation, prioritization and patch orchestration to lower attack surface.</p>",
+        topics: ["Regular Scans", "Triage", "Patching", "Verification"],
+        human: "Engineers who prioritize findings by risk and coordinate fixes with ops.",
+        deliverables: ["Vulnerability dashboard", "Risk prioritization", "Patch schedule"]
+      },
+      encryption: {
+        title: "Data Protection & Encryption",
+        description: "<p>Data discovery, classification and encryption at-rest/in-transit with key management guidance.</p>",
+        topics: ["Data Classification", "AES/TLS", "KMS Design", "Backups"],
+        human: "Data security leads who design key management and retention policies.",
+        deliverables: ["Data map", "Encryption plan", "Key rotation schedule"]
+      },
+      threat: {
+        title: "Threat Intelligence & Hunting",
+        description: "<p>Proactive hunting for indicators of compromise and custom intelligence feeds relevant to your operations.</p>",
+        topics: ["Hunting", "IOC Tracking", "Intel Feeds", "Actor Monitoring"],
+        human: "Threat hunters with access to community and commercial feeds.",
+        deliverables: ["Hunting report", "IOC list", "Mitigation guidance"]
+      },
+      training: {
+        title: "Security Awareness & Training",
+        description: "<p>Hands-on workshops, simulated phishing and policy training tailored to staff and youth programs.</p>",
+        topics: ["Workshops", "Phishing Simulations", "Policy Design", "Certification"],
+        human: "Experienced trainers who run interactive sessions and simulations.",
+        deliverables: ["Training materials", "Simulation results", "Policy templates"]
+      },
+      ecitizen: {
+        title: "eCitizen & Gov Portals",
+        description: "<p>Assistance with passports, birth certificates, Good Conduct and other government forms.</p>",
+        topics: ["Passport Apps", "Certificate Submissions", "Form Filling"],
+        human: "Support staff who guide each online step.",
+        deliverables: ["Submission confirmation", "Fill assistance"]
+      },
+      printing: {
+        title: "Printing & Photocopy",
+        description: "<p>High-quality printing, posters and bulk photocopying.</p>",
+        topics: ["Color Printing", "Booklets", "Bulk Copies"],
+        human: "Print operators and design support.",
+        deliverables: ["Printed materials", "Digital PDFs"]
+      },
+      typing: {
+        title: "Typing & CV Services",
+        description: "<p>CVs, application letters and document formatting.</p>",
+        topics: ["CV Design", "Formatting", "Editing"],
+        human: "Office staff who format and proof-read.",
+        deliverables: ["Final CV", "Cover Letter"]
+      },
+      wifi: {
+        title: "WiFi & Internet Access",
+        description: "<p>Secure browsing stations, managed access and bandwidth packages.</p>",
+        topics: ["Managed WiFi", "Session Isolation", "Bandwidth Plans"],
+        human: "On-site staff to assist with sessions.",
+        deliverables: ["Session passes", "Bandwidth receipts"]
+      },
+      softwaredev: {
+        title: "Software & Web Services",
+        description: "<p>Websites, mobile apps and local software solutions for small business.</p>",
+        topics: ["Web Design", "Mobile Apps", "Maintenance"],
+        human: "Developers and support engineers.",
+        deliverables: ["Site files", "Hosting guidance"]
+      },
+      lamination: {
+        title: "Lamination & Binding",
+        description: "<p>Document finishing for certificates and IDs.</p>",
+        topics: ["Lamination", "Binding", "Certificate Finishing"],
+        human: "Print finishers.",
+        deliverables: ["Laminated documents"]
+      }
+    };
+
+    // ========== AI CHAT FUNCTIONALITY ==========
     const aiResponses = {
       greetings: [
         "Hello! How can I assist you with Manlung Tech City services today?",
@@ -1018,64 +1259,76 @@
       document.getElementById('aiInput').focus();
     }
 
-    /* ---------- local demo backend (localStorage) ---------- */
-    class BackendService {
-      constructor(){ this.storageKey = 'manlung_leads'; }
-      async saveLead(leadData){
-        try{await new Promise(r=>setTimeout(r,600));const existing = JSON.parse(localStorage.getItem(this.storageKey) || '[]');const newLead = {...leadData,id:Date.now(),timestamp:new Date().toISOString(),status:'new'};existing.push(newLead);localStorage.setItem(this.storageKey, JSON.stringify(existing));return {success:true,data:newLead};}catch(e){return {success:false,error:e.message};}
+    // ========== NOTIFICATION SYSTEM ==========
+    function showNotification(message, type = 'info') {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.display = 'block';
+      
+      if (type === 'success') {
+        notification.style.background = 'var(--neon)';
+        notification.style.color = '#000';
+      } else if (type === 'error') {
+        notification.style.background = '#ff4444';
+        notification.style.color = '#fff';
       }
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 4000);
     }
-    const backend = new BackendService();
 
-    /* ---------- helpers ---------- */
-    function showNotification(text,timeout=3000){const n=document.getElementById('notification');n.textContent=text;n.style.display='block';clearTimeout(n._t);n._t=setTimeout(()=>n.style.display='none',timeout);}    
-    function downloadCSV(filename,csvContent){const blob=new Blob([csvContent],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);} 
-
-    /* ---------- Telegram redirect function ---------- */
-    function redirectToTelegram(event, service) {
-      event.preventDefault();
+    // ========== MODAL SYSTEM ==========
+    function openServiceModal(key) {
+      const data = serviceDetails[key];
+      if (!data) return;
       
-      const form = event.target;
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone ? form.phone.value.trim() : '';
-      const subject = form.subject ? form.subject.value.trim() : '';
-      const message = form.message ? form.message.value.trim() : '';
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDescription').innerHTML = data.description || '';
       
-      // Save lead locally
-      backend.saveLead({
-        name,
-        email,
-        phone,
-        service,
-        subject,
-        message,
-        source: form.name === 'contactForm' ? 'contact-form' : 'service-modal'
+      const what = document.getElementById('modalWhat');
+      what.innerHTML = '';
+      (data.topics || []).forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        what.appendChild(li);
       });
       
-      // Create a message for Telegram
-      let telegramMessage = `New consultation request from ${name}%0A`;
-      telegramMessage += `Email: ${email}%0A`;
-      if (phone) telegramMessage += `Phone: ${phone}%0A`;
-      if (service) telegramMessage += `Service: ${service}%0A`;
-      if (subject) telegramMessage += `Subject: ${subject}%0A`;
-      if (message) telegramMessage += `Message: ${message}%0A`;
+      document.getElementById('modalHuman').textContent = data.human || '';
       
-      // Redirect to Telegram bot
-      window.open(`https://t.me/manlungtechcitybot?start=${encodeURIComponent(telegramMessage)}`, '_blank');
+      const deliver = document.getElementById('modalDeliver');
+      deliver.innerHTML = '';
+      (data.deliverables || []).forEach(d => {
+        const li = document.createElement('li');
+        li.textContent = d;
+        deliver.appendChild(li);
+      });
       
-      showNotification('Redirecting to Telegram for consultation...');
+      const topics = document.getElementById('modalTopics');
+      topics.innerHTML = '';
+      (data.topics || []).forEach(t => {
+        const d = document.createElement('div');
+        d.className = 'service-badge';
+        d.textContent = t;
+        topics.appendChild(d);
+      });
       
-      // Close modal if it's open
-      if (document.getElementById('serviceModal').classList.contains('open')) {
-        closeModal();
-      }
+      // Set hidden service field for the lead form
+      const leadService = document.getElementById('leadService');
+      if (leadService) leadService.value = data.title || key;
       
-      // Reset form
-      form.reset();
+      const modal = document.getElementById('serviceModal');
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
     }
 
-    /* ---------- Contact Form Handler ---------- */
+    function closeModal() {
+      const modal = document.getElementById('serviceModal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // ========== CONTACT FORM HANDLER ==========
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
@@ -1144,25 +1397,207 @@
       });
     });
 
-    /* ---------- init UI ---------- */
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // floating bg
-      const floating=document.getElementById('floatingElements');for(let i=0;i<12;i++){const size=Math.floor(Math.random()*80)+20;const c=document.createElement('div');c.className='floating-circle';c.style.width=size+'px';c.style.height=size+'px';c.style.left=Math.random()*100+'%';c.style.top=Math.random()*100+'%';c.style.opacity=(Math.random()*0.6)+0.12;c.style.animationDuration=(Math.random()*26+12)+'s';floating.appendChild(c);const ring=document.createElement('div');ring.className='floating-ring';const rsize=Math.floor(Math.random()*160)+40;ring.style.width=rsize+'px';ring.style.height=rsize+'px';ring.style.left=Math.random()*100+'%';ring.style.top=Math.random()*100+'%';ring.style.opacity=(Math.random()*0.35)+0.06;ring.style.animationDuration=(Math.random()*30+14)+'s';floating.appendChild(ring);}      
+    // ========== TELEGRAM REDIRECT ==========
+    function redirectToTelegram(event, service) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone ? form.phone.value.trim() : '';
+      
+      if (!name || !email || !phone) {
+        showNotification('Please fill all fields', 'error');
+        return;
+      }
+      
+      // Save lead locally (for demo)
+      const leadData = {
+        name, email, phone, service,
+        timestamp: new Date().toISOString(),
+        source: 'service-modal'
+      };
+      saveLeadLocally(leadData);
+      
+      // Create Telegram message
+      const telegramMessage = `New consultation request:%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AService: ${service}%0ASource: Website`;
+      
+      // Redirect to Telegram
+      window.open(`https://t.me/manlungtechcitybot?start=${encodeURIComponent(telegramMessage)}`, '_blank');
+      
+      showNotification('Opening Telegram for consultation...');
+      closeModal();
+    }
 
-      // wire service cards -> modal
-      document.querySelectorAll('.service-card').forEach(card=>{card.addEventListener('click',()=>{openServiceModal(card.getAttribute('data-service'))});});
+    // ========== LOCAL STORAGE FUNCTIONS ==========
+    function saveLeadLocally(leadData) {
+      let leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
+      leadData.id = Date.now();
+      leads.push(leadData);
+      localStorage.setItem('manlung_leads', JSON.stringify(leads));
+      updateAdminPanel();
+    }
 
-      // modal close
-      document.getElementById('closeModal').addEventListener('click',closeModal);
-      document.getElementById('serviceModal').addEventListener('click',(e)=>{if(e.target===e.currentTarget)closeModal();});
+    function updateAdminPanel() {
+      const leadsList = document.getElementById('leadsList');
+      const leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
+      
+      if (leads.length === 0) {
+        leadsList.innerHTML = '<div style="color:#bfb; text-align:center;">No leads stored yet</div>';
+        return;
+      }
+      
+      leadsList.innerHTML = leads.slice().reverse().map(lead => `
+        <div class="lead-item">
+          <div style="display:flex; justify-content:space-between; gap:8px">
+            <div>
+              <strong>${lead.name || '(no name)'}</strong>
+              <div style="font-size:12px; color:#bfb">${lead.email || ''}${lead.phone ? ' • ' + lead.phone : ''}</div>
+              <div style="font-size:12px; color:#9f9">${new Date(lead.timestamp).toLocaleString()}</div>
+            </div>
+            <div style="text-align:right">
+              <button data-id="${lead.id}" class="export-btn" style="padding:6px 8px; font-size:12px">Delete</button>
+            </div>
+          </div>
+          <div style="margin-top:8px; color:#dfd; font-size:13px">Service: ${lead.service || 'N/A'}</div>
+        </div>
+      `).join('');
+      
+      // Add delete event listeners
+      leadsList.querySelectorAll('button[data-id]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = Number(this.getAttribute('data-id'));
+          if (confirm('Delete this lead?')) {
+            let leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
+            leads = leads.filter(lead => lead.id !== id);
+            localStorage.setItem('manlung_leads', JSON.stringify(leads));
+            updateAdminPanel();
+            showNotification('Lead deleted');
+          }
+        });
+      });
+    }
 
-      // mobile menu
-      document.getElementById('mobileMenuToggle').addEventListener('click',()=>{const ul=document.querySelector('nav.primary ul');if(!ul)return;ul.style.display=(ul.style.display==='block')?'none':'block';});
+    // ========== INITIALIZATION ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create floating background elements
+      const floatingContainer = document.getElementById('floatingElements');
+      for (let i = 0; i < 12; i++) {
+        const size = Math.floor(Math.random() * 80) + 20;
+        const circle = document.createElement('div');
+        circle.className = 'floating-circle';
+        circle.style.width = size + 'px';
+        circle.style.height = size + 'px';
+        circle.style.left = Math.random() * 100 + '%';
+        circle.style.top = Math.random() * 100 + '%';
+        circle.style.opacity = (Math.random() * 0.6) + 0.12;
+        circle.style.animationDuration = (Math.random() * 26 + 12) + 's';
+        floatingContainer.appendChild(circle);
+        
+        const ring = document.createElement('div');
+        ring.className = 'floating-ring';
+        const rsize = Math.floor(Math.random() * 160) + 40;
+        ring.style.width = rsize + 'px';
+        ring.style.height = rsize + 'px';
+        ring.style.left = Math.random() * 100 + '%';
+        ring.style.top = Math.random() * 100 + '%';
+        ring.style.opacity = (Math.random() * 0.35) + 0.06;
+        ring.style.animationDuration = (Math.random() * 30 + 14) + 's';
+        floatingContainer.appendChild(ring);
+      }
 
-      // export leads
-      document.getElementById('exportLeads').addEventListener('click',()=>{const raw=localStorage.getItem('manlung_leads');if(!raw){showNotification('No leads found');return;}try{const arr=JSON.parse(raw);if(!arr.length){showNotification('No leads to export');return;}const headers=["id","timestamp","name","email","phone","status","service","source","message"];const rows=arr.map(r=>headers.map(h=>{const v=r[h]===undefined?'':String(r[h]).replace(/"/g,'""');return `"${v}"`;}).join(','));const csv=headers.join(',')+"\n"+rows.join('\n');downloadCSV('manlung_leads.csv',csv);}catch(err){showNotification('Error exporting leads');console.error(err);}});
+      // Wire up service cards to open modal
+      document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const service = card.getAttribute('data-service');
+          if (service) {
+            openServiceModal(service);
+          }
+        });
+      });
 
-      // AI Assistant functionality
+      // Modal close functionality
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      document.getElementById('serviceModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeModal();
+      });
+
+      // Mobile menu toggle
+      document.getElementById('mobileMenuToggle').addEventListener('click', () => {
+        const navUl = document.querySelector('nav.primary ul');
+        if (navUl) {
+          const isVisible = navUl.style.display === 'flex';
+          navUl.style.display = isVisible ? 'none' : 'flex';
+          
+          if (window.innerWidth <= 640 && !isVisible) {
+            navUl.style.flexDirection = 'column';
+            navUl.style.position = 'absolute';
+            navUl.style.right = '6%';
+            navUl.style.top = '64px';
+            navUl.style.background = 'rgba(0,0,0,0.9)';
+            navUl.style.padding = '15px';
+            navUl.style.borderRadius = '10px';
+            navUl.style.border = '1px solid rgba(0,255,0,0.2)';
+          }
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            
+            // Close mobile menu if open
+            if (window.innerWidth <= 640) {
+              const navUl = document.querySelector('nav.primary ul');
+              if (navUl) navUl.style.display = 'none';
+            }
+          }
+        });
+      });
+
+      // Export leads functionality
+      document.getElementById('exportLeads').addEventListener('click', () => {
+        const leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
+        if (leads.length === 0) {
+          showNotification('No leads to export', 'error');
+          return;
+        }
+        
+        let csv = 'Name,Email,Phone,Service,Timestamp\n';
+        leads.forEach(lead => {
+          csv += `"${lead.name || ''}","${lead.email || ''}","${lead.phone || ''}","${lead.service || ''}","${lead.timestamp || ''}"\n`;
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `manlung-leads-${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showNotification(`Exported ${leads.length} leads to CSV`, 'success');
+      });
+
+      // Clear leads functionality
+      document.getElementById('clearLeads').addEventListener('click', () => {
+        if (confirm('Clear all leads from localStorage? This cannot be undone.')) {
+          localStorage.removeItem('manlung_leads');
+          updateAdminPanel();
+          showNotification('All leads cleared', 'success');
+        }
+      });
+
+      // AI Assistant event listeners
       document.getElementById('aiSendBtn').addEventListener('click', sendMessage);
       document.getElementById('aiInput').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -1170,23 +1605,26 @@
         }
       });
 
-      // render leads function available for admin
-      renderLeads();
+      // Admin panel toggle (Ctrl+K)
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'k') {
+          e.preventDefault();
+          const adminPanel = document.getElementById('adminPanel');
+          adminPanel.classList.toggle('open');
+          if (adminPanel.classList.contains('open')) {
+            updateAdminPanel();
+          }
+        }
+      });
+
+      // Initialize admin panel
+      updateAdminPanel();
+      
+      // Show welcome notification
+      setTimeout(() => {
+        showNotification('Welcome to Manlung Tech City!', 'success');
+      }, 2000);
     });
-
-    /* ---------- modal helpers ---------- */
-    function openServiceModal(key){const data=serviceDetails[key];if(!data)return;document.getElementById('modalTitle').textContent=data.title;document.getElementById('modalDescription').innerHTML=data.description||'';const what=document.getElementById('modalWhat');what.innerHTML='';(data.topics||[]).forEach(t=>{const li=document.createElement('li');li.textContent=t;what.appendChild(li);});document.getElementById('modalHuman').textContent=data.human||'';const deliver=document.getElementById('modalDeliver');deliver.innerHTML='';(data.deliverables||data.deliverables||[]).forEach(d=>{const li=document.createElement('li');li.textContent=d;deliver.appendChild(li);});const topics=document.getElementById('modalTopics');topics.innerHTML='';(data.topics||[]).forEach(t=>{const d=document.createElement('div');d.className='topic-item';d.style.padding='8px';d.style.borderLeft='3px solid var(--neon)';d.style.background='rgba(0,255,0,0.03)';d.style.color='#dfffdc';d.textContent=t;topics.appendChild(d);});
-      // set hidden service field for the lead form
-      const leadService = document.getElementById('leadService'); if(leadService) leadService.value = data.title || key;
-      const modal=document.getElementById('serviceModal');modal.classList.add('open');modal.setAttribute('aria-hidden','false');
-    }
-    function closeModal(){const modal=document.getElementById('serviceModal');modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}
-
-    /* ---------- admin panel (client-side) ---------- */
-    function renderLeads(){const container=document.getElementById('leadsList');container.innerHTML='';const raw=localStorage.getItem('manlung_leads');if(!raw){container.innerHTML='<div style="color:#bfb">No leads stored yet.</div>';return;}const arr=JSON.parse(raw).slice().reverse();if(!arr.length){container.innerHTML='<div style="color:#bfb">No leads stored yet.</div>';return;}arr.forEach(l=>{const el=document.createElement('div');el.className='lead-item';el.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px"><div><strong>${l.name||'(no name)'}</strong><div style="font-size:12px;color:#bfb">${l.email||''}${l.phone? ' • '+l.phone: ''}</div><div style="font-size:12px;color:#9f9">${new Date(l.timestamp).toLocaleString()}</div></div><div style="text-align:right"><button data-id="${l.id}" class="export-btn" style="padding:6px 8px;font-size:12px">Delete</button></div></div><div style="margin-top:8px;color:#dfd;font-size:13px">${l.message? l.message : ''}</div>`;container.appendChild(el);});container.querySelectorAll('button[data-id]').forEach(b=>{b.addEventListener('click',()=>{const id=Number(b.getAttribute('data-id'));if(!confirm('Delete this lead?'))return;const raw=JSON.parse(localStorage.getItem('manlung_leads')||'[]');const filtered=raw.filter(x=>x.id!==id);localStorage.setItem('manlung_leads',JSON.stringify(filtered));renderLeads();});});}
-
-    // Clear leads handler
-    document.addEventListener('click', (e)=>{ if(e.target && e.target.id === 'clearLeads'){ if(!confirm('Clear all leads from localStorage? This cannot be undone.')) return; localStorage.removeItem('manlung_leads'); renderLeads(); showNotification('All leads cleared locally.'); } });
   </script>
 </body>
 </html>
