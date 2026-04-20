@@ -445,113 +445,6 @@
       font-size: 14px;
     }
 
-    /* Audio overlay */
-    #audioOverlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      backdrop-filter: blur(10px);
-    }
-    
-    #audioOverlay .audio-card {
-      background: rgba(8,8,8,0.98);
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid var(--neon);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 0 40px rgba(0,255,77,0.3);
-    }
-    
-    #audioOverlay h3 {
-      color: var(--neon);
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
-    
-    #audioOverlay p {
-      color: #dfe;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    
-    #audioOverlay button {
-      background: var(--neon);
-      border: none;
-      padding: 12px 30px;
-      border-radius: 8px;
-      color: #000;
-      font-weight: 800;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    #audioOverlay button:hover {
-      background: #0df07a;
-      box-shadow: 0 0 20px rgba(0,255,77,0.5);
-      transform: translateY(-2px);
-    }
-
-    /* Music controls */
-    .music-controls {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 1000;
-      background: rgba(0,0,0,0.8);
-      border: 1px solid var(--neon);
-      border-radius: 50px;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .music-controls button {
-      background: transparent;
-      border: none;
-      color: var(--neon);
-      font-size: 18px;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-    
-    .music-controls button:hover {
-      background: rgba(0,255,77,0.2);
-    }
-    
-    .volume-slider {
-      width: 80px;
-      -webkit-appearance: none;
-      height: 4px;
-      background: rgba(0,255,77,0.3);
-      border-radius: 2px;
-      outline: none;
-    }
-    
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: var(--neon);
-      cursor: pointer;
-    }
-
     /* Cybersecurity Hacker Animation - COMPACT VERSION */
     .cyber-animation-container {
       width: 100%;
@@ -869,16 +762,6 @@
         max-width: 90%;
       }
       
-      .music-controls {
-        bottom: 10px;
-        left: 10px;
-        padding: 8px 12px;
-      }
-      
-      .volume-slider {
-        width: 60px;
-      }
-
       .cyber-animation-container {
         height: 200px;
         margin: 15px 0 30px 0;
@@ -915,32 +798,6 @@
   </style>
 </head>
 <body>
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://files.catbox.moe/1k7fw1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- Audio Enable Overlay -->
-  <div id="audioOverlay">
-    <div class="audio-card">
-      <h3>🎵 Background Music</h3>
-      <p>Would you like to enable background music while browsing our website?</p>
-      <button id="enableAudioBtn">Enable Music</button>
-    </div>
-  </div>
-
-  <!-- Music Controls -->
-  <div class="music-controls" id="musicControls" style="display: none;">
-    <button id="playPauseBtn">
-      <i class="fas fa-play"></i>
-    </button>
-    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="0.3">
-    <button id="muteBtn">
-      <i class="fas fa-volume-up"></i>
-    </button>
-  </div>
-
   <div class="grid-lines"></div>
   <div class="floating-elements" id="floatingElements" aria-hidden="true"></div>
   <div class="scan-line" aria-hidden="true"></div>
@@ -1336,76 +1193,6 @@
   </div>
 
   <script>
-    // ========== MUSIC PLAYER FUNCTIONALITY ==========
-    const bgMusic = document.getElementById('bgMusic');
-    const audioOverlay = document.getElementById('audioOverlay');
-    const enableAudioBtn = document.getElementById('enableAudioBtn');
-    const musicControls = document.getElementById('musicControls');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const muteBtn = document.getElementById('muteBtn');
-
-    // Initialize music settings
-    let musicEnabled = false;
-    bgMusic.volume = 0.3; // Default volume
-
-    // Show audio overlay on page load
-    window.addEventListener('load', function() {
-      setTimeout(() => {
-        audioOverlay.style.display = 'flex';
-      }, 1000);
-    });
-
-    // Enable audio when user clicks the button
-    enableAudioBtn.addEventListener('click', function() {
-      bgMusic.play()
-        .then(() => {
-          musicEnabled = true;
-          audioOverlay.style.display = 'none';
-          musicControls.style.display = 'flex';
-          showNotification('Background music enabled! 🎵');
-        })
-        .catch(error => {
-          console.error('Audio playback failed:', error);
-          showNotification('Could not play audio. Please check browser permissions.', 'error');
-        });
-    });
-
-    // Play/Pause functionality
-    playPauseBtn.addEventListener('click', function() {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-      } else {
-        bgMusic.pause();
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-      }
-    });
-
-    // Volume control
-    volumeSlider.addEventListener('input', function() {
-      bgMusic.volume = this.value;
-      // Update mute button icon based on volume
-      if (this.value == 0) {
-        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      } else if (this.value < 0.5) {
-        muteBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
-      } else {
-        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-      }
-    });
-
-    // Mute functionality
-    muteBtn.addEventListener('click', function() {
-      if (bgMusic.muted) {
-        bgMusic.muted = false;
-        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-      } else {
-        bgMusic.muted = true;
-        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      }
-    });
-
     // ========== CYBER ANIMATION FUNCTIONALITY ==========
     // Create data flow nodes
     const cyberDataFlow = document.querySelector('.cyber-data-flow');
