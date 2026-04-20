@@ -9,7 +9,7 @@
   <style>
     :root{
       --bg:#000;
-      --neon:#00ff4d;
+      --neon:#13dd4f;
       --muted:#cfcfcf;
       --card: rgba(18,18,18,0.86);
       --glass: rgba(0,0,0,0.55);
@@ -269,80 +269,119 @@
     .ai-assistant-container {
       max-width: 1000px;
       margin: 0 auto;
-      background: var(--card);
-      border-radius: 12px;
-      border: 1px solid rgba(0, 255, 77, 0.1);
+      background: linear-gradient(135deg, rgba(10,10,15,0.95) 0%, rgba(15,15,25,0.95) 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 77, 0.15);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 255, 77, 0.1);
+      box-shadow: 0 8px 40px rgba(0, 255, 77, 0.15), inset 0 1px 0 rgba(0, 255, 77, 0.1);
     }
 
     .ai-header {
-      background: linear-gradient(to right, rgba(0, 255, 77, 0.2), rgba(102, 126, 234, 0.2));
-      padding: 20px;
+      background: linear-gradient(135deg, rgba(0, 255, 77, 0.08) 0%, rgba(102, 126, 234, 0.08) 100%);
+      padding: 30px 25px;
       text-align: center;
-      border-bottom: 1px solid rgba(0, 255, 77, 0.1);
+      border-bottom: 1px solid rgba(0, 255, 77, 0.15);
+      backdrop-filter: blur(10px);
     }
 
     .ai-header h2 {
       color: var(--neon);
-      margin-bottom: 10px;
-      font-size: 28px;
+      margin-bottom: 8px;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 20px rgba(0, 255, 77, 0.3);
     }
 
     .ai-header p {
-      color: #cfcfcf;
-      font-size: 16px;
+      color: #b0ffb0;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
     }
 
     .ai-chat-container {
       display: flex;
       flex-direction: column;
-      height: 500px;
+      height: 550px;
+      background: rgba(8, 8, 12, 0.8);
     }
 
     .ai-chat-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 20px;
+      padding: 25px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(8,8,12,0.9) 0%, rgba(12,12,20,0.95) 100%);
+    }
+
+    .ai-chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .ai-chat-messages::-webkit-scrollbar-track {
+      background: rgba(0, 255, 77, 0.05);
+    }
+
+    .ai-chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 77, 0.3);
+      border-radius: 4px;
     }
 
     .ai-message {
-      max-width: 80%;
-      padding: 12px 18px;
-      border-radius: 18px;
-      line-height: 1.5;
+      max-width: 85%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      line-height: 1.6;
       position: relative;
+      word-wrap: break-word;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .ai-user-message {
       align-self: flex-end;
-      background: rgba(0, 255, 77, 0.15);
-      border: 1px solid rgba(0, 255, 77, 0.2);
+      background: linear-gradient(135deg, rgba(0, 255, 77, 0.25) 0%, rgba(0, 255, 77, 0.15) 100%);
+      border: 1px solid rgba(0, 255, 77, 0.4);
       color: #e9ffe9;
+      font-weight: 500;
     }
 
     .ai-bot-message {
       align-self: flex-start;
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      color: #cfcfcf;
+      background: rgba(25, 25, 40, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      color: #dfe;
+      border-left: 3px solid var(--neon);
     }
 
     .ai-typing-indicator {
       align-self: flex-start;
-      padding: 12px 18px;
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      border-radius: 18px;
-      color: #cfcfcf;
+      padding: 14px 18px;
+      background: rgba(25, 25, 40, 0.8);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      border-left: 3px solid var(--neon);
+      border-radius: 12px;
+      color: #dfe;
       display: none;
+      animation: slideIn 0.3s ease-out;
     }
 
     .ai-typing-dots {
       display: inline-block;
+      margin-right: 8px;
     }
 
     .ai-typing-dots span {
@@ -365,51 +404,69 @@
 
     .ai-input-container {
       display: flex;
-      padding: 15px;
-      border-top: 1px solid rgba(0, 255, 77, 0.1);
-      background: rgba(10, 10, 10, 0.9);
+      padding: 18px;
+      border-top: 1px solid rgba(0, 255, 77, 0.15);
+      background: linear-gradient(180deg, rgba(12,12,18,0.95) 0%, rgba(10,10,15,0.98) 100%);
+      gap: 12px;
+      align-items: center;
     }
 
     .ai-input {
       flex: 1;
-      padding: 12px 15px;
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      border-radius: 24px;
-      color: white;
-      font-size: 16px;
+      padding: 13px 18px;
+      background: rgba(20, 25, 35, 0.6);
+      border: 1.5px solid rgba(0, 255, 77, 0.25);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 15px;
       outline: none;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .ai-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
     }
 
     .ai-input:focus {
       border-color: var(--neon);
-      box-shadow: 0 0 0 2px rgba(0, 255, 77, 0.2);
+      background: rgba(20, 25, 35, 0.8);
+      box-shadow: 0 0 0 3px rgba(0, 255, 77, 0.15), inset 0 0 0 1px rgba(0, 255, 77, 0.2);
     }
 
     .ai-send-btn {
-      background: var(--neon);
+      background: linear-gradient(135deg, var(--neon) 0%, #0df07a 100%);
       color: #000;
       border: none;
-      border-radius: 50%;
+      border-radius: 8px;
       width: 44px;
       height: 44px;
-      margin-left: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 255, 77, 0.3);
+      flex-shrink: 0;
     }
 
     .ai-send-btn:hover {
-      background: #0df07a;
-      box-shadow: 0 0 10px rgba(0, 255, 77, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 255, 77, 0.5);
+      background: linear-gradient(135deg, #0df07a 0%, #00ff4d 100%);
+    }
+
+    .ai-send-btn:active {
+      transform: translateY(0);
     }
 
     .ai-send-btn:disabled {
-      background: #333;
-      color: #666;
+      background: #444;
+      color: #888;
       cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
 
     .ai-examples {
@@ -420,27 +477,50 @@
     }
 
     .ai-example-card {
-      background: rgba(20, 20, 20, 0.6);
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      border-radius: 8px;
-      padding: 15px;
+      background: linear-gradient(135deg, rgba(20, 30, 40, 0.5) 0%, rgba(15, 20, 30, 0.7) 100%);
+      border: 1.5px solid rgba(0, 255, 77, 0.15);
+      border-radius: 10px;
+      padding: 16px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-example-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--neon), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .ai-example-card:hover {
-      background: rgba(0, 255, 77, 0.1);
-      border-color: var(--neon);
+      background: linear-gradient(135deg, rgba(0, 255, 77, 0.15) 0%, rgba(0, 255, 77, 0.08) 100%);
+      border-color: rgba(0, 255, 77, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 255, 77, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .ai-example-card:hover::before {
+      opacity: 1;
     }
 
     .ai-example-card h4 {
       color: var(--neon);
       margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 15px;
     }
 
     .ai-example-card p {
-      color: #cfcfcf;
-      font-size: 14px;
+      color: #b0d0d0;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
     /* Cybersecurity Hacker Animation - COMPACT VERSION */
@@ -753,11 +833,53 @@
 
     @media (max-width: 480px) {
       .ai-chat-container {
-        height: 400px;
+        height: 450px;
       }
       
       .ai-message {
-        max-width: 90%;
+        max-width: 92%;
+        padding: 12px 14px;
+        font-size: 14px;
+      }
+      
+      .ai-header h2 {
+        font-size: 24px;
+      }
+      
+      .ai-header p {
+        font-size: 13px;
+      }
+      
+      .ai-input-container {
+        padding: 12px;
+        gap: 8px;
+      }
+      
+      .ai-input {
+        padding: 11px 14px;
+        font-size: 14px;
+      }
+      
+      .ai-send-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .ai-examples {
+        grid-template-columns: 1fr;
+      }
+      
+      .ai-example-card {
+        padding: 12px;
+      }
+      
+      .ai-example-card h4 {
+        font-size: 14px;
+      }
+      
+      .ai-example-card p {
+        font-size: 12px;
       }
       
       .logo{font-size:18px}
@@ -973,12 +1095,12 @@
   <!-- Manlung AI Assistant -->
   <section id="manlung-ai" aria-labelledby="aiTitle">
     <div class="section-title"><h2 id="aiTitle">Manlung AI Assistant</h2></div>
-    <p class="section-lead">Get instant help with our AI assistant. Ask questions about our services, get technical support, or learn more about cybersecurity. Our AI is here to help 24/7.</p>
+    <p class="section-lead">Get instant help with our intelligent AI assistant. Ask anything about our cybersecurity services, cyber café offerings, tech support, or general questions. Powered by advanced AI - available 24/7.</p>
 
     <div class="ai-assistant-container">
       <div class="ai-header">
-        <h2>Manlung AI Assistant</h2>
-        <p>Ask me anything about our services, cybersecurity, or tech support</p>
+        <h2>Manlung AI Chat</h2>
+        <p>Ask me anything - from our services to general tech questions. I'm here to help!</p>
       </div>
       
       <div class="ai-chat-container">
@@ -1024,6 +1146,28 @@
             <h4>Contact Information</h4>
             <p>Get our location, phone number, and business hours</p>
           </div>
+        </div>
+      </div>
+      
+      <!-- Google API Configuration -->
+      <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, rgba(0, 255, 77, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%); border: 1px solid rgba(0, 255, 77, 0.2); border-radius: 12px;">
+        <h3 style="color: var(--neon); margin-bottom: 15px; font-size: 18px;">🔑 Enable Web Search (Optional)</h3>
+        <p style="color: #bfbfbf; margin-bottom: 15px; font-size: 13px; line-height: 1.6;">
+          To enable the AI to search the internet for unknown questions, add your Google Custom Search API credentials below.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="color: #d3ffd3; font-size: 13px; margin-bottom: 5px; display: block;">Google API Key</label>
+            <input type="password" id="googleApiKey" placeholder="Your Google API Key" style="background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(0, 255, 77, 0.3); padding: 10px; border-radius: 6px; color: #fff; width: 100%; font-size: 12px;">
+          </div>
+          <div>
+            <label style="color: #d3ffd3; font-size: 13px; margin-bottom: 5px; display: block;">Search Engine ID (CX)</label>
+            <input type="password" id="googleSearchEngineId" placeholder="Your Custom Search Engine ID" style="background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(0, 255, 77, 0.3); padding: 10px; border-radius: 6px; color: #fff; width: 100%; font-size: 12px;">
+          </div>
+          <button onclick="saveGoogleApiKeys()" style="background: linear-gradient(135deg, var(--neon) 0%, #0df07a 100%); color: #000; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">Save API Keys</button>
+          <p style="color: #888; font-size: 12px; margin-top: 10px;">
+            📖 <strong>How to get keys:</strong> Visit <a href="https://programmablesearchengine.google.com" target="_blank" style="color: var(--neon);">Google Programmable Search</a> to create a Custom Search Engine and get your CX. Then enable the API in <a href="https://console.cloud.google.com" target="_blank" style="color: var(--neon);">Google Cloud Console</a>.
+          </p>
         </div>
       </div>
     </div>
@@ -1406,92 +1550,278 @@
     // ========== AI CHAT FUNCTIONALITY ==========
     const aiResponses = {
       greetings: [
-        "Hello! How can I assist you with Manlung Tech City services today?",
-        "Hi there! I'm here to help with cybersecurity, cyber café services, or any tech support you need.",
-        "Welcome! Ask me about our services, pricing, or how we can help secure your digital assets."
+        "Hello! 👋 I'm the Manlung AI Assistant. How can I help you today? Feel free to ask about our services, cybersecurity solutions, or anything else!",
+        "Welcome! I'm here to assist you 24/7. Whether you need help with cybersecurity, our cyber café services, or just have a question, I'm ready to help!",
+        "Hi there! Thanks for reaching out. I can help with information about Manlung Tech City services, cybersecurity, tech support, or answer general questions. What's on your mind?"
       ],
       cybersecurity: [
-        "We offer comprehensive cybersecurity services including penetration testing, incident response, 24/7 monitoring, and security training. Our human-led approach ensures personalized protection for your business.",
-        "Our cybersecurity portfolio includes vulnerability management, cloud security, application security, and threat intelligence. We combine automated tools with expert analysis for maximum protection.",
-        "From penetration testing to security awareness training, we provide end-to-end cybersecurity solutions. Each service includes hands-on support and clear deliverables."
+        "🔐 We offer comprehensive cybersecurity services including:\n• Penetration testing & vulnerability assessments\n• 24/7 Security Operations Center (SOC) monitoring\n• Incident response & threat intelligence\n• Cloud & application security\n• Security awareness training\n\nOur human-led approach ensures personalized protection for your business. Would you like details on any specific service?",
+        "Our cybersecurity expertise covers everything from offensive security (penetration testing) to defensive measures (monitoring and incident response). We combine automated tools with expert analysis to identify and eliminate threats before they cause damage.",
+        "At Manlung Tech City, we treat cybersecurity as a partnership. We don't just implement tools—we work with your team to build a security culture that protects your digital assets. Ask me about specific threats you're concerned about!"
       ],
       cybercafe: [
-        "Our cyber café services include printing, scanning, photocopying, typing services, CV preparation, and secure Wi-Fi access. We also offer lamination and binding services.",
-        "At our cyber café, you can access eCitizen services, get help with government forms, use our high-speed internet, and get professional document formatting assistance.",
-        "We provide a full range of cyber café services: printing (color and B&W), scanning to PDF, professional typing, CV creation, and secure internet browsing stations."
+        "☕ Our Cyber Café offers a complete range of services:\n• Professional printing (color & B&W)\n• Scanning, photocopying & PDF conversion\n• Typing services & CV preparation\n• eCitizen government form assistance\n• High-speed secure Wi-Fi\n• Document lamination & binding\n\nAll done professionally and affordably. What service do you need?",
+        "Need document services? We've got you covered! From professional CV creation to government form assistance, our cyber café is fully equipped with modern technology and skilled staff.",
+        "Whether you need to print important documents, scan files, or get help with typing and formatting, our cyber café is your one-stop shop. We pride ourselves on speed and quality."
       ],
       kra: [
-        "We offer complete KRA support including PIN registration, PIN replacement, iTax returns filing, Tax Compliance Certificates, and employer registration services.",
-        "Our KRA services cover everything from new PIN applications to tax return filings and compliance certificates. We guide you through every step of the KRA online process.",
-        "Get assistance with all KRA matters: PIN registration for individuals and businesses, tax returns, TCC applications, and employer compliance services."
+        "📋 We specialize in KRA (Kenya Revenue Authority) services:\n• PIN registration (new and replacement)\n• iTax return filing\n• Tax Compliance Certificates (TCC)\n• Employer registration & compliance\n• Foreign resident registration\n\nWe guide you through the entire online process. What KRA service do you need help with?",
+        "Navigating KRA requirements can be complex, but we make it simple. Whether you're an individual needing a PIN or a business ensuring compliance, our experts handle all the paperwork and submissions.",
+        "Tax time shouldn't be stressful. Our KRA specialists ensure you're compliant with all requirements while maximizing your position. Book a consultation with us!"
       ],
       contact: [
-        "You can reach us at: Location: Tech City, Nairobi | Phone: +254 724 356 178 | Telegram: @manlungtechcitybot | Hours: Mon-Fri 9AM-6PM",
-        "Contact Manlung Tech City via phone at +254 724 356 178, Telegram @manlungtechcitybot, or visit us at Tech City, Nairobi. We're open Monday to Friday, 9AM to 6PM.",
-        "Get in touch: Call +254 724 356 178, message us on Telegram @manlungtechcitybot, or visit our location in Tech City, Nairobi. Business hours: Mon-Fri 9AM-6PM."
+        "📞 **Contact Manlung Tech City:**\n📍 Location: Tech City, Nairobi\n☎️ Phone: +254 724 356 178\n💬 Telegram: @manlungtechcitybot\n🕐 Hours: Monday-Friday, 9AM-6PM\n\nFor emergencies, our cybersecurity team responds 24/7!",
+        "Reach us easily:\n• Call: +254 724 356 178\n• Message on Telegram: @manlungtechcitybot\n• Visit us at Tech City, Nairobi\n• Business hours: Mon-Fri 9AM-6PM\n\nDon't hesitate to get in touch—we're always happy to help!",
+        "Want to connect with us? We're available during business hours (Mon-Fri, 9AM-6PM) and our cybersecurity team monitors threats 24/7. Call, message, or visit us at Tech City!"
       ],
       pricing: [
-        "Pricing varies by service. For cybersecurity services, we offer customized quotes based on your specific needs. Cyber café services have standard rates - contact us for details.",
-        "We provide personalized pricing for cybersecurity services after assessing your requirements. Cyber café services are affordably priced - visit us or contact for current rates.",
-        "Our pricing is tailored to each client's needs. For accurate quotes on cybersecurity services or current cyber café service rates, please contact us directly."
+        "💰 **Pricing Information:**\nCybersecurity services are customized based on your specific needs and business size. We provide detailed quotes after understanding your requirements.\n\nCyber café services have standard affordable rates. Contact us for current pricing on printing, typing, and other services.",
+        "Our philosophy is transparent pricing without hidden fees. For cybersecurity, we work with your budget to create the best protection. For café services, we're competitively priced. Call us for a quote!",
+        "We believe in fair, transparent pricing. Whether it's a one-time cyber café service or ongoing cybersecurity monitoring, we'll give you honest estimates and no surprises."
       ],
       hours: [
-        "We're open Monday to Friday from 9:00 AM to 6:00 PM. For emergency cybersecurity incidents, we offer 24/7 response services.",
-        "Business hours: Monday-Friday, 9AM-6PM. Our 24/7 cybersecurity monitoring and incident response services are always available for urgent matters.",
-        "Visit us Monday through Friday, 9AM to 6PM. Our cybersecurity SOC operates 24/7 for continuous protection and rapid incident response."
+        "⏰ **Business Hours:**\n📍 Physical location: Mon-Fri, 9:00 AM - 6:00 PM\n🚨 Cybersecurity response: 24/7/365 for incidents\n\nEven outside business hours, our SOC monitors threats continuously and responds to emergencies immediately.",
+        "Our office is open Monday through Friday, 9AM to 6PM for walk-ins and consultations. However, our security operations center never sleeps—we monitor threats 24/7.",
+        "You can visit us during regular hours (Mon-Fri, 9AM-6PM) for consultations, but our cybersecurity services run continuously. Emergency response is always available!"
       ],
-      default: [
-        "I'm not sure I understand. Could you rephrase your question? I can help with cybersecurity, cyber café services, KRA support, or contact information.",
-        "I'm still learning! Try asking about our cybersecurity services, cyber café offerings, KRA support, or how to contact us.",
-        "I'm here to help with Manlung Tech City services. You can ask me about cybersecurity, our cyber café, KRA services, or how to get in touch with us."
-      ]
+      softwaredev: [
+        "💻 **Software & Web Development Services:**\n• Custom website design & development\n• Mobile app development (iOS & Android)\n• Software installations & configuration\n• System maintenance & updates\n• Technical support & consulting\n\nWe build solutions tailored to your needs. What are you looking to develop?",
+        "From simple websites to complex applications, we have the expertise to bring your ideas to life. Our team stays current with the latest technologies and best practices.",
+        "Need custom software or a web presence? Our development team creates solutions that work for your business, whether you're a startup or established company."
+      ],
+      ecitizen: [
+        "🏛️ **eCitizen Services:**\nWe help you navigate government online services including:\n• Passport applications\n• Birth certificate requests\n• National ID services\n• Good Conduct Certificates\n• Various government forms\n\nNo more long queues! Our team helps you access these services online.",
+        "Getting government documents shouldn't be complicated. We guide you through the eCitizen portal and ensure your applications are processed correctly.",
+        "Need government documentation? Visit our cyber café for professional assistance with eCitizen services. We handle the technology so you can focus on your application."
+      ],
+      default: []
     };
 
     function getAIResponse(message) {
       const lowerMessage = message.toLowerCase();
       
-      if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+      // Greetings
+      if (lowerMessage.match(/^(hello|hi|hey|greetings|wassup|sup)/)) {
         return aiResponses.greetings[Math.floor(Math.random() * aiResponses.greetings.length)];
       }
       
-      if (lowerMessage.includes('cyber') && lowerMessage.includes('security')) {
+      // Cybersecurity queries
+      if (lowerMessage.match(/(cyber[- ]?security|pentest|penetration|vulnerability|secure|threat|attack|hacker|malware|firewall|encryption|soc|monitoring)/)) {
         return aiResponses.cybersecurity[Math.floor(Math.random() * aiResponses.cybersecurity.length)];
       }
       
-      if (lowerMessage.includes('cafe') || lowerMessage.includes('café') || lowerMessage.includes('cyber cafe')) {
+      // Cyber café
+      if (lowerMessage.match(/(cyber[- ]?caf[eé]|printing|scan|photocopy|typing|cv|resume|lamination|binding|document)/)) {
         return aiResponses.cybercafe[Math.floor(Math.random() * aiResponses.cybercafe.length)];
       }
       
-      if (lowerMessage.includes('kra') || lowerMessage.includes('tax') || lowerMessage.includes('pin')) {
+      // KRA services
+      if (lowerMessage.match(/(kra|tax|pin|itax|compliance|revenue|authority)/)) {
         return aiResponses.kra[Math.floor(Math.random() * aiResponses.kra.length)];
       }
       
-      if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('address') || lowerMessage.includes('location')) {
+      // Contact
+      if (lowerMessage.match(/(contact|phone|call|reach|address|location|telegram|email|hours|open)/)) {
         return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
       }
       
-      if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('how much')) {
+      // Pricing
+      if (lowerMessage.match(/(price|cost|rate|expensive|cheap|affordable|quote|how much)/)) {
         return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
       }
       
-      if (lowerMessage.includes('hour') || lowerMessage.includes('open') || lowerMessage.includes('time')) {
+      // Hours
+      if (lowerMessage.match(/(hour|open|close|time|when|24\/7|available)/)) {
         return aiResponses.hours[Math.floor(Math.random() * aiResponses.hours.length)];
       }
       
-      if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('provide')) {
-        return "We offer both cybersecurity services (penetration testing, monitoring, incident response) and cyber café services (printing, KRA support, internet access). Which are you interested in?";
+      // Software development
+      if (lowerMessage.match(/(software|website|web|app|application|develop|code|programming|build)/)) {
+        return aiResponses.softwaredev[Math.floor(Math.random() * aiResponses.softwaredev.length)];
       }
       
-      return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
+      // eCitizen services
+      if (lowerMessage.match(/(ecitizen|passport|birth|certificate|government|national[- ]?id|conduct)/)) {
+        return aiResponses.ecitizen[Math.floor(Math.random() * aiResponses.ecitizen.length)];
+      }
+      
+      // Services in general
+      if (lowerMessage.match(/(service|offer|provide|what do you|what can)/)) {
+        return "We provide a comprehensive range of services:\n\n🔐 **Cybersecurity**: Penetration testing, threat monitoring, incident response, security training\n\n☕ **Cyber Café**: Printing, scanning, typing, CV services, eCitizen assistance\n\n📋 **KRA Services**: PIN registration, tax filing, compliance certificates\n\n💻 **Software & Web**: Custom development, installations, maintenance\n\nWhich service interests you?";
+      }
+      
+      // General questions about Manlung
+      if (lowerMessage.match(/(manlung|about|company|organization|who|mission|vision)/)) {
+        return "Manlung Tech City is Kenya's premier destination for advanced cybersecurity and practical digital services. We protect your digital assets while offering everyday services like printing, government assistance, and professional typing—all in one secure environment. Our mission is to combine enterprise-grade security with community-focused services. What would you like to know more about?";
+      }
+      
+      // Cybersecurity general knowledge
+      if (lowerMessage.match(/(what is|explain|how does|tell me about).*(cyber|security|hack|malware|phishing)/)) {
+        const topic = lowerMessage.includes('phishing') ? 'phishing' : lowerMessage.includes('malware') ? 'malware' : lowerMessage.includes('hack') ? 'hacking' : 'cybersecurity';
+        
+        const definitions = {
+          phishing: "Phishing is a social engineering attack where attackers trick you into revealing sensitive information by pretending to be trusted entities. They often use fake emails, messages, or websites. To protect yourself: verify sender addresses, don't click suspicious links, and never share passwords via email.",
+          malware: "Malware is malicious software designed to damage, disrupt, or gain unauthorized access to your systems. Types include viruses, trojans, ransomware, and spyware. Protection: use antivirus software, keep systems updated, avoid suspicious downloads, and use strong passwords.",
+          hacking: "Hacking is unauthorized access to computer systems or networks. While some hackers have good intentions (ethical hackers), malicious hackers steal data, disrupt services, or cause damage. We help you prevent hacks through penetration testing and security improvements.",
+          cybersecurity: "Cybersecurity is the practice of protecting digital systems from attacks. It includes technology (firewalls, encryption), processes (policies, training), and people (awareness). A strong security posture requires all three elements."
+        };
+        
+        return definitions[topic] || "Cybersecurity is about protecting your digital assets from threats. At Manlung, we help businesses identify vulnerabilities and build comprehensive protection strategies. Would you like a detailed consultation?";
+      }
+      
+      // Thank you/appreciation
+      if (lowerMessage.match(/(thank|thanks|appreciate|thx)/)) {
+        return "You're welcome! I'm here to help anytime. If you have more questions about our services or anything else, just ask! 😊";
+      }
+      
+      // Help request
+      if (lowerMessage.match(/(help|assist|support|aid|question)/)) {
+        return "I'm here to help! I can answer questions about:\n\n✅ Our cybersecurity services and capabilities\n✅ Cyber café offerings (printing, scanning, etc.)\n✅ KRA and government services\n✅ Software development and tech solutions\n✅ Pricing, hours, and contact information\n✅ General cybersecurity topics\n\nWhat would you like to know?";
+      }
+      
+      // Fallback: ChatGPT-like general response
+      const generalResponses = [
+        "That's an interesting question! While I'm specifically trained to help with Manlung Tech City's services, I can offer some perspective. For more detailed information on this topic or how it relates to our services, feel free to contact our team directly.",
+        "I appreciate your curiosity! To give you the best answer, it might help to know if this relates to cybersecurity, our services, or just general information. What's your specific interest?",
+        "That's a great question! Based on what you're asking, you might want to explore our cybersecurity consulting services where our experts can dive deeper into topics like this.",
+        "I'm designed primarily to help with Manlung Tech City's services and cybersecurity-related topics. For broader questions, I can provide general knowledge, but for specialized advice, our experts are available!"
+      ];
+      
+      return generalResponses[Math.floor(Math.random() * generalResponses.length)];
+    }
+
+    // ========== CHAT MEMORY SYSTEM ==========
+    const CHAT_STORAGE_KEY = 'manlung_chat_history';
+    let chatHistory = [];
+
+    function saveChatHistory() {
+      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatHistory));
+    }
+
+    function loadChatHistory() {
+      const saved = localStorage.getItem(CHAT_STORAGE_KEY);
+      if (saved) {
+        try {
+          chatHistory = JSON.parse(saved);
+          // Reload messages to UI
+          chatHistory.forEach(msg => {
+            const chatMessages = document.getElementById('aiChatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = `ai-message ${msg.isUser ? 'ai-user-message' : 'ai-bot-message'}`;
+            messageElement.innerHTML = msg.text.replace(/\n/g, '<br>');
+            chatMessages.appendChild(messageElement);
+          });
+          document.getElementById('aiChatMessages').scrollTop = document.getElementById('aiChatMessages').scrollHeight;
+        } catch (e) {
+          console.error('Error loading chat history:', e);
+        }
+      }
     }
 
     function addMessageToChat(message, isUser = false) {
       const chatMessages = document.getElementById('aiChatMessages');
       const messageElement = document.createElement('div');
       messageElement.className = `ai-message ${isUser ? 'ai-user-message' : 'ai-bot-message'}`;
-      messageElement.textContent = message;
+      messageElement.innerHTML = message.replace(/\n/g, '<br>');
       chatMessages.appendChild(messageElement);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      // Save to memory
+      chatHistory.push({ text: message, isUser: isUser, timestamp: new Date().toISOString() });
+      saveChatHistory();
+    }
+
+    function clearChatHistory() {
+      chatHistory = [];
+      localStorage.removeItem(CHAT_STORAGE_KEY);
+      document.getElementById('aiChatMessages').innerHTML = '';
+      addMessageToChat('Chat history cleared. Let\'s start fresh! How can I help you?', false);
+    }
+
+    // ========== GOOGLE CUSTOM SEARCH API ==========
+    // TO USE THIS: Get your keys from https://console.cloud.google.com/
+    // 1. Create Google Custom Search Engine at https://programmablesearchengine.google.com/
+    // 2. Copy your Search Engine ID (CX)
+    // 3. Enable Custom Search API and get your API Key
+    // 4. Use the configuration panel below or replace here
+    
+    let GOOGLE_API_KEY = localStorage.getItem('google_api_key') || 'YOUR_GOOGLE_API_KEY_HERE';
+    let GOOGLE_SEARCH_ENGINE_ID = localStorage.getItem('google_search_engine_id') || 'YOUR_SEARCH_ENGINE_ID_HERE';
+    
+    function saveGoogleApiKeys() {
+      const apiKey = document.getElementById('googleApiKey').value.trim();
+      const searchEngineId = document.getElementById('googleSearchEngineId').value.trim();
+      
+      if (!apiKey || !searchEngineId) {
+        alert('Please enter both API Key and Search Engine ID');
+        return;
+      }
+      
+      localStorage.setItem('google_api_key', apiKey);
+      localStorage.setItem('google_search_engine_id', searchEngineId);
+      
+      GOOGLE_API_KEY = apiKey;
+      GOOGLE_SEARCH_ENGINE_ID = searchEngineId;
+      
+      // Clear input fields
+      document.getElementById('googleApiKey').value = '';
+      document.getElementById('googleSearchEngineId').value = '';
+      
+      showNotification('✅ Google API keys saved! Web search is now enabled.', 'success');
+    }
+    
+    // Load saved API keys on page load
+    window.addEventListener('load', function() {
+      const savedApiKey = localStorage.getItem('google_api_key');
+      const savedSearchId = localStorage.getItem('google_search_engine_id');
+      if (savedApiKey && savedApiKey !== 'YOUR_GOOGLE_API_KEY_HERE') {
+        GOOGLE_API_KEY = savedApiKey;
+      }
+      if (savedSearchId && savedSearchId !== 'YOUR_SEARCH_ENGINE_ID_HERE') {
+        GOOGLE_SEARCH_ENGINE_ID = savedSearchId;
+      }
+    });
+    
+    async function searchGoogle(query) {
+      if (GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE' || GOOGLE_SEARCH_ENGINE_ID === 'YOUR_SEARCH_ENGINE_ID_HERE') {
+        return null; // API keys not configured
+      }
+      
+      try {
+        const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${GOOGLE_API_KEY}&cx=${GOOGLE_SEARCH_ENGINE_ID}&num=3`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.items && data.items.length > 0) {
+          let results = '📚 Here\'s what I found online:\n\n';
+          data.items.forEach((item, index) => {
+            results += `${index + 1}. **${item.title}**\n${item.snippet}\n🔗 [Read more](${item.link})\n\n`;
+          });
+          return results;
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+      }
+      return null;
+    }
+
+    // Fallback Wikipedia search
+    async function searchWikipedia(query) {
+      try {
+        const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&titles=${encodeURIComponent(query)}&redirects=1&origin=*`;
+        const response = await fetch(url);
+        const data = await response.json();
+        const pages = data.query.pages;
+        const pageId = Object.keys(pages)[0];
+        
+        if (pageId !== '-1' && pages[pageId].extract) {
+          const text = pages[pageId].extract.split('<p>')[1]?.split('</p>')[0]?.replace(/<[^>]*>/g, '') || pages[pageId].extract;
+          return `📖 **From Wikipedia:**\n${text.substring(0, 500)}...\n\n🔗 [Read full article](https://en.wikipedia.org/wiki/${query.replace(/ /g, '_')})`;
+        }
+      } catch (error) {
+        console.error('Wikipedia search error:', error);
+      }
+      return null;
     }
 
     function showTypingIndicator() {
@@ -1504,7 +1834,7 @@
       document.getElementById('aiTypingIndicator').style.display = 'none';
     }
 
-    function sendMessage() {
+    async function sendMessage() {
       const input = document.getElementById('aiInput');
       const message = input.value.trim();
       
@@ -1519,18 +1849,39 @@
       // Show typing indicator
       showTypingIndicator();
       
-      // Simulate AI thinking and response
-      setTimeout(() => {
+      // Get response (with possible web search)
+      setTimeout(async () => {
+        let response = getAIResponse(message);
+        
+        // If no specific response found, try web search
+        if (response.includes('I\'m designed primarily') || response.includes('That\'s an interesting question') || response.includes('I appreciate your curiosity')) {
+          // Show that we're searching
+          hideTypingIndicator();
+          addMessageToChat('🔍 Searching the web for more information...', false);
+          showTypingIndicator();
+          
+          // Try Google API search first, then Wikipedia fallback
+          const googleResult = await searchGoogle(message);
+          const finalResult = googleResult || await searchWikipedia(message);
+          response = finalResult || response;
+        }
+        
         hideTypingIndicator();
-        const response = getAIResponse(message);
         addMessageToChat(response);
-      }, 1000 + Math.random() * 1000);
+      }, 800 + Math.random() * 700);
     }
 
     function insertExample(text) {
       document.getElementById('aiInput').value = text;
       document.getElementById('aiInput').focus();
     }
+    
+    // Load chat history on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        loadChatHistory();
+      }, 500);
+    });
 
     // ========== NOTIFICATION SYSTEM ==========
     function showNotification(message, type = 'info') {
@@ -2280,4 +2631,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <!-- ======= RATING SYSTEM - COPY TO HERE ======= -->
+
 
