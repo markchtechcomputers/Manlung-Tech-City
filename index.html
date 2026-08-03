@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Manlung Tech City | Cyber Hub & Tech Support</title>
-    <meta name="description" content="Manlung Tech City: Cyber security, tech support, system logs, binary monitoring, and secure Paystack payments.">
+    <title>Manlung Tech City | Advanced Cyber Hub</title>
+    <meta name="description" content="Manlung Tech City: Advanced cyber security, malware simulation, real-time hacking logs, and secure Paystack payments.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -22,6 +22,8 @@
             --text-light: #e6f2f0;
             --danger: #ff6b5a;
             --gold: #f5c542;
+            --cyan: #5ac8fa;
+            --purple: #b06aff;
         }
         body {
             background: var(--dark);
@@ -51,18 +53,13 @@
         }
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.8rem;
         }
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 1.5rem;
-        }
-        .grid-5 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
         }
 
         /* HEADER */
@@ -107,8 +104,13 @@
             border-bottom: 2px solid transparent;
             padding-bottom: 3px;
             cursor: pointer;
+            position: relative;
         }
         nav a:hover {
+            color: var(--neon);
+            border-bottom-color: var(--neon);
+        }
+        nav a.active {
             color: var(--neon);
             border-bottom-color: var(--neon);
         }
@@ -139,6 +141,12 @@
             transform: scale(1.03);
             box-shadow: 0 0 40px rgba(13, 240, 122, 0.25);
         }
+        .btn-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--neon);
@@ -153,6 +161,11 @@
         .btn-outline:hover {
             background: rgba(13, 240, 122, 0.08);
         }
+        .btn-outline:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
         .card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -162,12 +175,24 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        .card.clickable {
             cursor: pointer;
         }
-        .card:hover {
+        .card.clickable:hover {
             transform: translateY(-6px);
             border-color: var(--neon);
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+        }
+        .card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+        }
+        .card.disabled:hover {
+            transform: none;
+            border-color: var(--border-dim);
+            box-shadow: none;
         }
         .badge {
             background: #1a3a2e;
@@ -178,13 +203,20 @@
             border-radius: 30px;
             display: inline-block;
         }
+        .badge-out {
+            background: #3a1a1a;
+            color: #ff6b5a;
+        }
         .price {
             font-size: 1.4rem;
             font-weight: 700;
             color: #e0f0e8;
         }
+        .price-out {
+            color: #6a6a6a;
+        }
 
-        /* HERO with BINARY & LOGS - FAST SCROLLING */
+        /* HERO with ADVANCED LOGS */
         .hero {
             padding: 3rem 0 2.5rem 0;
             background: radial-gradient(ellipse at 60% 10%, #0f2828, var(--dark) 85%);
@@ -214,7 +246,7 @@
             max-width: 540px;
         }
 
-        /* FAST BINARY & SYSTEM LOGS */
+        /* ADVANCED BINARY & HACKING LOGS */
         .binary-container {
             background: #0a141c;
             border-radius: 20px;
@@ -223,7 +255,7 @@
             font-family: 'Courier New', monospace;
             overflow: hidden;
             position: relative;
-            height: 340px;
+            height: 380px;
         }
         .binary-rain {
             position: absolute;
@@ -232,13 +264,13 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.25;
-            font-size: 0.65rem;
+            opacity: 0.15;
+            font-size: 0.6rem;
             color: var(--neon);
             overflow: hidden;
             white-space: pre;
             line-height: 1.1;
-            animation: binaryScroll 0.8s linear infinite;
+            animation: binaryScroll 0.6s linear infinite;
         }
         @keyframes binaryScroll {
             0% { transform: translateY(0); }
@@ -251,39 +283,45 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 0.15rem;
+            gap: 0.1rem;
             padding: 0.2rem 0.5rem;
         }
         .log-entry {
             font-family: 'Courier New', monospace;
             font-size: 0.7rem;
             color: #9ac8c0;
-            animation: logFade 0.15s ease-in;
+            animation: logFade 0.12s ease-in;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             flex-shrink: 0;
+            padding: 0.05rem 0;
         }
-        .log-entry .highlight { color: var(--neon); }
-        .log-entry .error { color: #ff6b5a; }
+        .log-entry .highlight { color: var(--neon); font-weight: bold; }
+        .log-entry .error { color: #ff6b5a; font-weight: bold; }
         .log-entry .info { color: #5ac8fa; }
         .log-entry .warn { color: #f5c542; }
+        .log-entry .purple { color: #b06aff; }
+        .log-entry .percent { color: var(--neon); font-weight: bold; }
+        .log-entry .success { color: var(--neon); }
         @keyframes logFade {
-            from { opacity: 0; transform: translateX(-8px); }
+            from { opacity: 0; transform: translateX(-5px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* SECTION HIDING - Home is visible, others hidden until clicked */
+        /* PAGE SECTIONS - all hidden by default, shown via JS */
         .page-section {
             padding: 3rem 0;
             border-bottom: 1px solid var(--border-dim);
             display: none;
+            animation: fadeIn 0.5s ease;
         }
         .page-section.active {
             display: block;
         }
-        #home-section {
-            display: block;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .page-section h2 {
             color: var(--neon);
@@ -382,7 +420,6 @@
             box-shadow: 0 0 50px rgba(13, 240, 122, 0.5);
         }
 
-        /* AI CHAT WIDGET */
         .ai-widget {
             position: fixed;
             bottom: 6rem;
@@ -516,8 +553,7 @@
         }
         @media (max-width: 480px) {
             .grid-3,
-            .grid-4,
-            .grid-5 {
+            .grid-4 {
                 grid-template-columns: 1fr;
             }
             .btn-primary,
@@ -541,27 +577,27 @@
         <div class="container header-flex">
             <div class="logo">Manlung <span>Tech City</span></div>
             <nav>
-                <a onclick="showSection('home-section')">Home</a>
-                <a onclick="showSection('tools-section')">Tools</a>
-                <a onclick="showSection('eservices-section')">E-Services</a>
-                <a onclick="showSection('courses-section')">Courses</a>
-                <a onclick="showSection('about-section')">About</a>
-                <a onclick="showSection('terms-section')">Terms</a>
+                <a class="active" onclick="showSection('home-section', this)">Home</a>
+                <a onclick="showSection('tools-section', this)">Tools</a>
+                <a onclick="showSection('eservices-section', this)">E-Services</a>
+                <a onclick="showSection('courses-section', this)">Courses</a>
+                <a onclick="showSection('about-section', this)">About</a>
+                <a onclick="showSection('terms-section', this)">Terms</a>
                 <span class="currency-badge" id="currencyDisplay"><i class="fas fa-globe"></i> KES</span>
                 <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-outline" style="padding:0.2rem 1.2rem; font-size:0.8rem;">Store</a>
             </nav>
         </div>
     </header>
 
-    <!-- ===== HOME SECTION (visible by default) ===== -->
+    <!-- ===== HOME SECTION ===== -->
     <section class="hero page-section active" id="home-section">
         <div class="container hero-grid">
             <div>
-                <h1>Tech Support <span>&amp;</span> Cyber <span>Security</span> Hub</h1>
-                <p>Real-time system monitoring, binary analysis, and enterprise-grade tools. Secure payments via Paystack.</p>
+                <h1>Advanced <span>Cyber</span> Security <span>Hub</span></h1>
+                <p>Real-time malware simulation, hacking logs, system monitoring, and enterprise-grade tools. Secure payments via Paystack.</p>
                 <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                    <a onclick="showSection('tools-section')" class="btn-primary"><i class="fas fa-shield-alt"></i> Explore Tools</a>
-                    <a onclick="showSection('eservices-section')" class="btn-outline"><i class="fas fa-id-card"></i> E-Services</a>
+                    <a onclick="showSection('tools-section', document.querySelector('nav a[onclick*="tools-section"]'))" class="btn-primary"><i class="fas fa-shield-alt"></i> Explore Tools</a>
+                    <a onclick="showSection('eservices-section', document.querySelector('nav a[onclick*="eservices-section"]'))" class="btn-outline"><i class="fas fa-id-card"></i> E-Services</a>
                 </div>
                 <div class="stats-mini" style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:1.2rem;">
                     <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
@@ -578,7 +614,7 @@
             <div class="binary-container">
                 <div class="binary-rain" id="binaryRain"></div>
                 <div class="system-logs" id="systemLogs">
-                    <!-- Logs rendered by JS -->
+                    <!-- Logs rendered by JS with malware/hacking simulation -->
                 </div>
             </div>
         </div>
@@ -588,7 +624,7 @@
     <section id="tools-section" class="page-section" style="padding:3rem 0 2rem 0;">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-tools" style="margin-right:10px;"></i> Cyber Tools</h2>
-            <p class="section-sub">Click any tool to purchase securely via Paystack.</p>
+            <p class="section-sub">Click any tool to purchase securely via Paystack. Out of stock items are disabled.</p>
             <div class="grid-4" id="toolsGrid"></div>
             <div style="text-align:center; margin-top:2rem;">
                 <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-primary"><i class="fas fa-store"></i> Full Store</a>
@@ -600,7 +636,7 @@
     <section id="eservices-section" class="page-section" style="padding:3rem 0; background:#0b141a;">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
-            <p class="section-sub">KRA, eCitizen, E-Certificates, Passport, Good Conduct, and more. Click to request service.</p>
+            <p class="section-sub">Passport, Good Conduct, KRA, eCitizen, E-Certificates, and more. Click to request service.</p>
             <div class="grid-3" id="eservicesGrid"></div>
         </div>
     </section>
@@ -618,7 +654,7 @@
     <section id="about-section" class="page-section">
         <div class="container">
             <h2>About Manlung Tech City</h2>
-            <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya. We provide enterprise-grade security tools, government e-service assistance (KRA, eCitizen, E-Certificates, Passport, Good Conduct), and professional training courses. Our mission is to make cyber security accessible, affordable, and effective for individuals, businesses, and government agencies.</p>
+            <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya. We provide enterprise-grade security tools, government e-service assistance (Passport, Good Conduct, KRA, eCitizen, E-Certificates), and professional training courses. Our mission is to make cyber security accessible, affordable, and effective for individuals, businesses, and government agencies.</p>
             <p style="margin-top:1rem;">We are ISO 27001 compliant and adhere to Kenya's Data Protection Act. All transactions are secured via Paystack with PCI-DSS compliance.</p>
             <p style="margin-top:1rem;">Our team of certified professionals offers 24/7 tech support, system monitoring, and incident response. We combine cutting-edge technology with human expertise to protect your digital assets.</p>
         </div>
@@ -630,7 +666,7 @@
             <h2>Terms of Service &amp; Policies</h2>
             <p><strong>1. Acceptance of Terms:</strong> By using our services, you agree to these terms.</p>
             <p><strong>2. Tools &amp; Courses:</strong> All tools are for educational and authorized security testing only. Unauthorized use is prohibited.</p>
-            <p><strong>3. Payments:</strong> All payments are processed via Paystack. Currency is automatically detected based on your location (KES, USD, EUR, GBP).</p>
+            <p><strong>3. Payments:</strong> All payments are processed via Paystack. Currency is automatically detected based on your location.</p>
             <p><strong>4. Refund Policy:</strong> Digital products (tools) are non-refundable. Courses may be refunded within 7 days if no modules accessed.</p>
             <p><strong>5. Privacy:</strong> We collect minimal data for transaction processing. We do not share your data with third parties.</p>
             <p><strong>6. Liability:</strong> Manlung Tech City is not liable for misuse of tools. Users must comply with local laws.</p>
@@ -647,12 +683,12 @@
                 <p style="margin-top:0.2rem; font-size:0.9rem; color:var(--text-muted);">Cyber Hub · Tools · E-Services · Training</p>
             </div>
             <div style="display:flex; gap:1.4rem; flex-wrap:wrap;">
-                <a onclick="showSection('home-section')">Home</a>
-                <a onclick="showSection('tools-section')">Tools</a>
-                <a onclick="showSection('eservices-section')">E-Services</a>
-                <a onclick="showSection('courses-section')">Courses</a>
-                <a onclick="showSection('about-section')">About</a>
-                <a onclick="showSection('terms-section')">Terms</a>
+                <a onclick="showSection('home-section', this)">Home</a>
+                <a onclick="showSection('tools-section', this)">Tools</a>
+                <a onclick="showSection('eservices-section', this)">E-Services</a>
+                <a onclick="showSection('courses-section', this)">Courses</a>
+                <a onclick="showSection('about-section', this)">About</a>
+                <a onclick="showSection('terms-section', this)">Terms</a>
             </div>
             <div style="color:var(--text-muted); font-size:0.85rem;">
                 Paybill: <strong style="color:var(--neon);">522522</strong> Acc: <strong style="color:var(--neon);">1336980125</strong>
@@ -664,12 +700,12 @@
         </div>
     </footer>
 
-    <!-- ===== AI FLOATING ICON ===== -->
+    <!-- AI FLOATING ICON -->
     <button class="ai-float" id="aiFloatBtn" title="AI Assistant">
         <i class="fas fa-robot"></i>
     </button>
 
-    <!-- ===== AI CHAT WIDGET ===== -->
+    <!-- AI CHAT WIDGET -->
     <div class="ai-widget" id="aiWidget">
         <div class="ai-header" id="aiToggle">
             <span><i class="fas fa-robot" style="color:var(--neon);"></i> Manlung AI</span>
@@ -684,7 +720,7 @@
         </div>
     </div>
 
-    <!-- ===== PAYSTACK MODAL ===== -->
+    <!-- PAYSTACK MODAL -->
     <div class="modal-overlay" id="serviceModal">
         <div class="modal-box">
             <button class="close-btn" id="modalClose">&times;</button>
@@ -725,78 +761,143 @@
 
     <script>
         // ============================
-        //  SECTION TOGGLE
+        //  SECTION TOGGLE - shows clicked section, hides others
         // ============================
-        function showSection(id) {
+        function showSection(id, navElement) {
+            // Hide all sections
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+
+            // Show the target section
             const target = document.getElementById(id);
             if (target) target.classList.add('active');
+
+            // Update nav active state
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            if (navElement) {
+                navElement.classList.add('active');
+            } else {
+                // Fallback: find nav link by onclick attribute
+                document.querySelectorAll('nav a').forEach(a => {
+                    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
+                        a.classList.add('active');
+                    }
+                });
+            }
+
+            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ============================
-        //  FAST SYSTEM LOGS (ULTRA FAST)
+        //  ADVANCED HACKING/MALWARE LOGS
         // ============================
-        (function fastLogs() {
+        (function advancedLogs() {
             const logContainer = document.getElementById('systemLogs');
-            const logMessages = [
-                '[INFO] System memory: 8.2GB free',
-                '[OK] All services running',
-                '[LOG] User session: admin@10.0.0.1',
-                '[INFO] IDS signature update applied',
-                '[OK] Backup completed successfully',
-                '[LOG] Real-time monitoring active',
-                '[INFO] CPU utilization: 42%',
-                '[OK] Network latency: 12ms',
-                '[LOG] Firewall rules updated',
-                '[WARN] Brute force attempt blocked',
-                '[INFO] System memory: 8.2GB free',
-                '[OK] All services running',
-                '[LOG] User session: admin@10.0.0.1',
-                '[INFO] IDS signature update applied',
-                '[OK] Backup completed successfully',
-                '[LOG] Real-time monitoring active',
-                '[INFO] CPU utilization: 42%',
-                '[OK] Network latency: 12ms',
-                '[LOG] Firewall rules updated',
-                '[WARN] Brute force attempt blocked',
-                '[INFO] System memory: 8.2GB free',
-                '[OK] All services running',
-                '[LOG] User session: admin@10.0.0.1',
-                '[INFO] IDS signature update applied',
-                '[OK] Backup completed successfully',
-                '[LOG] Real-time monitoring active',
-                '[INFO] CPU utilization: 42%',
-                '[OK] Network latency: 12ms',
-                '[LOG] Firewall rules updated',
-                '[WARN] Brute force attempt blocked'
+
+            // Extended log messages with malware, hacking, scanning, percentages
+            const logPool = [
+                { type: 'info', msg: '[INFO] System memory: 8.2GB free' },
+                { type: 'success', msg: '[OK] All services running' },
+                { type: 'info', msg: '[LOG] User session: admin@10.0.0.1' },
+                { type: 'info', msg: '[INFO] IDS signature update applied' },
+                { type: 'success', msg: '[OK] Backup completed successfully' },
+                { type: 'info', msg: '[LOG] Real-time monitoring active' },
+                { type: 'info', msg: '[INFO] CPU utilization: 42%' },
+                { type: 'success', msg: '[OK] Network latency: 12ms' },
+                { type: 'info', msg: '[LOG] Firewall rules updated' },
+                { type: 'warn', msg: '[WARN] Brute force attempt blocked' },
+                { type: 'error', msg: '[ALERT] Malware signature detected: Trojan.Hydra' },
+                { type: 'warn', msg: '[WARN] Port 445 scanning in progress 23%' },
+                { type: 'info', msg: '[INFO] Analyzing packet capture 56%' },
+                { type: 'success', msg: '[OK] Threat neutralized 100%' },
+                { type: 'error', msg: '[ALERT] Ransomware payload detected 12%' },
+                { type: 'purple', msg: '[HACK] Injecting reverse shell 34%' },
+                { type: 'purple', msg: '[HACK] Privilege escalation 67%' },
+                { type: 'purple', msg: '[HACK] Root access acquired 89%' },
+                { type: 'success', msg: '[OK] Exploit completed 100%' },
+                { type: 'info', msg: '[INFO] System hardening applied' },
+                { type: 'warn', msg: '[WARN] Suspicious outbound traffic 45%' },
+                { type: 'error', msg: '[ALERT] DDoS attack detected 67%' },
+                { type: 'success', msg: '[OK] Attack mitigated 100%' },
+                { type: 'purple', msg: '[HACK] Data exfiltration 78%' },
+                { type: 'purple', msg: '[HACK] Database dump 92%' },
+                { type: 'success', msg: '[OK] Exfiltration complete 100%' },
+                { type: 'info', msg: '[INFO] Log rotation completed' },
+                { type: 'warn', msg: '[WARN] Failed login attempts 3' },
+                { type: 'error', msg: '[ALERT] Zero-day exploit detected 41%' },
+                { type: 'success', msg: '[OK] Patch applied 100%' },
+                { type: 'purple', msg: '[HACK] Credential harvesting 56%' },
+                { type: 'purple', msg: '[HACK] Session hijacking 73%' },
+                { type: 'success', msg: '[OK] Session secured 100%' },
+                { type: 'info', msg: '[INFO] System memory: 8.2GB free' },
+                { type: 'success', msg: '[OK] All services running' },
+                { type: 'info', msg: '[LOG] User session: admin@10.0.0.1' },
+                { type: 'info', msg: '[INFO] IDS signature update applied' },
+                { type: 'success', msg: '[OK] Backup completed successfully' },
+                { type: 'info', msg: '[LOG] Real-time monitoring active' },
+                { type: 'info', msg: '[INFO] CPU utilization: 42%' },
+                { type: 'success', msg: '[OK] Network latency: 12ms' },
+                { type: 'info', msg: '[LOG] Firewall rules updated' },
+                { type: 'warn', msg: '[WARN] Brute force attempt blocked' },
             ];
+
             let index = 0;
+
+            function getRandomLog() {
+                const log = logPool[index % logPool.length];
+                index++;
+                return log;
+            }
 
             function addLog() {
                 const entry = document.createElement('div');
                 entry.className = 'log-entry';
-                let msg = logMessages[index % logMessages.length];
-                if (msg.includes('WARN')) {
-                    msg = msg.replace('WARN', '<span class="warn">WARN</span>');
-                } else if (msg.includes('OK')) {
-                    msg = msg.replace('OK', '<span class="highlight">OK</span>');
-                } else if (msg.includes('INFO')) {
-                    msg = msg.replace('INFO', '<span class="info">INFO</span>');
+                const log = getRandomLog();
+                let msg = log.msg;
+
+                // Add percentage simulation for hacking/malware events
+                if (msg.includes('HACK') || msg.includes('injecting') || msg.includes('exploit') || msg.includes(
+                        'exfiltration') || msg.includes('harvesting') || msg.includes('hijacking')) {
+                    // Already has percentage
+                } else if (msg.includes('malware') || msg.includes('ransomware')) {
+                    const pct = Math.floor(Math.random() * 30) + 10;
+                    msg = msg.replace('detected', `detected ${pct}%`);
+                } else if (msg.includes('scanning') || msg.includes('Attack')) {
+                    const pct = Math.floor(Math.random() * 40) + 20;
+                    msg = msg.replace('in progress', `in progress ${pct}%`);
+                } else if (msg.includes('DDoS')) {
+                    const pct = Math.floor(Math.random() * 30) + 50;
+                    msg = msg.replace('detected', `detected ${pct}%`);
                 }
+
+                // Color coding
+                if (log.type === 'error') {
+                    msg = msg.replace('ALERT', '<span class="error">ALERT</span>');
+                } else if (log.type === 'warn') {
+                    msg = msg.replace('WARN', '<span class="warn">WARN</span>');
+                } else if (log.type === 'success') {
+                    msg = msg.replace('OK', '<span class="highlight">OK</span>');
+                    msg = msg.replace(/(\d+)%/, '<span class="percent">$1%</span>');
+                } else if (log.type === 'purple') {
+                    msg = msg.replace('HACK', '<span class="purple">HACK</span>');
+                    msg = msg.replace(/(\d+)%/, '<span class="percent">$1%</span>');
+                } else {
+                    msg = msg.replace('INFO', '<span class="info">INFO</span>');
+                    msg = msg.replace('LOG', '<span class="info">LOG</span>');
+                }
+
                 entry.innerHTML = msg;
                 logContainer.appendChild(entry);
-                if (logContainer.children.length > 25) {
+                if (logContainer.children.length > 30) {
                     logContainer.removeChild(logContainer.children[0]);
                 }
                 logContainer.scrollTop = logContainer.scrollHeight;
-                index++;
             }
 
-            // Initial fill
+            // Initial fill with 20 logs
             for (let i = 0; i < 20; i++) addLog();
-            // Ultra fast update every 150ms
-            setInterval(addLog, 120);
+            // Ultra fast update every 100ms
+            setInterval(addLog, 100);
         })();
 
         // ============================
@@ -806,9 +907,9 @@
             const container = document.getElementById('binaryRain');
             const chars = '01';
             let lines = '';
-            for (let i = 0; i < 300; i++) {
+            for (let i = 0; i < 400; i++) {
                 let line = '';
-                for (let j = 0; j < 80; j++) {
+                for (let j = 0; j < 90; j++) {
                     line += chars[Math.floor(Math.random() * chars.length)] + ' ';
                 }
                 lines += line + '\n';
@@ -817,25 +918,18 @@
         })();
 
         // ============================
-        //  DATA
+        //  DATA with stock status
         // ============================
         const tools = [
-            { name: "Crimson Hat", desc: "iOS kernel exploit · basic jailbreak", price: 7000, stock: "Out of Stock",
-                badge: "🔥 Hot" },
-            { name: "Azure Disk", desc: "Advanced recovery & root access", price: 9000, stock: "In Stock · 6 left",
-                badge: "⭐ Featured" },
-            { name: "Obsidian Core", desc: "Full iCloud bypass · signature", price: 10000, stock: "In Stock · 3 left",
-                badge: "⚡ Best Seller" },
-            { name: "Pearl iOS", desc: "Ultimate · untethered + forensics", price: 24000, stock: "In Stock · 4 left",
-                badge: "🔥 Hot" },
-            { name: "Wireshark", desc: "Network protocol analyzer · deep inspection", price: 4500,
-                stock: "In Stock · 12 left", badge: "🔍 Network" },
-            { name: "Wazuh", desc: "Open source SIEM · XDR platform", price: 5500, stock: "In Stock · 9 left",
-                badge: "📊 SIEM" },
-            { name: "Suricata", desc: "IDS/IPS · high performance engine", price: 5200, stock: "In Stock · 6 left",
-                badge: "🛡️ IDS/IPS" },
-            { name: "Nmap", desc: "Network discovery · security scanner", price: 2700, stock: "In Stock · 15 left",
-                badge: "📡 Scanner" },
+            { name: "Crimson Hat", desc: "iOS kernel exploit · basic jailbreak", price: 7000, stock: 0, badge: "🔥 Hot" },
+            { name: "Azure Disk", desc: "Advanced recovery & root access", price: 9000, stock: 6, badge: "⭐ Featured" },
+            { name: "Obsidian Core", desc: "Full iCloud bypass · signature", price: 10000, stock: 3, badge: "⚡ Best Seller" },
+            { name: "Pearl iOS", desc: "Ultimate · untethered + forensics", price: 24000, stock: 4, badge: "🔥 Hot" },
+            { name: "Wireshark", desc: "Network protocol analyzer · deep inspection", price: 4500, stock: 12,
+                badge: "🔍 Network" },
+            { name: "Wazuh", desc: "Open source SIEM · XDR platform", price: 5500, stock: 9, badge: "📊 SIEM" },
+            { name: "Suricata", desc: "IDS/IPS · high performance engine", price: 5200, stock: 6, badge: "🛡️ IDS/IPS" },
+            { name: "Nmap", desc: "Network discovery · security scanner", price: 2700, stock: 15, badge: "📡 Scanner" },
         ];
 
         const eservices = [
@@ -859,29 +953,31 @@
         ];
 
         // ============================
-        //  RENDER
+        //  RENDER with stock awareness
         // ============================
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
-            grid.innerHTML = tools.map(t => `
-                <div class="card" onclick="openPayment('${t.name}', ${t.price}, 'Tool')">
+            grid.innerHTML = tools.map(t => {
+                const inStock = t.stock > 0;
+                return `
+                <div class="card clickable ${inStock ? '' : 'disabled'}" onclick="${inStock ? `openPayment('${t.name}', ${t.price}, 'Tool')` : ''}">
                     <div style="display:flex; justify-content:space-between; align-items:start;">
-                        <span class="badge">${t.badge}</span>
-                        <span style="font-size:0.7rem; color:var(--text-muted);">${t.stock}</span>
+                        <span class="badge ${inStock ? '' : 'badge-out'}">${inStock ? t.badge : 'Out of Stock'}</span>
+                        <span style="font-size:0.7rem; color:var(--text-muted);">${inStock ? t.stock + ' left' : 'Unavailable'}</span>
                     </div>
                     <h3 style="margin:0.4rem 0 0.2rem 0;">${t.name}</h3>
                     <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${t.desc}</p>
                     <div style="margin-top:0.6rem;">
-                        <span class="price">KSH ${t.price.toLocaleString()}</span>
+                        <span class="price ${inStock ? '' : 'price-out'}">${inStock ? 'KSH ' + t.price.toLocaleString() : 'SOLD OUT'}</span>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function renderEservices() {
             const grid = document.getElementById('eservicesGrid');
             grid.innerHTML = eservices.map(s => `
-                <div class="card" onclick="openPayment('${s.name}', 0, 'E-Service')">
+                <div class="card clickable" onclick="openPayment('${s.name}', 0, 'E-Service')">
                     <div style="font-size:2.2rem; color:var(--neon); margin-bottom:0.4rem;">
                         <i class="fas ${s.icon}"></i>
                     </div>
@@ -895,7 +991,7 @@
         function renderCourses() {
             const grid = document.getElementById('coursesGrid');
             grid.innerHTML = courses.map(c => `
-                <div class="card" onclick="openPayment('${c.name}', ${c.price}, 'Course')">
+                <div class="card clickable" onclick="openPayment('${c.name}', ${c.price}, 'Course')">
                     <span class="badge" style="background:#1a3a2a;">${c.desc.split('·')[0].trim()}</span>
                     <h3 style="margin:0.4rem 0 0.2rem 0;">${c.name}</h3>
                     <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${c.desc}</p>
@@ -960,7 +1056,6 @@
                 callback: function(response) {
                     alert('✅ Payment successful! Reference: ' + response.reference);
                     document.getElementById('serviceModal').classList.remove('active');
-                    // Optionally redirect or show success page
                 },
                 onClose: function() {
                     alert('❌ Payment window closed. You can try again.');
@@ -1001,19 +1096,18 @@
             aiWidget.classList.remove('open');
         });
 
-        // Full site knowledge base
         const siteKnowledge = {
-            'tools': 'We offer 13 cybersecurity tools: Crimson Hat (KSH 7,000), Azure Disk (KSH 9,000), Obsidian Core (KSH 10,000), Pearl iOS (KSH 24,000), Wireshark (KSH 4,500), Wazuh (KSH 5,500), Suricata (KSH 5,200), Nmap (KSH 2,700). Click "Tools" to see all and purchase.',
+            'tools': 'We offer 13 cybersecurity tools: Crimson Hat (KSH 7,000) - Out of Stock, Azure Disk (KSH 9,000), Obsidian Core (KSH 10,000), Pearl iOS (KSH 24,000), Wireshark (KSH 4,500), Wazuh (KSH 5,500), Suricata (KSH 5,200), Nmap (KSH 2,700). Click "Tools" to see all and purchase.',
             'courses': 'We have 6 courses: Cyber Security Fundamentals (KSH 12,000), Ethical Hacking (KSH 24,000), SOC Analyst (KSH 38,000), Cloud Security (KSH 30,000), Digital Forensics (KSH 32,000), Cyber Law (KSH 18,000). Click "Courses" to enroll.',
-            'passport': 'We help with Passport applications: new, renewal, and replacement. We guide you through the eCitizen portal and ensure all documents are correctly submitted. Click "E-Services" to request.',
-            'good conduct': 'We assist with Good Conduct Certificate applications (police clearance). We handle the entire process online. Click "E-Services" to request.',
-            'ecitizen': 'We provide eCitizen services: Passport, ID, driver\'s license, birth certificates, marriage certificates, and foreigner registration. Click "E-Services" for assistance.',
-            'kra': 'We offer KRA services: PIN registration, iTax returns, Tax Compliance Certificates (TCC), PAYE, VAT, and withholding tax. Click "E-Services" to request.',
-            'certificate': 'We provide E-Certificates: Birth, Marriage, Business Registration, and Good Conduct. Click "E-Services" for help.',
-            'payment': 'We use Paystack for secure payments. Currency is auto-detected based on your location. Click any tool, course, or service to pay.',
-            'support': 'We offer 24/7 tech support, system monitoring, and incident response. Our team is available via Telegram and email.',
-            'about': 'Manlung Tech City is a cyber security hub in Nairobi, Kenya. We offer tools, e-services, courses, and tech support. We are ISO 27001 compliant.',
-            'terms': 'Our terms include: educational use only for tools, no refunds for digital products, courses refundable within 7 days, and liability limited to misuse.',
+            'passport': 'We help with Passport applications: new, renewal, and replacement. We guide you through the eCitizen portal. Click "E-Services" to request.',
+            'good conduct': 'We assist with Good Conduct Certificate applications (police clearance). Click "E-Services" to request.',
+            'ecitizen': 'We provide eCitizen services: Passport, ID, driver\'s license, birth certificates, marriage certificates. Click "E-Services" for assistance.',
+            'kra': 'We offer KRA services: PIN registration, iTax returns, Tax Compliance Certificates (TCC), PAYE, VAT. Click "E-Services" to request.',
+            'certificate': 'We provide E-Certificates: Birth, Marriage, Business Registration, and Good Conduct.',
+            'payment': 'We use Paystack for secure payments. Currency is auto-detected. Click any tool, course, or service to pay.',
+            'support': 'We offer 24/7 tech support, system monitoring, and incident response. Available via Telegram and email.',
+            'about': 'Manlung Tech City is a cyber security hub in Nairobi, Kenya. We are ISO 27001 compliant.',
+            'terms': 'Our terms: educational use only for tools, no refunds for digital products, courses refundable within 7 days.',
             'default': 'I can help with: Tools (13 available), Courses (6 available), E-Services (Passport, Good Conduct, KRA, eCitizen, Certificates), Payments via Paystack, Tech Support, About Us, and Terms. What do you need?'
         };
 
@@ -1025,18 +1119,16 @@
                 .courses;
             if (q.includes('passport')) return siteKnowledge.passport;
             if (q.includes('good conduct') || q.includes('police') || q.includes('clearance')) return siteKnowledge[
-            'good conduct'];
+                'good conduct'];
             if (q.includes('ecitizen') || q.includes('id') || q.includes('driver')) return siteKnowledge.ecitizen;
             if (q.includes('kra') || q.includes('tax') || q.includes('pin') || q.includes('itax')) return siteKnowledge.kra;
-            if (q.includes('certificate') || q.includes('birth') || q.includes('marriage') || q.includes('business'))
-                return siteKnowledge.certificate;
-            if (q.includes('pay') || q.includes('payment') || q.includes('paystack') || q.includes('cost') || q.includes(
-                'price')) return siteKnowledge.payment;
+            if (q.includes('certificate') || q.includes('birth') || q.includes('marriage')) return siteKnowledge.certificate;
+            if (q.includes('pay') || q.includes('payment') || q.includes('paystack') || q.includes('cost')) return siteKnowledge
+                .payment;
             if (q.includes('support') || q.includes('help') || q.includes('tech') || q.includes('monitor')) return siteKnowledge
                 .support;
-            if (q.includes('about') || q.includes('company') || q.includes('mission')) return siteKnowledge.about;
-            if (q.includes('term') || q.includes('policy') || q.includes('refund') || q.includes('liability')) return siteKnowledge
-                .terms;
+            if (q.includes('about') || q.includes('company')) return siteKnowledge.about;
+            if (q.includes('term') || q.includes('policy') || q.includes('refund')) return siteKnowledge.terms;
             return siteKnowledge.default;
         }
 
@@ -1063,19 +1155,25 @@
         aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAI(); });
 
         // ============================
-        //  INIT
+        //  INIT - Home is active by default
         // ============================
         renderTools();
         renderEservices();
         renderCourses();
+
+        // Ensure Home is active on load
+        document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+        document.getElementById('home-section').classList.add('active');
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        document.querySelector('nav a[onclick*="home-section"]')?.classList.add('active');
 
         // Load Paystack script
         const script = document.createElement('script');
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City loaded successfully!');
-        console.log('AI Assistant ready. Payment via Paystack.');
+        console.log('Manlung Tech City - Advanced Cyber Hub loaded!');
+        console.log('Malware simulation active. Payment via Paystack.');
     </script>
 </body>
 </html>
