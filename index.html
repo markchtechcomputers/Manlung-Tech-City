@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Manlung Tech City | Advanced Cyber Hub</title>
-    <meta name="description" content="Manlung Tech City: Advanced cyber security, malware simulation, real-time hacking logs, and secure Paystack payments.">
+    <title>Manlung Tech City | Cyber Security Hub</title>
+    <meta name="description" content="Manlung Tech City: 30+ cyber security courses, tools, e-services, KRA assistance, and secure Paystack payments.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -380,49 +380,254 @@
             color: var(--neon);
         }
 
-        /* KRA CAREERS */
-        .kra-careers {
+        /* MESSAGING SECTION */
+        .messaging-section {
+            background: rgba(11, 20, 26, 0.6);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid var(--border-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .messaging-section textarea {
+            width: 100%;
+            padding: 1rem;
+            background: #0f1e24;
+            border: 1px solid #2a4a4a;
+            border-radius: 12px;
+            color: #eef;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .messaging-section textarea:focus {
+            border-color: var(--neon);
+            outline: none;
+        }
+
+        /* COURSE CARD */
+        .course-card {
+            border-left: 3px solid var(--neon);
+        }
+        .course-card .topics {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .course-card .topics span {
             background: rgba(26, 58, 46, 0.3);
-            border: 1px solid var(--neon);
-            border-radius: 16px;
-            padding: 1.2rem 1.8rem;
-            margin: 1.5rem 0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(13, 240, 122, 0.1);
+        }
+
+        /* MORE SECTION - LEGAL PAGES */
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .legal-card {
+            background: rgba(14, 23, 31, 0.9);
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid var(--border-dim);
+            backdrop-filter: blur(4px);
+        }
+        .legal-card h3 {
+            color: var(--neon);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .legal-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .legal-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .legal-card ul li {
+            padding: 0.3rem 0;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .legal-card ul li strong {
+            color: var(--neon);
+        }
+
+        /* AI */
+        .ai-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 300;
+            background: var(--neon);
+            color: #051008;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(13, 240, 122, 0.3);
+            transition: 0.3s;
+            border: none;
+        }
+        .ai-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(13, 240, 122, 0.5);
+        }
+
+        .ai-widget {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            z-index: 299;
+            width: 360px;
+            max-height: 500px;
+            background: #0d181e;
+            border-radius: 24px;
+            border: 1px solid var(--border-dim);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .ai-widget.open {
+            display: flex;
+        }
+        .ai-header {
+            padding: 0.8rem 1.2rem;
+            background: #0c1a20;
+            border-bottom: 1px solid var(--border-dim);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            cursor: pointer;
         }
-        .kra-careers a {
+        .ai-header span {
+            font-weight: 600;
             color: var(--neon);
-            font-weight: 700;
-            text-decoration: none;
-            border-bottom: 2px solid var(--neon);
         }
-        .kra-careers a:hover {
-            color: #fff;
-            border-bottom-color: #fff;
+        .ai-body {
+            padding: 1rem;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-height: 320px;
+        }
+        .ai-msg {
+            padding: 0.5rem 1rem;
+            border-radius: 16px;
+            max-width: 85%;
+            font-size: 0.9rem;
+            background: #1a2a30;
+            color: #dce8e8;
+        }
+        .ai-msg.user {
+            align-self: flex-end;
+            background: #1a4a3a;
+            color: #e0f5ed;
+        }
+        .ai-input-row {
+            display: flex;
+            gap: 0.4rem;
+            padding: 0.6rem 1rem;
+            border-top: 1px solid var(--border-dim);
+        }
+        .ai-input-row input {
+            flex: 1;
+            background: #142228;
+            border: 1px solid #2a4a4a;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            color: #eef;
+            outline: none;
+        }
+        .ai-input-row input:focus {
+            border-color: var(--neon);
+        }
+        .ai-input-row button {
+            background: var(--neon);
+            border: none;
+            border-radius: 40px;
+            padding: 0 1.2rem;
+            font-weight: 700;
+            color: #041008;
+            cursor: pointer;
         }
 
-        /* TERMS GRID */
-        .terms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .terms-grid .term-item {
-            background: rgba(14, 23, 31, 0.8);
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-dim);
+        .telegram-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0088cc;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            transition: 0.3s;
+            border: 2px solid #0088cc;
         }
-        .terms-grid .term-item strong {
+        .telegram-contact:hover {
+            background: #0077b5;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
+            color: #fff;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-dim);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: rgba(8, 12, 16, 0.95);
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-flex a {
+            color: #8ab0b8;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .footer-flex a:hover {
             color: var(--neon);
-            display: block;
-            margin-bottom: 0.3rem;
+        }
+
+        .footer-bottom {
+            margin-top: 1.2rem;
+            border-top: 1px solid #1a2a2a;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            color: #4a6a6a;
+        }
+        .footer-bottom .highlight {
+            color: var(--neon);
+        }
+        .footer-bottom a {
+            color: #0088cc;
+            text-decoration: none;
+        }
+        .footer-bottom a:hover {
+            text-decoration: underline;
         }
 
         /* MODAL */
@@ -492,132 +697,28 @@
             resize: vertical;
         }
 
-        /* AI */
-        .ai-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 300;
-            background: var(--neon);
-            color: #051008;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(13, 240, 122, 0.3);
-            transition: 0.3s;
-            border: none;
-        }
-        .ai-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 50px rgba(13, 240, 122, 0.5);
-        }
-
-        .ai-widget {
-            position: fixed;
-            bottom: 6rem;
-            right: 2rem;
-            z-index: 299;
-            width: 360px;
-            max-height: 480px;
-            background: #0d181e;
-            border-radius: 24px;
-            border: 1px solid var(--border-dim);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .ai-widget.open {
-            display: flex;
-        }
-        .ai-header {
-            padding: 0.8rem 1.2rem;
-            background: #0c1a20;
-            border-bottom: 1px solid var(--border-dim);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .ai-header span {
-            font-weight: 600;
-            color: var(--neon);
-        }
-        .ai-body {
-            padding: 1rem;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            max-height: 300px;
-        }
-        .ai-msg {
-            padding: 0.5rem 1rem;
+        /* KRA CAREERS */
+        .kra-careers {
+            background: rgba(26, 58, 46, 0.3);
+            border: 1px solid var(--neon);
             border-radius: 16px;
-            max-width: 85%;
-            font-size: 0.9rem;
-            background: #1a2a30;
-            color: #dce8e8;
-        }
-        .ai-msg.user {
-            align-self: flex-end;
-            background: #1a4a3a;
-            color: #e0f5ed;
-        }
-        .ai-input-row {
-            display: flex;
-            gap: 0.4rem;
-            padding: 0.6rem 1rem;
-            border-top: 1px solid var(--border-dim);
-        }
-        .ai-input-row input {
-            flex: 1;
-            background: #142228;
-            border: 1px solid #2a4a4a;
-            border-radius: 40px;
-            padding: 0.5rem 1rem;
-            color: #eef;
-            outline: none;
-        }
-        .ai-input-row input:focus {
-            border-color: var(--neon);
-        }
-        .ai-input-row button {
-            background: var(--neon);
-            border: none;
-            border-radius: 40px;
-            padding: 0 1.2rem;
-            font-weight: 700;
-            color: #041008;
-            cursor: pointer;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border-dim);
-            padding: 2rem 0;
-            margin-top: 2rem;
-            background: rgba(8, 12, 16, 0.95);
-        }
-        .footer-flex {
+            padding: 1.2rem 1.8rem;
+            margin: 1.5rem 0;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
         }
-        .footer-flex a {
-            color: #8ab0b8;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .footer-flex a:hover {
+        .kra-careers a {
             color: var(--neon);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid var(--neon);
+        }
+        .kra-careers a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
         }
 
         @media (max-width: 780px) {
@@ -647,9 +748,13 @@
                 justify-content: center;
                 gap: 0.8rem;
             }
-            .kra-careers {
-                flex-direction: column;
-                text-align: center;
+            .grid-3,
+            .grid-4,
+            .grid-5 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .legal-grid {
+                grid-template-columns: 1fr;
             }
         }
         @media (max-width: 480px) {
@@ -669,8 +774,12 @@
                 right: 0.5rem;
                 bottom: 5rem;
             }
-            .terms-grid {
-                grid-template-columns: 1fr 1fr;
+            .messaging-section {
+                padding: 1.2rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -683,12 +792,12 @@
             <div class="logo">Manlung <span>Tech City</span></div>
             <nav>
                 <a class="active" onclick="showSection('home-section', this)">Home</a>
+                <a onclick="showSection('courses-section', this)">Courses</a>
                 <a onclick="showSection('tools-section', this)">Tools</a>
                 <a onclick="showSection('eservices-section', this)">E-Services</a>
-                <a onclick="showSection('kra-section', this)">KRA Services</a>
-                <a onclick="showSection('courses-section', this)">Courses</a>
-                <a onclick="showSection('terms-section', this)">Terms & Policies</a>
-                <a onclick="showSection('about-section', this)">About</a>
+                <a onclick="showSection('kra-section', this)">KRA</a>
+                <a onclick="showSection('contact-section', this)">Contact</a>
+                <a onclick="showSection('more-section', this)">More</a>
                 <span class="currency-selector">
                     <select id="currencySelect" onchange="updateCurrency()">
                         <option value="KES">KES</option>
@@ -697,7 +806,9 @@
                         <option value="GBP">GBP</option>
                     </select>
                 </span>
-                <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-outline" style="padding:0.2rem 1.2rem; font-size:0.8rem;">Store</a>
+                <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="padding:0.2rem 1rem; font-size:0.75rem;">
+                    <i class="fab fa-telegram-plane"></i> Chat
+                </a>
             </nav>
         </div>
     </header>
@@ -707,20 +818,21 @@
         <div class="container hero-grid">
             <div>
                 <h1>Advanced <span>Cyber</span> Security <span>Hub</span></h1>
-                <p>Real-time malware simulation, hacking logs, system monitoring, and enterprise-grade tools. Secure payments via Paystack.</p>
+                <p>30+ comprehensive courses, enterprise tools, government e-services, and KRA assistance. Secure payments via Paystack.</p>
                 <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                    <a onclick="showSection('tools-section', document.querySelector('nav a[onclick*="tools-section"]'))" class="btn-primary"><i class="fas fa-shield-alt"></i> Explore Tools</a>
-                    <a onclick="showSection('eservices-section', document.querySelector('nav a[onclick*="eservices-section"]'))" class="btn-outline"><i class="fas fa-id-card"></i> E-Services</a>
+                    <a onclick="showSection('courses-section', document.querySelector('nav a[onclick*="courses-section"]'))" class="btn-primary"><i class="fas fa-graduation-cap"></i> View Courses</a>
+                    <a onclick="showSection('contact-section', document.querySelector('nav a[onclick*="contact-section"]'))" class="btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
+                    <a href="https://t.me/manlungtechcitybot" target="_blank" class="btn-outline" style="border-color:#0088cc; color:#0088cc;"><i class="fab fa-telegram-plane"></i> Telegram</a>
                 </div>
                 <div class="stats-mini" style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:1.2rem;">
+                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
+                        <strong style="color:var(--neon);">30+</strong> Courses
+                    </div>
                     <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
                         <strong style="color:var(--neon);">13</strong> Tools
                     </div>
                     <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
-                        <strong style="color:var(--neon);">590+</strong> Downloads
-                    </div>
-                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
-                        <strong style="color:var(--neon);" id="revenueDisplay">KSH 53,000</strong>
+                        <strong style="color:var(--neon);" id="revenueDisplay">KES 53,000</strong>
                     </div>
                 </div>
             </div>
@@ -731,8 +843,20 @@
         </div>
     </section>
 
+    <!-- ===== COURSES SECTION ===== -->
+    <section id="courses-section" class="page-section" style="padding:3rem 0;">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-graduation-cap" style="margin-right:10px;"></i> Cyber Security Courses</h2>
+            <p class="section-sub">30+ comprehensive courses with fair pricing. Click any course to enroll and pay securely via Paystack.</p>
+            <div class="grid-3" id="coursesGrid"></div>
+            <div style="text-align:center; margin-top:2rem;">
+                <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Questions? Chat with us on Telegram</a>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== TOOLS SECTION ===== -->
-    <section id="tools-section" class="page-section" style="padding:3rem 0 2rem 0;">
+    <section id="tools-section" class="page-section" style="padding:3rem 0 2rem 0; background:rgba(11,20,26,0.6);">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-tools" style="margin-right:10px;"></i> Cyber Tools</h2>
             <p class="section-sub">Click any tool to purchase securely via Paystack. Out of stock items are disabled.</p>
@@ -749,7 +873,6 @@
             <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
             <p class="section-sub">Passport, Good Conduct, eCitizen, E-Certificates, and more. Click to request service.</p>
 
-            <!-- Service Fees -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;">Service Application Fees</h3>
                 <div class="grid-5">
@@ -762,7 +885,6 @@
                 <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">All service fees are paid before services are rendered.</p>
             </div>
 
-            <!-- Passport Pricing -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;">Passport Application Fees</h3>
                 <div class="grid-4">
@@ -791,118 +913,117 @@
             </div>
 
             <div class="grid-3" id="kraGrid"></div>
-            <div style="margin-top:1.5rem;">
+            <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
                 <a onclick="openKRAForm()" class="btn-primary"><i class="fas fa-file-alt"></i> Request KRA Assistance</a>
+                <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Chat on Telegram</a>
             </div>
         </div>
     </section>
 
-    <!-- ===== COURSES SECTION ===== -->
-    <section id="courses-section" class="page-section" style="padding:3rem 0;">
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact-section" class="page-section" style="padding:3rem 0;">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-graduation-cap" style="margin-right:10px;"></i> Cyber Courses</h2>
-            <p class="section-sub">Professional training — enroll and pay securely.</p>
-            <div class="grid-3" id="coursesGrid"></div>
-        </div>
-    </section>
+            <h2 class="section-title"><i class="fas fa-envelope" style="margin-right:10px;"></i> Send Us a Message</h2>
+            <p class="section-sub">Have a question about courses, services, or need assistance? Send us a message and we'll respond via Telegram.</p>
 
-    <!-- ===== TERMS & POLICIES SECTION ===== -->
-    <section id="terms-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-file-contract" style="margin-right:10px;"></i> Cybersecurity Terms & Policies</h2>
-            <p class="section-sub">Comprehensive cybersecurity terminology, policies, and best practices.</p>
-
-            <!-- Core Principles -->
-            <div style="margin-bottom:2rem;">
-                <h3 style="color:var(--neon);">Core Security Principles</h3>
-                <div class="grid-3">
-                    <div class="card"><strong style="color:var(--neon);">CIA Triad</strong><p style="font-size:0.9rem; color:var(--text-muted);">Confidentiality, Integrity, Availability — the foundation of information security.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">AAA Model</strong><p style="font-size:0.9rem; color:var(--text-muted);">Authentication, Authorization, Accounting (Auditing) — verify, permit, and track user actions.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Zero Trust</strong><p style="font-size:0.9rem; color:var(--text-muted);">Never trust, always verify. Every access request is authenticated and authorized.</p></div>
-                </div>
-            </div>
-
-            <!-- Security Terms Grid -->
-            <h3 style="color:var(--neon); margin-bottom:1rem;">Common Cybersecurity Terms</h3>
-            <div class="terms-grid">
-                <div class="term-item"><strong>Malware</strong>Malicious software including viruses, worms, trojans, ransomware, and spyware.</div>
-                <div class="term-item"><strong>Phishing</strong>Fraudulent attempts to obtain sensitive information via email, SMS, or voice.</div>
-                <div class="term-item"><strong>Social Engineering</strong>Psychological manipulation to trick users into making security mistakes.</div>
-                <div class="term-item"><strong>SQL Injection</strong>Code injection technique that exploits database vulnerabilities.</div>
-                <div class="term-item"><strong>XSS</strong>Cross-Site Scripting — injecting malicious scripts into web pages.</div>
-                <div class="term-item"><strong>DDoS</strong>Distributed Denial of Service — overwhelming a system with traffic.</div>
-                <div class="term-item"><strong>MITM</strong>Man-in-the-Middle — intercepting communication between two parties.</div>
-                <div class="term-item"><strong>Zero-Day</strong>A vulnerability unknown to the vendor, with no patch available.</div>
-                <div class="term-item"><strong>Ransomware</strong>Malware that encrypts data and demands payment for decryption.</div>
-                <div class="term-item"><strong>Rootkit</strong>Malicious software that hides its presence and provides privileged access.</div>
-                <div class="term-item"><strong>Botnet</strong>A network of infected devices controlled by an attacker.</div>
-                <div class="term-item"><strong>Keylogger</strong>Records keystrokes to capture passwords and sensitive information.</div>
-                <div class="term-item"><strong>APT</strong>Advanced Persistent Threat — prolonged, targeted cyberattack.</div>
-                <div class="term-item"><strong>Insider Threat</strong>Security risk originating from within the organization.</div>
-                <div class="term-item"><strong>Data Breach</strong>Unauthorized access to sensitive data.</div>
-                <div class="term-item"><strong>Penetration Testing</strong>Authorized simulated attack to identify vulnerabilities.</div>
-            </div>
-
-            <!-- Security Controls -->
-            <div style="margin-top:2rem;">
-                <h3 style="color:var(--neon);">Security Controls</h3>
-                <div class="grid-3">
-                    <div class="card"><strong style="color:var(--neon);">Preventive</strong><p style="font-size:0.9rem; color:var(--text-muted);">Firewalls, encryption, MFA, access controls — stop attacks before they happen.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Detective</strong><p style="font-size:0.9rem; color:var(--text-muted);">IDS, SIEM, monitoring, audits — identify and alert on security incidents.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Corrective</strong><p style="font-size:0.9rem; color:var(--text-muted);">Patching, incident response, backups, recovery — restore and remediate after incidents.</p></div>
-                </div>
-            </div>
-
-            <!-- Security Policies -->
-            <div style="margin-top:2rem;">
-                <h3 style="color:var(--neon);">Key Security Policies</h3>
-                <div class="grid-3">
-                    <div class="card"><strong style="color:var(--neon);">Information Security Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Governs how data is protected, accessed, and managed.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Incident Response Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Procedures for detecting, containing, and recovering from security incidents.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Acceptable Use Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Defines acceptable and unacceptable use of company resources.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Data Classification Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Categorizes data by sensitivity and applies appropriate protections.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Access Control Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Defines who can access what systems and data.</p></div>
-                    <div class="card"><strong style="color:var(--neon);">Disaster Recovery Policy</strong><p style="font-size:0.9rem; color:var(--text-muted);">Plan for restoring systems and data after a catastrophic event.</p></div>
-                </div>
-            </div>
-
-            <!-- Standards & Certifications -->
-            <div style="margin-top:2rem;">
-                <h3 style="color:var(--neon);">Security Standards & Certifications</h3>
-                <div class="grid-4">
-                    <div class="fee-card"><strong>ISO 27001</strong><span style="font-size:0.8rem; color:var(--text-muted);">Information Security Management</span></div>
-                    <div class="fee-card"><strong>NIST CSF</strong><span style="font-size:0.8rem; color:var(--text-muted);">Cybersecurity Framework</span></div>
-                    <div class="fee-card"><strong>PCI DSS</strong><span style="font-size:0.8rem; color:var(--text-muted);">Payment Card Industry Security</span></div>
-                    <div class="fee-card"><strong>GDPR</strong><span style="font-size:0.8rem; color:var(--text-muted);">Data Protection Regulation</span></div>
-                    <div class="fee-card"><strong>CIS Controls</strong><span style="font-size:0.8rem; color:var(--text-muted);">Critical Security Controls</span></div>
-                    <div class="fee-card"><strong>SOC 2</strong><span style="font-size:0.8rem; color:var(--text-muted);">Service Organization Control</span></div>
-                    <div class="fee-card"><strong>CEH</strong><span style="font-size:0.8rem; color:var(--text-muted);">Certified Ethical Hacker</span></div>
-                    <div class="fee-card"><strong>CISSP</strong><span style="font-size:0.8rem; color:var(--text-muted);">Certified Information Systems Security</span></div>
-                </div>
-            </div>
-
-            <!-- Our Policies -->
-            <div style="margin-top:2rem; background:rgba(14,23,31,0.6); border-radius:20px; padding:1.5rem; border:1px solid var(--border-dim);">
-                <h3 style="color:var(--neon);">Manlung Tech City Policies</h3>
-                <div class="grid-3" style="margin-top:0.8rem;">
-                    <div><strong style="color:var(--neon);">🔒 Privacy Policy</strong><p style="font-size:0.85rem; color:var(--text-muted);">We collect minimal data for transaction processing. We do not share your data with third parties.</p></div>
-                    <div><strong style="color:var(--neon);">🛡️ Liability</strong><p style="font-size:0.85rem; color:var(--text-muted);">Manlung Tech City is not liable for misuse of tools. Users must comply with all applicable laws.</p></div>
-                    <div><strong style="color:var(--neon);">📜 Refund Policy</strong><p style="font-size:0.85rem; color:var(--text-muted);">Digital products are non-refundable. Courses may be refunded within 7 days if no modules accessed.</p></div>
-                    <div><strong style="color:var(--neon);">📚 Educational Use</strong><p style="font-size:0.85rem; color:var(--text-muted);">All tools are for educational and authorized security testing purposes only.</p></div>
-                    <div><strong style="color:var(--neon);">🔐 Encryption</strong><p style="font-size:0.85rem; color:var(--text-muted);">All data is encrypted at rest and in transit using AES-256 and TLS 1.3.</p></div>
-                    <div><strong style="color:var(--neon);">📋 Compliance</strong><p style="font-size:0.85rem; color:var(--text-muted);">We adhere to Kenya's Data Protection Act and ISO 27001 standards.</p></div>
-                </div>
+            <div class="messaging-section">
+                <form id="messageForm" onsubmit="sendMessage(event)">
+                    <div class="form-group">
+                        <label style="color:#b0ccd0;">Your Name</label>
+                        <input type="text" id="msgName" placeholder="John Doe" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="color:#b0ccd0;">Email</label>
+                        <input type="email" id="msgEmail" placeholder="john@example.com" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="color:#b0ccd0;">Phone</label>
+                        <input type="tel" id="msgPhone" placeholder="+254 700 000 000" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="color:#b0ccd0;">Your Message</label>
+                        <textarea id="msgText" placeholder="Type your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button>
+                </form>
+                <div id="msgResponse" style="margin-top:1rem; display:none; padding:1rem; border-radius:12px; text-align:center;"></div>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
+                    <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> All messages are sent directly to our <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--neon);">Telegram support team</a> for quick response.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- ===== ABOUT SECTION ===== -->
-    <section id="about-section" class="page-section">
+    <!-- ===== MORE SECTION (Legal Pages) ===== -->
+    <section id="more-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
         <div class="container">
-            <h2>About Manlung Tech City</h2>
-            <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya. We provide enterprise-grade security tools, government e-service assistance (Passport, Good Conduct, KRA, eCitizen, E-Certificates), and professional training courses. Our mission is to make cyber security accessible, affordable, and effective for individuals, businesses, and government agencies.</p>
-            <p style="margin-top:1rem;">We are ISO 27001 compliant and adhere to Kenya's Data Protection Act. All transactions are secured via Paystack with PCI-DSS compliance.</p>
-            <p style="margin-top:1rem;">Our team of certified professionals offers 24/7 tech support, system monitoring, and incident response.</p>
+            <h2 class="section-title"><i class="fas fa-file-contract" style="margin-right:10px;"></i> More</h2>
+            <p class="section-sub">Our policies, terms, and legal information.</p>
+
+            <div class="legal-grid">
+                <!-- Privacy Policy -->
+                <div class="legal-card">
+                    <h3><i class="fas fa-lock" style="margin-right:8px; color:var(--neon);"></i> Privacy Policy</h3>
+                    <p>Manlung Tech City respects your privacy. We collect minimal data for transaction processing and service delivery.</p>
+                    <ul style="margin-top:0.8rem;">
+                        <li><strong>Data Collection:</strong> Name, email, phone, and service details</li>
+                        <li><strong>Data Use:</strong> Only for processing requests and payments</li>
+                        <li><strong>Data Sharing:</strong> We do not share your data with third parties</li>
+                        <li><strong>Data Security:</strong> Encrypted at rest and in transit (AES-256, TLS 1.3)</li>
+                        <li><strong>Your Rights:</strong> Request data deletion anytime</li>
+                    </ul>
+                </div>
+
+                <!-- Terms of Service -->
+                <div class="legal-card">
+                    <h3><i class="fas fa-gavel" style="margin-right:8px; color:var(--neon);"></i> Terms of Service</h3>
+                    <p>By using our services, you agree to these terms.</p>
+                    <ul style="margin-top:0.8rem;">
+                        <li><strong>1. Educational Use:</strong> All tools are for educational and authorized security testing only</li>
+                        <li><strong>2. Payments:</strong> All payments processed via Paystack. Currency can be changed</li>
+                        <li><strong>3. Refund Policy:</strong> Digital products non-refundable. Courses refundable within 7 days</li>
+                        <li><strong>4. Liability:</strong> Not liable for misuse of tools. Users must comply with laws</li>
+                        <li><strong>5. Compliance:</strong> Adhere to Kenya's Data Protection Act and ISO 27001</li>
+                    </ul>
+                </div>
+
+                <!-- About Us -->
+                <div class="legal-card">
+                    <h3><i class="fas fa-info-circle" style="margin-right:8px; color:var(--neon);"></i> About Us</h3>
+                    <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya.</p>
+                    <ul style="margin-top:0.8rem;">
+                        <li><strong>📚 30+ Courses:</strong> From beginner to advanced cyber security</li>
+                        <li><strong>🛠️ 13 Tools:</strong> Enterprise-grade security tools</li>
+                        <li><strong>🏛️ E-Services:</strong> Passport, KRA, Good Conduct, eCitizen</li>
+                        <li><strong>🔐 Security:</strong> ISO 27001 compliant, PCI-DSS certified</li>
+                        <li><strong>📞 Support:</strong> 24/7 tech support via Telegram</li>
+                    </ul>
+                </div>
+
+                <!-- Security & Compliance -->
+                <div class="legal-card">
+                    <h3><i class="fas fa-shield-alt" style="margin-right:8px; color:var(--neon);"></i> Security & Compliance</h3>
+                    <p>We follow industry standards to protect your data.</p>
+                    <ul style="margin-top:0.8rem;">
+                        <li><strong>🔐 Encryption:</strong> AES-256 at rest, TLS 1.3 in transit</li>
+                        <li><strong>📋 Standards:</strong> ISO 27001, NIST CSF, PCI DSS</li>
+                        <li><strong>🛡️ Security Controls:</strong> Preventive, Detective, Corrective</li>
+                        <li><strong>📊 Monitoring:</strong> 24/7 system monitoring and incident response</li>
+                        <li><strong>✅ Compliance:</strong> Kenya Data Protection Act, GDPR</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top:2rem; text-align:center; background:rgba(14,23,31,0.6); border-radius:20px; padding:1.5rem; border:1px solid var(--border-dim);">
+                <p style="color:var(--text-muted);">
+                    <i class="fas fa-phone" style="color:var(--neon);"></i> +254 724 356 178 &nbsp;|&nbsp;
+                    <i class="fas fa-envelope" style="color:var(--neon);"></i> info@manlung.co.ke &nbsp;|&nbsp;
+                    <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--neon);">@manlungtechcitybot</a>
+                </p>
+                <p style="color:var(--text-muted); margin-top:0.5rem; font-size:0.85rem;">
+                    Paybill: <strong style="color:var(--neon);">522522</strong> Account: <strong style="color:var(--neon);">1336980125</strong>
+                </p>
+            </div>
         </div>
     </section>
 
@@ -911,24 +1032,26 @@
         <div class="container footer-flex">
             <div>
                 <div class="logo" style="font-size:1.4rem;">Manlung <span>Tech City</span></div>
-                <p style="margin-top:0.2rem; font-size:0.9rem; color:var(--text-muted);">Cyber Hub · Tools · E-Services · Training</p>
+                <p style="margin-top:0.2rem; font-size:0.9rem; color:var(--text-muted);">30+ Courses · Tools · E-Services · Training</p>
             </div>
             <div style="display:flex; gap:1.4rem; flex-wrap:wrap;">
                 <a onclick="showSection('home-section', this)">Home</a>
+                <a onclick="showSection('courses-section', this)">Courses</a>
                 <a onclick="showSection('tools-section', this)">Tools</a>
                 <a onclick="showSection('eservices-section', this)">E-Services</a>
                 <a onclick="showSection('kra-section', this)">KRA</a>
-                <a onclick="showSection('courses-section', this)">Courses</a>
-                <a onclick="showSection('terms-section', this)">Terms</a>
-                <a onclick="showSection('about-section', this)">About</a>
+                <a onclick="showSection('contact-section', this)">Contact</a>
+                <a onclick="showSection('more-section', this)">More</a>
+                <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="padding:0.3rem 1rem; font-size:0.75rem;"><i class="fab fa-telegram-plane"></i> Telegram</a>
             </div>
             <div style="color:var(--text-muted); font-size:0.85rem;">
                 Paybill: <strong style="color:var(--neon);">522522</strong> Acc: <strong style="color:var(--neon);">1336980125</strong>
             </div>
         </div>
-        <div class="container" style="margin-top:1.2rem; border-top:1px solid #1a2a2a; padding-top:1rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem; font-size:0.75rem; color:#4a6a6a;">
-            <span>&copy; 2026 Manlung Tech City. All rights reserved.</span>
-            <span><i class="fas fa-lock"></i> Secured by Paystack</span>
+        <div class="container footer-bottom">
+            <span>&copy; 2026 <span class="highlight">Manlung Tech City</span>. All rights reserved.</span>
+            <span><i class="fas fa-lock"></i> Secured by <span class="highlight">Paystack</span></span>
+            <span><i class="fab fa-telegram-plane"></i> <a href="https://t.me/manlungtechcitybot" target="_blank">@manlungtechcitybot</a></span>
         </div>
     </footer>
 
@@ -944,11 +1067,14 @@
             <span><i class="fas fa-times" id="aiClose" style="cursor:pointer;"></i></span>
         </div>
         <div class="ai-body" id="aiBody">
-            <div class="ai-msg">Hello! I'm Manlung AI. Ask me about any price, service, tool, course, or cybersecurity term.</div>
+            <div class="ai-msg">Hello! 👋 I'm Manlung AI. Ask me about any course, price, service, or cybersecurity topic.</div>
         </div>
         <div class="ai-input-row">
             <input type="text" id="aiInput" placeholder="Ask me anything..." autocomplete="off">
             <button id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div style="padding:0.5rem 1rem; border-top:1px solid var(--border-dim); font-size:0.7rem; color:var(--text-muted); text-align:center;">
+            <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> For detailed assistance, <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--neon);">contact us on Telegram</a>
         </div>
     </div>
 
@@ -981,7 +1107,9 @@
                 </div>
                 <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-credit-card"></i> Pay with Paystack</button>
             </form>
-            <p style="font-size:0.7rem; color:var(--text-muted); margin-top:1rem;"><i class="fas fa-lock"></i> Secured by Paystack</p>
+            <p style="font-size:0.7rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
+                <i class="fas fa-lock"></i> Secured by Paystack
+            </p>
         </div>
     </div>
 
@@ -1230,18 +1358,62 @@
             { name: "Printing KRA certificates", desc: "Print KRA certificates and receipts" },
         ];
 
+        // ===== 30 COURSES with fair pricing =====
         const courses = [
-            { name: "Cyber Security Fundamentals", desc: "Beginner · 6 weeks", price: 12000 },
-            { name: "Ethical Hacking & Pentesting", desc: "Intermediate · 10 weeks", price: 24000 },
-            { name: "Security Operations (SOC) Analyst", desc: "Advanced · 12 weeks", price: 38000 },
-            { name: "Cloud Security & DevSecOps", desc: "Specialist · 8 weeks", price: 30000 },
-            { name: "Digital Forensics & IR", desc: "Forensic · 10 weeks", price: 32000 },
-            { name: "Cyber Law & Compliance", desc: "Compliance · 6 weeks", price: 18000 },
+            { name: "Introduction to Cybersecurity", topics: "CIA Triad, Cyber Ethics, Basic Networking, Linux/Windows", price: 8500 },
+            { name: "Computer Networking", topics: "OSI, TCP/IP, DNS, DHCP, VPN, Wireless Security", price: 9500 },
+            { name: "Operating Systems Security", topics: "Windows/Linux/macOS, Permissions, Hardening", price: 8500 },
+            { name: "Programming for Cybersecurity", topics: "Python, Bash, PowerShell, SQL, C, C++, Go, Rust", price: 12000 },
+            { name: "Cryptography", topics: "AES, RSA, ECC, Hashing, PKI, SSL/TLS", price: 9500 },
+            { name: "Ethical Hacking", topics: "Footprinting, Recon, Exploitation, Privilege Escalation", price: 14000 },
+            { name: "Penetration Testing", topics: "Network, Web, Wireless, Mobile, Cloud, API, AD", price: 16000 },
+            { name: "Web Application Security", topics: "OWASP Top 10, SQL Injection, XSS, CSRF, SSRF", price: 12000 },
+            { name: "Malware Analysis", topics: "Virus, Worm, Trojan, Ransomware, Reverse Engineering", price: 13000 },
+            { name: "Digital Forensics", topics: "Disk, Memory, Mobile, Email, Network Forensics", price: 14000 },
+            { name: "Incident Response", topics: "Detection, Analysis, Containment, Eradication, Recovery", price: 12000 },
+            { name: "Threat Intelligence", topics: "IOC, Threat Hunting, MITRE ATT&CK, OSINT", price: 11000 },
+            { name: "Security Operations Center (SOC)", topics: "SIEM, Log Analysis, Alert Triage, Detection", price: 13000 },
+            { name: "Cloud Security", topics: "AWS, Azure, GCP, Cloud Identity, Firewalls, Compliance", price: 14000 },
+            { name: "Network Security", topics: "Firewalls, IDS, IPS, VPN, NAC, Packet Analysis", price: 11000 },
+            { name: "Wireless Security", topics: "Wi-Fi, WPA2, WPA3, Rogue AP, Wireless Attacks", price: 9500 },
+            { name: "Mobile Security", topics: "Android, iOS, Mobile Malware, App Testing", price: 10000 },
+            { name: "Application Security (AppSec)", topics: "Secure SDLC, Code Review, DevSecOps, CI/CD", price: 12000 },
+            { name: "Identity and Access Management", topics: "MFA, SSO, LDAP, Active Directory, PAM", price: 10000 },
+            { name: "Governance, Risk, and Compliance", topics: "ISO 27001, NIST, CIS, PCI DSS, GDPR", price: 11000 },
+            { name: "Industrial Control Systems Security", topics: "PLC, SCADA, Industrial Protocols, Critical Infrastructure", price: 13000 },
+            { name: "IoT Security", topics: "Embedded Systems, Firmware Analysis, Smart Home", price: 11000 },
+            { name: "Artificial Intelligence Security", topics: "AI Security, Adversarial AI, Prompt Injection, LLM", price: 14000 },
+            { name: "DevSecOps", topics: "Docker, Kubernetes, IaC Security, Git, CI/CD", price: 13000 },
+            { name: "Security Automation", topics: "Python/Bash Automation, SOAR, APIs, Playbooks", price: 11000 },
+            { name: "Bug Bounty Hunting", topics: "Recon, Web/API Hacking, Report Writing, Disclosure", price: 12000 },
+            { name: "Red Team Operations", topics: "Initial Access, Lateral Movement, C2, Adversary Emulation", price: 16000 },
+            { name: "Blue Team Operations", topics: "Monitoring, Detection, Log Analysis, Threat Hunting", price: 14000 },
+            { name: "Purple Teaming", topics: "Red/Blue Collaboration, Attack Simulation, Detection Improvement", price: 15000 },
+            { name: "Security Awareness", topics: "Phishing, Password Security, Social Engineering, Safe Practices", price: 7000 },
         ];
 
         // ============================
         //  RENDER
         // ============================
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = courses.map((c, i) => `
+                <div class="card clickable course-card" onclick="openPayment('${c.name} (Course ${i+1})', ${c.price}, 'Course')">
+                    <div style="display:flex; justify-content:space-between; align-items:start;">
+                        <span class="badge">Course ${i+1}</span>
+                        <span style="font-size:0.7rem; color:var(--text-muted);">${c.topics.split(',').length} topics</span>
+                    </div>
+                    <h3 style="margin:0.4rem 0 0.2rem 0; color:var(--neon);">${c.name}</h3>
+                    <div class="topics">
+                        ${c.topics.split(',').map(t => `<span>${t.trim()}</span>`).join('')}
+                    </div>
+                    <div style="margin-top:0.8rem;">
+                        <span class="price course-price" data-base="${c.price}">KES ${c.price.toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
             grid.innerHTML = tools.map(t => {
@@ -1286,18 +1458,64 @@
             `).join('');
         }
 
-        function renderCourses() {
-            const grid = document.getElementById('coursesGrid');
-            grid.innerHTML = courses.map(c => `
-                <div class="card clickable" onclick="openPayment('${c.name}', ${c.price}, 'Course')">
-                    <span class="badge" style="background:#1a3a2a;">${c.desc.split('·')[0].trim()}</span>
-                    <h3 style="margin:0.4rem 0 0.2rem 0;">${c.name}</h3>
-                    <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${c.desc}</p>
-                    <div style="margin-top:0.6rem;">
-                        <span class="price course-price" data-base="${c.price}">KES ${c.price.toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
+        // ============================
+        //  TELEGRAM SENDER
+        // ============================
+        const BOT_TOKEN = '7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE';
+        const CHAT_ID = '7261236992';
+
+        function sendToTelegram(message) {
+            return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            }).then(res => res.json());
+        }
+
+        // ============================
+        //  MESSAGE FORM
+        // ============================
+        function sendMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('msgName').value;
+            const email = document.getElementById('msgEmail').value;
+            const phone = document.getElementById('msgPhone').value;
+            const message = document.getElementById('msgText').value;
+            const response = document.getElementById('msgResponse');
+
+            if (!name || !email || !phone || !message) {
+                response.style.display = 'block';
+                response.style.background = 'rgba(255,107,90,0.2)';
+                response.style.color = '#ff6b5a';
+                response.textContent = '❌ Please fill all fields.';
+                return;
+            }
+
+            const tgMsg = `📩 New Message from Website 📩\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+
+            sendToTelegram(tgMsg).then(data => {
+                if (data.ok) {
+                    response.style.display = 'block';
+                    response.style.background = 'rgba(13,240,122,0.15)';
+                    response.style.color = '#0df07a';
+                    response.textContent = '✅ Your message has been sent to our team. We will respond via Telegram shortly!';
+                    document.getElementById('messageForm').reset();
+                } else {
+                    response.style.display = 'block';
+                    response.style.background = 'rgba(255,107,90,0.2)';
+                    response.style.color = '#ff6b5a';
+                    response.textContent = '❌ Failed to send message. Please try again or contact us directly on Telegram.';
+                }
+            }).catch(() => {
+                response.style.display = 'block';
+                response.style.background = 'rgba(255,107,90,0.2)';
+                response.style.color = '#ff6b5a';
+                response.textContent = '❌ Error sending message. Please try again.';
+            });
         }
 
         // ============================
@@ -1329,8 +1547,10 @@
             if (!name || !email || !phone) { alert('Please fill all fields.'); return; }
             if (amount <= 0) { alert('Please enter a valid amount.'); return; }
 
-            const currency = document.getElementById('currencySelect').value;
+            const tgMsg = `🔹 New Payment Request 🔹\n\nService: ${service}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAmount: ${currentCurrency} ${amount}`;
+            sendToTelegram(tgMsg);
 
+            const currency = document.getElementById('currencySelect').value;
             const handler = PaystackPop.setup({
                 key: 'pk_live_6fac23c23b199c93126e8b106cb191de266e26bc',
                 email: email,
@@ -1344,6 +1564,8 @@
                     ]
                 },
                 callback: function(response) {
+                    const successMsg = `✅ Payment Successful! 💰\n\nService: ${service}\nReference: ${response.reference}\nName: ${name}\nAmount: ${currency} ${amount}`;
+                    sendToTelegram(successMsg);
                     alert('✅ Payment successful! Reference: ' + response.reference);
                     document.getElementById('serviceModal').classList.remove('active');
                 },
@@ -1379,17 +1601,7 @@
 
             const message = `🔹 KRA Service Request 🔹\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nDetails: ${details || 'N/A'}`;
 
-            fetch(`https://api.telegram.org/bot7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: '7261236992',
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
+            sendToTelegram(message).then(data => {
                 if (data.ok) {
                     alert('✅ Your KRA service request has been sent to our team. We will contact you shortly.');
                     document.getElementById('kraFormModal').classList.remove('active');
@@ -1397,15 +1609,14 @@
                 } else {
                     alert('❌ Failed to send request. Please try again.');
                 }
-            })
-            .catch(err => {
+            }).catch(err => {
                 alert('❌ Error sending request. Please try again.');
                 console.error(err);
             });
         }
 
         // ============================
-        //  AI CHAT - FULL PRICE KNOWLEDGE
+        //  AI CHAT
         // ============================
         const aiFloatBtn = document.getElementById('aiFloatBtn');
         const aiWidget = document.getElementById('aiWidget');
@@ -1417,8 +1628,37 @@
         aiFloatBtn.addEventListener('click', () => aiWidget.classList.toggle('open'));
         aiClose.addEventListener('click', () => aiWidget.classList.remove('open'));
 
-        // Complete price database for AI
         const priceDatabase = {
+            'introduction to cybersecurity': 8500,
+            'computer networking': 9500,
+            'operating systems security': 8500,
+            'programming for cybersecurity': 12000,
+            'cryptography': 9500,
+            'ethical hacking': 14000,
+            'penetration testing': 16000,
+            'web application security': 12000,
+            'malware analysis': 13000,
+            'digital forensics': 14000,
+            'incident response': 12000,
+            'threat intelligence': 11000,
+            'security operations center': 13000,
+            'cloud security': 14000,
+            'network security': 11000,
+            'wireless security': 9500,
+            'mobile security': 10000,
+            'application security': 12000,
+            'identity and access management': 10000,
+            'governance risk and compliance': 11000,
+            'industrial control systems security': 13000,
+            'iot security': 11000,
+            'artificial intelligence security': 14000,
+            'devsecops': 13000,
+            'security automation': 11000,
+            'bug bounty hunting': 12000,
+            'red team operations': 16000,
+            'blue team operations': 14000,
+            'purple teaming': 15000,
+            'security awareness': 7000,
             'crimson hat': 7000,
             'azure disk': 9000,
             'obsidian core': 10000,
@@ -1438,32 +1678,24 @@
             'good conduct': 200,
             'sha': 150,
             'tsc': 500,
-            'cyber security fundamentals': 12000,
-            'ethical hacking': 24000,
-            'soc analyst': 38000,
-            'cloud security': 30000,
-            'digital forensics': 32000,
-            'cyber law': 18000,
         };
 
         const fullKnowledge = {
-            'tools': 'We offer 13 cybersecurity tools: Crimson Hat (KES 7,000) - Out of Stock, Azure Disk (KES 9,000), Obsidian Core (KES 10,000), Pearl iOS (KES 24,000), Wireshark (KES 4,500), Wazuh (KES 5,500), Suricata (KES 5,200), Nmap (KES 2,700). Click "Tools" to see all and purchase.',
-            'courses': 'We have 6 courses: Cyber Security Fundamentals (KES 12,000), Ethical Hacking (KES 24,000), SOC Analyst (KES 38,000), Cloud Security (KES 30,000), Digital Forensics (KES 32,000), Cyber Law (KES 18,000). Click "Courses" to enroll.',
-            'passport': 'Passport fees: 34 Pages KES 7,550, 50 Pages KES 9,550, 66 Pages KES 12,050, Diplomatic KES 15,050, Lost Replacement KES 20,050, Mutilated Replacement KES 20,050. Service fee is KES 500.',
-            'good conduct': 'Good Conduct Certificate service fee is KES 200. We handle the entire application process.',
-            'kra': 'We offer comprehensive KRA services: PIN registration, tax filing, TCC, VAT, PAYE, and more. Service fee is KES 200. Click "KRA Services" to request assistance.',
-            'sha': 'SHA (Social Health Authority) service fee is KES 150.',
-            'tsc': 'TSC (Teachers Service Commission) service fee is KES 500.',
-            'ecitizen': 'We provide eCitizen services: Passport, ID, driver\'s license, birth certificates, marriage certificates.',
-            'payment': 'We use Paystack for secure payments. Currency can be changed using the currency selector at the top.',
-            'terms': 'Our cybersecurity terms include: CIA Triad (Confidentiality, Integrity, Availability), AAA Model, Zero Trust, and many more. We also follow ISO 27001, NIST CSF, and PCI DSS standards.',
-            'default': 'I can help with: Tools prices, Course prices, Passport fees, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know?'
+            'greeting': 'Hello! 👋 Welcome to Manlung Tech City. How can I assist you today? I can help with:\n\n🔹 30+ Cybersecurity courses with pricing\n🔹 Tool prices and availability\n🔹 Passport applications and fees\n🔹 KRA services and registration\n🔹 Good Conduct certificates\n🔹 SHA and TSC services\n🔹 Payments and currency conversion\n\nFeel free to ask me anything, or contact our team directly on Telegram: https://t.me/manlungtechcitybot',
+            'telegram': 'For immediate assistance, please contact our team on Telegram: https://t.me/manlungtechcitybot. We respond quickly to all inquiries there.',
+            'default': 'I can help with: Course prices, Tool prices, Passport fees, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, please contact us on Telegram: https://t.me/manlungtechcitybot'
         };
 
         function getAIResponse(msg) {
-            const q = msg.toLowerCase();
+            const q = msg.toLowerCase().trim();
 
-            // Check if asking about a specific price
+            const greetings = ['hello', 'hi', 'good morning', 'good afternoon', 'good evening', 'hey', 'greetings', 'wassup', 'sup'];
+            for (const g of greetings) {
+                if (q.includes(g)) {
+                    return fullKnowledge.greeting;
+                }
+            }
+
             for (const [key, value] of Object.entries(priceDatabase)) {
                 if (q.includes(key)) {
                     const currency = document.getElementById('currencySelect').value;
@@ -1476,24 +1708,17 @@
                 }
             }
 
-            if (q.includes('tool') || q.includes('nmap') || q.includes('wireshark')) return fullKnowledge.tools;
-            if (q.includes('course') || q.includes('training')) return fullKnowledge.courses;
-            if (q.includes('passport')) return fullKnowledge.passport;
-            if (q.includes('good conduct') || q.includes('police')) return fullKnowledge['good conduct'];
-            if (q.includes('kra') || q.includes('tax') || q.includes('pin')) return fullKnowledge.kra;
-            if (q.includes('sha')) return fullKnowledge.sha;
-            if (q.includes('tsc')) return fullKnowledge.tsc;
-            if (q.includes('ecitizen') || q.includes('id')) return fullKnowledge.ecitizen;
-            if (q.includes('pay') || q.includes('payment')) return fullKnowledge.payment;
-            if (q.includes('term') || q.includes('cia') || q.includes('triad') || q.includes('policy')) return fullKnowledge
-                .terms;
+            if (q.includes('course') || q.includes('training')) {
+                return 'We offer 30+ cybersecurity courses ranging from Introduction to Cybersecurity (KES 8,500) to Red Team Operations (KES 16,000). Click "Courses" to see all courses with topics and prices.';
+            }
+            if (q.includes('telegram') || q.includes('contact') || q.includes('chat')) return fullKnowledge.telegram;
             return fullKnowledge.default;
         }
 
         function addAIMessage(text, isUser = false) {
             const div = document.createElement('div');
             div.className = `ai-msg ${isUser ? 'user' : ''}`;
-            div.textContent = text;
+            div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:var(--neon);">$1</a>');
             aiBody.appendChild(div);
             aiBody.scrollTop = aiBody.scrollHeight;
         }
@@ -1515,10 +1740,10 @@
         // ============================
         //  INIT
         // ============================
+        renderCourses();
         renderTools();
         renderEservices();
         renderKRA();
-        renderCourses();
 
         // Set Home active
         document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
@@ -1529,8 +1754,8 @@
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City - Advanced Cyber Hub loaded!');
-        console.log('AI knows all prices. Currency system active.');
+        console.log('Manlung Tech City - 30+ Courses loaded!');
+        console.log('AI knows all prices. All forms send to Telegram.');
     </script>
 </body>
 </html>
