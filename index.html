@@ -1,2635 +1,990 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Manlung Tech City | Cyber Security & Cyber Café</title>
-  <meta name="description" content="Manlung Tech City — advanced cyber security & cyber-cafe services: penetration testing, SOC, eCitizen, KRA services, printing and more.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root{
-      --bg:#000;
-      --neon:#13dd4f;
-      --muted:#cfcfcf;
-      --card: rgba(18,18,18,0.86);
-      --glass: rgba(0,0,0,0.55);
-      --accent:#0df07a;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma, Geneva, Verdana, sans-serif}
-    html,body{height:100%}
-    body{background:var(--bg);color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
-
-    /* background grid + scan */
-    .grid-lines{position:fixed;inset:0;background-image:
-      linear-gradient(rgba(0,255,0,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,0,0.04) 1px, transparent 1px);
-      background-size:60px 60px;z-index:-4}
-    .scan-line{position:fixed;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);animation:scan 5s linear infinite;z-index:-3;top:0}
-    @keyframes scan{0%{top:0%}100%{top:100%}}
-
-    /* floating shapes */
-    .floating-elements{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
-    .floating-circle,.floating-ring{position:absolute;border-radius:50%;border:1px solid rgba(0,255,0,0.10);mix-blend-mode:screen;opacity:0.85}
-
-    /* header (logo left, nav right) */
-    header{position:fixed;top:0;left:0;right:0;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.45));backdrop-filter: blur(8px);z-index:1100;border-bottom:1px solid rgba(0,255,0,0.06)}
-    .logo{display:flex;align-items:center;font-weight:800;font-size:22px;text-shadow:0 0 15px rgba(0,255,0,0.3)}
-    .logo-text{display:flex;flex-direction:column;gap:2px}
-    .logo-main{color:var(--neon);font-weight:900;font-size:24px;letter-spacing:1px;text-shadow:0 0 20px rgba(0,255,77,0.5), 0 0 40px rgba(0,255,77,0.3)}
-    .logo-secondary{color:#ffffff;font-weight:600;font-size:14px;letter-spacing:2px;text-transform:uppercase;opacity:0.9}
-
-    nav.primary{margin-left:auto;display:flex;align-items:center;gap:18px}
-    nav.primary ul{display:flex;gap:18px;list-style:none;align-items:center;margin:0;padding:0}
-    nav.primary a{color:#fff;text-decoration:none;font-size:15px;padding:8px 10px;border-radius:8px;position:relative;display:inline-block;transition:.14s}
-    nav.primary a:hover{color:var(--neon);background:rgba(0,255,0,0.02)}
-    nav.primary a::after{content:'';position:absolute;left:0;bottom:-8px;height:2px;width:0;background:var(--neon);transition:.18s}
-    nav.primary a:hover::after{width:100%}
-    .mobile-menu{display:none;color:var(--neon);font-size:22px;cursor:pointer;margin-left:12px}
-
-    /* hero */
-    .hero{height:86vh;display:flex;align-items:center;padding:0 10%;position:relative;margin-top:74px}
-    .hero-content{max-width:780px;z-index:1}
-    h1.main-title{font-size:56px;line-height:1.03;margin-bottom:12px}
-    h1.main-title span{color:var(--neon);text-shadow:0 0 18px rgba(0,255,0,0.28)}
-    .hero p{color:#bdbdbd;margin:18px 0 28px;line-height:1.6;font-size:18px}
-    .cta-button{display:inline-block;padding:12px 28px;border:2px solid var(--neon);color:var(--neon);border-radius:9px;text-decoration:none;font-weight:800;transition:.2s;background:transparent;box-shadow:0 0 16px rgba(0,255,0,0.06)}
-    .cta-button:hover{background:var(--neon);color:#000;box-shadow:0 0 30px rgba(0,255,0,0.45)}
-
-    /* sections */
-    section{padding:92px 10%}
-    .section-title{text-align:left;margin-bottom:18px}
-    .section-title h2{font-size:36px;color:var(--neon);text-shadow:0 0 10px rgba(0,255,0,0.12)}
-    .section-lead{color:#bfbfbf;max-width:920px;line-height:1.6;margin-top:8px;margin-bottom:18px}
-
-    /* services grid */
-    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-    .service-card{background:var(--card);border:1px solid rgba(0,255,0,0.06);padding:20px;border-radius:12px;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden}
-    .service-card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(0,255,0,0.06);border-color:var(--neon)}
-    .service-icon{font-size:30px;color:var(--neon);margin-bottom:12px}
-    .service-card h3{font-size:20px;margin-bottom:6px;color:#e9ffe9}
-    .service-card p{color:#cfcfcf;line-height:1.45;font-size:14px}
-    .service-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .service-badge{background:rgba(0,255,0,0.06);color:var(--neon);padding:6px 8px;border-radius:8px;font-size:12px;border:1px solid rgba(0,255,0,0.08)}
-    .service-tags{font-size:12px;color:#bfffbf}
-
-    /* two columns */
-    .two-col{display:flex;gap:28px;align-items:flex-start}
-    .col{flex:1}
-
-    /* importance */
-    .importance-list{list-style:none;padding-left:0;margin-top:12px}
-    .importance-list li{margin:10px 0;color:#d7ffd7;font-size:16px;line-height:1.6}
-
-    /* contact & forms */
-    .contact-container{display:flex;gap:30px}
-    .contact-info{flex:1}
-    .contact-info p{color:#cfcfcf;margin:8px 0;display:flex;gap:12px;align-items:center}
-    .contact-form{flex:1}
-    .form-group{margin-bottom:12px}
-    label{display:block;color:#d3ffd3;margin-bottom:8px;font-size:14px}
-    input,textarea,select{width:100%;padding:12px;background:rgba(20,20,20,0.45);border:1px solid rgba(0,255,0,0.06);border-radius:8px;color:#fff}
-    input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 10px rgba(0,255,0,0.08);border-color:var(--neon)}
-    .submit-btn{padding:12px 18px;border-radius:8px;background:transparent;border:2px solid var(--neon);color:var(--neon);font-weight:800;cursor:pointer}
-    .submit-btn:disabled{opacity:0.6;cursor:not-allowed}
-
-    /* login card */
-    .login-card{max-width:420px;margin:12px auto;padding:18px;border-radius:12px;background:rgba(8,8,8,0.9);border:1px solid rgba(0,255,0,0.06)}
-    .login-card h4{color:var(--neon);margin-bottom:10px}
-
-    /* admin panel */
-    .admin-panel{position:fixed;right:18px;top:84px;width:360px;max-height:70vh;overflow:auto;background:rgba(6,6,6,0.96);border:1px solid rgba(0,255,0,0.06);padding:12px;border-radius:8px;z-index:2200;display:none}
-    .admin-panel.open{display:block}
-    .lead-item{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:13px}
-    .admin-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
-
-    /* modal */
-    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:2200;align-items:center;justify-content:center;padding:26px}
-    .modal.open{display:flex}
-    .modal-content{background:rgba(6,6,6,0.98);border:2px solid var(--neon);border-radius:12px;padding:22px;width:95%;max-width:920px;max-height:86vh;overflow:auto;position:relative}
-    .close-modal{position:absolute;right:12px;top:10px;font-size:26px;color:var(--neon);cursor:pointer}
-    .modal-title{color:var(--neon);margin-bottom:10px;font-size:22px}
-    .modal-topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
-    .modal-section{margin-top:12px}
-
-    /* footer */
-    footer{background:linear-gradient(0deg, rgba(0,0,0,0.95), rgba(2,2,2,0.95));padding:34px 10%;border-top:1px solid rgba(0,255,0,0.06);color:#d7ffd7}
-    .footer-row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-    .footer-logo{font-weight:900;color:var(--neon);font-size:18px}
-    .paybill{font-weight:800;color:#fff}
-    .export-btn{background:transparent;border:2px solid var(--neon);color:var(--neon);padding:8px 12px;border-radius:8px;cursor:pointer}
-
-    /* notification */
-    .notification{position:fixed;top:18px;right:18px;background:var(--neon);color:#000;padding:12px 14px;border-radius:10px;display:none;font-weight:800;z-index:3000}
-
-    /* telegram button */
-    .telegram-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#0088cc;color:white;padding:12px 28px;border-radius:9px;text-decoration:none;font-weight:800;transition:.2s;border:2px solid #0088cc;box-shadow:0 0 16px rgba(0,136,204,0.3)}
-    .telegram-btn:hover{background:#0077b5;box-shadow:0 0 30px rgba(0,136,204,0.5);color:white}
-
-    /* Contact Form Styles */
-    .contact-form-container {
-      max-width: 500px;
-      width: 100%;
-      background-color: rgba(10, 10, 10, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 255, 77, 0.1);
-      overflow: hidden;
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      margin: 0 auto;
-    }
-
-    .contact-form-header {
-      background: linear-gradient(to right, rgba(0, 255, 77, 0.2), rgba(102, 126, 234, 0.2));
-      color: white;
-      padding: 25px 20px;
-      text-align: center;
-      border-bottom: 1px solid rgba(0, 255, 77, 0.1);
-    }
-
-    .contact-form-header h1 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: var(--neon);
-    }
-
-    .contact-form-header p {
-      font-size: 14px;
-      opacity: 0.9;
-      color: #cfcfcf;
-    }
-
-    .contact-form-body {
-      padding: 30px;
-    }
-
-    .contact-form-group {
-      margin-bottom: 20px;
-    }
-
-    .contact-form-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #d3ffd3;
-    }
-
-    .contact-form-input, .contact-form-textarea {
-      width: 100%;
-      padding: 12px 15px;
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.1);
-      border-radius: 6px;
-      font-size: 16px;
-      transition: all 0.3s;
-      color: white;
-    }
-
-    .contact-form-input:focus, .contact-form-textarea:focus {
-      outline: none;
-      border-color: var(--neon);
-      box-shadow: 0 0 0 2px rgba(0, 255, 77, 0.2);
-    }
-
-    .contact-form-textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .contact-submit-btn {
-      background: linear-gradient(to right, rgba(0, 255, 77, 0.8), rgba(102, 126, 234, 0.8));
-      color: white;
-      border: none;
-      padding: 14px 20px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s;
-      border: 1px solid rgba(0, 255, 77, 0.2);
-    }
-
-    .contact-submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 255, 77, 0.4);
-    }
-
-    .contact-submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .contact-submit-btn:disabled {
-      background: #333333;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .contact-message {
-      padding: 12px;
-      border-radius: 6px;
-      margin-top: 20px;
-      text-align: center;
-      display: none;
-    }
-
-    .contact-success {
-      background-color: rgba(0, 255, 77, 0.2);
-      color: #00ff4d;
-      border: 1px solid rgba(0, 255, 77, 0.3);
-    }
-
-    .contact-error {
-      background-color: rgba(255, 0, 0, 0.2);
-      color: #ff4d4d;
-      border: 1px solid rgba(255, 0, 0, 0.3);
-    }
-
-    .contact-loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-
-    .contact-footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #777;
-      border-top: 1px solid rgba(0, 255, 77, 0.1);
-    }
-
-    /* AI Assistant Styles */
-    .ai-assistant-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, rgba(10,10,15,0.95) 0%, rgba(15,15,25,0.95) 100%);
-      border-radius: 16px;
-      border: 1px solid rgba(0, 255, 77, 0.15);
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0, 255, 77, 0.15), inset 0 1px 0 rgba(0, 255, 77, 0.1);
-    }
-
-    .ai-header {
-      background: linear-gradient(135deg, rgba(0, 255, 77, 0.08) 0%, rgba(102, 126, 234, 0.08) 100%);
-      padding: 30px 25px;
-      text-align: center;
-      border-bottom: 1px solid rgba(0, 255, 77, 0.15);
-      backdrop-filter: blur(10px);
-    }
-
-    .ai-header h2 {
-      color: var(--neon);
-      margin-bottom: 8px;
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 20px rgba(0, 255, 77, 0.3);
-    }
-
-    .ai-header p {
-      color: #b0ffb0;
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .ai-chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 550px;
-      background: rgba(8, 8, 12, 0.8);
-    }
-
-    .ai-chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      background: linear-gradient(180deg, rgba(8,8,12,0.9) 0%, rgba(12,12,20,0.95) 100%);
-    }
-
-    .ai-chat-messages::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .ai-chat-messages::-webkit-scrollbar-track {
-      background: rgba(0, 255, 77, 0.05);
-    }
-
-    .ai-chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(0, 255, 77, 0.3);
-      border-radius: 4px;
-    }
-
-    .ai-message {
-      max-width: 85%;
-      padding: 14px 18px;
-      border-radius: 12px;
-      line-height: 1.6;
-      position: relative;
-      word-wrap: break-word;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .ai-user-message {
-      align-self: flex-end;
-      background: linear-gradient(135deg, rgba(0, 255, 77, 0.25) 0%, rgba(0, 255, 77, 0.15) 100%);
-      border: 1px solid rgba(0, 255, 77, 0.4);
-      color: #e9ffe9;
-      font-weight: 500;
-    }
-
-    .ai-bot-message {
-      align-self: flex-start;
-      background: rgba(25, 25, 40, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.2);
-      color: #dfe;
-      border-left: 3px solid var(--neon);
-    }
-
-    .ai-typing-indicator {
-      align-self: flex-start;
-      padding: 14px 18px;
-      background: rgba(25, 25, 40, 0.8);
-      border: 1px solid rgba(0, 255, 77, 0.2);
-      border-left: 3px solid var(--neon);
-      border-radius: 12px;
-      color: #dfe;
-      display: none;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    .ai-typing-dots {
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    .ai-typing-dots span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--neon);
-      margin: 0 2px;
-      animation: typing 1.4s infinite ease-in-out;
-    }
-
-    .ai-typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-    .ai-typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes typing {
-      0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-      40% { transform: scale(1); opacity: 1; }
-    }
-
-    .ai-input-container {
-      display: flex;
-      padding: 18px;
-      border-top: 1px solid rgba(0, 255, 77, 0.15);
-      background: linear-gradient(180deg, rgba(12,12,18,0.95) 0%, rgba(10,10,15,0.98) 100%);
-      gap: 12px;
-      align-items: center;
-    }
-
-    .ai-input {
-      flex: 1;
-      padding: 13px 18px;
-      background: rgba(20, 25, 35, 0.6);
-      border: 1.5px solid rgba(0, 255, 77, 0.25);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-      transition: all 0.3s ease;
-      font-family: inherit;
-    }
-
-    .ai-input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .ai-input:focus {
-      border-color: var(--neon);
-      background: rgba(20, 25, 35, 0.8);
-      box-shadow: 0 0 0 3px rgba(0, 255, 77, 0.15), inset 0 0 0 1px rgba(0, 255, 77, 0.2);
-    }
-
-    .ai-send-btn {
-      background: linear-gradient(135deg, var(--neon) 0%, #0df07a 100%);
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      width: 44px;
-      height: 44px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0, 255, 77, 0.3);
-      flex-shrink: 0;
-    }
-
-    .ai-send-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(0, 255, 77, 0.5);
-      background: linear-gradient(135deg, #0df07a 0%, #00ff4d 100%);
-    }
-
-    .ai-send-btn:active {
-      transform: translateY(0);
-    }
-
-    .ai-send-btn:disabled {
-      background: #444;
-      color: #888;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .ai-examples {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .ai-example-card {
-      background: linear-gradient(135deg, rgba(20, 30, 40, 0.5) 0%, rgba(15, 20, 30, 0.7) 100%);
-      border: 1.5px solid rgba(0, 255, 77, 0.15);
-      border-radius: 10px;
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ai-example-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--neon), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .ai-example-card:hover {
-      background: linear-gradient(135deg, rgba(0, 255, 77, 0.15) 0%, rgba(0, 255, 77, 0.08) 100%);
-      border-color: rgba(0, 255, 77, 0.4);
-      box-shadow: 0 4px 15px rgba(0, 255, 77, 0.2);
-      transform: translateY(-3px);
-    }
-
-    .ai-example-card:hover::before {
-      opacity: 1;
-    }
-
-    .ai-example-card h4 {
-      color: var(--neon);
-      margin-bottom: 8px;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    .ai-example-card p {
-      color: #b0d0d0;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    /* Cybersecurity Hacker Animation - COMPACT VERSION */
-    .cyber-animation-container {
-      width: 100%;
-      height: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      margin: 20px 0 40px 0;
-      overflow: hidden;
-    }
-    
-    .cyber-scene {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, #0a0a1a, #1a1a2e);
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 100, 255, 0.2);
-      border: 1px solid #1e2a3a;
-    }
-    
-    .cyber-desk {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 80px;
-      background: linear-gradient(to bottom, #2d1b0e, #1a1008);
-      border-top: 2px solid #3a2515;
-    }
-    
-    .cyber-hacker {
-      position: absolute;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 150px;
-    }
-    
-    .cyber-hacker-silhouette {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center, rgba(0, 255, 0, 0.6) 0%, transparent 70%);
-      border-radius: 50% 50% 40% 40%;
-      box-shadow: 
-        0 0 20px #00ff00,
-        0 0 40px #00ff00,
-        0 0 60px #00ff00;
-      filter: blur(3px);
-    }
-    
-    .cyber-hacker-head {
-      position: absolute;
-      top: 10%;
-      left: 25%;
-      width: 50%;
-      height: 30%;
-      background: rgba(0, 255, 0, 0.2);
-      border-radius: 50%;
-      box-shadow: 0 0 15px #00ff00;
-    }
-    
-    .cyber-laptop-container {
-      position: absolute;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 110px;
-      z-index: 5;
-    }
-    
-    .cyber-laptop {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #111;
-      border-radius: 6px 6px 0 0;
-      box-shadow: 0 0 12px rgba(0, 100, 255, 0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .cyber-laptop-screen {
-      width: 90%;
-      height: 70%;
-      background: #0a0a1a;
-      border: 1px solid #00aaff;
-      border-radius: 3px;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .cyber-screen-image {
-      width: 100%;
-      height: 100%;
-      background: url('https://images.unsplash.com/photo-1548092372-0d1bd40894a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80') no-repeat center center;
-      background-size: cover;
-      filter: brightness(0.8) contrast(1.2);
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-    
-    .cyber-screen-overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
-      overflow: hidden;
-    }
-    
-    .cyber-attack-messages {
-      position: relative;
-      height: 100%;
-      overflow: hidden;
-    }
-    
-    .cyber-attack-line {
-      font-family: 'Courier New', monospace;
-      font-size: 10px;
-      color: #ff0000;
-      padding: 1px 0;
-      white-space: nowrap;
-      text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
-      position: absolute;
-      width: 100%;
-      animation: cyberAttackScrollVertical 4s linear infinite;
-    }
-    
-    .cyber-attack-line:nth-child(1) { left: 0%; animation-delay: 0s; }
-    .cyber-attack-line:nth-child(2) { left: 10%; animation-delay: 0.4s; }
-    .cyber-attack-line:nth-child(3) { left: 20%; animation-delay: 0.8s; }
-    .cyber-attack-line:nth-child(4) { left: 30%; animation-delay: 1.2s; }
-    .cyber-attack-line:nth-child(5) { left: 40%; animation-delay: 1.6s; }
-    .cyber-attack-line:nth-child(6) { left: 50%; animation-delay: 2s; }
-    .cyber-attack-line:nth-child(7) { left: 60%; animation-delay: 2.4s; }
-    .cyber-attack-line:nth-child(8) { left: 70%; animation-delay: 2.8s; }
-    .cyber-attack-line:nth-child(9) { left: 80%; animation-delay: 3.2s; }
-    .cyber-attack-line:nth-child(10) { left: 90%; animation-delay: 3.6s; }
-    
-    .cyber-laptop-keyboard {
-      width: 95%;
-      height: 25%;
-      background: #222;
-      border-radius: 3px;
-      margin-top: 3px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .cyber-keyboard-light {
-      width: 6px;
-      height: 6px;
-      background: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #ff0000, 0 0 12px #00ff00;
-      animation: cyberBlink 1s infinite;
-    }
-    
-    .cyber-padlock {
-      position: absolute;
-      bottom: 140px;
-      right: 80px;
-      font-size: 24px;
-      animation: cyberLockToggle 3s ease-in-out infinite;
-      z-index: 5;
-      filter: drop-shadow(0 0 6px currentColor);
-    }
-    
-    .cyber-security-status {
-      position: absolute;
-      bottom: 120px;
-      right: 70px;
-      font-size: 10px;
-      color: #ff0000;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      animation: cyberStatusPulse 3s ease-in-out infinite;
-    }
-    
-    .cyber-data-flow {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    
-    .cyber-data-node {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 4px #ff0000, 0 0 8px #00ff00;
-      animation: cyberDataFlow 4s linear infinite;
-    }
-    
-    .cyber-full-screen-attacks {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 2;
-    }
-    
-    .cyber-full-screen-line {
-      position: absolute;
-      font-family: 'Courier New', monospace;
-      font-size: 10px;
-      color: #ff0000;
-      white-space: nowrap;
-      text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
-      animation: cyberFullScreenScroll 6s linear infinite;
-    }
-    
-    .cyber-footer {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 10px;
-      color: #6080a0;
-    }
-    
-    @keyframes cyberLockToggle {
-      0%, 50% {
-        color: #ff0000;
-      }
-      51%, 100% {
-        color: #00ff00;
-      }
-    }
-    
-    @keyframes cyberStatusPulse {
-      0%, 50% {
-        color: #ff0000;
-        text-shadow: 0 0 3px #ff0000, 0 0 6px #00ff00;
-      }
-      51%, 100% {
-        color: #00ff00;
-        text-shadow: 0 0 3px #00ff00, 0 0 6px #ff0000;
-      }
-    }
-    
-    @keyframes cyberBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    
-    @keyframes cyberAttackScrollVertical {
-      0% { 
-        transform: translateY(100%);
-        opacity: 0;
-      }
-      10% { 
-        opacity: 1;
-      }
-      90% { 
-        opacity: 1;
-      }
-      100% { 
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-    }
-    
-    @keyframes cyberDataFlow {
-      0% { 
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% { 
-        transform: translateY(-100vh) translateX(20px);
-        opacity: 0;
-      }
-    }
-    
-    @keyframes cyberFullScreenScroll {
-      0% { 
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      5% { 
-        opacity: 1;
-      }
-      95% { 
-        opacity: 1;
-      }
-      100% { 
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .ai-chat-container {
-        height: 450px;
-      }
-      
-      .ai-message {
-        max-width: 92%;
-        padding: 12px 14px;
-        font-size: 14px;
-      }
-      
-      .ai-header h2 {
-        font-size: 24px;
-      }
-      
-      .ai-header p {
-        font-size: 13px;
-      }
-      
-      .ai-input-container {
-        padding: 12px;
-        gap: 8px;
-      }
-      
-      .ai-input {
-        padding: 11px 14px;
-        font-size: 14px;
-      }
-      
-      .ai-send-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-      
-      .ai-examples {
-        grid-template-columns: 1fr;
-      }
-      
-      .ai-example-card {
-        padding: 12px;
-      }
-      
-      .ai-example-card h4 {
-        font-size: 14px;
-      }
-      
-      .ai-example-card p {
-        font-size: 12px;
-      }
-      
-      .logo{font-size:18px}
-      .logo-main{font-size:20px}
-      .logo-secondary{font-size:12px}
-      
-      .cyber-animation-container {
-        height: 200px;
-        margin: 15px 0 30px 0;
-      }
-      
-      .cyber-laptop-container {
-        width: 140px;
-        height: 85px;
-        bottom: 80px;
-      }
-      
-      .cyber-hacker {
-        width: 80px;
-        height: 100px;
-        bottom: 60px;
-      }
-      
-      .cyber-padlock {
-        bottom: 100px;
-        right: 50px;
-        font-size: 18px;
-      }
-      
-      .cyber-security-status {
-        bottom: 85px;
-        right: 45px;
-        font-size: 8px;
-      }
-    }
-
-    @media (max-width: 980px){.two-col{flex-direction:column}}
-    @media (max-width: 760px){header{padding:12px 5%}.hero{padding:0 6%}h1.main-title{font-size:34px}}
-    @media (max-width: 640px){nav.primary ul{display:none;flex-direction:column;background:rgba(0,0,0,0.6);position:absolute;right:6%;top:64px;padding:10px;border-radius:10px}.mobile-menu{display:block}.admin-panel{position:static;width:auto;max-height:none;margin:10px;border-radius:8px}}
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manlung Tech City | Cyber Hub &amp; Tech Support</title>
+    <meta name="description" content="Manlung Tech City: Cyber security, tech support, system logs, binary monitoring, and secure payments.">
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+        :root {
+            --neon: #0df07a;
+            --dark: #050a10;
+            --card-bg: #0e171f;
+            --border-dim: #1a2e36;
+            --text-muted: #8aaaba;
+            --text-light: #e6f2f0;
+            --danger: #ff6b5a;
+        }
+        body {
+            background: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--neon);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 18px rgba(13, 240, 122, 0.12);
+        }
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 720px;
+            margin-bottom: 2.2rem;
+            border-left: 3px solid var(--neon);
+            padding-left: 1.2rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.8rem;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ----- HEADER ----- */
+        header {
+            background: rgba(5, 10, 16, 0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-dim);
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(13, 240, 122, 0.2);
+        }
+        .logo span {
+            color: #9ac8c0;
+            font-weight: 300;
+        }
+        nav {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        nav a {
+            color: #c0d8de;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.92rem;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 3px;
+        }
+        nav a:hover {
+            color: var(--neon);
+            border-bottom-color: var(--neon);
+        }
+        .currency-badge {
+            background: #1a2a2a;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: var(--neon);
+            border: 1px solid #2a5a4a;
+        }
+
+        /* ----- BUTTONS & CARDS ----- */
+        .btn-primary {
+            display: inline-block;
+            background: var(--neon);
+            color: #051008;
+            font-weight: 700;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: 0.25s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 24px rgba(13, 240, 122, 0.12);
+        }
+        .btn-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 40px rgba(13, 240, 122, 0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--neon);
+            color: var(--neon);
+            font-weight: 600;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: rgba(13, 240, 122, 0.08);
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-dim);
+            transition: 0.25s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--neon);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+        }
+        .badge {
+            background: #1a3a2e;
+            color: var(--neon);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #e0f0e8;
+        }
+
+        /* ----- HERO WITH BINARY & LOGS ----- */
+        .hero {
+            padding: 3rem 0 2.5rem 0;
+            background: radial-gradient(ellipse at 60% 10%, #0f2828, var(--dark) 85%);
+            border-bottom: 1px solid var(--border-dim);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2.8rem;
+            align-items: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .hero h1 span {
+            color: var(--neon);
+            text-shadow: 0 0 30px rgba(13, 240, 122, 0.2);
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin: 1rem 0 1.6rem 0;
+            max-width: 540px;
+        }
+
+        /* ----- BINARY RAIN & SYSTEM LOGS ----- */
+        .binary-container {
+            background: #0a141c;
+            border-radius: 20px;
+            padding: 1.2rem;
+            border: 1px solid var(--border-dim);
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            position: relative;
+            height: 320px;
+        }
+        .binary-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            font-size: 0.7rem;
+            color: var(--neon);
+            overflow: hidden;
+            white-space: pre;
+            line-height: 1.2;
+        }
+        .system-logs {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding: 0.2rem 0.5rem;
+        }
+        .log-entry {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #9ac8c0;
+            animation: logFade 0.5s ease-in;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .log-entry .highlight {
+            color: var(--neon);
+        }
+        .log-entry .error {
+            color: #ff6b5a;
+        }
+        .log-entry .info {
+            color: #5ac8fa;
+        }
+        @keyframes logFade {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ----- MODAL ----- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 400;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #0e191f;
+            max-width: 540px;
+            width: 100%;
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid var(--border-dim);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-box h2 {
+            color: var(--neon);
+            margin-bottom: 0.4rem;
+        }
+        .modal-box .close-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+        .form-group {
+            margin: 1rem 0;
+        }
+        .form-group label {
+            display: block;
+            color: #b0ccd0;
+            margin-bottom: 0.3rem;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #0f1e24;
+            border: 1px solid #2a4a4a;
+            border-radius: 12px;
+            color: #eef;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--neon);
+            outline: none;
+        }
+
+        /* ----- ABOUT / TERMS ----- */
+        .page-section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-dim);
+        }
+        .page-section h2 {
+            color: var(--neon);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .page-section p {
+            color: var(--text-muted);
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        /* ----- AI CHAT ----- */
+        .ai-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 300;
+            width: 340px;
+            max-height: 460px;
+            background: #0d181e;
+            border-radius: 24px;
+            border: 1px solid var(--border-dim);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .ai-widget.collapsed {
+            max-height: 60px;
+        }
+        .ai-header {
+            padding: 0.8rem 1.2rem;
+            background: #0c1a20;
+            border-bottom: 1px solid var(--border-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .ai-header span {
+            font-weight: 600;
+            color: var(--neon);
+        }
+        .ai-body {
+            padding: 1rem;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-height: 300px;
+        }
+        .ai-msg {
+            padding: 0.5rem 1rem;
+            border-radius: 16px;
+            max-width: 85%;
+            font-size: 0.9rem;
+            background: #1a2a30;
+            color: #dce8e8;
+        }
+        .ai-msg.user {
+            align-self: flex-end;
+            background: #1a4a3a;
+            color: #e0f5ed;
+        }
+        .ai-input-row {
+            display: flex;
+            gap: 0.4rem;
+            padding: 0.6rem 1rem;
+            border-top: 1px solid var(--border-dim);
+        }
+        .ai-input-row input {
+            flex: 1;
+            background: #142228;
+            border: 1px solid #2a4a4a;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            color: #eef;
+            outline: none;
+        }
+        .ai-input-row input:focus {
+            border-color: var(--neon);
+        }
+        .ai-input-row button {
+            background: var(--neon);
+            border: none;
+            border-radius: 40px;
+            padding: 0 1.2rem;
+            font-weight: 700;
+            color: #041008;
+            cursor: pointer;
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            border-top: 1px solid var(--border-dim);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background: #080c10;
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-flex a {
+            color: #8ab0b8;
+            text-decoration: none;
+        }
+        .footer-flex a:hover {
+            color: var(--neon);
+        }
+
+        @media (max-width: 780px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .ai-widget {
+                width: 280px;
+                right: 1rem;
+                bottom: 1rem;
+            }
+            .header-flex {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            nav {
+                justify-content: center;
+                gap: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .btn-primary,
+            .btn-outline {
+                display: block;
+                text-align: center;
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="grid-lines"></div>
-  <div class="floating-elements" id="floatingElements" aria-hidden="true"></div>
-  <div class="scan-line" aria-hidden="true"></div>
-  <div class="notification" id="notification" role="status" aria-live="polite"></div>
 
-  <!-- header -->
-  <header>
-    <div class="logo" aria-label="Manlung Tech City logo">
-      <div class="logo-text">
-        <span class="logo-main">Manlung</span>
-        <span class="logo-secondary">Tech City</span>
-      </div>
-    </div>
-
-    <nav class="primary" aria-label="Primary navigation">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#manlung-ai">Manlung AI</a></li>
-        <li><a href="#cyber-security">Cyber Security</a></li>
-        <li><a href="#cyber-support">Cyber Support</a></li>
-        <li><a href="#approach">Approach</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="mobile-menu" id="mobileMenuToggle" aria-label="Open menu"><i class="fas fa-bars" style="color:var(--neon)"></i></div>
-    </nav>
-  </header>
-
-  <!-- hero -->
-  <section class="hero" id="home" aria-labelledby="heroTitle">
-    <div class="hero-content">
-      <h1 class="main-title" id="heroTitle">Advanced <span>Cyber Security</span> & <span>Cyber Café</span> Services</h1>
-      <p>Protecting digital assets while offering everyday digital services — from penetration testing and real-time monitoring to eCitizen assistance, printing, KRA services, and software support.</p>
-      <a class="cta-button" href="#manlung-ai">Try Manlung AI</a>
-      <a class="cta-button" href="#cyber-security" style="margin-left: 15px;">Explore Cyber Security</a>
-    </div>
-  </section>
-
-  <!-- Compact Cybersecurity Hacker Animation -->
-  <div class="cyber-animation-container">
-    <div class="cyber-scene">
-      <div class="cyber-desk"></div>
-      
-      <div class="cyber-hacker">
-        <div class="cyber-hacker-silhouette"></div>
-        <div class="cyber-hacker-head"></div>
-      </div>
-      
-      <div class="cyber-laptop-container">
-        <div class="cyber-laptop">
-          <div class="cyber-laptop-screen">
-            <div class="cyber-screen-image"></div>
-            <div class="cyber-screen-overlay">
-              <div class="cyber-attack-messages">
-                <div class="cyber-attack-line">ATTACK: 40%</div>
-                <div class="cyber-attack-line">ATTACK: 50%</div>
-                <div class="cyber-attack-line">ATTACK: 60%</div>
-                <div class="cyber-attack-line">ATTACK: 70%</div>
-                <div class="cyber-attack-line">ATTACK: 80%</div>
-                <div class="cyber-attack-line">SENDING FILE</div>
-                <div class="cyber-attack-line">PORT 443</div>
-                <div class="cyber-attack-line">FIREWALL BYPASSED</div>
-                <div class="cyber-attack-line">DATA TRANSFER</div>
-                <div class="cyber-attack-line">SYSTEM 20%</div>
-              </div>
-            </div>
-          </div>
-          <div class="cyber-laptop-keyboard">
-            <div class="cyber-keyboard-light"></div>
-          </div>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-flex">
+            <div class="logo">Manlung <span>Tech City</span></div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#eservices">E-Services</a>
+                <a href="#courses">Courses</a>
+                <a href="#about">About</a>
+                <a href="#terms">Terms</a>
+                <span class="currency-badge" id="currencyDisplay"><i class="fas fa-globe"></i> KES</span>
+                <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-outline" style="padding:0.2rem 1.2rem; font-size:0.8rem;">Store</a>
+            </nav>
         </div>
-      </div>
-      
-      <div class="cyber-padlock">
-        <i class="fas fa-lock"></i>
-      </div>
-      
-      <div class="cyber-security-status">BREACHED</div>
-      
-      <div class="cyber-data-flow">
-        <!-- Data nodes will be generated by JavaScript -->
-      </div>
-      
-      <div class="cyber-full-screen-attacks">
-        <!-- Full screen attack messages will be generated by JavaScript -->
-      </div>
-    </div>
-    
-    <div class="cyber-footer">
-      CYBERSECURITY SYSTEMS COMPROMISED | INITIATING COUNTERMEASURES | LAST SCAN: JUST NOW
-    </div>
-  </div>
+    </header>
 
-  <!-- Cyber Security Services (expanded & human-focused) -->
-  <section id="cyber-security" aria-labelledby="csTitle">
-    <div class="section-title"><h2 id="csTitle">Cyber Security Services</h2></div>
-    <p class="section-lead">At <strong>Manlung Tech City</strong> we provide a full spectrum of cyber security services that combine automated tooling with experienced human analysts. Each service below includes hands-on support, clear deliverables and practical follow-up so people and businesses stay safe.</p>
-
-    <div class="services-grid" id="cyberServicesGrid">
-      <div class="service-card" data-service="penetration">
-        <div class="service-icon"><i class="fas fa-user-secret"></i></div>
-        <h3>Penetration Testing</h3>
-        <p>Ethical hacking by senior testers to uncover vulnerabilities before attackers do.</p>
-        <div class="service-meta"><div class="service-badge">Human-led</div><div class="service-tags">Report • Remediation Plan • Re-test</div></div>
-      </div>
-
-      <div class="service-card" data-service="incident">
-        <div class="service-icon"><i class="fas fa-bolt"></i></div>
-        <h3>Incident Response & Forensics</h3>
-        <p>Rapid containment, evidence collection and guided recovery with human analysts.</p>
-        <div class="service-meta"><div class="service-badge">24/7 Support</div><div class="service-tags">Containment • Forensics • Root Cause</div></div>
-      </div>
-
-      <div class="service-card" data-service="monitoring">
-        <div class="service-icon"><i class="fas fa-headset"></i></div>
-        <h3>24/7 Monitoring (SOC)</h3>
-        <p>Continuous detection with SIEM and analyst triage to reduce time-to-detect.</p>
-        <div class="service-meta"><div class="service-badge">Managed</div><div class="service-tags">Alerts • Investigation • Response</div></div>
-      </div>
-
-      <div class="service-card" data-service="cloudsec">
-        <div class="service-icon"><i class="fas fa-cloud"></i></div>
-        <h3>Cloud & Infrastructure Security</h3>
-        <p>Secure cloud architecture reviews, IAM hardening and configuration fixes.</p>
-        <div class="service-meta"><div class="service-badge">Expert Review</div><div class="service-tags">Architecture • IAM • DLP</div></div>
-      </div>
-
-      <div class="service-card" data-service="appsec">
-        <div class="service-icon"><i class="fas fa-code-branch"></i></div>
-        <h3>Application Security (DevSecOps)</h3>
-        <p>Secure code reviews, SAST/DAST scans and CI/CD pipeline integration.</p>
-        <div class="service-meta"><div class="service-badge">Dev + Sec</div><div class="service-tags">SAST • DAST • Remediation</div></div>
-      </div>
-
-      <div class="service-card" data-service="iam">
-        <div class="service-icon"><i class="fas fa-id-badge"></i></div>
-        <h3>Identity & Access Management (IAM)</h3>
-        <p>Policies, role modelling and multi-factor setup to reduce account risk.</p>
-        <div class="service-meta"><div class="service-badge">Policy-driven</div><div class="service-tags">MFA • Roles • Reviews</div></div>
-      </div>
-
-      <div class="service-card" data-service="vuln">
-        <div class="service-icon"><i class="fas fa-bug"></i></div>
-        <h3>Vulnerability Management & Patching</h3>
-        <p>Regular scans, prioritization and patch orchestration with human verification.</p>
-        <div class="service-meta"><div class="service-badge">Ongoing</div><div class="service-tags">Scan • Triage • Patching</div></div>
-      </div>
-
-      <div class="service-card" data-service="encryption">
-        <div class="service-icon"><i class="fas fa-lock"></i></div>
-        <h3>Data Protection & Encryption</h3>
-        <p>Data classification, encryption strategies, and secure key management guidance.</p>
-        <div class="service-meta"><div class="service-badge">Compliance-ready</div><div class="service-tags">AES • TLS • KMS</div></div>
-      </div>
-
-      <div class="service-card" data-service="threat">
-        <div class="service-icon"><i class="fas fa-search"></i></div>
-        <h3>Threat Intelligence & Hunting</h3>
-        <p>Proactive threat hunting and local intelligence tailored to your sector.</p>
-        <div class="service-meta"><div class="service-badge">Proactive</div><div class="service-tags">Hunting • Intel • IOC</div></div>
-      </div>
-
-      <div class="service-card" data-service="training">
-        <div class="service-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-        <h3>Security Awareness & Training</h3>
-        <p>Practical workshops, phishing simulations and on-site training for staff & youth.</p>
-        <div class="service-meta"><div class="service-badge">Hands-on</div><div class="service-tags">Workshops • Phishing • Certification</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Manlung AI Assistant -->
-  <section id="manlung-ai" aria-labelledby="aiTitle">
-    <div class="section-title"><h2 id="aiTitle">Manlung AI Assistant</h2></div>
-    <p class="section-lead">Get instant help with our intelligent AI assistant. Ask anything about our cybersecurity services, cyber café offerings, tech support, or general questions. Powered by advanced AI - available 24/7.</p>
-
-    <div class="ai-assistant-container">
-      <div class="ai-header">
-        <h2>Manlung AI Chat</h2>
-        <p>Ask me anything - from our services to general tech questions. I'm here to help!</p>
-      </div>
-      
-      <div class="ai-chat-container">
-        <div class="ai-chat-messages" id="aiChatMessages">
-          <div class="ai-message ai-bot-message">
-            Hello! I'm the Manlung AI Assistant. How can I help you today? You can ask me about our cybersecurity services, cyber café offerings, or get technical support.
-          </div>
-        </div>
-        
-        <div class="ai-typing-indicator" id="aiTypingIndicator">
-          <div class="ai-typing-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          Manlung AI is typing...
-        </div>
-        
-        <div class="ai-input-container">
-          <input type="text" class="ai-input" id="aiInput" placeholder="Type your message here..." autocomplete="off">
-          <button class="ai-send-btn" id="aiSendBtn">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
-      </div>
-      
-      <div style="padding: 20px; border-top: 1px solid rgba(0, 255, 77, 0.1);">
-        <h3 style="color: var(--neon); margin-bottom: 15px; text-align: center;">Try asking me about:</h3>
-        <div class="ai-examples">
-          <div class="ai-example-card" onclick="insertExample('What cybersecurity services do you offer?')">
-            <h4>Cybersecurity Services</h4>
-            <p>Learn about our penetration testing, monitoring, and incident response</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('How can I get help with KRA services?')">
-            <h4>KRA Services</h4>
-            <p>Information about PIN registration, tax returns, and compliance</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('Tell me about your cyber café services')">
-            <h4>Cyber Café</h4>
-            <p>Printing, scanning, typing, and internet access services</p>
-          </div>
-          <div class="ai-example-card" onclick="insertExample('How do I contact Manlung Tech City?')">
-            <h4>Contact Information</h4>
-            <p>Get our location, phone number, and business hours</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Google API Configuration -->
-      <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, rgba(0, 255, 77, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%); border: 1px solid rgba(0, 255, 77, 0.2); border-radius: 12px;">
-        <h3 style="color: var(--neon); margin-bottom: 15px; font-size: 18px;">🔑 Enable Web Search (Optional)</h3>
-        <p style="color: #bfbfbf; margin-bottom: 15px; font-size: 13px; line-height: 1.6;">
-          To enable the AI to search the internet for unknown questions, add your Google Custom Search API credentials below.
-        </p>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div>
-            <label style="color: #d3ffd3; font-size: 13px; margin-bottom: 5px; display: block;">Google API Key</label>
-            <input type="password" id="googleApiKey" placeholder="Your Google API Key" style="background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(0, 255, 77, 0.3); padding: 10px; border-radius: 6px; color: #fff; width: 100%; font-size: 12px;">
-          </div>
-          <div>
-            <label style="color: #d3ffd3; font-size: 13px; margin-bottom: 5px; display: block;">Search Engine ID (CX)</label>
-            <input type="password" id="googleSearchEngineId" placeholder="Your Custom Search Engine ID" style="background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(0, 255, 77, 0.3); padding: 10px; border-radius: 6px; color: #fff; width: 100%; font-size: 12px;">
-          </div>
-          <button onclick="saveGoogleApiKeys()" style="background: linear-gradient(135deg, var(--neon) 0%, #0df07a 100%); color: #000; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">Save API Keys</button>
-          <p style="color: #888; font-size: 12px; margin-top: 10px;">
-            📖 <strong>How to get keys:</strong> Visit <a href="https://programmablesearchengine.google.com" target="_blank" style="color: var(--neon);">Google Programmable Search</a> to create a Custom Search Engine and get your CX. Then enable the API in <a href="https://console.cloud.google.com" target="_blank" style="color: var(--neon);">Google Cloud Console</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cyber Support & Cyber-Café Services (includes KRA services) -->
-  <section id="cyber-support" aria-labelledby="csupTitle">
-    <div class="section-title"><h2 id="csupTitle">Cyber Support & Cyber-Café Services</h2></div>
-    <p class="section-lead">We pair advanced security with practical services the community needs every day. Quick, reliable and secure — that's the Manlung promise.</p>
-
-    <div class="services-grid">
-      <div class="service-card" data-service="ecitizen"><div class="service-icon"><i class="fas fa-user-check"></i></div><h3>eCitizen & Government</h3><p>Assistance with passports, birth certificates, Good Conduct and more.</p></div>
-
-      <div class="service-card" data-service="printing"><div class="service-icon"><i class="fas fa-print"></i></div><h3>Printing, Scanning & Photocopy</h3><p>Fast color printing, bulk photocopying, scanning to PDF and OCR.</p></div>
-
-      <div class="service-card" data-service="typing"><div class="service-icon"><i class="fas fa-keyboard"></i></div><h3>Typing & CV / Applications</h3><p>Professional CVs, application letters and document formatting.</p></div>
-
-      <div class="service-card" data-service="wifi"><div class="service-icon"><i class="fas fa-wifi"></i></div><h3>Wi-Fi & Internet Access</h3><p>Secured browsing stations and private workspaces.</p></div>
-
-      <div class="service-card" data-service="softwaredev"><div class="service-icon"><i class="fas fa-code"></i></div><h3>Software & Web Services</h3><p>Websites, mobile apps, installations and maintenance.</p></div>
-
-      <div class="service-card" data-service="lamination"><div class="service-icon"><i class="fas fa-id-card"></i></div><h3>Lamination & Binding</h3><p>Document finishing and certificate lamination.</p></div>
-    </div>
-
-    <!-- KRA Services block -->
-    <div style="margin-top:26px">
-      <div class="section-title"><h2 style="font-size:26px;color:var(--neon)">KRA & Tax Services</h2></div>
-      <p class="section-lead">Complete KRA support for individuals and businesses — we guide you through every KRA online process.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
-        <div class="service-card"><h3>KRA PIN Registration</h3><p>Apply for a new KRA PIN for individuals, companies and NGOs.</p></div>
-        <div class="service-card"><h3>PIN Replacement & Updates</h3><p>Update personal details, replace lost PIN certificates and correct records.</p></div>
-        <div class="service-card"><h3>iTax Returns</h3><p>Assistance with filing income tax returns and uploading documents on iTax.</p></div>
-        <div class="service-card"><h3>Tax Compliance Certificates (TCC)</h3><p>Support to obtain and renew Tax Compliance Certificates.</p></div>
-        <div class="service-card"><h3>PAYE & Employer Registration</h3><p>Register your business, set up PAYE and submit employer returns.</p></div>
-        <div class="service-card"><h3>Withholding Tax & VAT</h3><p>Help with filings for VAT, withholding taxes and related reconciliations.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Approach & Why it matters -->
-  <section id="approach" aria-labelledby="approachTitle">
-    <div class="section-title"><h2 id="approachTitle">Manlung's Approach & Why Cyber Security Matters</h2></div>
-    <div class="two-col">
-      <div class="col">
-        <p class="section-lead">Manlung Tech City protects people and businesses by combining technical expertise, rapid response and community education. We treat security as an ongoing program.</p>
-        <ul class="importance-list">
-          <li>🔒 <strong>Protect personal data</strong> — prevent identity theft and fraud for café users and customers.</li>
-          <li>🛡️ <strong>Protect micro & small businesses</strong> — stop ransomware and data loss with backups and defenses.</li>
-          <li>⚡ <strong>Safe public access</strong> — secure Wi-Fi, session isolation, and browsing filters to protect visitors.</li>
-          <li>📈 <strong>Build digital trust</strong> — secure government & banking interactions for the community.</li>
-          <li>🎓 <strong>Train & empower</strong> — hands-on workshops and awareness campaigns for youth and staff.</li>
-        </ul>
-      </div>
-
-      <div class="col">
-        <h3 style="color:var(--neon);margin-bottom:10px">Incident Response & Community SOC</h3>
-        <p style="color:#d6ffde;line-height:1.5">Our incident response procedures identify, isolate and remediate incidents. Manlung provides a local SOC-like capability for monitoring events and coordinating recovery.</p>
-        <h3 style="color:var(--neon);margin-top:14px;margin-bottom:10px">Compliance & Business Support</h3>
-        <p style="color:#d6ffde;line-height:1.5">We help small businesses comply with local digital requirements and assist with KRA/PIN submissions, reducing compliance risk.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact & forms (Telegram integrated) -->
-  <section id="contact" aria-labelledby="contactTitle">
-    <div class="section-title"><h2 id="contactTitle">Contact & Get a Quote</h2></div>
-    
-    <div class="contact-container">
-      <div class="contact-info">
-        <h3 style="color:var(--neon)">Get in Touch</h3>
-        <p><i class="fas fa-map-marker-alt"></i> Tech City, Nairobi</p>
-        <p><i class="fas fa-phone"></i> +254 724 356 178</p>
-        <p><i class="fab fa-telegram-plane"></i> @manlungtechcitybot</p>
-        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="contact-form-container">
-        <div class="contact-form-header">
-          <h1>Contact Us</h1>
-          <p>Send us a message and we'll get back to you soon</p>
-        </div>
-        
-        <div class="contact-form-body">
-          <form id="contactForm">
-            <div class="contact-form-group">
-              <label for="name" class="contact-form-label">Full Name</label>
-              <input type="text" id="name" name="name" class="contact-form-input" placeholder="Enter your full name" required>
-            </div>
-            
-            <div class="contact-form-group">
-              <label for="phone" class="contact-form-label">Phone Number</label>
-              <input type="tel" id="phone" name="phone" class="contact-form-input" placeholder="Enter your phone number" required>
-            </div>
-            
-            <div class="contact-form-group">
-              <label for="message" class="contact-form-label">Message</label>
-              <textarea id="message" name="message" class="contact-form-textarea" placeholder="Enter your message" required></textarea>
-            </div>
-            
-            <button type="submit" class="contact-submit-btn" id="submitBtn">
-              <span id="btnText">Send Message</span>
-            </button>
-            
-            <div id="responseMessage" class="contact-message"></div>
-          </form>
-        </div>
-        
-        <div class="contact-footer">
-          <p>We'll respond to your message as soon as possible</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer + export leads -->
-  <footer>
-    <div class="footer-row" role="contentinfo">
-      <div class="footer-logo">Manlung Tech City</div>
-      <div><div class="paybill">Paybill: <strong>522522</strong> | Account: <strong>1336980125</strong></div></div>
-      <div><button id="exportLeads" class="export-btn" title="Export leads to CSV"><i class="fas fa-file-csv"></i> Export Leads</button></div>
-    </div>
-    <div style="margin-top:18px;color:#bfffbf;opacity:0.95">&copy; 2025 Manlung Tech City. All rights reserved.</div>
-  </footer>
-
-  <!-- Service modal (details + Telegram form) -->
-  <div class="modal" id="serviceModal" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <span class="close-modal" id="closeModal" title="Close">&times;</span>
-      <h2 class="modal-title" id="modalTitle">Service Details</h2>
-      <div id="modalDescription" style="color:#dfe"></div>
-
-      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">What we do</h4><ul id="modalWhat" style="color:#dfe;margin-left:16px"></ul></div>
-      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">Human Support</h4><div id="modalHuman" style="color:#dfe"></div></div>
-      <div class="modal-section"><h4 style="color:var(--neon);margin-top:12px">Deliverables</h4><ul id="modalDeliver" style="color:#dfe;margin-left:16px"></ul></div>
-
-      <h3 style="color:var(--neon);margin-top:16px">Related Topics</h3>
-      <div class="modal-topics" id="modalTopics"></div>
-
-      <!-- Telegram consultation request -->
-      <div class="lead-form" id="leadFormContainer" style="margin-top:14px">
-        <h3 style="color:var(--neon)">Request a Free Quote via Telegram</h3>
-        <form id="leadForm" onsubmit="redirectToTelegram(event, document.getElementById('leadService').value)">
-          <input id="leadName" name="name" type="text" placeholder="Your name" required style="margin-bottom:8px">
-          <input id="leadEmail" name="email" type="email" placeholder="Your email" required style="margin-bottom:8px">
-          <input id="leadPhone" name="phone" type="tel" placeholder="Phone" required style="margin-bottom:8px">
-          <input id="leadService" name="service" type="hidden" value="">
-          <input type="hidden" name="source" value="service-modal">
-          <button class="telegram-btn" id="submitLead" type="submit" style="width:100%"><i class="fab fa-telegram-plane"></i> Request Consultation via Telegram</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Admin panel (client-side demo) -->
-  <div class="admin-panel" id="adminPanel" role="region" aria-label="Admin panel">
-    <h4 style="color:var(--neon);margin:6px 0">Admin — Leads</h4>
-    <div id="leadsList" style="max-height:56vh;overflow:auto"></div>
-    <div class="admin-actions"><button id="clearLeads" class="export-btn">Clear All Leads</button></div>
-    <div style="font-size:12px;color:#bfb;margin-top:8px">Demo admin view — use secure server for production.</div>
-  </div>
-
-  <!-- Telegram quick -->
-  <div style="position:fixed;right:18px;bottom:18px;z-index:1200">
-    <a href="https://t.me/manlungtechcitybot" class="telegram-btn" style="border-radius:50%;padding:14px 16px;font-size:18px" aria-label="Telegram">
-      <i class="fab fa-telegram-plane"></i>
-    </a>
-  </div>
-
-  <script>
-    // ========== CYBER ANIMATION FUNCTIONALITY ==========
-    // Create data flow nodes
-    const cyberDataFlow = document.querySelector('.cyber-data-flow');
-    for (let i = 0; i < 20; i++) {
-      const node = document.createElement('div');
-      node.classList.add('cyber-data-node');
-      node.style.left = Math.random() * 100 + '%';
-      node.style.animationDelay = Math.random() * 5 + 's';
-      cyberDataFlow.appendChild(node);
-    }
-    
-    // Add some random movement to the hacker silhouette
-    const cyberHacker = document.querySelector('.cyber-hacker-silhouette');
-    setInterval(() => {
-      const glow = 20 + Math.random() * 10;
-      cyberHacker.style.boxShadow = `0 0 ${glow}px #00ff00, 0 0 ${glow * 2}px #00ff00, 0 0 ${glow * 3}px #00ff00`;
-    }, 1000);
-    
-    // Create full screen attack messages
-    const cyberFullScreenAttacks = document.querySelector('.cyber-full-screen-attacks');
-    const cyberAttackMessages = [
-      "ATTACK DETECTED: 40% PENETRATION",
-      "ATTACK DETECTED: 50% PENETRATION",
-      "ATTACK DETECTED: 60% PENETRATION",
-      "ATTACK DETECTED: 70% PENETRATION",
-      "ATTACK DETECTED: 80% PENETRATION",
-      "SENDING FILE: confidential_data.zip",
-      "INTRUSION: Port 443 compromised",
-      "BREACH: Firewall bypassed",
-      "EXFILTRATION: Data transfer in progress",
-      "ALERT: System integrity at 20%",
-      "MALWARE DETECTED: Trojan.Hydra",
-      "UNAUTHORIZED ACCESS: Admin credentials",
-      "DATA LEAK: 2.4GB transferred",
-      "BACKDOOR INSTALLED: System compromised",
-      "RANSOMWARE ACTIVATED: Files encrypted"
-    ];
-    
-    // Create initial full screen attack lines
-    for (let i = 0; i < 10; i++) {
-      const line = document.createElement('div');
-      line.classList.add('cyber-full-screen-line');
-      line.textContent = cyberAttackMessages[Math.floor(Math.random() * cyberAttackMessages.length)];
-      line.style.left = Math.random() * 80 + '%';
-      line.style.animationDelay = Math.random() * 6 + 's';
-      line.style.animationDuration = (4 + Math.random() * 3) + 's';
-      cyberFullScreenAttacks.appendChild(line);
-    }
-    
-    // Add new attack lines periodically
-    setInterval(() => {
-      const line = document.createElement('div');
-      line.classList.add('cyber-full-screen-line');
-      line.textContent = cyberAttackMessages[Math.floor(Math.random() * cyberAttackMessages.length)];
-      line.style.left = Math.random() * 80 + '%';
-      line.style.animationDuration = (4 + Math.random() * 3) + 's';
-      cyberFullScreenAttacks.appendChild(line);
-      
-      // Remove old lines to prevent too many elements
-      if (cyberFullScreenAttacks.children.length > 15) {
-        cyberFullScreenAttacks.removeChild(cyberFullScreenAttacks.children[0]);
-      }
-    }, 1500);
-    
-    // Randomize laptop attack messages for more dynamic effect
-    const cyberLaptopAttackMessages = document.querySelectorAll('.cyber-attack-line');
-    const cyberShortMessages = [
-      "ATTACK: 40%",
-      "ATTACK: 50%",
-      "ATTACK: 60%",
-      "ATTACK: 70%",
-      "ATTACK: 80%",
-      "SENDING FILE",
-      "PORT 443",
-      "FIREWALL BYPASSED",
-      "DATA TRANSFER",
-      "SYSTEM 20%",
-      "MALWARE DETECTED",
-      "UNAUTHORIZED ACCESS",
-      "DATA LEAK",
-      "BACKDOOR INSTALLED",
-      "RANSOMWARE"
-    ];
-    
-    setInterval(() => {
-      cyberLaptopAttackMessages.forEach(line => {
-        const randomMessage = cyberShortMessages[Math.floor(Math.random() * cyberShortMessages.length)];
-        line.textContent = randomMessage;
-        // Randomize animation duration for more dynamic effect
-        line.style.animationDuration = (3 + Math.random() * 3) + 's';
-      });
-    }, 5000);
-
-    // ========== SERVICE DATA ==========
-    const serviceDetails = {
-      penetration: {
-        title: "Penetration Testing",
-        description: "<p>Full-scope penetration tests that mimic real-world attacks to find flaws in networks, systems and web applications.</p>",
-        topics: ["Network Pen Testing", "Web App Testing", "API Security", "Privilege Escalation"],
-        human: "Senior ethical hackers with manual validation and remediation coaching.",
-        deliverables: ["Executive summary", "Technical findings", "Remediation priority list", "Retest report"]
-      },
-      incident: {
-        title: "Incident Response & Forensics",
-        description: "<p>Rapid triage, containment and post-incident forensics to restore safe operations and preserve evidence.</p>",
-        topics: ["Containment", "Forensic Collection", "Malware Analysis", "Recovery"],
-        human: "On-call incident handlers who guide you step-by-step and coordinate recovery.",
-        deliverables: ["Containment actions", "Forensic timeline", "Mitigation plan", "Post-incident report"]
-      },
-      monitoring: {
-        title: "24/7 Monitoring (SOC)",
-        description: "<p>Continuous monitoring using SIEM and human analysts to detect and respond to suspicious activity quickly.</p>",
-        topics: ["Log Collection", "Alert Triage", "Threat Hunting", "Response"],
-        human: "Dedicated SOC analysts who investigate alerts and escalate real incidents.",
-        deliverables: ["Alert summaries", "Incident tickets", "Monthly SOC report", "Tuning guidance"]
-      },
-      cloudsec: {
-        title: "Cloud & Infrastructure Security",
-        description: "<p>Security reviews for cloud environments, secure configuration hardening and IAM improvements.</p>",
-        topics: ["Configuration Review", "IAM Hardening", "Network Controls", "Backup Strategy"],
-        human: "Cloud security engineers who implement best-practice controls and training.",
-        deliverables: ["Config checklist", "Remediation tasks", "Architecture guidance"]
-      },
-      appsec: {
-        title: "Application Security (DevSecOps)",
-        description: "<p>Integrate security into your SDLC with code reviews, automated scans and developer training.</p>",
-        topics: ["SAST", "DAST", "Secure SDLC", "Dependency Scans"],
-        human: "Appsec engineers and devs who work with your team to fix findings.",
-        deliverables: ["Code findings", "PR guidance", "CI pipeline checks"]
-      },
-      iam: {
-        title: "Identity & Access Management",
-        description: "<p>Design and implement role-based access, MFA and lifecycle processes to reduce account risk.</p>",
-        topics: ["MFA", "RBAC", "Provisioning", "Access Reviews"],
-        human: "IAM specialists who run access reviews and cleanups.",
-        deliverables: ["Role model", "MFA rollout plan", "Access review reports"]
-      },
-      vuln: {
-        title: "Vulnerability Management & Patching",
-        description: "<p>Scheduled scanning, human validation, prioritization and patch orchestration to lower attack surface.</p>",
-        topics: ["Regular Scans", "Triage", "Patching", "Verification"],
-        human: "Engineers who prioritize findings by risk and coordinate fixes with ops.",
-        deliverables: ["Vulnerability dashboard", "Risk prioritization", "Patch schedule"]
-      },
-      encryption: {
-        title: "Data Protection & Encryption",
-        description: "<p>Data discovery, classification and encryption at-rest/in-transit with key management guidance.</p>",
-        topics: ["Data Classification", "AES/TLS", "KMS Design", "Backups"],
-        human: "Data security leads who design key management and retention policies.",
-        deliverables: ["Data map", "Encryption plan", "Key rotation schedule"]
-      },
-      threat: {
-        title: "Threat Intelligence & Hunting",
-        description: "<p>Proactive hunting for indicators of compromise and custom intelligence feeds relevant to your operations.</p>",
-        topics: ["Hunting", "IOC Tracking", "Intel Feeds", "Actor Monitoring"],
-        human: "Threat hunters with access to community and commercial feeds.",
-        deliverables: ["Hunting report", "IOC list", "Mitigation guidance"]
-      },
-      training: {
-        title: "Security Awareness & Training",
-        description: "<p>Hands-on workshops, simulated phishing and policy training tailored to staff and youth programs.</p>",
-        topics: ["Workshops", "Phishing Simulations", "Policy Design", "Certification"],
-        human: "Experienced trainers who run interactive sessions and simulations.",
-        deliverables: ["Training materials", "Simulation results", "Policy templates"]
-      },
-      ecitizen: {
-        title: "eCitizen & Gov Portals",
-        description: "<p>Assistance with passports, birth certificates, Good Conduct and other government forms.</p>",
-        topics: ["Passport Apps", "Certificate Submissions", "Form Filling"],
-        human: "Support staff who guide each online step.",
-        deliverables: ["Submission confirmation", "Fill assistance"]
-      },
-      printing: {
-        title: "Printing & Photocopy",
-        description: "<p>High-quality printing, posters and bulk photocopying.</p>",
-        topics: ["Color Printing", "Booklets", "Bulk Copies"],
-        human: "Print operators and design support.",
-        deliverables: ["Printed materials", "Digital PDFs"]
-      },
-      typing: {
-        title: "Typing & CV Services",
-        description: "<p>CVs, application letters and document formatting.</p>",
-        topics: ["CV Design", "Formatting", "Editing"],
-        human: "Office staff who format and proof-read.",
-        deliverables: ["Final CV", "Cover Letter"]
-      },
-      wifi: {
-        title: "WiFi & Internet Access",
-        description: "<p>Secure browsing stations, managed access and bandwidth packages.</p>",
-        topics: ["Managed WiFi", "Session Isolation", "Bandwidth Plans"],
-        human: "On-site staff to assist with sessions.",
-        deliverables: ["Session passes", "Bandwidth receipts"]
-      },
-      softwaredev: {
-        title: "Software & Web Services",
-        description: "<p>Websites, mobile apps and local software solutions for small business.</p>",
-        topics: ["Web Design", "Mobile Apps", "Maintenance"],
-        human: "Developers and support engineers.",
-        deliverables: ["Site files", "Hosting guidance"]
-      },
-      lamination: {
-        title: "Lamination & Binding",
-        description: "<p>Document finishing for certificates and IDs.</p>",
-        topics: ["Lamination", "Binding", "Certificate Finishing"],
-        human: "Print finishers.",
-        deliverables: ["Laminated documents"]
-      }
-    };
-
-    // ========== AI CHAT FUNCTIONALITY ==========
-    const aiResponses = {
-      greetings: [
-        "Hello! 👋 I'm the Manlung AI Assistant. How can I help you today? Feel free to ask about our services, cybersecurity solutions, or anything else!",
-        "Welcome! I'm here to assist you 24/7. Whether you need help with cybersecurity, our cyber café services, or just have a question, I'm ready to help!",
-        "Hi there! Thanks for reaching out. I can help with information about Manlung Tech City services, cybersecurity, tech support, or answer general questions. What's on your mind?"
-      ],
-      cybersecurity: [
-        "🔐 We offer comprehensive cybersecurity services including:\n• Penetration testing & vulnerability assessments\n• 24/7 Security Operations Center (SOC) monitoring\n• Incident response & threat intelligence\n• Cloud & application security\n• Security awareness training\n\nOur human-led approach ensures personalized protection for your business. Would you like details on any specific service?",
-        "Our cybersecurity expertise covers everything from offensive security (penetration testing) to defensive measures (monitoring and incident response). We combine automated tools with expert analysis to identify and eliminate threats before they cause damage.",
-        "At Manlung Tech City, we treat cybersecurity as a partnership. We don't just implement tools—we work with your team to build a security culture that protects your digital assets. Ask me about specific threats you're concerned about!"
-      ],
-      cybercafe: [
-        "☕ Our Cyber Café offers a complete range of services:\n• Professional printing (color & B&W)\n• Scanning, photocopying & PDF conversion\n• Typing services & CV preparation\n• eCitizen government form assistance\n• High-speed secure Wi-Fi\n• Document lamination & binding\n\nAll done professionally and affordably. What service do you need?",
-        "Need document services? We've got you covered! From professional CV creation to government form assistance, our cyber café is fully equipped with modern technology and skilled staff.",
-        "Whether you need to print important documents, scan files, or get help with typing and formatting, our cyber café is your one-stop shop. We pride ourselves on speed and quality."
-      ],
-      kra: [
-        "📋 We specialize in KRA (Kenya Revenue Authority) services:\n• PIN registration (new and replacement)\n• iTax return filing\n• Tax Compliance Certificates (TCC)\n• Employer registration & compliance\n• Foreign resident registration\n\nWe guide you through the entire online process. What KRA service do you need help with?",
-        "Navigating KRA requirements can be complex, but we make it simple. Whether you're an individual needing a PIN or a business ensuring compliance, our experts handle all the paperwork and submissions.",
-        "Tax time shouldn't be stressful. Our KRA specialists ensure you're compliant with all requirements while maximizing your position. Book a consultation with us!"
-      ],
-      contact: [
-        "📞 **Contact Manlung Tech City:**\n📍 Location: Tech City, Nairobi\n☎️ Phone: +254 724 356 178\n💬 Telegram: @manlungtechcitybot\n🕐 Hours: Monday-Friday, 9AM-6PM\n\nFor emergencies, our cybersecurity team responds 24/7!",
-        "Reach us easily:\n• Call: +254 724 356 178\n• Message on Telegram: @manlungtechcitybot\n• Visit us at Tech City, Nairobi\n• Business hours: Mon-Fri 9AM-6PM\n\nDon't hesitate to get in touch—we're always happy to help!",
-        "Want to connect with us? We're available during business hours (Mon-Fri, 9AM-6PM) and our cybersecurity team monitors threats 24/7. Call, message, or visit us at Tech City!"
-      ],
-      pricing: [
-        "💰 **Pricing Information:**\nCybersecurity services are customized based on your specific needs and business size. We provide detailed quotes after understanding your requirements.\n\nCyber café services have standard affordable rates. Contact us for current pricing on printing, typing, and other services.",
-        "Our philosophy is transparent pricing without hidden fees. For cybersecurity, we work with your budget to create the best protection. For café services, we're competitively priced. Call us for a quote!",
-        "We believe in fair, transparent pricing. Whether it's a one-time cyber café service or ongoing cybersecurity monitoring, we'll give you honest estimates and no surprises."
-      ],
-      hours: [
-        "⏰ **Business Hours:**\n📍 Physical location: Mon-Fri, 9:00 AM - 6:00 PM\n🚨 Cybersecurity response: 24/7/365 for incidents\n\nEven outside business hours, our SOC monitors threats continuously and responds to emergencies immediately.",
-        "Our office is open Monday through Friday, 9AM to 6PM for walk-ins and consultations. However, our security operations center never sleeps—we monitor threats 24/7.",
-        "You can visit us during regular hours (Mon-Fri, 9AM-6PM) for consultations, but our cybersecurity services run continuously. Emergency response is always available!"
-      ],
-      softwaredev: [
-        "💻 **Software & Web Development Services:**\n• Custom website design & development\n• Mobile app development (iOS & Android)\n• Software installations & configuration\n• System maintenance & updates\n• Technical support & consulting\n\nWe build solutions tailored to your needs. What are you looking to develop?",
-        "From simple websites to complex applications, we have the expertise to bring your ideas to life. Our team stays current with the latest technologies and best practices.",
-        "Need custom software or a web presence? Our development team creates solutions that work for your business, whether you're a startup or established company."
-      ],
-      ecitizen: [
-        "🏛️ **eCitizen Services:**\nWe help you navigate government online services including:\n• Passport applications\n• Birth certificate requests\n• National ID services\n• Good Conduct Certificates\n• Various government forms\n\nNo more long queues! Our team helps you access these services online.",
-        "Getting government documents shouldn't be complicated. We guide you through the eCitizen portal and ensure your applications are processed correctly.",
-        "Need government documentation? Visit our cyber café for professional assistance with eCitizen services. We handle the technology so you can focus on your application."
-      ],
-      default: []
-    };
-
-    function getAIResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      
-      // Greetings
-      if (lowerMessage.match(/^(hello|hi|hey|greetings|wassup|sup)/)) {
-        return aiResponses.greetings[Math.floor(Math.random() * aiResponses.greetings.length)];
-      }
-      
-      // Cybersecurity queries
-      if (lowerMessage.match(/(cyber[- ]?security|pentest|penetration|vulnerability|secure|threat|attack|hacker|malware|firewall|encryption|soc|monitoring)/)) {
-        return aiResponses.cybersecurity[Math.floor(Math.random() * aiResponses.cybersecurity.length)];
-      }
-      
-      // Cyber café
-      if (lowerMessage.match(/(cyber[- ]?caf[eé]|printing|scan|photocopy|typing|cv|resume|lamination|binding|document)/)) {
-        return aiResponses.cybercafe[Math.floor(Math.random() * aiResponses.cybercafe.length)];
-      }
-      
-      // KRA services
-      if (lowerMessage.match(/(kra|tax|pin|itax|compliance|revenue|authority)/)) {
-        return aiResponses.kra[Math.floor(Math.random() * aiResponses.kra.length)];
-      }
-      
-      // Contact
-      if (lowerMessage.match(/(contact|phone|call|reach|address|location|telegram|email|hours|open)/)) {
-        return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
-      }
-      
-      // Pricing
-      if (lowerMessage.match(/(price|cost|rate|expensive|cheap|affordable|quote|how much)/)) {
-        return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
-      }
-      
-      // Hours
-      if (lowerMessage.match(/(hour|open|close|time|when|24\/7|available)/)) {
-        return aiResponses.hours[Math.floor(Math.random() * aiResponses.hours.length)];
-      }
-      
-      // Software development
-      if (lowerMessage.match(/(software|website|web|app|application|develop|code|programming|build)/)) {
-        return aiResponses.softwaredev[Math.floor(Math.random() * aiResponses.softwaredev.length)];
-      }
-      
-      // eCitizen services
-      if (lowerMessage.match(/(ecitizen|passport|birth|certificate|government|national[- ]?id|conduct)/)) {
-        return aiResponses.ecitizen[Math.floor(Math.random() * aiResponses.ecitizen.length)];
-      }
-      
-      // Services in general
-      if (lowerMessage.match(/(service|offer|provide|what do you|what can)/)) {
-        return "We provide a comprehensive range of services:\n\n🔐 **Cybersecurity**: Penetration testing, threat monitoring, incident response, security training\n\n☕ **Cyber Café**: Printing, scanning, typing, CV services, eCitizen assistance\n\n📋 **KRA Services**: PIN registration, tax filing, compliance certificates\n\n💻 **Software & Web**: Custom development, installations, maintenance\n\nWhich service interests you?";
-      }
-      
-      // General questions about Manlung
-      if (lowerMessage.match(/(manlung|about|company|organization|who|mission|vision)/)) {
-        return "Manlung Tech City is Kenya's premier destination for advanced cybersecurity and practical digital services. We protect your digital assets while offering everyday services like printing, government assistance, and professional typing—all in one secure environment. Our mission is to combine enterprise-grade security with community-focused services. What would you like to know more about?";
-      }
-      
-      // Cybersecurity general knowledge
-      if (lowerMessage.match(/(what is|explain|how does|tell me about).*(cyber|security|hack|malware|phishing)/)) {
-        const topic = lowerMessage.includes('phishing') ? 'phishing' : lowerMessage.includes('malware') ? 'malware' : lowerMessage.includes('hack') ? 'hacking' : 'cybersecurity';
-        
-        const definitions = {
-          phishing: "Phishing is a social engineering attack where attackers trick you into revealing sensitive information by pretending to be trusted entities. They often use fake emails, messages, or websites. To protect yourself: verify sender addresses, don't click suspicious links, and never share passwords via email.",
-          malware: "Malware is malicious software designed to damage, disrupt, or gain unauthorized access to your systems. Types include viruses, trojans, ransomware, and spyware. Protection: use antivirus software, keep systems updated, avoid suspicious downloads, and use strong passwords.",
-          hacking: "Hacking is unauthorized access to computer systems or networks. While some hackers have good intentions (ethical hackers), malicious hackers steal data, disrupt services, or cause damage. We help you prevent hacks through penetration testing and security improvements.",
-          cybersecurity: "Cybersecurity is the practice of protecting digital systems from attacks. It includes technology (firewalls, encryption), processes (policies, training), and people (awareness). A strong security posture requires all three elements."
-        };
-        
-        return definitions[topic] || "Cybersecurity is about protecting your digital assets from threats. At Manlung, we help businesses identify vulnerabilities and build comprehensive protection strategies. Would you like a detailed consultation?";
-      }
-      
-      // Thank you/appreciation
-      if (lowerMessage.match(/(thank|thanks|appreciate|thx)/)) {
-        return "You're welcome! I'm here to help anytime. If you have more questions about our services or anything else, just ask! 😊";
-      }
-      
-      // Help request
-      if (lowerMessage.match(/(help|assist|support|aid|question)/)) {
-        return "I'm here to help! I can answer questions about:\n\n✅ Our cybersecurity services and capabilities\n✅ Cyber café offerings (printing, scanning, etc.)\n✅ KRA and government services\n✅ Software development and tech solutions\n✅ Pricing, hours, and contact information\n✅ General cybersecurity topics\n\nWhat would you like to know?";
-      }
-      
-      // Fallback: ChatGPT-like general response
-      const generalResponses = [
-        "That's an interesting question! While I'm specifically trained to help with Manlung Tech City's services, I can offer some perspective. For more detailed information on this topic or how it relates to our services, feel free to contact our team directly.",
-        "I appreciate your curiosity! To give you the best answer, it might help to know if this relates to cybersecurity, our services, or just general information. What's your specific interest?",
-        "That's a great question! Based on what you're asking, you might want to explore our cybersecurity consulting services where our experts can dive deeper into topics like this.",
-        "I'm designed primarily to help with Manlung Tech City's services and cybersecurity-related topics. For broader questions, I can provide general knowledge, but for specialized advice, our experts are available!"
-      ];
-      
-      return generalResponses[Math.floor(Math.random() * generalResponses.length)];
-    }
-
-    // ========== CHAT MEMORY SYSTEM ==========
-    const CHAT_STORAGE_KEY = 'manlung_chat_history';
-    let chatHistory = [];
-
-    function saveChatHistory() {
-      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatHistory));
-    }
-
-    function loadChatHistory() {
-      const saved = localStorage.getItem(CHAT_STORAGE_KEY);
-      if (saved) {
-        try {
-          chatHistory = JSON.parse(saved);
-          // Reload messages to UI
-          chatHistory.forEach(msg => {
-            const chatMessages = document.getElementById('aiChatMessages');
-            const messageElement = document.createElement('div');
-            messageElement.className = `ai-message ${msg.isUser ? 'ai-user-message' : 'ai-bot-message'}`;
-            messageElement.innerHTML = msg.text.replace(/\n/g, '<br>');
-            chatMessages.appendChild(messageElement);
-          });
-          document.getElementById('aiChatMessages').scrollTop = document.getElementById('aiChatMessages').scrollHeight;
-        } catch (e) {
-          console.error('Error loading chat history:', e);
-        }
-      }
-    }
-
-    function addMessageToChat(message, isUser = false) {
-      const chatMessages = document.getElementById('aiChatMessages');
-      const messageElement = document.createElement('div');
-      messageElement.className = `ai-message ${isUser ? 'ai-user-message' : 'ai-bot-message'}`;
-      messageElement.innerHTML = message.replace(/\n/g, '<br>');
-      chatMessages.appendChild(messageElement);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      
-      // Save to memory
-      chatHistory.push({ text: message, isUser: isUser, timestamp: new Date().toISOString() });
-      saveChatHistory();
-    }
-
-    function clearChatHistory() {
-      chatHistory = [];
-      localStorage.removeItem(CHAT_STORAGE_KEY);
-      document.getElementById('aiChatMessages').innerHTML = '';
-      addMessageToChat('Chat history cleared. Let\'s start fresh! How can I help you?', false);
-    }
-
-    // ========== GOOGLE CUSTOM SEARCH API ==========
-    // TO USE THIS: Get your keys from https://console.cloud.google.com/
-    // 1. Create Google Custom Search Engine at https://programmablesearchengine.google.com/
-    // 2. Copy your Search Engine ID (CX)
-    // 3. Enable Custom Search API and get your API Key
-    // 4. Use the configuration panel below or replace here
-    
-    let GOOGLE_API_KEY = localStorage.getItem('google_api_key') || 'YOUR_GOOGLE_API_KEY_HERE';
-    let GOOGLE_SEARCH_ENGINE_ID = localStorage.getItem('google_search_engine_id') || 'YOUR_SEARCH_ENGINE_ID_HERE';
-    
-    function saveGoogleApiKeys() {
-      const apiKey = document.getElementById('googleApiKey').value.trim();
-      const searchEngineId = document.getElementById('googleSearchEngineId').value.trim();
-      
-      if (!apiKey || !searchEngineId) {
-        alert('Please enter both API Key and Search Engine ID');
-        return;
-      }
-      
-      localStorage.setItem('google_api_key', apiKey);
-      localStorage.setItem('google_search_engine_id', searchEngineId);
-      
-      GOOGLE_API_KEY = apiKey;
-      GOOGLE_SEARCH_ENGINE_ID = searchEngineId;
-      
-      // Clear input fields
-      document.getElementById('googleApiKey').value = '';
-      document.getElementById('googleSearchEngineId').value = '';
-      
-      showNotification('✅ Google API keys saved! Web search is now enabled.', 'success');
-    }
-    
-    // Load saved API keys on page load
-    window.addEventListener('load', function() {
-      const savedApiKey = localStorage.getItem('google_api_key');
-      const savedSearchId = localStorage.getItem('google_search_engine_id');
-      if (savedApiKey && savedApiKey !== 'YOUR_GOOGLE_API_KEY_HERE') {
-        GOOGLE_API_KEY = savedApiKey;
-      }
-      if (savedSearchId && savedSearchId !== 'YOUR_SEARCH_ENGINE_ID_HERE') {
-        GOOGLE_SEARCH_ENGINE_ID = savedSearchId;
-      }
-    });
-    
-    async function searchGoogle(query) {
-      if (GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE' || GOOGLE_SEARCH_ENGINE_ID === 'YOUR_SEARCH_ENGINE_ID_HERE') {
-        return null; // API keys not configured
-      }
-      
-      try {
-        const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${GOOGLE_API_KEY}&cx=${GOOGLE_SEARCH_ENGINE_ID}&num=3`;
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.items && data.items.length > 0) {
-          let results = '📚 Here\'s what I found online:\n\n';
-          data.items.forEach((item, index) => {
-            results += `${index + 1}. **${item.title}**\n${item.snippet}\n🔗 [Read more](${item.link})\n\n`;
-          });
-          return results;
-        }
-      } catch (error) {
-        console.error('Search error:', error);
-      }
-      return null;
-    }
-
-    // Fallback Wikipedia search
-    async function searchWikipedia(query) {
-      try {
-        const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&titles=${encodeURIComponent(query)}&redirects=1&origin=*`;
-        const response = await fetch(url);
-        const data = await response.json();
-        const pages = data.query.pages;
-        const pageId = Object.keys(pages)[0];
-        
-        if (pageId !== '-1' && pages[pageId].extract) {
-          const text = pages[pageId].extract.split('<p>')[1]?.split('</p>')[0]?.replace(/<[^>]*>/g, '') || pages[pageId].extract;
-          return `📖 **From Wikipedia:**\n${text.substring(0, 500)}...\n\n🔗 [Read full article](https://en.wikipedia.org/wiki/${query.replace(/ /g, '_')})`;
-        }
-      } catch (error) {
-        console.error('Wikipedia search error:', error);
-      }
-      return null;
-    }
-
-    function showTypingIndicator() {
-      const typingIndicator = document.getElementById('aiTypingIndicator');
-      typingIndicator.style.display = 'block';
-      document.getElementById('aiChatMessages').scrollTop = document.getElementById('aiChatMessages').scrollHeight;
-    }
-
-    function hideTypingIndicator() {
-      document.getElementById('aiTypingIndicator').style.display = 'none';
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('aiInput');
-      const message = input.value.trim();
-      
-      if (!message) return;
-      
-      // Add user message to chat
-      addMessageToChat(message, true);
-      
-      // Clear input
-      input.value = '';
-      
-      // Show typing indicator
-      showTypingIndicator();
-      
-      // Get response (with possible web search)
-      setTimeout(async () => {
-        let response = getAIResponse(message);
-        
-        // If no specific response found, try web search
-        if (response.includes('I\'m designed primarily') || response.includes('That\'s an interesting question') || response.includes('I appreciate your curiosity')) {
-          // Show that we're searching
-          hideTypingIndicator();
-          addMessageToChat('🔍 Searching the web for more information...', false);
-          showTypingIndicator();
-          
-          // Try Google API search first, then Wikipedia fallback
-          const googleResult = await searchGoogle(message);
-          const finalResult = googleResult || await searchWikipedia(message);
-          response = finalResult || response;
-        }
-        
-        hideTypingIndicator();
-        addMessageToChat(response);
-      }, 800 + Math.random() * 700);
-    }
-
-    function insertExample(text) {
-      document.getElementById('aiInput').value = text;
-      document.getElementById('aiInput').focus();
-    }
-    
-    // Load chat history on page load
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        loadChatHistory();
-      }, 500);
-    });
-
-    // ========== NOTIFICATION SYSTEM ==========
-    function showNotification(message, type = 'info') {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.style.display = 'block';
-      
-      if (type === 'success') {
-        notification.style.background = 'var(--neon)';
-        notification.style.color = '#000';
-      } else if (type === 'error') {
-        notification.style.background = '#ff4444';
-        notification.style.color = '#fff';
-      }
-      
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 4000);
-    }
-
-    // ========== MODAL SYSTEM ==========
-    function openServiceModal(key) {
-      const data = serviceDetails[key];
-      if (!data) return;
-      
-      document.getElementById('modalTitle').textContent = data.title;
-      document.getElementById('modalDescription').innerHTML = data.description || '';
-      
-      const what = document.getElementById('modalWhat');
-      what.innerHTML = '';
-      (data.topics || []).forEach(t => {
-        const li = document.createElement('li');
-        li.textContent = t;
-        what.appendChild(li);
-      });
-      
-      document.getElementById('modalHuman').textContent = data.human || '';
-      
-      const deliver = document.getElementById('modalDeliver');
-      deliver.innerHTML = '';
-      (data.deliverables || []).forEach(d => {
-        const li = document.createElement('li');
-        li.textContent = d;
-        deliver.appendChild(li);
-      });
-      
-      const topics = document.getElementById('modalTopics');
-      topics.innerHTML = '';
-      (data.topics || []).forEach(t => {
-        const d = document.createElement('div');
-        d.className = 'service-badge';
-        d.textContent = t;
-        topics.appendChild(d);
-      });
-      
-      // Set hidden service field for the lead form
-      const leadService = document.getElementById('leadService');
-      if (leadService) leadService.value = data.title || key;
-      
-      const modal = document.getElementById('serviceModal');
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('serviceModal');
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-    }
-
-    // ========== CONTACT FORM HANDLER ==========
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('btnText');
-      const responseMessage = document.getElementById('responseMessage');
-      
-      // Get form values
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const message = document.getElementById('message').value;
-      
-      // Show loading state
-      submitBtn.disabled = true;
-      btnText.innerHTML = '<span class="contact-loading"></span> Sending...';
-      
-      // Telegram bot details
-      const botToken = '7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE';
-      const chatId = '7261236992';
-      
-      // Format the message for Telegram
-      const telegramMessage = `👋New message from manlung-Tech-city site :\n\nName💗: ${name}\nPhone👥: ${phone}\nMessage💌: ${message}`;
-      
-      // Send message to Telegram
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: telegramMessage,
-          parse_mode: 'HTML'
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          // Success
-          responseMessage.textContent = 'Message sent successfully! We will contact you soon.';
-          responseMessage.className = 'contact-message contact-success';
-          responseMessage.style.display = 'block';
-          
-          // Reset form
-          document.getElementById('contactForm').reset();
-        } else {
-          // Error from Telegram API
-          throw new Error(data.description || 'Failed to send message');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        responseMessage.textContent = 'Failed to send message. Please try again later.';
-        responseMessage.className = 'contact-message contact-error';
-        responseMessage.style.display = 'block';
-      })
-      .finally(() => {
-        // Reset button state
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Message';
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          responseMessage.style.display = 'none';
-        }, 5000);
-      });
-    });
-
-    // ========== TELEGRAM REDIRECT ==========
-    function redirectToTelegram(event, service) {
-      event.preventDefault();
-      
-      const form = event.target;
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone ? form.phone.value.trim() : '';
-      
-      if (!name || !email || !phone) {
-        showNotification('Please fill all fields', 'error');
-        return;
-      }
-      
-      // Save lead locally (for demo)
-      const leadData = {
-        name, email, phone, service,
-        timestamp: new Date().toISOString(),
-        source: 'service-modal'
-      };
-      saveLeadLocally(leadData);
-      
-      // Create Telegram message
-      const telegramMessage = `New consultation request:%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AService: ${service}%0ASource: Website`;
-      
-      // Redirect to Telegram
-      window.open(`https://t.me/manlungtechcitybot?start=${encodeURIComponent(telegramMessage)}`, '_blank');
-      
-      showNotification('Opening Telegram for consultation...');
-      closeModal();
-    }
-
-    // ========== LOCAL STORAGE FUNCTIONS ==========
-    function saveLeadLocally(leadData) {
-      let leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
-      leadData.id = Date.now();
-      leads.push(leadData);
-      localStorage.setItem('manlung_leads', JSON.stringify(leads));
-      updateAdminPanel();
-    }
-
-    function updateAdminPanel() {
-      const leadsList = document.getElementById('leadsList');
-      const leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
-      
-      if (leads.length === 0) {
-        leadsList.innerHTML = '<div style="color:#bfb; text-align:center;">No leads stored yet</div>';
-        return;
-      }
-      
-      leadsList.innerHTML = leads.slice().reverse().map(lead => `
-        <div class="lead-item">
-          <div style="display:flex; justify-content:space-between; gap:8px">
+    <!-- ===== HERO with BINARY RAIN & SYSTEM LOGS ===== -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
             <div>
-              <strong>${lead.name || '(no name)'}</strong>
-              <div style="font-size:12px; color:#bfb">${lead.email || ''}${lead.phone ? ' • ' + lead.phone : ''}</div>
-              <div style="font-size:12px; color:#9f9">${new Date(lead.timestamp).toLocaleString()}</div>
+                <h1>Tech Support <span>&amp;</span> Cyber <span>Security</span> Hub</h1>
+                <p>Real-time system monitoring, binary analysis, and enterprise-grade tools. Secure payments via Stripe.</p>
+                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <a href="#tools" class="btn-primary"><i class="fas fa-shield-alt"></i> Explore Tools</a>
+                    <a href="#eservices" class="btn-outline"><i class="fas fa-id-card"></i> E-Services</a>
+                </div>
+                <div class="stats-mini" style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:1.2rem;">
+                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
+                        <strong style="color:var(--neon);">13</strong> Tools
+                    </div>
+                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
+                        <strong style="color:var(--neon);">590+</strong> Downloads
+                    </div>
+                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
+                        <strong style="color:var(--neon);">KSH 53k</strong> Revenue
+                    </div>
+                </div>
             </div>
-            <div style="text-align:right">
-              <button data-id="${lead.id}" class="export-btn" style="padding:6px 8px; font-size:12px">Delete</button>
+            <div class="binary-container">
+                <div class="binary-rain" id="binaryRain"></div>
+                <div class="system-logs" id="systemLogs">
+                    <div class="log-entry"><span class="info">[INFO]</span> System boot sequence initiated...</div>
+                    <div class="log-entry"><span class="highlight">[OK]</span> Kernel loaded at 0x7C00</div>
+                    <div class="log-entry"><span class="info">[LOG]</span> CPU: 8 cores @ 3.2GHz</div>
+                    <div class="log-entry"><span class="highlight">[OK]</span> Memory: 16GB DDR5</div>
+                    <div class="log-entry"><span class="info">[LOG]</span> Network interface eth0 up</div>
+                    <div class="log-entry"><span class="highlight">[OK]</span> Firewall rules applied</div>
+                    <div class="log-entry"><span class="info">[LOG]</span> IDS/IPS engine active</div>
+                    <div class="log-entry"><span class="error">[WARN]</span> Port 443 scanning detected</div>
+                    <div class="log-entry"><span class="highlight">[OK]</span> Threat neutralized</div>
+                    <div class="log-entry"><span class="info">[LOG]</span> System ready - 13 tools loaded</div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:8px; color:#dfd; font-size:13px">Service: ${lead.service || 'N/A'}</div>
         </div>
-      `).join('');
-      
-      // Add delete event listeners
-      leadsList.querySelectorAll('button[data-id]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const id = Number(this.getAttribute('data-id'));
-          if (confirm('Delete this lead?')) {
-            let leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
-            leads = leads.filter(lead => lead.id !== id);
-            localStorage.setItem('manlung_leads', JSON.stringify(leads));
-            updateAdminPanel();
-            showNotification('Lead deleted');
-          }
-        });
-      });
-    }
+    </section>
 
-    // ========== INITIALIZATION ==========
-    document.addEventListener('DOMContentLoaded', function() {
-      // Create floating background elements
-      const floatingContainer = document.getElementById('floatingElements');
-      for (let i = 0; i < 12; i++) {
-        const size = Math.floor(Math.random() * 80) + 20;
-        const circle = document.createElement('div');
-        circle.className = 'floating-circle';
-        circle.style.width = size + 'px';
-        circle.style.height = size + 'px';
-        circle.style.left = Math.random() * 100 + '%';
-        circle.style.top = Math.random() * 100 + '%';
-        circle.style.opacity = (Math.random() * 0.6) + 0.12;
-        circle.style.animationDuration = (Math.random() * 26 + 12) + 's';
-        floatingContainer.appendChild(circle);
-        
-        const ring = document.createElement('div');
-        ring.className = 'floating-ring';
-        const rsize = Math.floor(Math.random() * 160) + 40;
-        ring.style.width = rsize + 'px';
-        ring.style.height = rsize + 'px';
-        ring.style.left = Math.random() * 100 + '%';
-        ring.style.top = Math.random() * 100 + '%';
-        ring.style.opacity = (Math.random() * 0.35) + 0.06;
-        ring.style.animationDuration = (Math.random() * 30 + 14) + 's';
-        floatingContainer.appendChild(ring);
-      }
+    <!-- ===== TOOLS ===== -->
+    <section id="tools" style="padding:3rem 0 2rem 0;">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tools" style="margin-right:10px;"></i> Cyber Tools</h2>
+            <p class="section-sub">Click any tool to purchase securely via Stripe.</p>
+            <div class="grid-4" id="toolsGrid"></div>
+            <div style="text-align:center; margin-top:2rem;">
+                <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-primary"><i class="fas fa-store"></i> Full Store</a>
+            </div>
+        </div>
+    </section>
 
-      // Wire up service cards to open modal
-      document.querySelectorAll('.service-card').forEach(card => {
-        card.addEventListener('click', () => {
-          const service = card.getAttribute('data-service');
-          if (service) {
-            openServiceModal(service);
-          }
-        });
-      });
+    <!-- ===== E-SERVICES ===== -->
+    <section id="eservices" style="padding:3rem 0; background:#0b141a;">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
+            <p class="section-sub">KRA, eCitizen, E-Certificates, and more. Click to request service.</p>
+            <div class="grid-3" id="eservicesGrid"></div>
+        </div>
+    </section>
 
-      // Modal close functionality
-      document.getElementById('closeModal').addEventListener('click', closeModal);
-      document.getElementById('serviceModal').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeModal();
-      });
+    <!-- ===== COURSES ===== -->
+    <section id="courses" style="padding:3rem 0;">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-graduation-cap" style="margin-right:10px;"></i> Cyber Courses</h2>
+            <p class="section-sub">Professional training — enroll and pay securely.</p>
+            <div class="grid-3" id="coursesGrid"></div>
+        </div>
+    </section>
 
-      // Mobile menu toggle
-      document.getElementById('mobileMenuToggle').addEventListener('click', () => {
-        const navUl = document.querySelector('nav.primary ul');
-        if (navUl) {
-          const isVisible = navUl.style.display === 'flex';
-          navUl.style.display = isVisible ? 'none' : 'flex';
-          
-          if (window.innerWidth <= 640 && !isVisible) {
-            navUl.style.flexDirection = 'column';
-            navUl.style.position = 'absolute';
-            navUl.style.right = '6%';
-            navUl.style.top = '64px';
-            navUl.style.background = 'rgba(0,0,0,0.9)';
-            navUl.style.padding = '15px';
-            navUl.style.borderRadius = '10px';
-            navUl.style.border = '1px solid rgba(0,255,0,0.2)';
-          }
-        }
-      });
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="page-section">
+        <div class="container">
+            <h2>About Manlung Tech City</h2>
+            <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya. We provide enterprise-grade security tools, government e-service assistance (KRA, eCitizen, E-Certificates), and professional training courses. Our mission is to make cyber security accessible, affordable, and effective for individuals, businesses, and government agencies.</p>
+            <p style="margin-top:1rem;">We are ISO 27001 compliant and adhere to Kenya's Data Protection Act. All transactions are secured via Stripe with PCI-DSS compliance.</p>
+            <p style="margin-top:1rem;">Our team of certified professionals offers 24/7 tech support, system monitoring, and incident response. We combine cutting-edge technology with human expertise to protect your digital assets.</p>
+        </div>
+    </section>
 
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-            
-            // Close mobile menu if open
-            if (window.innerWidth <= 640) {
-              const navUl = document.querySelector('nav.primary ul');
-              if (navUl) navUl.style.display = 'none';
+    <!-- ===== TERMS & CONDITIONS ===== -->
+    <section id="terms" class="page-section" style="border-bottom: none;">
+        <div class="container">
+            <h2>Terms of Service &amp; Policies</h2>
+            <p><strong>1. Acceptance of Terms:</strong> By using our services, you agree to these terms.</p>
+            <p><strong>2. Tools &amp; Courses:</strong> All tools are for educational and authorized security testing only. Unauthorized use is prohibited. Users must have explicit permission to test any system.</p>
+            <p><strong>3. Payments:</strong> All payments are processed via Stripe. Currency is automatically detected based on your location (KES, USD, EUR, GBP).</p>
+            <p><strong>4. Refund Policy:</strong> Digital products (tools) are non-refundable. Courses may be refunded within 7 days of purchase if no modules have been accessed.</p>
+            <p><strong>5. Privacy:</strong> We collect minimal data for transaction processing. We do not share your data with third parties. All data is encrypted at rest and in transit.</p>
+            <p><strong>6. Liability:</strong> Manlung Tech City is not liable for misuse of tools or services. Users are responsible for compliance with local and international laws.</p>
+            <p><strong>7. Course Completion:</strong> Certificates are issued upon successful completion of all modules and assessments. Course access is valid for 6 months.</p>
+            <p><strong>8. Support:</strong> 24/7 tech support is available via Telegram and email for all paying customers.</p>
+            <p style="margin-top:1rem;"><i class="fas fa-shield-alt" style="color:var(--neon);"></i> Last updated: March 2026</p>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container footer-flex">
+            <div>
+                <div class="logo" style="font-size:1.4rem;">Manlung <span>Tech City</span></div>
+                <p style="margin-top:0.2rem; font-size:0.9rem; color:var(--text-muted);">Cyber Hub · Tools · E-Services · Training</p>
+            </div>
+            <div style="display:flex; gap:1.4rem; flex-wrap:wrap;">
+                <a href="#home">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#eservices">E-Services</a>
+                <a href="#courses">Courses</a>
+                <a href="#about">About</a>
+                <a href="#terms">Terms</a>
+            </div>
+            <div style="color:var(--text-muted); font-size:0.85rem;">
+                Paybill: <strong style="color:var(--neon);">522522</strong> Acc: <strong style="color:var(--neon);">1336980125</strong>
+            </div>
+        </div>
+        <div class="container" style="margin-top:1.2rem; border-top:1px solid #1a2a2a; padding-top:1rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem; font-size:0.75rem; color:#4a6a6a;">
+            <span>&copy; 2026 Manlung Tech City. All rights reserved.</span>
+            <span><i class="fas fa-lock"></i> Secured by Stripe</span>
+        </div>
+    </footer>
+
+    <!-- ===== AI CHAT ===== -->
+    <div class="ai-widget" id="aiWidget">
+        <div class="ai-header" id="aiToggle">
+            <span><i class="fas fa-robot" style="color:var(--neon);"></i> AI Assistant</span>
+            <span><i class="fas fa-chevron-down" id="aiChevron"></i></span>
+        </div>
+        <div class="ai-body" id="aiBody">
+            <div class="ai-msg">Hello! I'm Manlung AI. Ask me about tools, courses, e-services, payments, or tech support.</div>
+        </div>
+        <div class="ai-input-row">
+            <input type="text" id="aiInput" placeholder="Ask me anything..." autocomplete="off">
+            <button id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal-box">
+            <button class="close-btn" id="modalClose">&times;</button>
+            <h2 id="modalTitle">Service Request</h2>
+            <p id="modalDesc" style="color:var(--text-muted); margin-bottom:1rem;">Complete the form to proceed.</p>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="custName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="custEmail" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="custPhone" placeholder="+254 700 000 000" required>
+                </div>
+                <div class="form-group">
+                    <label>Currency</label>
+                    <select id="currencySelect">
+                        <option value="kes">KES</option>
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                        <option value="gbp">GBP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount (KES)</label>
+                    <input type="number" id="amountInput" placeholder="0.00" required>
+                </div>
+                <input type="hidden" id="serviceName" value="">
+                <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-credit-card"></i> Pay Now (Stripe)</button>
+            </form>
+            <p style="font-size:0.7rem; color:var(--text-muted); margin-top:1rem;"><i class="fas fa-lock"></i> Secured by Stripe</p>
+        </div>
+    </div>
+
+    <script>
+        // ============================
+        //  BINARY RAIN & LOGS
+        // ============================
+        (function binaryRain() {
+            const container = document.getElementById('binaryRain');
+            const chars = '01';
+            let lines = '';
+            for (let i = 0; i < 200; i++) {
+                let line = '';
+                for (let j = 0; j < 60; j++) {
+                    line += chars[Math.floor(Math.random() * chars.length)] + ' ';
+                }
+                lines += line + '\n';
             }
-          }
+            container.textContent = lines;
+
+            // System logs updater
+            const logContainer = document.getElementById('systemLogs');
+            const logMessages = [
+                '[INFO] CPU utilization: 42%',
+                '[OK] Network latency: 12ms',
+                '[LOG] Firewall rules updated',
+                '[WARN] Brute force attempt blocked',
+                '[INFO] System memory: 8.2GB free',
+                '[OK] All services running',
+                '[LOG] User session: admin@10.0.0.1',
+                '[INFO] IDS signature update applied',
+                '[OK] Backup completed successfully',
+                '[LOG] Real-time monitoring active'
+            ];
+            let logIndex = 0;
+
+            function addLog() {
+                const entry = document.createElement('div');
+                entry.className = 'log-entry';
+                const msg = logMessages[logIndex % logMessages.length];
+                if (msg.includes('WARN')) {
+                    entry.innerHTML = msg.replace('WARN', '<span class="error">WARN</span>');
+                } else if (msg.includes('OK')) {
+                    entry.innerHTML = msg.replace('OK', '<span class="highlight">OK</span>');
+                } else {
+                    entry.innerHTML = msg;
+                }
+                logContainer.appendChild(entry);
+                if (logContainer.children.length > 18) {
+                    logContainer.removeChild(logContainer.children[0]);
+                }
+                logContainer.scrollTop = logContainer.scrollHeight;
+                logIndex++;
+            }
+
+            // Add initial logs already in HTML, then start interval
+            setInterval(addLog, 1200);
+            // Also add a few extra on start
+            for (let i = 0; i < 3; i++) setTimeout(addLog, i * 400);
+        })();
+
+        // ============================
+        //  DATA
+        // ============================
+        const tools = [
+            { name: "Crimson Hat", desc: "iOS kernel exploit · basic jailbreak", price: 7000, stock: "Out of Stock",
+            badge: "🔥 Hot" },
+            { name: "Azure Disk", desc: "Advanced recovery & root access", price: 9000, stock: "In Stock · 6 left",
+                badge: "⭐ Featured" },
+            { name: "Obsidian Core", desc: "Full iCloud bypass · signature", price: 10000, stock: "In Stock · 3 left",
+                badge: "⚡ Best Seller" },
+            { name: "Pearl iOS", desc: "Ultimate · untethered + forensics", price: 24000, stock: "In Stock · 4 left",
+                badge: "🔥 Hot" },
+            { name: "Wireshark", desc: "Network protocol analyzer · deep inspection", price: 4500,
+                stock: "In Stock · 12 left", badge: "🔍 Network" },
+            { name: "Wazuh", desc: "Open source SIEM · XDR platform", price: 5500, stock: "In Stock · 9 left",
+                badge: "📊 SIEM" },
+            { name: "Suricata", desc: "IDS/IPS · high performance engine", price: 5200, stock: "In Stock · 6 left",
+                badge: "🛡️ IDS/IPS" },
+            { name: "Nmap", desc: "Network discovery · security scanner", price: 2700, stock: "In Stock · 15 left",
+                badge: "📡 Scanner" },
+        ];
+
+        const eservices = [
+            { name: "E-Certificate Services", desc: "Good Conduct, Birth, Marriage, Business", icon: "fa-file-signature" },
+            { name: "KRA & Tax Services", desc: "PIN, iTax, TCC, PAYE, VAT, withholding", icon: "fa-landmark" },
+            { name: "eCitizen & Immigration", desc: "Passport, ID, driver's license, foreigner", icon: "fa-passport" },
+            { name: "Business Registration", desc: "CR12, incorporation, compliance", icon: "fa-building" },
+            { name: "Academic Docs", desc: "Transcripts, attestation, KNEC", icon: "fa-graduation-cap" },
+            { name: "NGO & Welfare", desc: "NGO registration, welfare society", icon: "fa-hand-holding-heart" },
+        ];
+
+        const courses = [
+            { name: "Cyber Security Fundamentals", desc: "Beginner · 6 weeks", price: 12000 },
+            { name: "Ethical Hacking & Pentesting", desc: "Intermediate · 10 weeks", price: 24000 },
+            { name: "Security Operations (SOC) Analyst", desc: "Advanced · 12 weeks", price: 38000 },
+            { name: "Cloud Security & DevSecOps", desc: "Specialist · 8 weeks", price: 30000 },
+            { name: "Digital Forensics & IR", desc: "Forensic · 10 weeks", price: 32000 },
+            { name: "Cyber Law & Compliance", desc: "Compliance · 6 weeks", price: 18000 },
+        ];
+
+        // ============================
+        //  RENDER
+        // ============================
+        function renderTools() {
+            const grid = document.getElementById('toolsGrid');
+            grid.innerHTML = tools.map(t => `
+                <div class="card" onclick="openPayment('${t.name}', ${t.price}, 'Tool')">
+                    <div style="display:flex; justify-content:space-between; align-items:start;">
+                        <span class="badge">${t.badge}</span>
+                        <span style="font-size:0.7rem; color:var(--text-muted);">${t.stock}</span>
+                    </div>
+                    <h3 style="margin:0.4rem 0 0.2rem 0;">${t.name}</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${t.desc}</p>
+                    <div style="margin-top:0.6rem;">
+                        <span class="price">KSH ${t.price.toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderEservices() {
+            const grid = document.getElementById('eservicesGrid');
+            grid.innerHTML = eservices.map(s => `
+                <div class="card" onclick="openPayment('${s.name}', 0, 'E-Service')">
+                    <div style="font-size:2.2rem; color:var(--neon); margin-bottom:0.4rem;">
+                        <i class="fas ${s.icon}"></i>
+                    </div>
+                    <h3>${s.name}</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${s.desc}</p>
+                    <span class="badge" style="background:#1a3a2a; margin-top:0.6rem;">Click to request</span>
+                </div>
+            `).join('');
+        }
+
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = courses.map(c => `
+                <div class="card" onclick="openPayment('${c.name}', ${c.price}, 'Course')">
+                    <span class="badge" style="background:#1a3a2a;">${c.desc.split('·')[0].trim()}</span>
+                    <h3 style="margin:0.4rem 0 0.2rem 0;">${c.name}</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${c.desc}</p>
+                    <div style="margin-top:0.6rem;">
+                        <span class="price">KSH ${c.price.toLocaleString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================
+        //  PAYMENT / MODAL
+        // ============================
+        const stripe = Stripe('pk_live_6fac23c23b199c93126e8b106cb191de266e26bc');
+
+        function openPayment(name, amount, type) {
+            document.getElementById('modalTitle').textContent = `${type}: ${name}`;
+            document.getElementById('modalDesc').textContent = `Complete payment for ${name}. Amount: KSH ${amount.toLocaleString()}`;
+            document.getElementById('serviceName').value = name;
+            document.getElementById('amountInput').value = amount || 0;
+            document.getElementById('serviceModal').classList.add('active');
+        }
+
+        document.getElementById('modalClose').addEventListener('click', () => {
+            document.getElementById('serviceModal').classList.remove('active');
         });
-      });
-
-      // Export leads functionality
-      document.getElementById('exportLeads').addEventListener('click', () => {
-        const leads = JSON.parse(localStorage.getItem('manlung_leads') || '[]');
-        if (leads.length === 0) {
-          showNotification('No leads to export', 'error');
-          return;
-        }
-        
-        let csv = 'Name,Email,Phone,Service,Timestamp\n';
-        leads.forEach(lead => {
-          csv += `"${lead.name || ''}","${lead.email || ''}","${lead.phone || ''}","${lead.service || ''}","${lead.timestamp || ''}"\n`;
+        document.getElementById('serviceModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) document.getElementById('serviceModal').classList.remove('active');
         });
-        
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `manlung-leads-${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        showNotification(`Exported ${leads.length} leads to CSV`, 'success');
-      });
 
-      // Clear leads functionality
-      document.getElementById('clearLeads').addEventListener('click', () => {
-        if (confirm('Clear all leads from localStorage? This cannot be undone.')) {
-          localStorage.removeItem('manlung_leads');
-          updateAdminPanel();
-          showNotification('All leads cleared', 'success');
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value;
+            const email = document.getElementById('custEmail').value;
+            const phone = document.getElementById('custPhone').value;
+            const service = document.getElementById('serviceName').value;
+            const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+            const currency = document.getElementById('currencySelect').value;
+
+            if (!name || !email || !phone) { alert('Please fill all fields.'); return; }
+            if (amount <= 0) { alert('Please enter a valid amount.'); return; }
+
+            try {
+                const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer sk_live_6fac23c23b199c93126e8b106cb191de266e26bc'
+                    },
+                    body: JSON.stringify({
+                        payment_method_types: ['card'],
+                        line_items: [{
+                            price_data: {
+                                currency: currency,
+                                product_data: { name: service || 'Manlung Service' },
+                                unit_amount: Math.round(amount * 100),
+                            },
+                            quantity: 1,
+                        }],
+                        mode: 'payment',
+                        success_url: window.location.origin + '?success=true',
+                        cancel_url: window.location.origin + '?canceled=true',
+                        customer_email: email,
+                        metadata: { service, phone, name }
+                    })
+                });
+                const session = await response.json();
+                if (session.id) {
+                    const result = await stripe.redirectToCheckout({ sessionId: session.id });
+                    if (result.error) alert(result.error.message);
+                } else {
+                    alert('Payment session failed.');
+                }
+            } catch (err) {
+                alert('Payment error: ' + err.message);
+            }
+        });
+
+        // ============================
+        //  CURRENCY
+        // ============================
+        function detectCurrency() {
+            const locale = navigator.language || 'en-KE';
+            const map = { 'KE': 'KES', 'US': 'USD', 'GB': 'GBP', 'EU': 'EUR', 'NG': 'NGN', 'ZA': 'ZAR' };
+            const country = locale.split('-')[1] || 'KE';
+            const cur = map[country] || 'KES';
+            document.getElementById('currencyDisplay').innerHTML = `<i class="fas fa-globe"></i> ${cur}`;
+            document.getElementById('currencySelect').value = cur.toLowerCase();
         }
-      });
+        detectCurrency();
 
-      // AI Assistant event listeners
-      document.getElementById('aiSendBtn').addEventListener('click', sendMessage);
-      document.getElementById('aiInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          sendMessage();
+        // ============================
+        //  AI CHAT
+        // ============================
+        const aiToggle = document.getElementById('aiToggle');
+        const aiBody = document.getElementById('aiBody');
+        const aiChevron = document.getElementById('aiChevron');
+        const aiInput = document.getElementById('aiInput');
+        const aiSend = document.getElementById('aiSendBtn');
+
+        aiToggle.addEventListener('click', () => {
+            document.getElementById('aiWidget').classList.toggle('collapsed');
+            aiChevron.classList.toggle('fa-chevron-down');
+            aiChevron.classList.toggle('fa-chevron-up');
+        });
+
+        const aiResponses = {
+            'tool': 'We offer cybersecurity tools like Wireshark, Nmap, Wazuh, and iOS exploitation tools. Click any tool card to purchase.',
+            'course': 'We have courses from beginner to advanced: Fundamentals, Ethical Hacking, SOC Analyst, Cloud Security, Forensics, and Cyber Law.',
+            'payment': 'You can pay securely via Stripe. Click any service, tool, or course to open the payment modal. Currency is auto-detected.',
+            'kra': 'We assist with KRA PIN registration, iTax returns, TCC, PAYE, VAT, and withholding tax. Click "E-Services" to request.',
+            'ecitizen': 'We help with eCitizen services: passports, IDs, birth certificates, driver\'s licenses, and foreigner registration.',
+            'certificate': 'We provide E-Certificate services for Good Conduct, Birth, Marriage, and Business Registration.',
+            'support': '24/7 tech support is available. We monitor systems in real-time and provide incident response.',
+            'default': 'I can help with tools, courses, e-services, payments, KRA, eCitizen, or certificates. What do you need?'
+        };
+
+        function getAIResponse(msg) {
+            const q = msg.toLowerCase();
+            if (q.includes('tool') || q.includes('nmap') || q.includes('wireshark')) return aiResponses.tool;
+            if (q.includes('course') || q.includes('training') || q.includes('learn')) return aiResponses.course;
+            if (q.includes('pay') || q.includes('stripe') || q.includes('cost') || q.includes('price')) return aiResponses
+            .payment;
+            if (q.includes('kra') || q.includes('tax') || q.includes('pin')) return aiResponses.kra;
+            if (q.includes('ecitizen') || q.includes('passport') || q.includes('id')) return aiResponses.ecitizen;
+            if (q.includes('certificate') || q.includes('good conduct') || q.includes('birth')) return aiResponses.certificate;
+            if (q.includes('support') || q.includes('help') || q.includes('tech')) return aiResponses.support;
+            return aiResponses.default;
         }
-      });
 
-      // Admin panel toggle (Ctrl+K)
-      document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'k') {
-          e.preventDefault();
-          const adminPanel = document.getElementById('adminPanel');
-          adminPanel.classList.toggle('open');
-          if (adminPanel.classList.contains('open')) {
-            updateAdminPanel();
-          }
+        function addAIMessage(text, isUser = false) {
+            const div = document.createElement('div');
+            div.className = `ai-msg ${isUser ? 'user' : ''}`;
+            div.textContent = text;
+            aiBody.appendChild(div);
+            aiBody.scrollTop = aiBody.scrollHeight;
         }
-      });
 
-      // Initialize admin panel
-      updateAdminPanel();
-      
-      // Show welcome notification
-      setTimeout(() => {
-        showNotification('Welcome to Manlung Tech City!', 'success');
-      }, 2000);
-    });
-  </script>
+        function handleAI() {
+            const msg = aiInput.value.trim();
+            if (!msg) return;
+            addAIMessage(msg, true);
+            aiInput.value = '';
+            setTimeout(() => {
+                const response = getAIResponse(msg);
+                addAIMessage(response);
+            }, 500);
+        }
+
+        aiSend.addEventListener('click', handleAI);
+        aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAI(); });
+
+        // ============================
+        //  INIT
+        // ============================
+        renderTools();
+        renderEservices();
+        renderCourses();
+
+        // handle success/cancel
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            alert('✅ Payment successful! Thank you for your purchase. You will receive a confirmation email.');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        if (urlParams.get('canceled')) {
+            alert('❌ Payment was canceled. You can try again anytime.');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
 </body>
 </html>
-<!-- ======= RATING SYSTEM - COPY FROM HERE ======= -->
-<div class="rating-container">
-    <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-    
-    <h1>Rate Our Service</h1>
-    <p>How would you rate your experience with us? Your feedback helps us improve!</p>
-    
-    <div class="stars">
-        <div class="star" data-value="1">★</div>
-        <div class="star" data-value="2">★</div>
-        <div class="star" data-value="3">★</div>
-        <div class="star" data-value="4">★</div>
-        <div class="star" data-value="5">★</div>
-    </div>
-    
-    <div class="rating-text" id="rating-text"></div>
-    
-    <div class="feedback-section">
-        <textarea id="feedback" placeholder="Tell us more about your experience (optional)..." rows="4"></textarea>
-        <div class="buttons">
-            <button id="submit-btn">
-                <i class="fab fa-whatsapp whatsapp-icon"></i> Send via WhatsApp
-            </button>
-            <button class="secondary" id="cancel-btn">
-                <i class="fas fa-times"></i> Cancel
-            </button>
-        </div>
-    </div>
-    
-    <div class="thank-you">
-        <i class="fas fa-check-circle"></i> Thank you for your feedback! We appreciate your time.
-    </div>
-</div>
-
-<style>
-.rating-container {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-    transition: transform 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin: 20px auto;
-}
-
-.rating-container::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-    z-index: 0;
-}
-
-.rating-container:hover {
-    transform: translateY(-5px);
-}
-
-.rating-container h1 {
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
-}
-
-.rating-container p {
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
-    position: relative;
-    z-index: 1;
-}
-
-.stars {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 1;
-}
-
-.star {
-    font-size: 48px;
-    color: #ddd;
-    cursor: pointer;
-    margin: 0 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.star:hover {
-    transform: scale(1.2);
-}
-
-.star.active {
-    transform: scale(1.3);
-}
-
-.feedback-section {
-    margin-top: 20px;
-    display: none;
-    position: relative;
-    z-index: 1;
-}
-
-.rating-container textarea {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    resize: none;
-    font-size: 16px;
-    margin-bottom: 20px;
-    transition: border-color 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.rating-container textarea:focus {
-    outline: none;
-    border-color: #6a11cb;
-    box-shadow: 0 3px 15px rgba(106, 17, 203, 0.2);
-}
-
-.buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.rating-container button {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.rating-container button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
-}
-
-.rating-container button.secondary {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-    color: #666;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.rating-container button.secondary:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.thank-you {
-    display: none;
-    margin-top: 20px;
-    padding: 20px;
-    background: #e8f5e9;
-    border-radius: 10px;
-    color: #2e7d32;
-    font-weight: 500;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 3px 10px rgba(46, 125, 50, 0.2);
-}
-
-.whatsapp-icon {
-    color: #25D366;
-    font-size: 20px;
-}
-
-/* Animation for stars */
-@keyframes starPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.5); }
-    100% { transform: scale(1.3); }
-}
-
-.star-pop {
-    animation: starPop 0.5s ease;
-}
-
-.rating-text {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #444;
-    min-height: 24px;
-    position: relative;
-    z-index: 1;
-}
-
-.floating-shapes {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    overflow: hidden;
-    border-radius: 20px;
-}
-
-.shape {
-    position: absolute;
-    background: rgba(106, 17, 203, 0.05);
-    border-radius: 50%;
-}
-
-.shape:nth-child(1) {
-    width: 80px;
-    height: 80px;
-    top: -30px;
-    left: -30px;
-}
-
-.shape:nth-child(2) {
-    width: 120px;
-    height: 120px;
-    bottom: -50px;
-    right: -50px;
-}
-
-.shape:nth-child(3) {
-    width: 60px;
-    height: 60px;
-    top: 40%;
-    right: -20px;
-}
-
-@media (max-width: 600px) {
-    .rating-container {
-        padding: 30px 20px;
-    }
-    
-    .buttons {
-        flex-direction: column;
-    }
-    
-    .rating-container button {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .star {
-        font-size: 40px;
-        margin: 0 5px;
-    }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('.star');
-    const feedbackSection = document.querySelector('.feedback-section');
-    const submitBtn = document.getElementById('submit-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
-    const thankYou = document.querySelector('.thank-you');
-    const ratingText = document.getElementById('rating-text');
-    const feedbackTextarea = document.getElementById('feedback');
-    
-    // Define colors and messages for each star
-    const starColors = [
-        '#ff6b6b', // Red
-        '#ffa726', // Orange
-        '#ffee58', // Yellow
-        '#66bb6a', // Green
-        '#42a5f5'  // Blue
-    ];
-    
-    const ratingMessages = [
-        "",
-        "Poor - We're sorry to hear that",
-        "Fair - We'll work to improve",
-        "Good - Glad you liked it",
-        "Very Good - Happy to serve you",
-        "Excellent - Thank you for the perfect rating!"
-    ];
-    
-    let selectedRating = 0;
-    
-    stars.forEach((star, index) => {
-        star.addEventListener('click', function() {
-            selectedRating = parseInt(this.getAttribute('data-value'));
-            
-            // Reset all stars
-            stars.forEach(s => {
-                s.classList.remove('active');
-                s.classList.remove('star-pop');
-                s.style.color = '#ddd';
-            });
-            
-            // Color stars up to the selected one
-            for (let i = 0; i < selectedRating; i++) {
-                stars[i].classList.add('active');
-                stars[i].classList.add('star-pop');
-                stars[i].style.color = starColors[i];
-            }
-            
-            // Update rating text
-            ratingText.textContent = ratingMessages[selectedRating];
-            
-            // Show feedback section
-            feedbackSection.style.display = 'block';
-            
-            // Hide thank you message if it's showing
-            thankYou.style.display = 'none';
-        });
-    });
-    
-    submitBtn.addEventListener('click', function() {
-        if (selectedRating > 0) {
-            // Prepare message for WhatsApp
-            const feedback = feedbackTextarea.value || "No additional feedback provided";
-            const message = `⭐ Rating: ${selectedRating}/5\n\n📝 Feedback: ${feedback}`;
-            
-            // Encode the message for URL
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Create WhatsApp URL with your phone number
-            const whatsappURL = `https://wa.me/254724356178?text=${encodedMessage}`;
-            
-            // Open WhatsApp in a new tab
-            window.open(whatsappURL, '_blank');
-            
-            // Show thank you message
-            feedbackSection.style.display = 'none';
-            thankYou.style.display = 'block';
-            
-            // Reset form after 3 seconds
-            setTimeout(() => {
-                resetForm();
-            }, 3000);
-        } else {
-            alert('Please select a rating before submitting.');
-        }
-    });
-    
-    cancelBtn.addEventListener('click', function() {
-        resetForm();
-    });
-    
-    function resetForm() {
-        // Reset stars
-        stars.forEach(s => {
-            s.classList.remove('active');
-            s.style.color = '#ddd';
-        });
-        
-        // Reset variables and UI
-        selectedRating = 0;
-        feedbackTextarea.value = '';
-        ratingText.textContent = '';
-        feedbackSection.style.display = 'none';
-        thankYou.style.display = 'none';
-    }
-});
-</script>
-<!-- ======= RATING SYSTEM - COPY TO HERE ======= -->
-
-
