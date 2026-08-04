@@ -114,7 +114,7 @@
         .nav-wrapper {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 0.8rem;
         }
         .nav-links {
             display: flex;
@@ -201,12 +201,98 @@
             font-size: 1rem;
             padding: 0.4rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
         }
         .mobile-nav a:hover {
             color: var(--neon);
         }
         .mobile-nav.open {
             display: flex;
+        }
+
+        /* Compact Search */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #0f1e24;
+            border: 1px solid var(--border-dim);
+            border-radius: 40px;
+            padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+            transition: 0.3s;
+            max-width: 180px;
+        }
+        .search-wrapper:focus-within {
+            border-color: var(--neon);
+            max-width: 280px;
+        }
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            color: #eef;
+            padding: 0.3rem 0;
+            font-size: 0.85rem;
+            width: 0;
+            transition: 0.3s;
+            outline: none;
+        }
+        .search-wrapper:focus-within input {
+            width: 120px;
+        }
+        .search-wrapper input::placeholder {
+            color: #5a7a7a;
+        }
+        .search-wrapper button {
+            background: var(--neon);
+            border: none;
+            border-radius: 40px;
+            padding: 0.3rem 0.8rem;
+            font-weight: 700;
+            color: #041008;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .search-wrapper button:hover {
+            background: #0ac86e;
+        }
+        .search-results {
+            background: rgba(14, 23, 31, 0.98);
+            border: 1px solid var(--border-dim);
+            border-radius: 16px;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            position: absolute;
+            z-index: 300;
+            width: 100%;
+            left: 0;
+        }
+        .search-results .result-item {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .search-results .result-item:hover {
+            background: rgba(13, 240, 122, 0.1);
+            color: var(--neon);
+        }
+        .search-results .result-item small {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 280px;
         }
 
         /* BUTTONS */
@@ -297,74 +383,6 @@
         }
         .price-out {
             color: #6a6a6a;
-        }
-
-        /* SEARCH */
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: #0f1e24;
-            border: 1px solid var(--border-dim);
-            border-radius: 40px;
-            padding: 0.3rem 0.3rem 0.3rem 1rem;
-            flex: 1;
-            min-width: 200px;
-            max-width: 320px;
-        }
-        .search-wrapper input {
-            background: transparent;
-            border: none;
-            color: #eef;
-            padding: 0.4rem 0;
-            font-size: 0.85rem;
-            width: 100%;
-            outline: none;
-        }
-        .search-wrapper input::placeholder {
-            color: #5a7a7a;
-        }
-        .search-wrapper button {
-            background: var(--neon);
-            border: none;
-            border-radius: 40px;
-            padding: 0.4rem 1rem;
-            font-weight: 700;
-            color: #041008;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: 0.2s;
-        }
-        .search-wrapper button:hover {
-            background: #0ac86e;
-        }
-        .search-results {
-            background: rgba(14, 23, 31, 0.98);
-            border: 1px solid var(--border-dim);
-            border-radius: 16px;
-            padding: 0.8rem;
-            margin-top: 0.5rem;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-        }
-        .search-results .result-item {
-            padding: 0.5rem 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer;
-            color: var(--text-light);
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-        .search-results .result-item:hover {
-            background: rgba(13, 240, 122, 0.1);
-            color: var(--neon);
-        }
-        .search-results .result-item small {
-            color: var(--text-muted);
-            font-size: 0.7rem;
         }
 
         /* HERO */
@@ -508,49 +526,87 @@
             line-height: 1.8;
         }
 
-        /* FEE CARDS */
-        .fee-card {
-            background: rgba(14, 23, 31, 0.9);
-            border-radius: 16px;
-            padding: 1rem 1.2rem;
-            border: 1px solid var(--border-dim);
-            text-align: center;
-            backdrop-filter: blur(4px);
-        }
-        .fee-card .amount {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--neon);
-        }
-
         /* NTSA SERVICE CARDS */
-        .ntsa-card {
+        .ntsa-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .ntsa-item {
             background: rgba(14, 23, 31, 0.9);
-            border-radius: 16px;
-            padding: 1.2rem;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
             border: 1px solid var(--border-dim);
-            text-align: center;
-            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: 0.2s;
             cursor: pointer;
         }
-        .ntsa-card:hover {
+        .ntsa-item:hover {
             border-color: var(--neon);
-            transform: translateY(-3px);
+            transform: translateX(4px);
         }
-        .ntsa-card .apply-btn {
+        .ntsa-item .apply-btn {
             background: var(--neon);
             color: #051008;
             border: none;
-            padding: 0.3rem 1.2rem;
+            padding: 0.2rem 1rem;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            margin-top: 0.5rem;
+            transition: 0.2s;
         }
-        .ntsa-card .apply-btn:hover {
+        .ntsa-item .apply-btn:hover {
             opacity: 0.8;
+        }
+        .ntsa-item span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .ntsa-item small {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            display: block;
+        }
+
+        /* CAREER BANNER */
+        .career-banner {
+            background: rgba(13, 240, 122, 0.08);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .career-banner .title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .career-banner .deadline {
+            color: var(--text-muted);
+        }
+        .career-banner .deadline strong {
+            color: var(--danger);
+        }
+        .career-banner .apply-link {
+            background: var(--gold);
+            color: #051008;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .career-banner .apply-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245, 197, 66, 0.3);
         }
 
         /* MESSAGING SECTION */
@@ -893,7 +949,6 @@
             resize: vertical;
         }
 
-        /* TRUST BANNER */
         .trust-banner {
             background: rgba(13, 240, 122, 0.08);
             border: 2px solid var(--neon);
@@ -910,6 +965,27 @@
             margin-right: 0.5rem;
         }
 
+        /* E-Service Cards */
+        .eservice-card {
+            background: rgba(14, 23, 31, 0.9);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid var(--border-dim);
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .eservice-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-3px);
+        }
+        .eservice-card .icon {
+            font-size: 2rem;
+            color: var(--neon);
+            margin-bottom: 0.4rem;
+        }
+
         @media (max-width: 900px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -924,12 +1000,15 @@
                 display: flex;
             }
             .search-wrapper {
-                max-width: 100%;
-                min-width: 150px;
+                max-width: 160px;
+            }
+            .search-wrapper:focus-within {
+                max-width: 200px;
+            }
+            .search-wrapper:focus-within input {
+                width: 80px;
             }
             .nav-wrapper {
-                width: 100%;
-                flex-wrap: wrap;
                 gap: 0.5rem;
             }
             .header-flex {
@@ -971,6 +1050,13 @@
             .hero-buttons .btn-outline {
                 padding: 0.5rem 1.2rem;
                 font-size: 0.9rem;
+            }
+            .ntsa-list {
+                grid-template-columns: 1fr 1fr;
+            }
+            .career-banner {
+                flex-direction: column;
+                text-align: center;
             }
         }
         @media (max-width: 500px) {
@@ -1014,7 +1100,13 @@
                 text-align: center;
             }
             .search-wrapper {
-                min-width: 100%;
+                max-width: 130px;
+            }
+            .search-wrapper:focus-within {
+                max-width: 160px;
+            }
+            .search-wrapper:focus-within input {
+                width: 60px;
             }
             .mobile-nav a {
                 font-size: 0.9rem;
@@ -1022,6 +1114,15 @@
             .trust-banner {
                 font-size: 0.9rem;
                 padding: 0.6rem;
+            }
+            .ntsa-list {
+                grid-template-columns: 1fr;
+            }
+            .ntsa-item {
+                padding: 0.6rem 1rem;
+            }
+            .career-banner .title {
+                font-size: 1rem;
             }
         }
     </style>
@@ -1033,9 +1134,12 @@
         <div class="container header-flex">
             <div class="logo">Manlung <span>Tech City</span></div>
             <div class="nav-wrapper">
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search courses, tools, services..." onkeyup="performSearch(this.value)">
-                    <button onclick="performSearch(document.getElementById('searchInput').value)"><i class="fas fa-search"></i></button>
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search..." onkeyup="performSearch(this.value)" onfocus="this.parentElement.style.maxWidth='280px'" onblur="setTimeout(()=>{ if(!this.value) this.parentElement.style.maxWidth='160px' },200)">
+                        <button onclick="performSearch(document.getElementById('searchInput').value)"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="search-results" id="searchResults"></div>
                 </div>
                 <div class="currency-selector">
                     <select id="currencySelect" onchange="updateCurrency()">
@@ -1051,7 +1155,7 @@
             </div>
         </div>
         <div class="mobile-nav" id="mobileNav">
-            <a class="active" onclick="showSection('home-section', this); toggleMobileNav()">Home</a>
+            <a onclick="showSection('home-section', this); toggleMobileNav()">Home</a>
             <a onclick="showSection('courses-section', this); toggleMobileNav()">Courses</a>
             <a onclick="showSection('tools-section', this); toggleMobileNav()">Tools</a>
             <a onclick="showSection('eservices-section', this); toggleMobileNav()">E-Services</a>
@@ -1059,9 +1163,6 @@
             <a onclick="showSection('contact-section', this); toggleMobileNav()">Contact</a>
             <a onclick="showSection('more-section', this); toggleMobileNav()">More</a>
             <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="display:inline-flex; margin-top:0.2rem;"><i class="fab fa-telegram-plane"></i> Chat</a>
-        </div>
-        <div class="container" id="searchResultsContainer" style="display:none;">
-            <div class="search-results" id="searchResults"></div>
         </div>
     </header>
 
@@ -1083,6 +1184,14 @@
                 </div>
                 <div class="trust-banner">
                     <i class="fas fa-shield-halved"></i> Kenyans Number 1 Trusted Online Cyber Hub
+                </div>
+                <!-- Career Banner -->
+                <div class="career-banner">
+                    <div>
+                        <span class="title"><i class="fas fa-bullhorn"></i> We're Hiring!</span>
+                        <span class="deadline"><strong>Cyber Security Attendant</strong> — Deadline: <strong>September 5th, 2026</strong></span>
+                    </div>
+                    <a href="#contact-section" onclick="showSection('contact-section', document.querySelector('nav a[onclick*="contact-section"]'))" class="apply-link">Apply Now <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="binary-container">
@@ -1122,41 +1231,21 @@
             <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
             <p class="section-sub">Passport, Good Conduct, eCitizen, NTSA Services, and more. Click to request service.</p>
 
-            <!-- eCitizen & Passport Fees -->
+            <!-- eCitizen Services -->
             <div style="margin-bottom:2rem;">
-                <h3 style="color:var(--neon); margin-bottom:0.8rem;">eCitizen & Passport Application Fees</h3>
-                <div class="grid-5">
-                    <div class="fee-card"><strong>Passport 34pg</strong><div class="amount" data-base="7550">KES 7,550</div></div>
-                    <div class="fee-card"><strong>Passport 50pg</strong><div class="amount" data-base="9550">KES 9,550</div></div>
-                    <div class="fee-card"><strong>Passport 66pg</strong><div class="amount" data-base="12050">KES 12,050</div></div>
-                    <div class="fee-card"><strong>Diplomatic</strong><div class="amount" data-base="15050">KES 15,050</div></div>
-                    <div class="fee-card"><strong>Lost Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
-                    <div class="fee-card"><strong>Mutilated Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
-                </div>
-            </div>
-
-            <!-- Service Fees -->
-            <div style="margin-bottom:2rem;">
-                <h3 style="color:var(--neon); margin-bottom:0.8rem;">Service Application Fees</h3>
-                <div class="grid-5">
-                    <div class="fee-card"><strong>Passport</strong><div class="amount" data-base="500">KES 500</div></div>
-                    <div class="fee-card"><strong>KRA Services</strong><div class="amount" data-base="200">KES 200</div></div>
-                    <div class="fee-card"><strong>Good Conduct</strong><div class="amount" data-base="200">KES 200</div></div>
-                    <div class="fee-card"><strong>SHA</strong><div class="amount" data-base="150">KES 150</div></div>
-                    <div class="fee-card"><strong>TSC</strong><div class="amount" data-base="500">KES 500</div></div>
-                </div>
-                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">All service fees are paid before services are rendered.</p>
+                <h3 style="color:var(--neon); margin-bottom:0.8rem;"><i class="fas fa-flag"></i> eCitizen & Passport Services</h3>
+                <div class="grid-3" id="ecitizenGrid"></div>
             </div>
 
             <!-- NTSA Services -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;"><i class="fas fa-car" style="margin-right:8px;"></i> NTSA Services — Apply With Us</h3>
-                <div class="grid-3" id="ntsaGrid"></div>
+                <div class="ntsa-list" id="ntsaGrid"></div>
             </div>
 
             <!-- Other E-Services -->
             <div style="margin-bottom:2rem;">
-                <h3 style="color:var(--neon); margin-bottom:0.8rem;">Other E-Services</h3>
+                <h3 style="color:var(--neon); margin-bottom:0.8rem;">Other Government Services</h3>
                 <div class="grid-3" id="eservicesGrid"></div>
             </div>
         </div>
@@ -1439,11 +1528,11 @@
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(id);
             if (target) target.classList.add('active');
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('nav a, .mobile-nav a').forEach(a => a.classList.remove('active'));
             if (navElement) {
                 navElement.classList.add('active');
             } else {
-                document.querySelectorAll('nav a').forEach(a => {
+                document.querySelectorAll('nav a, .mobile-nav a').forEach(a => {
                     if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
                         a.classList.add('active');
                     }
@@ -1492,14 +1581,16 @@
         // ============================
         //  SEARCH
         // ============================
+        let searchResultsVisible = false;
+
         function performSearch(query) {
-            const container = document.getElementById('searchResultsContainer');
             const resultsDiv = document.getElementById('searchResults');
             const q = query.toLowerCase().trim();
 
             if (!q) {
-                container.style.display = 'none';
+                resultsDiv.style.display = 'none';
                 resultsDiv.innerHTML = '';
+                searchResultsVisible = false;
                 return;
             }
 
@@ -1512,7 +1603,8 @@
                     type: 'Course',
                     desc: c.topics,
                     price: c.price,
-                    keywords: c.name + ' ' + c.topics
+                    keywords: c.name + ' ' + c.topics,
+                    section: 'courses-section'
                 });
             });
 
@@ -1523,7 +1615,8 @@
                     type: 'Tool',
                     desc: t.desc,
                     price: t.price,
-                    keywords: t.name + ' ' + t.desc
+                    keywords: t.name + ' ' + t.desc,
+                    section: 'tools-section'
                 });
             });
 
@@ -1534,7 +1627,8 @@
                     type: 'E-Service',
                     desc: e.desc,
                     price: null,
-                    keywords: e.name + ' ' + e.desc
+                    keywords: e.name + ' ' + e.desc,
+                    section: 'eservices-section'
                 });
             });
 
@@ -1545,7 +1639,8 @@
                     type: 'KRA Service',
                     desc: k.desc,
                     price: null,
-                    keywords: k.name + ' ' + k.desc
+                    keywords: k.name + ' ' + k.desc,
+                    section: 'kra-section'
                 });
             });
 
@@ -1556,7 +1651,20 @@
                     type: 'NTSA Service',
                     desc: n.desc,
                     price: null,
-                    keywords: n.name + ' ' + n.desc
+                    keywords: n.name + ' ' + n.desc,
+                    section: 'eservices-section'
+                });
+            });
+
+            // eCitizen
+            ecitizenServices.forEach(e => {
+                allItems.push({
+                    name: e.name,
+                    type: 'eCitizen',
+                    desc: e.desc,
+                    price: e.price || null,
+                    keywords: e.name + ' ' + e.desc,
+                    section: 'eservices-section'
                 });
             });
 
@@ -1566,48 +1674,54 @@
 
             if (results.length === 0) {
                 resultsDiv.innerHTML = '<div style="padding:0.8rem; color:var(--text-muted);">No results found for "' + q + '"</div>';
-                container.style.display = 'block';
+                resultsDiv.style.display = 'block';
+                searchResultsVisible = true;
                 return;
             }
 
             let html = '';
             results.slice(0, 15).forEach(item => {
                 const priceText = item.price ? ` — ${currentCurrency} ${(item.price * exchangeRates[currentCurrency]).toFixed(currentCurrency === 'KES' ? 0 : 2)}` : '';
-                html += `<div class="result-item" onclick="selectSearchResult('${item.name.replace(/'/g, "\\'")}', '${item.type}')">
+                html += `<div class="result-item" onclick="selectSearchResult('${item.name.replace(/'/g, "\\'")}', '${item.section}')">
                     <strong>${item.name}</strong> <small>${item.type}</small>${priceText}
                     <br><span style="font-size:0.75rem; color:var(--text-muted);">${item.desc.substring(0, 60)}${item.desc.length > 60 ? '...' : ''}</span>
                 </div>`;
             });
             resultsDiv.innerHTML = html;
-            container.style.display = 'block';
+            resultsDiv.style.display = 'block';
+            searchResultsVisible = true;
         }
 
-        function selectSearchResult(name, type) {
+        function selectSearchResult(name, sectionId) {
             document.getElementById('searchInput').value = name;
-            document.getElementById('searchResultsContainer').style.display = 'none';
-            // Try to open the appropriate section
-            const sectionMap = {
-                'Course': 'courses-section',
-                'Tool': 'tools-section',
-                'E-Service': 'eservices-section',
-                'KRA Service': 'kra-section',
-                'NTSA Service': 'eservices-section'
-            };
-            const sectionId = sectionMap[type] || 'home-section';
+            document.getElementById('searchResults').style.display = 'none';
+            searchResultsVisible = false;
+            const sectionName = sectionId.replace('-section', '');
             showSection(sectionId, document.querySelector(`nav a[onclick*="${sectionId}"]`));
-            // Scroll to the card if possible
             setTimeout(() => {
-                const cards = document.querySelectorAll('.course-card h3, .card h3');
+                const cards = document.querySelectorAll('.course-card h3, .card h3, .ntsa-item span, .eservice-card h4');
                 for (const card of cards) {
-                    if (card.textContent.trim() === name) {
-                        card.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        card.closest('.card').style.borderColor = 'var(--neon)';
-                        setTimeout(() => { card.closest('.card').style.borderColor = ''; }, 2000);
+                    if (card.textContent.trim() === name || card.textContent.trim().includes(name)) {
+                        const parent = card.closest('.card') || card.closest('.ntsa-item') || card.closest('.eservice-card');
+                        if (parent) {
+                            parent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            parent.style.borderColor = 'var(--neon)';
+                            setTimeout(() => { parent.style.borderColor = ''; }, 2000);
+                        }
                         break;
                     }
                 }
             }, 300);
         }
+
+        // Close search on click outside
+        document.addEventListener('click', function(e) {
+            const container = document.querySelector('.search-container');
+            if (container && !container.contains(e.target)) {
+                document.getElementById('searchResults').style.display = 'none';
+                searchResultsVisible = false;
+            }
+        });
 
         // ============================
         //  ADVANCED LOGS
@@ -1714,13 +1828,19 @@
         ];
 
         const eservices = [
-            { name: "Passport Application", desc: "New, renewal, and replacement", icon: "fa-passport" },
             { name: "Good Conduct Certificate", desc: "Police clearance certificate", icon: "fa-file-shield" },
             { name: "E-Certificate Services", desc: "Birth, Marriage, Business", icon: "fa-file-signature" },
-            { name: "eCitizen & Immigration", desc: "ID, driver's license, foreigner", icon: "fa-id-card" },
             { name: "Business Registration", desc: "CR12, incorporation, compliance", icon: "fa-building" },
             { name: "Academic Docs", desc: "Transcripts, attestation, KNEC", icon: "fa-graduation-cap" },
             { name: "NGO & Welfare", desc: "NGO registration, welfare society", icon: "fa-hand-holding-heart" },
+            { name: "SHA Services", desc: "Social Health Authority registration", icon: "fa-heartbeat" },
+            { name: "TSC Services", desc: "Teachers Service Commission registration", icon: "fa-chalkboard-teacher" },
+        ];
+
+        const ecitizenServices = [
+            { name: "Passport Application", desc: "New, renewal, and replacement", icon: "fa-passport", price: 500 },
+            { name: "eCitizen & Immigration", desc: "ID, driver's license, foreigner", icon: "fa-id-card", price: 200 },
+            { name: "Good Conduct Certificate", desc: "Police clearance certificate", icon: "fa-file-shield", price: 200 },
         ];
 
         const ntsaServices = [
@@ -1838,13 +1958,25 @@
         function renderEservices() {
             const grid = document.getElementById('eservicesGrid');
             grid.innerHTML = eservices.map(s => `
-                <div class="card clickable" onclick="openPayment('${s.name}', 0, 'E-Service')">
-                    <div style="font-size:2.2rem; color:var(--neon); margin-bottom:0.4rem;">
-                        <i class="fas ${s.icon}"></i>
+                <div class="eservice-card clickable" onclick="openPayment('${s.name}', 0, 'E-Service')">
+                    <div class="icon"><i class="fas ${s.icon}"></i></div>
+                    <h4 style="color:var(--text-light);">${s.name}</h4>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">${s.desc}</p>
+                    <span class="badge" style="background:#1a3a2a; margin-top:0.4rem;">Click to request</span>
+                </div>
+            `).join('');
+        }
+
+        function renderEcitizen() {
+            const grid = document.getElementById('ecitizenGrid');
+            grid.innerHTML = ecitizenServices.map(s => `
+                <div class="eservice-card clickable" onclick="openPayment('${s.name}', ${s.price || 0}, 'eCitizen')">
+                    <div class="icon"><i class="fas ${s.icon}"></i></div>
+                    <h4 style="color:var(--text-light);">${s.name}</h4>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">${s.desc}</p>
+                    <div style="margin-top:0.4rem;">
+                        <span class="price" style="font-size:1rem;" data-base="${s.price || 0}">KES ${(s.price || 0).toLocaleString()}</span>
                     </div>
-                    <h3>${s.name}</h3>
-                    <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${s.desc}</p>
-                    <span class="badge" style="background:#1a3a2a; margin-top:0.6rem;">Click to request</span>
                 </div>
             `).join('');
         }
@@ -1852,10 +1984,12 @@
         function renderNTSA() {
             const grid = document.getElementById('ntsaGrid');
             grid.innerHTML = ntsaServices.map(n => `
-                <div class="ntsa-card" onclick="openPayment('${n.name}', 0, 'NTSA Service')">
-                    <strong style="color:var(--neon);">${n.name}</strong>
-                    <p style="color:var(--text-muted); font-size:0.8rem; margin:0.3rem 0;">${n.desc}</p>
-                    <button class="apply-btn">Apply <i class="fas fa-arrow-right"></i></button>
+                <div class="ntsa-item" onclick="openPayment('${n.name}', 0, 'NTSA Service')">
+                    <div>
+                        <span>${n.name}</span>
+                        <small>${n.desc}</small>
+                    </div>
+                    <button class="apply-btn">Apply</button>
                 </div>
             `).join('');
         }
@@ -2080,17 +2214,11 @@
             'wazuh': 5500,
             'suricata': 5200,
             'nmap': 2700,
-            'passport 34 pages': 7550,
-            'passport 50 pages': 9550,
-            'passport 66 pages': 12050,
-            'diplomatic passport': 15050,
-            'lost passport': 20050,
-            'mutilated passport': 20050,
             'passport application': 500,
-            'kra service': 200,
-            'good conduct': 200,
-            'sha': 150,
-            'tsc': 500,
+            'ecitizen & immigration': 200,
+            'good conduct certificate': 200,
+            'sha services': 150,
+            'tsc services': 500,
         };
 
         const fullKnowledge = {
@@ -2160,6 +2288,7 @@
         renderCourses();
         renderTools();
         renderEservices();
+        renderEcitizen();
         renderNTSA();
         renderKRA();
 
@@ -2172,7 +2301,7 @@
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City - 30+ Courses, NTSA Services, KRA Services loaded!');
+        console.log('Manlung Tech City - Updated with NTSA, eCitizen, Career Banner, and compact search!');
         console.log('AI knows all prices. All forms send to Telegram.');
     </script>
 </body>
