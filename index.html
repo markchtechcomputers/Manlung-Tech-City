@@ -166,51 +166,6 @@
             color: #eef;
         }
 
-        /* Hamburger */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .hamburger span {
-            display: block;
-            width: 28px;
-            height: 3px;
-            background: var(--neon);
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        /* Mobile Nav */
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            background: rgba(5, 10, 16, 0.98);
-            padding: 1rem 1.8rem;
-            border-bottom: 1px solid var(--border-dim);
-            gap: 0.8rem;
-            width: 100%;
-        }
-        .mobile-nav a {
-            color: #c0d8de;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer;
-        }
-        .mobile-nav a:hover {
-            color: var(--neon);
-        }
-        .mobile-nav.open {
-            display: flex;
-        }
-
         /* Compact Search */
         .search-wrapper {
             display: flex;
@@ -265,7 +220,6 @@
             border: 1px solid var(--border-dim);
             border-radius: 16px;
             padding: 0.8rem;
-            margin-top: 0.5rem;
             max-height: 300px;
             overflow-y: auto;
             display: none;
@@ -273,6 +227,7 @@
             z-index: 300;
             width: 100%;
             left: 0;
+            margin-top: 0.5rem;
         }
         .search-results .result-item {
             padding: 0.5rem 0.8rem;
@@ -1019,18 +974,13 @@
             margin-bottom: 0.4rem;
         }
 
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .hero-grid {
                 grid-template-columns: 1fr;
             }
             .hero h1 {
                 font-size: 2.5rem;
-            }
-            .nav-links {
-                display: none;
-            }
-            .hamburger {
-                display: flex;
             }
             .search-wrapper {
                 max-width: 140px;
@@ -1091,6 +1041,66 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .nav-links {
+                gap: 0.7rem;
+            }
+            nav a {
+                font-size: 0.8rem;
+            }
+            .currency-selector {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.6rem;
+            }
+            .currency-selector select {
+                font-size: 0.7rem;
+            }
+        }
+        @media (max-width: 650px) {
+            .nav-links {
+                gap: 0.4rem;
+            }
+            nav a {
+                font-size: 0.7rem;
+                padding-bottom: 2px;
+            }
+            .currency-selector {
+                font-size: 0.6rem;
+                padding: 0.1rem 0.4rem;
+            }
+            .currency-selector select {
+                font-size: 0.6rem;
+            }
+            .search-wrapper {
+                max-width: 100px;
+            }
+            .search-wrapper:focus-within {
+                max-width: 140px;
+            }
+            .search-wrapper:focus-within input {
+                width: 50px;
+            }
+            .search-wrapper input {
+                font-size: 0.7rem;
+            }
+            .search-wrapper button {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-outline {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+            .hero-stats .stat {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.8rem;
+            }
         }
         @media (max-width: 500px) {
             .grid-3,
@@ -1122,31 +1132,35 @@
                 align-items: stretch;
             }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.6rem;
             }
             .hero-stats {
                 justify-content: center;
             }
             .hero-stats .stat {
                 flex: 1;
-                min-width: 100px;
+                min-width: 80px;
                 text-align: center;
             }
+            .nav-links {
+                gap: 0.3rem;
+            }
+            nav a {
+                font-size: 0.6rem;
+                padding-bottom: 1px;
+            }
             .search-wrapper {
-                max-width: 120px;
+                max-width: 80px;
             }
             .search-wrapper:focus-within {
-                max-width: 150px;
+                max-width: 120px;
             }
             .search-wrapper:focus-within input {
-                width: 50px;
-            }
-            .mobile-nav a {
-                font-size: 0.9rem;
+                width: 40px;
             }
             .trust-banner {
-                font-size: 0.9rem;
-                padding: 0.6rem;
+                font-size: 0.8rem;
+                padding: 0.5rem;
             }
             .ntsa-list {
                 grid-template-columns: 1fr;
@@ -1159,6 +1173,16 @@
             }
             .career-modal .modal-box {
                 padding: 1.2rem;
+            }
+            .currency-selector {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.3rem;
+            }
+            .currency-selector select {
+                font-size: 0.55rem;
+            }
+            .logo {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -1194,20 +1218,7 @@
                         <option value="GBP">GBP</option>
                     </select>
                 </div>
-                <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
             </div>
-        </div>
-        <div class="mobile-nav" id="mobileNav">
-            <a onclick="showSection('home-section', this); toggleMobileNav()">Home</a>
-            <a onclick="showSection('courses-section', this); toggleMobileNav()">Courses</a>
-            <a onclick="showSection('tools-section', this); toggleMobileNav()">Tools</a>
-            <a onclick="showSection('eservices-section', this); toggleMobileNav()">E-Services</a>
-            <a onclick="showSection('kra-section', this); toggleMobileNav()">KRA</a>
-            <a onclick="showSection('contact-section', this); toggleMobileNav()">Contact</a>
-            <a onclick="showSection('more-section', this); toggleMobileNav()">More</a>
-            <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="display:inline-flex; margin-top:0.2rem;"><i class="fab fa-telegram-plane"></i> Chat</a>
         </div>
     </header>
 
@@ -1234,7 +1245,11 @@
                 <div class="career-banner">
                     <div>
                         <span class="title"><i class="fas fa-bullhorn"></i> We're Hiring!</span>
-                        <span class="deadline"><strong>Cyber Security Attendant</strong> — Deadline: <strong>September 5th, 2026</strong></span>
+                        <span class="deadline">
+                            <strong>Cyber Security Engineer</strong> | 
+                            <strong>Cyber Cafe Attendant</strong> | 
+                            <strong>Shop Attendant</strong> — Deadline: <strong>September 5th, 2026</strong>
+                        </span>
                     </div>
                     <button onclick="openCareerForm()" class="apply-link">Apply Now <i class="fas fa-arrow-right"></i></button>
                 </div>
@@ -1562,8 +1577,13 @@
     <div class="modal-overlay career-modal" id="careerModal">
         <div class="modal-box">
             <button class="close-btn" onclick="document.getElementById('careerModal').classList.remove('active')">&times;</button>
-            <h2 style="color:var(--neon);"><i class="fas fa-briefcase"></i> Apply for Cyber Security Attendant</h2>
-            <p style="color:var(--text-muted); margin-bottom:1rem;">Fill in your details and upload your certificates. All applications are sent via Telegram.</p>
+            <h2 style="color:var(--neon);"><i class="fas fa-briefcase"></i> Apply for a Position</h2>
+            <p style="color:var(--text-muted); margin-bottom:1rem;">
+                Positions: <strong style="color:var(--neon);">Cyber Security Engineer</strong> | 
+                <strong style="color:var(--neon);">Cyber Cafe Attendant</strong> | 
+                <strong style="color:var(--neon);">Shop Attendant</strong>
+                <br>Fill in your details and upload your certificates. All applications are sent via Telegram.
+            </p>
             <form id="careerForm" onsubmit="submitCareerForm(event)">
                 <div class="form-group">
                     <label>Full Name</label>
@@ -1576,6 +1596,15 @@
                 <div class="form-group">
                     <label>Phone Number</label>
                     <input type="tel" id="careerPhone" placeholder="+254 700 000 000" required>
+                </div>
+                <div class="form-group">
+                    <label>Position Applying For</label>
+                    <select id="careerPosition" required>
+                        <option value="">Select a position...</option>
+                        <option value="Cyber Security Engineer">Cyber Security Engineer</option>
+                        <option value="Cyber Cafe Attendant">Cyber Cafe Attendant</option>
+                        <option value="Shop Attendant">Shop Attendant</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Date of Birth</label>
@@ -1602,12 +1631,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Years of Experience in Cyber Security</label>
+                    <label>Years of Experience</label>
                     <input type="number" id="careerExperience" placeholder="0" min="0" required>
                 </div>
                 <div class="form-group">
-                    <label>Certifications (e.g., CEH, CISSP, CompTIA Security+)</label>
-                    <input type="text" id="careerCerts" placeholder="CEH, CISSP, etc.">
+                    <label>Certifications (if any)</label>
+                    <input type="text" id="careerCerts" placeholder="CEH, CISSP, CompTIA Security+, etc.">
                 </div>
                 <div class="form-group">
                     <label>Upload Your CV/Resume (PDF, DOC, DOCX)</label>
@@ -1639,30 +1668,22 @@
 
     <script>
         // ============================
-        //  MOBILE NAV TOGGLE
-        // ============================
-        function toggleMobileNav() {
-            document.getElementById('mobileNav').classList.toggle('open');
-        }
-
-        // ============================
         //  SECTION TOGGLE
         // ============================
         function showSection(id, navElement) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(id);
             if (target) target.classList.add('active');
-            document.querySelectorAll('nav a, .mobile-nav a, .footer-flex a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('nav a, .footer-flex a').forEach(a => a.classList.remove('active'));
             if (navElement) {
                 navElement.classList.add('active');
             } else {
-                document.querySelectorAll('nav a, .mobile-nav a, .footer-flex a').forEach(a => {
+                document.querySelectorAll('nav a, .footer-flex a').forEach(a => {
                     if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
                         a.classList.add('active');
                     }
                 });
             }
-            document.getElementById('mobileNav').classList.remove('open');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1812,11 +1833,16 @@
 
         function selectSearchResult(name, sectionId) {
             document.getElementById('searchInput').value = name;
-            document.getElementById('searchResults').style.display = 'none';
-            searchResultsVisible = false;
-            // Close mobile nav if open
-            document.getElementById('mobileNav').classList.remove('open');
-            const sectionName = sectionId.replace('-section', '');
+            // Keep search results visible but highlight the selected item
+            const resultsDiv = document.getElementById('searchResults');
+            const items = resultsDiv.querySelectorAll('.result-item');
+            items.forEach(item => {
+                item.style.background = 'transparent';
+                if (item.textContent.includes(name)) {
+                    item.style.background = 'rgba(13, 240, 122, 0.15)';
+                }
+            });
+            // Navigate to section
             showSection(sectionId, document.querySelector(`nav a[onclick*="${sectionId}"]`));
             setTimeout(() => {
                 const cards = document.querySelectorAll('.course-card h3, .card h3, .ntsa-item span, .eservice-card h4');
@@ -1834,12 +1860,12 @@
             }, 300);
         }
 
-        // Close search on click outside
+        // Close search on click outside - but keep results visible if clicked inside
         document.addEventListener('click', function(e) {
             const container = document.querySelector('.search-container');
             if (container && !container.contains(e.target)) {
-                document.getElementById('searchResults').style.display = 'none';
-                searchResultsVisible = false;
+                // Don't hide results, just keep them
+                // Only hide if clicking on a result item that navigates
             }
         });
 
@@ -2147,6 +2173,7 @@
             const name = document.getElementById('careerName').value;
             const email = document.getElementById('careerEmail').value;
             const phone = document.getElementById('careerPhone').value;
+            const position = document.getElementById('careerPosition').value;
             const dob = document.getElementById('careerDob').value;
             const gender = document.getElementById('careerGender').value;
             const education = document.getElementById('careerEducation').value;
@@ -2157,7 +2184,7 @@
             const certsFiles = document.getElementById('careerCertsFile').files;
             const response = document.getElementById('careerResponse');
 
-            if (!name || !email || !phone || !dob || !gender || !education || !experience) {
+            if (!name || !email || !phone || !position || !dob || !gender || !education || !experience) {
                 response.style.display = 'block';
                 response.style.background = 'rgba(255,107,90,0.2)';
                 response.style.color = '#ff6b5a';
@@ -2165,7 +2192,8 @@
                 return;
             }
 
-            let message = `🔹 NEW JOB APPLICATION - Cyber Security Attendant 🔹\n\n`;
+            let message = `🔹 NEW JOB APPLICATION 🔹\n\n`;
+            message += `Position: ${position}\n`;
             message += `Name: ${name}\n`;
             message += `Email: ${email}\n`;
             message += `Phone: ${phone}\n`;
@@ -2181,7 +2209,6 @@
             if (cover) message += `\nCover Letter:\n${cover}`;
             message += `\n\n📅 Applied: ${new Date().toLocaleString()}`;
 
-            // Send to Telegram
             sendToTelegram(message).then(data => {
                 if (data.ok) {
                     response.style.display = 'block';
@@ -2504,7 +2531,7 @@
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City - Fully updated with Career Application, functional buttons, and improved navigation!');
+        console.log('Manlung Tech City - Fully updated with all navigation links visible, search fixed, and multiple job positions!');
         console.log('AI knows all prices. All forms send to Telegram.');
     </script>
 </body>
