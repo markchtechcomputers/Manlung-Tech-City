@@ -115,6 +115,7 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            flex-wrap: wrap;
         }
         .nav-links {
             display: flex;
@@ -219,11 +220,11 @@
             border-radius: 40px;
             padding: 0.2rem 0.2rem 0.2rem 0.8rem;
             transition: 0.3s;
-            max-width: 180px;
+            max-width: 160px;
         }
         .search-wrapper:focus-within {
             border-color: var(--neon);
-            max-width: 280px;
+            max-width: 260px;
         }
         .search-wrapper input {
             background: transparent;
@@ -236,7 +237,7 @@
             outline: none;
         }
         .search-wrapper:focus-within input {
-            width: 120px;
+            width: 100px;
         }
         .search-wrapper input::placeholder {
             color: #5a7a7a;
@@ -292,7 +293,7 @@
         .search-container {
             position: relative;
             flex: 1;
-            max-width: 280px;
+            max-width: 260px;
         }
 
         /* BUTTONS */
@@ -603,10 +604,42 @@
             font-weight: 700;
             text-decoration: none;
             transition: 0.2s;
+            cursor: pointer;
+            border: none;
         }
         .career-banner .apply-link:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(245, 197, 66, 0.3);
+        }
+
+        /* CAREER APPLICATION MODAL */
+        .career-modal .modal-box {
+            max-width: 700px;
+        }
+        .career-modal .form-group textarea {
+            min-height: 100px;
+        }
+        .file-upload {
+            background: #0f1e24;
+            border: 2px dashed var(--border-dim);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-muted);
+        }
+        .file-upload:hover {
+            border-color: var(--neon);
+            color: var(--neon);
+        }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        .file-upload .file-name {
+            color: var(--neon);
+            font-weight: 600;
+            margin-top: 0.3rem;
         }
 
         /* MESSAGING SECTION */
@@ -1000,13 +1033,13 @@
                 display: flex;
             }
             .search-wrapper {
-                max-width: 160px;
+                max-width: 140px;
             }
             .search-wrapper:focus-within {
-                max-width: 200px;
+                max-width: 180px;
             }
             .search-wrapper:focus-within input {
-                width: 80px;
+                width: 70px;
             }
             .nav-wrapper {
                 gap: 0.5rem;
@@ -1100,13 +1133,13 @@
                 text-align: center;
             }
             .search-wrapper {
-                max-width: 130px;
+                max-width: 120px;
             }
             .search-wrapper:focus-within {
-                max-width: 160px;
+                max-width: 150px;
             }
             .search-wrapper:focus-within input {
-                width: 60px;
+                width: 50px;
             }
             .mobile-nav a {
                 font-size: 0.9rem;
@@ -1124,6 +1157,9 @@
             .career-banner .title {
                 font-size: 1rem;
             }
+            .career-modal .modal-box {
+                padding: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -1134,6 +1170,15 @@
         <div class="container header-flex">
             <div class="logo">Manlung <span>Tech City</span></div>
             <div class="nav-wrapper">
+                <div class="nav-links">
+                    <a class="active" onclick="showSection('home-section', this)">Home</a>
+                    <a onclick="showSection('courses-section', this)">Courses</a>
+                    <a onclick="showSection('tools-section', this)">Tools</a>
+                    <a onclick="showSection('eservices-section', this)">E-Services</a>
+                    <a onclick="showSection('kra-section', this)">KRA</a>
+                    <a onclick="showSection('contact-section', this)">Contact</a>
+                    <a onclick="showSection('more-section', this)">More</a>
+                </div>
                 <div class="search-container">
                     <div class="search-wrapper">
                         <input type="text" id="searchInput" placeholder="Search..." onkeyup="performSearch(this.value)" onfocus="this.parentElement.style.maxWidth='280px'" onblur="setTimeout(()=>{ if(!this.value) this.parentElement.style.maxWidth='160px' },200)">
@@ -1191,7 +1236,7 @@
                         <span class="title"><i class="fas fa-bullhorn"></i> We're Hiring!</span>
                         <span class="deadline"><strong>Cyber Security Attendant</strong> — Deadline: <strong>September 5th, 2026</strong></span>
                     </div>
-                    <a href="#contact-section" onclick="showSection('contact-section', document.querySelector('nav a[onclick*="contact-section"]'))" class="apply-link">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    <button onclick="openCareerForm()" class="apply-link">Apply Now <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
             <div class="binary-container">
@@ -1513,6 +1558,85 @@
         </div>
     </div>
 
+    <!-- CAREER APPLICATION MODAL -->
+    <div class="modal-overlay career-modal" id="careerModal">
+        <div class="modal-box">
+            <button class="close-btn" onclick="document.getElementById('careerModal').classList.remove('active')">&times;</button>
+            <h2 style="color:var(--neon);"><i class="fas fa-briefcase"></i> Apply for Cyber Security Attendant</h2>
+            <p style="color:var(--text-muted); margin-bottom:1rem;">Fill in your details and upload your certificates. All applications are sent via Telegram.</p>
+            <form id="careerForm" onsubmit="submitCareerForm(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="careerName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="careerEmail" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="careerPhone" placeholder="+254 700 000 000" required>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" id="careerDob" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="careerGender" required>
+                        <option value="">Select...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Highest Level of Education</label>
+                    <select id="careerEducation" required>
+                        <option value="">Select...</option>
+                        <option value="Certificate">Certificate</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Years of Experience in Cyber Security</label>
+                    <input type="number" id="careerExperience" placeholder="0" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Certifications (e.g., CEH, CISSP, CompTIA Security+)</label>
+                    <input type="text" id="careerCerts" placeholder="CEH, CISSP, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Upload Your CV/Resume (PDF, DOC, DOCX)</label>
+                    <div class="file-upload" onclick="document.getElementById('careerFile').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:2rem;"></i>
+                        <p>Click to upload your CV</p>
+                        <div class="file-name" id="careerFileName">No file selected</div>
+                        <input type="file" id="careerFile" accept=".pdf,.doc,.docx" onchange="updateFileName(this)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Upload Certificates (PDF, JPG, PNG)</label>
+                    <div class="file-upload" onclick="document.getElementById('careerCertsFile').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:2rem;"></i>
+                        <p>Click to upload certificates</p>
+                        <div class="file-name" id="careerCertsFileName">No file selected</div>
+                        <input type="file" id="careerCertsFile" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="updateCertsFileName(this)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cover Letter / Message</label>
+                    <textarea id="careerCover" placeholder="Tell us why you'd be a great fit for this position..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Submit Application</button>
+            </form>
+            <div id="careerResponse" style="margin-top:1rem; display:none; padding:1rem; border-radius:12px; text-align:center;"></div>
+        </div>
+    </div>
+
     <script>
         // ============================
         //  MOBILE NAV TOGGLE
@@ -1528,11 +1652,11 @@
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(id);
             if (target) target.classList.add('active');
-            document.querySelectorAll('nav a, .mobile-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('nav a, .mobile-nav a, .footer-flex a').forEach(a => a.classList.remove('active'));
             if (navElement) {
                 navElement.classList.add('active');
             } else {
-                document.querySelectorAll('nav a, .mobile-nav a').forEach(a => {
+                document.querySelectorAll('nav a, .mobile-nav a, .footer-flex a').forEach(a => {
                     if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
                         a.classList.add('active');
                     }
@@ -1596,7 +1720,6 @@
 
             const allItems = [];
 
-            // Courses
             courses.forEach(c => {
                 allItems.push({
                     name: c.name,
@@ -1608,7 +1731,6 @@
                 });
             });
 
-            // Tools
             tools.forEach(t => {
                 allItems.push({
                     name: t.name,
@@ -1620,7 +1742,6 @@
                 });
             });
 
-            // E-Services
             eservices.forEach(e => {
                 allItems.push({
                     name: e.name,
@@ -1632,7 +1753,6 @@
                 });
             });
 
-            // KRA
             kraServices.forEach(k => {
                 allItems.push({
                     name: k.name,
@@ -1644,7 +1764,6 @@
                 });
             });
 
-            // NTSA
             ntsaServices.forEach(n => {
                 allItems.push({
                     name: n.name,
@@ -1656,7 +1775,6 @@
                 });
             });
 
-            // eCitizen
             ecitizenServices.forEach(e => {
                 allItems.push({
                     name: e.name,
@@ -1696,6 +1814,8 @@
             document.getElementById('searchInput').value = name;
             document.getElementById('searchResults').style.display = 'none';
             searchResultsVisible = false;
+            // Close mobile nav if open
+            document.getElementById('mobileNav').classList.remove('open');
             const sectionName = sectionId.replace('-section', '');
             showSection(sectionId, document.querySelector(`nav a[onclick*="${sectionId}"]`));
             setTimeout(() => {
@@ -2006,6 +2126,89 @@
         }
 
         // ============================
+        //  CAREER FORM
+        // ============================
+        function openCareerForm() {
+            document.getElementById('careerModal').classList.add('active');
+            document.getElementById('careerResponse').style.display = 'none';
+        }
+
+        function updateFileName(input) {
+            document.getElementById('careerFileName').textContent = input.files[0] ? input.files[0].name : 'No file selected';
+        }
+
+        function updateCertsFileName(input) {
+            const names = Array.from(input.files).map(f => f.name).join(', ');
+            document.getElementById('careerCertsFileName').textContent = names || 'No file selected';
+        }
+
+        function submitCareerForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('careerName').value;
+            const email = document.getElementById('careerEmail').value;
+            const phone = document.getElementById('careerPhone').value;
+            const dob = document.getElementById('careerDob').value;
+            const gender = document.getElementById('careerGender').value;
+            const education = document.getElementById('careerEducation').value;
+            const experience = document.getElementById('careerExperience').value;
+            const certs = document.getElementById('careerCerts').value;
+            const cover = document.getElementById('careerCover').value;
+            const cvFile = document.getElementById('careerFile').files[0];
+            const certsFiles = document.getElementById('careerCertsFile').files;
+            const response = document.getElementById('careerResponse');
+
+            if (!name || !email || !phone || !dob || !gender || !education || !experience) {
+                response.style.display = 'block';
+                response.style.background = 'rgba(255,107,90,0.2)';
+                response.style.color = '#ff6b5a';
+                response.textContent = '❌ Please fill all required fields.';
+                return;
+            }
+
+            let message = `🔹 NEW JOB APPLICATION - Cyber Security Attendant 🔹\n\n`;
+            message += `Name: ${name}\n`;
+            message += `Email: ${email}\n`;
+            message += `Phone: ${phone}\n`;
+            message += `Date of Birth: ${dob}\n`;
+            message += `Gender: ${gender}\n`;
+            message += `Education: ${education}\n`;
+            message += `Experience: ${experience} years\n`;
+            if (certs) message += `Certifications: ${certs}\n`;
+            if (cvFile) message += `CV uploaded: ${cvFile.name}\n`;
+            if (certsFiles.length > 0) {
+                message += `Certificates uploaded: ${Array.from(certsFiles).map(f => f.name).join(', ')}\n`;
+            }
+            if (cover) message += `\nCover Letter:\n${cover}`;
+            message += `\n\n📅 Applied: ${new Date().toLocaleString()}`;
+
+            // Send to Telegram
+            sendToTelegram(message).then(data => {
+                if (data.ok) {
+                    response.style.display = 'block';
+                    response.style.background = 'rgba(13,240,122,0.15)';
+                    response.style.color = '#0df07a';
+                    response.textContent = '✅ Your application has been submitted successfully! We will contact you shortly.';
+                    document.getElementById('careerForm').reset();
+                    document.getElementById('careerFileName').textContent = 'No file selected';
+                    document.getElementById('careerCertsFileName').textContent = 'No file selected';
+                    setTimeout(() => {
+                        document.getElementById('careerModal').classList.remove('active');
+                    }, 3000);
+                } else {
+                    response.style.display = 'block';
+                    response.style.background = 'rgba(255,107,90,0.2)';
+                    response.style.color = '#ff6b5a';
+                    response.textContent = '❌ Failed to submit application. Please try again or contact us on Telegram.';
+                }
+            }).catch(() => {
+                response.style.display = 'block';
+                response.style.background = 'rgba(255,107,90,0.2)';
+                response.style.color = '#ff6b5a';
+                response.textContent = '❌ Error submitting application. Please try again.';
+            });
+        }
+
+        // ============================
         //  TELEGRAM SENDER
         // ============================
         const BOT_TOKEN = '7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE';
@@ -2301,7 +2504,7 @@
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City - Updated with NTSA, eCitizen, Career Banner, and compact search!');
+        console.log('Manlung Tech City - Fully updated with Career Application, functional buttons, and improved navigation!');
         console.log('AI knows all prices. All forms send to Telegram.');
     </script>
 </body>
