@@ -78,6 +78,11 @@
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.2rem;
         }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
 
         /* HEADER */
         header {
@@ -106,7 +111,12 @@
             color: #9ac8c0;
             font-weight: 300;
         }
-        nav {
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .nav-links {
             display: flex;
             gap: 1.2rem;
             flex-wrap: wrap;
@@ -153,6 +163,50 @@
         .currency-selector select option {
             background: #0a141c;
             color: #eef;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--neon);
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: rgba(5, 10, 16, 0.98);
+            padding: 1rem 1.8rem;
+            border-bottom: 1px solid var(--border-dim);
+            gap: 0.8rem;
+            width: 100%;
+        }
+        .mobile-nav a {
+            color: #c0d8de;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .mobile-nav a:hover {
+            color: var(--neon);
+        }
+        .mobile-nav.open {
+            display: flex;
         }
 
         /* BUTTONS */
@@ -245,6 +299,74 @@
             color: #6a6a6a;
         }
 
+        /* SEARCH */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #0f1e24;
+            border: 1px solid var(--border-dim);
+            border-radius: 40px;
+            padding: 0.3rem 0.3rem 0.3rem 1rem;
+            flex: 1;
+            min-width: 200px;
+            max-width: 320px;
+        }
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            color: #eef;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            width: 100%;
+            outline: none;
+        }
+        .search-wrapper input::placeholder {
+            color: #5a7a7a;
+        }
+        .search-wrapper button {
+            background: var(--neon);
+            border: none;
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            font-weight: 700;
+            color: #041008;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: 0.2s;
+        }
+        .search-wrapper button:hover {
+            background: #0ac86e;
+        }
+        .search-results {
+            background: rgba(14, 23, 31, 0.98);
+            border: 1px solid var(--border-dim);
+            border-radius: 16px;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        .search-results .result-item {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .search-results .result-item:hover {
+            background: rgba(13, 240, 122, 0.1);
+            color: var(--neon);
+        }
+        .search-results .result-item small {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
         /* HERO */
         .hero {
             padding: 3rem 0 2.5rem 0;
@@ -273,6 +395,27 @@
             font-size: 1.05rem;
             margin: 1rem 0 1.6rem 0;
             max-width: 540px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.2rem;
+        }
+        .hero-stats .stat {
+            background: rgba(16, 30, 34, 0.6);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid var(--border-dim);
+            font-size: 0.9rem;
+        }
+        .hero-stats .stat strong {
+            color: var(--neon);
         }
 
         /* BINARY & LOGS */
@@ -380,6 +523,36 @@
             color: var(--neon);
         }
 
+        /* NTSA SERVICE CARDS */
+        .ntsa-card {
+            background: rgba(14, 23, 31, 0.9);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid var(--border-dim);
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .ntsa-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-3px);
+        }
+        .ntsa-card .apply-btn {
+            background: var(--neon);
+            color: #051008;
+            border: none;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .ntsa-card .apply-btn:hover {
+            opacity: 0.8;
+        }
+
         /* MESSAGING SECTION */
         .messaging-section {
             background: rgba(11, 20, 26, 0.6);
@@ -425,7 +598,6 @@
             border: 1px solid rgba(13, 240, 122, 0.1);
         }
 
-        /* MORE SECTION - LEGAL PAGES */
         .legal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -586,6 +758,30 @@
             color: #fff;
         }
 
+        /* KRA CAREERS */
+        .kra-careers {
+            background: rgba(26, 58, 46, 0.3);
+            border: 1px solid var(--neon);
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .kra-careers a {
+            color: var(--neon);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid var(--neon);
+        }
+        .kra-careers a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
         /* FOOTER */
         footer {
             border-top: 1px solid var(--border-dim);
@@ -697,36 +893,48 @@
             resize: vertical;
         }
 
-        /* KRA CAREERS */
-        .kra-careers {
-            background: rgba(26, 58, 46, 0.3);
-            border: 1px solid var(--neon);
+        /* TRUST BANNER */
+        .trust-banner {
+            background: rgba(13, 240, 122, 0.08);
+            border: 2px solid var(--neon);
             border-radius: 16px;
             padding: 1.2rem 1.8rem;
             margin: 1.5rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .kra-careers a {
-            color: var(--neon);
+            text-align: center;
+            font-size: 1.3rem;
             font-weight: 700;
-            text-decoration: none;
-            border-bottom: 2px solid var(--neon);
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(13, 240, 122, 0.15);
         }
-        .kra-careers a:hover {
-            color: #fff;
-            border-bottom-color: #fff;
+        .trust-banner i {
+            margin-right: 0.5rem;
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 900px) {
             .hero-grid {
                 grid-template-columns: 1fr;
             }
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .search-wrapper {
+                max-width: 100%;
+                min-width: 150px;
+            }
+            .nav-wrapper {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .header-flex {
+                flex-direction: row;
+                flex-wrap: wrap;
             }
             .ai-widget {
                 width: 300px;
@@ -740,14 +948,6 @@
                 bottom: 1.5rem;
                 right: 1.5rem;
             }
-            .header-flex {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            nav {
-                justify-content: center;
-                gap: 0.8rem;
-            }
             .grid-3,
             .grid-4,
             .grid-5 {
@@ -756,11 +956,28 @@
             .legal-grid {
                 grid-template-columns: 1fr;
             }
+            .trust-banner {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+            .hero-stats {
+                gap: 0.8rem;
+            }
+            .hero-stats .stat {
+                padding: 0.2rem 1rem;
+                font-size: 0.8rem;
+            }
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-outline {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 500px) {
             .grid-3,
             .grid-4,
-            .grid-5 {
+            .grid-5,
+            .grid-2 {
                 grid-template-columns: 1fr;
             }
             .btn-primary,
@@ -781,6 +998,31 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-stats .stat {
+                flex: 1;
+                min-width: 100px;
+                text-align: center;
+            }
+            .search-wrapper {
+                min-width: 100%;
+            }
+            .mobile-nav a {
+                font-size: 0.9rem;
+            }
+            .trust-banner {
+                font-size: 0.9rem;
+                padding: 0.6rem;
+            }
         }
     </style>
 </head>
@@ -790,26 +1032,36 @@
     <header>
         <div class="container header-flex">
             <div class="logo">Manlung <span>Tech City</span></div>
-            <nav>
-                <a class="active" onclick="showSection('home-section', this)">Home</a>
-                <a onclick="showSection('courses-section', this)">Courses</a>
-                <a onclick="showSection('tools-section', this)">Tools</a>
-                <a onclick="showSection('eservices-section', this)">E-Services</a>
-                <a onclick="showSection('kra-section', this)">KRA</a>
-                <a onclick="showSection('contact-section', this)">Contact</a>
-                <a onclick="showSection('more-section', this)">More</a>
-                <span class="currency-selector">
+            <div class="nav-wrapper">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search courses, tools, services..." onkeyup="performSearch(this.value)">
+                    <button onclick="performSearch(document.getElementById('searchInput').value)"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="currency-selector">
                     <select id="currencySelect" onchange="updateCurrency()">
                         <option value="KES">KES</option>
                         <option value="USD">USD</option>
                         <option value="EUR">EUR</option>
                         <option value="GBP">GBP</option>
                     </select>
-                </span>
-                <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="padding:0.2rem 1rem; font-size:0.75rem;">
-                    <i class="fab fa-telegram-plane"></i> Chat
-                </a>
-            </nav>
+                </div>
+                <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a class="active" onclick="showSection('home-section', this); toggleMobileNav()">Home</a>
+            <a onclick="showSection('courses-section', this); toggleMobileNav()">Courses</a>
+            <a onclick="showSection('tools-section', this); toggleMobileNav()">Tools</a>
+            <a onclick="showSection('eservices-section', this); toggleMobileNav()">E-Services</a>
+            <a onclick="showSection('kra-section', this); toggleMobileNav()">KRA</a>
+            <a onclick="showSection('contact-section', this); toggleMobileNav()">Contact</a>
+            <a onclick="showSection('more-section', this); toggleMobileNav()">More</a>
+            <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="display:inline-flex; margin-top:0.2rem;"><i class="fab fa-telegram-plane"></i> Chat</a>
+        </div>
+        <div class="container" id="searchResultsContainer" style="display:none;">
+            <div class="search-results" id="searchResults"></div>
         </div>
     </header>
 
@@ -819,21 +1071,18 @@
             <div>
                 <h1>Advanced <span>Cyber</span> Security <span>Hub</span></h1>
                 <p>30+ comprehensive courses, enterprise tools, government e-services, and KRA assistance. Secure payments via Paystack.</p>
-                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                <div class="hero-buttons">
                     <a onclick="showSection('courses-section', document.querySelector('nav a[onclick*="courses-section"]'))" class="btn-primary"><i class="fas fa-graduation-cap"></i> View Courses</a>
                     <a onclick="showSection('contact-section', document.querySelector('nav a[onclick*="contact-section"]'))" class="btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
                     <a href="https://t.me/manlungtechcitybot" target="_blank" class="btn-outline" style="border-color:#0088cc; color:#0088cc;"><i class="fab fa-telegram-plane"></i> Telegram</a>
                 </div>
-                <div class="stats-mini" style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:1.2rem;">
-                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
-                        <strong style="color:var(--neon);">30+</strong> Courses
-                    </div>
-                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
-                        <strong style="color:var(--neon);">13</strong> Tools
-                    </div>
-                    <div style="background:rgba(16,30,34,0.6); padding:0.4rem 1.2rem; border-radius:40px; border:1px solid var(--border-dim);">
-                        <strong style="color:var(--neon);" id="revenueDisplay">KES 53,000</strong>
-                    </div>
+                <div class="hero-stats">
+                    <div class="stat"><strong>30+</strong> Courses</div>
+                    <div class="stat"><strong>13</strong> Tools</div>
+                    <div class="stat"><strong id="revenueDisplay">KES 53,000</strong></div>
+                </div>
+                <div class="trust-banner">
+                    <i class="fas fa-shield-halved"></i> Kenyans Number 1 Trusted Online Cyber Hub
                 </div>
             </div>
             <div class="binary-container">
@@ -871,8 +1120,22 @@
     <section id="eservices-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
-            <p class="section-sub">Passport, Good Conduct, eCitizen, E-Certificates, and more. Click to request service.</p>
+            <p class="section-sub">Passport, Good Conduct, eCitizen, NTSA Services, and more. Click to request service.</p>
 
+            <!-- eCitizen & Passport Fees -->
+            <div style="margin-bottom:2rem;">
+                <h3 style="color:var(--neon); margin-bottom:0.8rem;">eCitizen & Passport Application Fees</h3>
+                <div class="grid-5">
+                    <div class="fee-card"><strong>Passport 34pg</strong><div class="amount" data-base="7550">KES 7,550</div></div>
+                    <div class="fee-card"><strong>Passport 50pg</strong><div class="amount" data-base="9550">KES 9,550</div></div>
+                    <div class="fee-card"><strong>Passport 66pg</strong><div class="amount" data-base="12050">KES 12,050</div></div>
+                    <div class="fee-card"><strong>Diplomatic</strong><div class="amount" data-base="15050">KES 15,050</div></div>
+                    <div class="fee-card"><strong>Lost Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
+                    <div class="fee-card"><strong>Mutilated Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
+                </div>
+            </div>
+
+            <!-- Service Fees -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;">Service Application Fees</h3>
                 <div class="grid-5">
@@ -885,19 +1148,17 @@
                 <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">All service fees are paid before services are rendered.</p>
             </div>
 
+            <!-- NTSA Services -->
             <div style="margin-bottom:2rem;">
-                <h3 style="color:var(--neon); margin-bottom:0.8rem;">Passport Application Fees</h3>
-                <div class="grid-4">
-                    <div class="fee-card"><strong>34 Pages (A)</strong><div class="amount" data-base="7550">KES 7,550</div></div>
-                    <div class="fee-card"><strong>50 Pages (B)</strong><div class="amount" data-base="9550">KES 9,550</div></div>
-                    <div class="fee-card"><strong>66 Pages (C)</strong><div class="amount" data-base="12050">KES 12,050</div></div>
-                    <div class="fee-card"><strong>Diplomatic</strong><div class="amount" data-base="15050">KES 15,050</div></div>
-                    <div class="fee-card"><strong>Lost Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
-                    <div class="fee-card"><strong>Mutilated Replacement</strong><div class="amount" data-base="20050">KES 20,050</div></div>
-                </div>
+                <h3 style="color:var(--neon); margin-bottom:0.8rem;"><i class="fas fa-car" style="margin-right:8px;"></i> NTSA Services — Apply With Us</h3>
+                <div class="grid-3" id="ntsaGrid"></div>
             </div>
 
-            <div class="grid-3" id="eservicesGrid"></div>
+            <!-- Other E-Services -->
+            <div style="margin-bottom:2rem;">
+                <h3 style="color:var(--neon); margin-bottom:0.8rem;">Other E-Services</h3>
+                <div class="grid-3" id="eservicesGrid"></div>
+            </div>
         </div>
     </section>
 
@@ -954,14 +1215,13 @@
         </div>
     </section>
 
-    <!-- ===== MORE SECTION (Legal Pages) ===== -->
+    <!-- ===== MORE SECTION ===== -->
     <section id="more-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-file-contract" style="margin-right:10px;"></i> More</h2>
             <p class="section-sub">Our policies, terms, and legal information.</p>
 
             <div class="legal-grid">
-                <!-- Privacy Policy -->
                 <div class="legal-card">
                     <h3><i class="fas fa-lock" style="margin-right:8px; color:var(--neon);"></i> Privacy Policy</h3>
                     <p>Manlung Tech City respects your privacy. We collect minimal data for transaction processing and service delivery.</p>
@@ -974,7 +1234,6 @@
                     </ul>
                 </div>
 
-                <!-- Terms of Service -->
                 <div class="legal-card">
                     <h3><i class="fas fa-gavel" style="margin-right:8px; color:var(--neon);"></i> Terms of Service</h3>
                     <p>By using our services, you agree to these terms.</p>
@@ -987,20 +1246,18 @@
                     </ul>
                 </div>
 
-                <!-- About Us -->
                 <div class="legal-card">
                     <h3><i class="fas fa-info-circle" style="margin-right:8px; color:var(--neon);"></i> About Us</h3>
                     <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya.</p>
                     <ul style="margin-top:0.8rem;">
                         <li><strong>📚 30+ Courses:</strong> From beginner to advanced cyber security</li>
                         <li><strong>🛠️ 13 Tools:</strong> Enterprise-grade security tools</li>
-                        <li><strong>🏛️ E-Services:</strong> Passport, KRA, Good Conduct, eCitizen</li>
+                        <li><strong>🏛️ E-Services:</strong> Passport, KRA, Good Conduct, eCitizen, NTSA</li>
                         <li><strong>🔐 Security:</strong> ISO 27001 compliant, PCI-DSS certified</li>
                         <li><strong>📞 Support:</strong> 24/7 tech support via Telegram</li>
                     </ul>
                 </div>
 
-                <!-- Security & Compliance -->
                 <div class="legal-card">
                     <h3><i class="fas fa-shield-alt" style="margin-right:8px; color:var(--neon);"></i> Security & Compliance</h3>
                     <p>We follow industry standards to protect your data.</p>
@@ -1169,6 +1426,13 @@
 
     <script>
         // ============================
+        //  MOBILE NAV TOGGLE
+        // ============================
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('open');
+        }
+
+        // ============================
         //  SECTION TOGGLE
         // ============================
         function showSection(id, navElement) {
@@ -1185,6 +1449,7 @@
                     }
                 });
             }
+            document.getElementById('mobileNav').classList.remove('open');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1222,6 +1487,126 @@
                           currentCurrency === 'USD' ? '$ ' :
                           currentCurrency === 'EUR' ? '€ ' : '£ ';
             revenue.textContent = symbol + (53000 * rate).toFixed(currentCurrency === 'KES' ? 0 : 2);
+        }
+
+        // ============================
+        //  SEARCH
+        // ============================
+        function performSearch(query) {
+            const container = document.getElementById('searchResultsContainer');
+            const resultsDiv = document.getElementById('searchResults');
+            const q = query.toLowerCase().trim();
+
+            if (!q) {
+                container.style.display = 'none';
+                resultsDiv.innerHTML = '';
+                return;
+            }
+
+            const allItems = [];
+
+            // Courses
+            courses.forEach(c => {
+                allItems.push({
+                    name: c.name,
+                    type: 'Course',
+                    desc: c.topics,
+                    price: c.price,
+                    keywords: c.name + ' ' + c.topics
+                });
+            });
+
+            // Tools
+            tools.forEach(t => {
+                allItems.push({
+                    name: t.name,
+                    type: 'Tool',
+                    desc: t.desc,
+                    price: t.price,
+                    keywords: t.name + ' ' + t.desc
+                });
+            });
+
+            // E-Services
+            eservices.forEach(e => {
+                allItems.push({
+                    name: e.name,
+                    type: 'E-Service',
+                    desc: e.desc,
+                    price: null,
+                    keywords: e.name + ' ' + e.desc
+                });
+            });
+
+            // KRA
+            kraServices.forEach(k => {
+                allItems.push({
+                    name: k.name,
+                    type: 'KRA Service',
+                    desc: k.desc,
+                    price: null,
+                    keywords: k.name + ' ' + k.desc
+                });
+            });
+
+            // NTSA
+            ntsaServices.forEach(n => {
+                allItems.push({
+                    name: n.name,
+                    type: 'NTSA Service',
+                    desc: n.desc,
+                    price: null,
+                    keywords: n.name + ' ' + n.desc
+                });
+            });
+
+            const results = allItems.filter(item => {
+                return item.keywords.toLowerCase().includes(q);
+            });
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div style="padding:0.8rem; color:var(--text-muted);">No results found for "' + q + '"</div>';
+                container.style.display = 'block';
+                return;
+            }
+
+            let html = '';
+            results.slice(0, 15).forEach(item => {
+                const priceText = item.price ? ` — ${currentCurrency} ${(item.price * exchangeRates[currentCurrency]).toFixed(currentCurrency === 'KES' ? 0 : 2)}` : '';
+                html += `<div class="result-item" onclick="selectSearchResult('${item.name.replace(/'/g, "\\'")}', '${item.type}')">
+                    <strong>${item.name}</strong> <small>${item.type}</small>${priceText}
+                    <br><span style="font-size:0.75rem; color:var(--text-muted);">${item.desc.substring(0, 60)}${item.desc.length > 60 ? '...' : ''}</span>
+                </div>`;
+            });
+            resultsDiv.innerHTML = html;
+            container.style.display = 'block';
+        }
+
+        function selectSearchResult(name, type) {
+            document.getElementById('searchInput').value = name;
+            document.getElementById('searchResultsContainer').style.display = 'none';
+            // Try to open the appropriate section
+            const sectionMap = {
+                'Course': 'courses-section',
+                'Tool': 'tools-section',
+                'E-Service': 'eservices-section',
+                'KRA Service': 'kra-section',
+                'NTSA Service': 'eservices-section'
+            };
+            const sectionId = sectionMap[type] || 'home-section';
+            showSection(sectionId, document.querySelector(`nav a[onclick*="${sectionId}"]`));
+            // Scroll to the card if possible
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.course-card h3, .card h3');
+                for (const card of cards) {
+                    if (card.textContent.trim() === name) {
+                        card.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        card.closest('.card').style.borderColor = 'var(--neon)';
+                        setTimeout(() => { card.closest('.card').style.borderColor = ''; }, 2000);
+                        break;
+                    }
+                }
+            }, 300);
         }
 
         // ============================
@@ -1338,6 +1723,23 @@
             { name: "NGO & Welfare", desc: "NGO registration, welfare society", icon: "fa-hand-holding-heart" },
         ];
 
+        const ntsaServices = [
+            { name: "Driver PSV Badge", desc: "Apply for PSV Badge" },
+            { name: "Provisional Driving License", desc: "Apply for Provisional Driving License" },
+            { name: "Endorsement PDL", desc: "Endorsement of Provisional Driving License" },
+            { name: "DL Copy of Record", desc: "Copy of Driving License Record" },
+            { name: "Instructor License", desc: "Apply for Instructor License" },
+            { name: "Foreign DL Conversion", desc: "Convert Foreign Driving License" },
+            { name: "Motor Vehicle Copy of Records", desc: "Copy of Motor Vehicle Records" },
+            { name: "Smart Driving License", desc: "Apply for Smart Driving License" },
+            { name: "Duplicate Smart DL", desc: "Apply for Duplicate Smart Driving License" },
+            { name: "Personalized Plates", desc: "Apply for Personalized Plates" },
+            { name: "New Vehicle Registration", desc: "Dealership New Vehicle Registration" },
+            { name: "Second Hand Vehicle Reg", desc: "Second Hand Vehicle Registration" },
+            { name: "Motor Vehicle Registration", desc: "Standard Motor Vehicle Registration" },
+            { name: "Alternative/Forced Transfer", desc: "Alternative or Forced Transfer" },
+        ];
+
         const kraServices = [
             { name: "KRA PIN Registration", desc: "Apply for a new Personal Identification Number" },
             { name: "PIN Retrieval/Replacement", desc: "Recover or reprint a lost PIN certificate" },
@@ -1358,7 +1760,7 @@
             { name: "Printing KRA certificates", desc: "Print KRA certificates and receipts" },
         ];
 
-        // ===== 30 COURSES with fair pricing =====
+        // ===== 30 COURSES =====
         const courses = [
             { name: "Introduction to Cybersecurity", topics: "CIA Triad, Cyber Ethics, Basic Networking, Linux/Windows", price: 8500 },
             { name: "Computer Networking", topics: "OSI, TCP/IP, DNS, DHCP, VPN, Wireless Security", price: 9500 },
@@ -1443,6 +1845,17 @@
                     <h3>${s.name}</h3>
                     <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${s.desc}</p>
                     <span class="badge" style="background:#1a3a2a; margin-top:0.6rem;">Click to request</span>
+                </div>
+            `).join('');
+        }
+
+        function renderNTSA() {
+            const grid = document.getElementById('ntsaGrid');
+            grid.innerHTML = ntsaServices.map(n => `
+                <div class="ntsa-card" onclick="openPayment('${n.name}', 0, 'NTSA Service')">
+                    <strong style="color:var(--neon);">${n.name}</strong>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin:0.3rem 0;">${n.desc}</p>
+                    <button class="apply-btn">Apply <i class="fas fa-arrow-right"></i></button>
                 </div>
             `).join('');
         }
@@ -1681,9 +2094,9 @@
         };
 
         const fullKnowledge = {
-            'greeting': 'Hello! 👋 Welcome to Manlung Tech City. How can I assist you today? I can help with:\n\n🔹 30+ Cybersecurity courses with pricing\n🔹 Tool prices and availability\n🔹 Passport applications and fees\n🔹 KRA services and registration\n🔹 Good Conduct certificates\n🔹 SHA and TSC services\n🔹 Payments and currency conversion\n\nFeel free to ask me anything, or contact our team directly on Telegram: https://t.me/manlungtechcitybot',
+            'greeting': 'Hello! 👋 Welcome to Manlung Tech City. How can I assist you today? I can help with:\n\n🔹 30+ Cybersecurity courses with pricing\n🔹 Tool prices and availability\n🔹 Passport applications and fees\n🔹 NTSA services (Driver PSV Badge, Provisional License, etc.)\n🔹 KRA services and registration\n🔹 Good Conduct certificates\n🔹 SHA and TSC services\n🔹 Payments and currency conversion\n\nFeel free to ask me anything, or contact our team directly on Telegram: https://t.me/manlungtechcitybot',
             'telegram': 'For immediate assistance, please contact our team on Telegram: https://t.me/manlungtechcitybot. We respond quickly to all inquiries there.',
-            'default': 'I can help with: Course prices, Tool prices, Passport fees, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, please contact us on Telegram: https://t.me/manlungtechcitybot'
+            'default': 'I can help with: Course prices, Tool prices, Passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, please contact us on Telegram: https://t.me/manlungtechcitybot'
         };
 
         function getAIResponse(msg) {
@@ -1706,6 +2119,10 @@
                                   currency === 'EUR' ? '€ ' : '£ ';
                     return `💰 ${key.charAt(0).toUpperCase() + key.slice(1)} costs ${symbol}${converted.toFixed(currency === 'KES' ? 0 : 2)}.`;
                 }
+            }
+
+            if (q.includes('ntsa') || q.includes('driving') || q.includes('license') || q.includes('psv') || q.includes('vehicle')) {
+                return 'We offer full NTSA services including: Driver PSV Badge, Provisional License, PDL Endorsement, DL Copy of Record, Instructor License, Foreign DL Conversion, Motor Vehicle Records, Smart Driving License, Duplicate Smart DL, Personalized Plates, New & Second Hand Vehicle Registration, and Alternative Transfer. Click "E-Services" and scroll to NTSA Services to apply.';
             }
 
             if (q.includes('course') || q.includes('training')) {
@@ -1743,6 +2160,7 @@
         renderCourses();
         renderTools();
         renderEservices();
+        renderNTSA();
         renderKRA();
 
         // Set Home active
@@ -1754,7 +2172,7 @@
         script.src = 'https://js.paystack.co/v1/inline.js';
         document.head.appendChild(script);
 
-        console.log('Manlung Tech City - 30+ Courses loaded!');
+        console.log('Manlung Tech City - 30+ Courses, NTSA Services, KRA Services loaded!');
         console.log('AI knows all prices. All forms send to Telegram.');
     </script>
 </body>
