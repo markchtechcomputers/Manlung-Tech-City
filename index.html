@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
@@ -9,52 +9,78 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    /* ===== RESET & BASE ===== */
+    /* ============================================================
+       THEME VARIABLES
+    ============================================================ */
+    :root {
+      --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      --transition: 0.3s ease;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+      --shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f5f7fa;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-header: rgba(255, 255, 255, 0.92);
+      --bg-input: #f0f2f5;
+      --text-primary: #1a1e2a;
+      --text-secondary: #3a4050;
+      --text-muted: #6a7288;
+      --border-color: #e0e4ec;
+      --accent: #006600;
+      --accent-light: #e8f5e8;
+      --accent-glow: rgba(0, 102, 0, 0.08);
+      --neon: #006600;
+      --shadow-color: rgba(0, 0, 0, 0.06);
+      --scrollbar-track: #f0f2f5;
+      --scrollbar-thumb: #c0c8d8;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #0a0f14;
+      --bg-surface: #141c24;
+      --bg-card: rgba(20, 30, 40, 0.85);
+      --bg-header: rgba(10, 18, 26, 0.92);
+      --bg-input: #1e2a34;
+      --text-primary: #eaf0f0;
+      --text-secondary: #b0c8d0;
+      --text-muted: #7a92a0;
+      --border-color: #2a3a46;
+      --accent: #0df07a;
+      --accent-light: rgba(13, 240, 122, 0.08);
+      --accent-glow: rgba(13, 240, 122, 0.06);
+      --neon: #0df07a;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --scrollbar-track: #1a2430;
+      --scrollbar-thumb: #3a4a5a;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-    :root {
-      --ke-green: #006600;
-      --ke-green-bright: #00cc44;
-      --ke-red: #bb0000;
-      --ke-gold: #f5c542;
-      --dark-bg: #0a0f14;
-      --card-bg: rgba(14, 23, 31, 0.85);
-      --border-dim: rgba(0, 255, 100, 0.15);
-      --text-light: #eaf0f0;
-      --text-muted: #9ab0b8;
-      --neon: #0df07a;
-      --glass: rgba(10, 20, 30, 0.75);
-      --shadow-glow: 0 8px 32px rgba(0, 200, 80, 0.12);
-      --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
     }
     html {
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
     }
     body {
-      background: var(--dark-bg);
-      color: var(--text-light);
+      background: var(--bg-body);
+      color: var(--text-primary);
       font-family: var(--font);
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: url('https://i.postimg.cc/LX3Lgp4q/anonymous-hacker-data-breach-5k-1280x1280-7.jpg');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-      position: relative;
+      transition: background var(--transition), color var(--transition);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 10, 16, 0.78);
-      z-index: -1;
     }
     .container {
       max-width: 1400px;
@@ -62,7 +88,14 @@
       padding: 0 clamp(1rem, 3vw, 2rem);
     }
 
-    /* ===== KENYA FLAG ANIMATION ===== */
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+
+    /* ============================================================
+       KENYA FLAG
+    ============================================================ */
     .flag-strip {
       display: flex;
       height: 4px;
@@ -88,20 +121,19 @@
       100% { transform: scaleY(3); opacity: 1; }
     }
 
-    /* ===== HEADER ===== */
+    /* ============================================================
+       HEADER
+    ============================================================ */
     header {
       position: sticky;
       top: 0;
       z-index: 500;
-      background: rgba(8, 16, 22, 0.92);
+      background: var(--bg-header);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-dim);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-      transition: box-shadow 0.3s ease;
-    }
-    header.scrolled {
-      box-shadow: 0 8px 40px rgba(0, 200, 80, 0.08);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 30px var(--shadow-color);
+      transition: background var(--transition), border var(--transition), box-shadow var(--transition);
     }
     .header-inner {
       display: flex;
@@ -115,14 +147,14 @@
     .logo {
       font-size: clamp(1rem, 2.2vw, 1.6rem);
       font-weight: 900;
-      color: var(--neon);
-      text-shadow: 0 0 20px rgba(13, 240, 122, 0.15);
+      color: var(--accent);
       white-space: nowrap;
       flex-shrink: 0;
       letter-spacing: -0.5px;
+      transition: color var(--transition);
     }
     .logo span {
-      color: #9ac8c0;
+      color: var(--text-muted);
       font-weight: 400;
     }
     .nav-row {
@@ -141,7 +173,7 @@
       justify-content: flex-end;
     }
     .nav-links a {
-      color: #c8e0e6;
+      color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
       font-size: clamp(0.7rem, 1.1vw, 0.9rem);
@@ -154,39 +186,37 @@
     }
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--neon);
-      background: rgba(13, 240, 122, 0.06);
-      border-color: rgba(13, 240, 122, 0.15);
+      color: var(--accent);
+      background: var(--accent-light);
+      border-color: var(--accent);
     }
     .nav-links a.active {
-      background: rgba(13, 240, 122, 0.10);
-      border-color: var(--neon);
-      box-shadow: 0 0 16px rgba(13, 240, 122, 0.05);
+      background: var(--accent-light);
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     /* Search */
     .search-wrap {
       display: flex;
       align-items: center;
-      background: rgba(20, 35, 45, 0.7);
-      border: 1px solid rgba(0, 255, 100, 0.12);
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
       border-radius: 40px;
       padding: 0.15rem 0.15rem 0.15rem 0.8rem;
       transition: 0.3s ease;
       max-width: 180px;
       min-width: 100px;
       flex-shrink: 1;
-      backdrop-filter: blur(4px);
     }
     .search-wrap:focus-within {
-      border-color: var(--neon);
-      max-width: 240px;
-      box-shadow: 0 0 20px rgba(13, 240, 122, 0.06);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
     .search-wrap input {
       background: transparent;
       border: none;
-      color: #eef;
+      color: var(--text-primary);
       padding: 0.3rem 0;
       font-size: clamp(0.7rem, 0.9vw, 0.85rem);
       width: 60px;
@@ -195,16 +225,15 @@
       min-width: 40px;
     }
     .search-wrap input::placeholder {
-      color: #6a8a8a;
-      font-weight: 400;
+      color: var(--text-muted);
     }
     .search-wrap button {
-      background: var(--neon);
+      background: var(--accent);
       border: none;
       border-radius: 40px;
       padding: 0.25rem 0.8rem;
       font-weight: 700;
-      color: #041008;
+      color: #fff;
       cursor: pointer;
       font-size: clamp(0.65rem, 0.8vw, 0.75rem);
       display: flex;
@@ -215,22 +244,41 @@
       min-height: 32px;
     }
     .search-wrap button:hover {
-      background: #0ac86e;
+      opacity: 0.85;
       transform: scale(1.02);
     }
-    .search-wrap button i {
-      font-size: 0.7rem;
+
+    /* Theme toggle */
+    .theme-toggle {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 40px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      min-height: 36px;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    /* ===== SECTIONS ===== */
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
     .page-section {
       padding: 3rem 0;
-      border-bottom: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-color);
       display: none;
       animation: fadeSlide 0.5s ease;
-      background: rgba(5, 10, 16, 0.30);
-      backdrop-filter: blur(2px);
+      background: transparent;
       flex: 1;
+      transition: border var(--transition);
     }
     .page-section.active {
       display: block;
@@ -242,104 +290,77 @@
     .section-title {
       font-size: clamp(1.6rem, 4vw, 2.4rem);
       font-weight: 800;
-      color: var(--neon);
+      color: var(--accent);
       margin-bottom: 0.5rem;
-      text-shadow: 0 0 30px rgba(13, 240, 122, 0.08);
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      transition: color var(--transition);
     }
     .section-sub {
       color: var(--text-muted);
       font-size: clamp(0.95rem, 1.6vw, 1.1rem);
       max-width: 720px;
       margin-bottom: 2rem;
-      border-left: 3px solid var(--ke-red);
+      border-left: 3px solid #bb0000;
       padding-left: 1.2rem;
     }
 
-    /* ===== CARDS ===== */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.6rem;
-    }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.4rem;
-    }
+    /* ============================================================
+       CARDS
+    ============================================================ */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.6rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.4rem; }
     .card {
-      background: var(--card-bg);
-      border-radius: 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
       padding: 1.4rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       transition: 0.25s ease;
       height: 100%;
       display: flex;
       flex-direction: column;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px var(--shadow-color);
       position: relative;
       overflow: hidden;
     }
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(13, 240, 122, 0.1), transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-    .card.clickable {
-      cursor: pointer;
-    }
+    .card.clickable { cursor: pointer; }
     .card.clickable:hover {
       transform: translateY(-6px);
-      border-color: var(--neon);
-      box-shadow: 0 14px 40px rgba(0, 200, 80, 0.15);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-hover);
     }
-    .card.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      filter: grayscale(0.4);
-    }
-    .card.disabled:hover {
-      transform: none;
-      border-color: var(--border-dim);
-      box-shadow: none;
-    }
+    .card.disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
+    .card.disabled:hover { transform: none; border-color: var(--border-color); box-shadow: none; }
     .badge {
-      background: rgba(0, 200, 80, 0.12);
-      color: var(--neon);
+      background: var(--accent-light);
+      color: var(--accent);
       font-size: 0.65rem;
       font-weight: 700;
       padding: 0.1rem 0.7rem;
       border-radius: 30px;
       display: inline-block;
-      border: 1px solid rgba(13, 240, 122, 0.1);
+      border: 1px solid var(--accent);
     }
     .badge-out {
-      background: rgba(200, 50, 50, 0.15);
-      color: #ff6b5a;
-      border-color: rgba(255, 80, 80, 0.15);
+      background: rgba(200, 50, 50, 0.12);
+      color: #bb0000;
+      border-color: rgba(200, 50, 50, 0.2);
     }
     .price {
       font-size: 1.3rem;
       font-weight: 700;
-      color: #e0f0e8;
+      color: var(--text-primary);
     }
 
-    /* ===== HERO ===== */
+    /* ============================================================
+       HERO
+    ============================================================ */
     .hero {
       padding: 2.5rem 0;
-      background: radial-gradient(ellipse at 70% 20%, rgba(0, 100, 0, 0.15), rgba(5, 10, 16, 0.9) 80%);
-      border-bottom: 1px solid var(--border-dim);
+      background: radial-gradient(ellipse at 70% 20%, var(--accent-glow), transparent 70%);
+      border-bottom: 1px solid var(--border-color);
+      transition: background var(--transition), border var(--transition);
     }
     .hero-grid {
       display: grid;
@@ -352,10 +373,7 @@
       font-weight: 900;
       line-height: 1.05;
     }
-    .hero h1 span {
-      color: var(--neon);
-      text-shadow: 0 0 40px rgba(13, 240, 122, 0.15);
-    }
+    .hero h1 span { color: var(--accent); }
     .hero p {
       color: var(--text-muted);
       font-size: clamp(0.95rem, 1.4vw, 1.1rem);
@@ -367,8 +385,7 @@
       gap: 0.8rem;
       flex-wrap: wrap;
     }
-    .btn-primary,
-    .btn-outline {
+    .btn-primary, .btn-outline {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -387,43 +404,25 @@
       overflow: hidden;
     }
     .btn-primary {
-      background: var(--neon);
-      color: #051008;
-      box-shadow: 0 0 30px rgba(13, 240, 122, 0.08);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 30px var(--accent-glow);
     }
     .btn-primary:hover {
       transform: scale(1.03);
-      box-shadow: 0 0 50px rgba(13, 240, 122, 0.2);
+      box-shadow: 0 0 50px var(--accent-glow);
+      opacity: 0.92;
     }
     .btn-outline {
       background: transparent;
-      border: 1.5px solid var(--neon);
-      color: var(--neon);
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
     }
     .btn-outline:hover {
-      background: rgba(13, 240, 122, 0.06);
+      background: var(--accent-light);
       transform: scale(1.02);
     }
-    .btn-primary:active,
-    .btn-outline:active {
-      transform: scale(0.97);
-    }
-    /* ripple */
-    .btn-primary::after,
-    .btn-outline::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 60px;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-    .btn-primary:hover::after,
-    .btn-outline:hover::after {
-      opacity: 1;
-    }
+    .btn-primary:active, .btn-outline:active { transform: scale(0.97); }
 
     .hero-stats {
       display: flex;
@@ -432,47 +431,42 @@
       margin-top: 1.2rem;
     }
     .hero-stats .stat {
-      background: rgba(16, 30, 34, 0.5);
+      background: var(--bg-card);
       padding: 0.3rem 1.2rem;
       border-radius: 40px;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       font-size: 0.85rem;
-      backdrop-filter: blur(4px);
     }
-    .hero-stats .stat strong {
-      color: var(--neon);
-    }
+    .hero-stats .stat strong { color: var(--accent); }
 
     .trust-banner {
-      background: rgba(13, 240, 122, 0.04);
-      border: 1px solid var(--neon);
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
       border-radius: 16px;
       padding: 0.8rem 1.5rem;
       margin: 1.2rem 0;
       text-align: center;
       font-weight: 700;
-      color: var(--neon);
+      color: var(--accent);
       font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-      backdrop-filter: blur(4px);
     }
 
     .binary-container {
-      background: rgba(10, 20, 28, 0.8);
-      border-radius: 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
       padding: 1rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       height: 340px;
       overflow: hidden;
       position: relative;
-      backdrop-filter: blur(4px);
     }
     .binary-rain {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.12;
+      opacity: 0.08;
       font-size: 0.55rem;
-      color: var(--neon);
+      color: var(--accent);
       overflow: hidden;
       white-space: pre;
       line-height: 1.1;
@@ -496,7 +490,7 @@
     .log-entry {
       font-family: 'Courier New', monospace;
       font-size: 0.65rem;
-      color: #8ab8b8;
+      color: var(--text-muted);
       animation: logFade 0.12s ease-in;
       white-space: nowrap;
       overflow: hidden;
@@ -504,8 +498,8 @@
       flex-shrink: 0;
       padding: 0.05rem 0;
     }
-    .log-entry .highlight { color: var(--neon); font-weight: bold; }
-    .log-entry .error { color: #ff6b5a; font-weight: bold; }
+    .log-entry .highlight { color: var(--accent); font-weight: bold; }
+    .log-entry .error { color: #bb0000; font-weight: bold; }
     .log-entry .info { color: #5ac8fa; }
     .log-entry .warn { color: #f5c542; }
     .log-entry .purple { color: #b06aff; }
@@ -514,28 +508,30 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* ===== FOOTER ===== */
+    /* ============================================================
+       FOOTER
+    ============================================================ */
     footer {
-      border-top: 1px solid var(--border-dim);
+      border-top: 1px solid var(--border-color);
       padding: 2rem 0 1.2rem;
       margin-top: auto;
-      background: rgba(6, 12, 18, 0.96);
-      backdrop-filter: blur(8px);
+      background: var(--bg-surface);
+      transition: background var(--transition), border var(--transition);
       width: 100%;
     }
     .footer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 2rem;
     }
     .footer-grid h4 {
-      color: var(--neon);
+      color: var(--accent);
       font-size: 0.9rem;
       margin-bottom: 0.6rem;
       font-weight: 700;
     }
     .footer-grid a {
-      color: #8ab0b8;
+      color: var(--text-muted);
       text-decoration: none;
       display: block;
       padding: 0.15rem 0;
@@ -544,7 +540,7 @@
       cursor: pointer;
     }
     .footer-grid a:hover {
-      color: var(--neon);
+      color: var(--accent);
       transform: translateX(4px);
     }
     .footer-social {
@@ -553,32 +549,30 @@
       margin-top: 0.4rem;
     }
     .footer-social a {
-      color: #8ab0b8;
+      color: var(--text-muted);
       font-size: 1.2rem;
       transition: 0.2s;
       display: inline-block;
     }
     .footer-social a:hover {
-      color: var(--neon);
+      color: var(--accent);
       transform: scale(1.1);
     }
     .footer-bottom {
       margin-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-top: 1px solid var(--border-color);
       padding-top: 1rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.6rem;
       font-size: 0.7rem;
-      color: #4a6a6a;
+      color: var(--text-muted);
     }
-    .footer-bottom .highlight {
-      color: var(--neon);
-    }
+    .footer-bottom .highlight { color: var(--accent); }
     .back-top {
-      background: var(--neon);
-      color: #051008;
+      background: var(--accent);
+      color: #fff;
       border: none;
       border-radius: 40px;
       padding: 0.2rem 1rem;
@@ -592,106 +586,271 @@
     }
     .back-top:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(13, 240, 122, 0.2);
+      opacity: 0.9;
     }
 
-    /* ===== MODALS ===== */
-    .modal-overlay {
-      display: none;
+    /* ============================================================
+       AI CHAT WIDGET
+    ============================================================ */
+    .ai-float {
       position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(6px);
-      z-index: 600;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 400;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 60px;
+      padding: 0.7rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 30px var(--accent-glow);
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .ai-float:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 40px var(--accent-glow);
+    }
+    .ai-float i { font-size: 1.2rem; }
+
+    .ai-widget {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 1.5rem;
+      z-index: 399;
+      width: 420px;
+      max-width: calc(100vw - 2rem);
+      height: 560px;
+      max-height: calc(100vh - 8rem);
+      background: var(--bg-surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 60px var(--shadow-color);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      transform-origin: bottom right;
+    }
+    .ai-widget.open {
+      display: flex;
+      animation: aiSlideUp 0.3s ease;
+    }
+    @keyframes aiSlideUp {
+      0% { opacity: 0; transform: scale(0.92) translateY(16px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .ai-widget.minimized {
+      height: 56px !important;
+      min-height: 56px !important;
+    }
+    .ai-widget.minimized .ai-body,
+    .ai-widget.minimized .ai-input-row {
+      display: none;
+    }
+
+    .ai-header {
+      padding: 0.6rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .ai-header .ai-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ai-header .ai-title i { font-size: 1.1rem; }
+    .ai-header .ai-actions {
+      display: flex;
+      gap: 0.3rem;
+    }
+    .ai-header .ai-actions button {
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: 0.2s;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
     }
-    .modal-overlay.active {
-      display: flex;
+    .ai-header .ai-actions button:hover {
+      background: rgba(255,255,255,0.22);
     }
-    .modal-box {
-      background: #0e191f;
-      max-width: 560px;
-      width: 100%;
-      border-radius: 28px;
-      padding: 2rem;
-      border: 1px solid var(--border-dim);
-      max-height: 90vh;
+
+    .ai-body {
+      flex: 1;
       overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      background: var(--bg-body);
+      transition: background var(--transition);
     }
-    .modal-box h2 { color: var(--neon); margin-bottom: 0.4rem; }
-    .modal-box .close-btn {
-      float: right;
+    .ai-msg {
+      max-width: 88%;
+      padding: 0.6rem 1rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      animation: msgIn 0.2s ease;
+    }
+    .ai-msg.user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-msg.assistant {
+      align-self: flex-start;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg .timestamp {
+      display: block;
+      font-size: 0.6rem;
+      opacity: 0.6;
+      margin-top: 0.2rem;
+      font-weight: 400;
+    }
+    .ai-msg .copy-btn {
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 1.6rem;
       cursor: pointer;
-      width: 44px;
-      height: 44px;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      transition: 0.2s;
+      float: right;
+      margin-left: 0.5rem;
+    }
+    .ai-msg .copy-btn:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .ai-msg pre {
+      background: var(--bg-input);
+      padding: 0.6rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      margin: 0.3rem 0;
+      border: 1px solid var(--border-color);
+    }
+    .ai-msg code {
+      background: var(--bg-input);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 0.4rem 0.8rem;
+      align-self: flex-start;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+    }
+    @keyframes msgIn {
+      0% { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .ai-input-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+    }
+    .ai-input-row input {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 40px;
+      padding: 0.5rem 1rem;
+      color: var(--text-primary);
+      outline: none;
+      font-size: 0.9rem;
+      font-family: var(--font);
+      transition: border var(--transition);
+    }
+    .ai-input-row input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .ai-input-row .ai-send-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 40px;
+      padding: 0 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: 50%;
+      gap: 0.3rem;
     }
-    .modal-box .close-btn:hover {
-      background: rgba(255,255,255,0.06);
-      color: var(--text-light);
+    .ai-input-row .ai-send-btn:hover {
+      opacity: 0.85;
+      transform: scale(1.02);
     }
-    .form-group {
-      margin: 1rem 0;
-    }
-    .form-group label {
-      display: block;
-      color: #b0ccd0;
-      margin-bottom: 0.2rem;
-      font-weight: 500;
-      font-size: 0.85rem;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.6rem 1rem;
-      background: rgba(15, 30, 36, 0.8);
-      border: 1px solid #2a4a4a;
-      border-radius: 12px;
-      color: #eef;
-      font-size: 1rem;
-      font-family: var(--font);
-      transition: 0.2s;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--neon);
-      outline: none;
-      box-shadow: 0 0 20px rgba(13, 240, 122, 0.04);
-    }
-    .form-group textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .file-upload {
-      background: rgba(15, 30, 36, 0.6);
-      border: 2px dashed var(--border-dim);
-      border-radius: 12px;
-      padding: 1.2rem;
-      text-align: center;
+    .ai-input-row .ai-clear-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 40px;
+      padding: 0 0.8rem;
+      color: var(--text-muted);
       cursor: pointer;
       transition: 0.2s;
-      color: var(--text-muted);
+      font-size: 0.8rem;
     }
-    .file-upload:hover {
-      border-color: var(--neon);
-      color: var(--neon);
+    .ai-input-row .ai-clear-btn:hover {
+      border-color: #bb0000;
+      color: #bb0000;
     }
-    .file-upload input[type="file"] { display: none; }
-    .file-upload .file-name { color: var(--neon); font-weight: 600; margin-top: 0.2rem; }
 
-    /* ===== RESPONSIVE ===== */
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
     @media (max-width: 1100px) {
       .hero-grid { grid-template-columns: 1fr; gap: 1.8rem; }
       .hero-grid > div:first-child { order: 1; }
@@ -706,6 +865,7 @@
       .search-wrap input { width: 40px; font-size: 0.7rem; }
       .search-wrap button { padding: 0.15rem 0.5rem; font-size: 0.6rem; min-height: 28px; }
       .logo { font-size: clamp(0.9rem, 2.5vw, 1.2rem); }
+      .ai-widget { width: calc(100vw - 2rem); right: 1rem; height: 480px; bottom: 5rem; }
     }
     @media (max-width: 600px) {
       .header-inner { flex-direction: column; align-items: stretch; gap: 0.2rem; padding: 0.3rem 0; }
@@ -722,7 +882,9 @@
       .hero-buttons .btn-outline { width: 100%; justify-content: center; }
       .hero-buttons { flex-direction: column; }
       .hero-stats { justify-content: center; }
-      .modal-box { padding: 1.2rem; border-radius: 20px; }
+      .ai-float { padding: 0.5rem 1rem; font-size: 0.8rem; bottom: 1rem; right: 1rem; }
+      .ai-float span { display: none; }
+      .ai-widget { height: 440px; bottom: 4.5rem; right: 0.5rem; width: calc(100vw - 1rem); border-radius: 16px; }
     }
     @media (max-width: 420px) {
       .grid-3, .grid-4 { grid-template-columns: 1fr; }
@@ -730,12 +892,14 @@
       .footer-grid { grid-template-columns: 1fr; text-align: center; }
       .footer-social { justify-content: center; }
       .footer-bottom { flex-direction: column; text-align: center; }
-      .trust-banner { font-size: 0.75rem; padding: 0.5rem 0.8rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
-    /* ===== misc ===== */
+
+    /* ============================================================
+       MISC COMPONENTS (from original)
+    ============================================================ */
     .telegram-contact {
       display: inline-flex;
       align-items: center;
@@ -756,8 +920,8 @@
       color: #fff;
     }
     .career-banner {
-      background: rgba(13, 240, 122, 0.04);
-      border: 1px solid var(--ke-gold);
+      background: var(--accent-light);
+      border: 1px solid #f5c542;
       border-radius: 16px;
       padding: 0.8rem 1.2rem;
       margin: 1rem 0;
@@ -766,11 +930,12 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 0.8rem;
+      transition: background var(--transition), border var(--transition);
     }
-    .career-banner .title { color: var(--ke-gold); font-weight: 700; }
+    .career-banner .title { color: #f5c542; font-weight: 700; }
     .career-banner .apply-link {
-      background: var(--ke-gold);
-      color: #051008;
+      background: #f5c542;
+      color: #1a1e2a;
       padding: 0.3rem 1.2rem;
       border-radius: 40px;
       font-weight: 700;
@@ -787,21 +952,20 @@
       gap: 0.8rem;
     }
     .ntsa-item {
-      background: rgba(14, 23, 31, 0.7);
-      border-radius: 12px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
       padding: 0.6rem 1rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: 0.2s;
       cursor: pointer;
-      backdrop-filter: blur(4px);
     }
-    .ntsa-item:hover { border-color: var(--neon); transform: translateX(3px); }
+    .ntsa-item:hover { border-color: var(--accent); transform: translateX(3px); }
     .ntsa-item .apply-btn {
-      background: var(--neon);
-      color: #051008;
+      background: var(--accent);
+      color: #fff;
       border: none;
       padding: 0.1rem 0.8rem;
       border-radius: 40px;
@@ -813,36 +977,34 @@
     }
     .ntsa-item .apply-btn:hover { opacity: 0.8; }
     .eservice-card {
-      background: rgba(14, 23, 31, 0.7);
-      border-radius: 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
       padding: 1rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       text-align: center;
-      backdrop-filter: blur(4px);
       transition: 0.2s;
       cursor: pointer;
     }
-    .eservice-card:hover { border-color: var(--neon); transform: translateY(-3px); }
-    .eservice-card .icon { font-size: 1.8rem; color: var(--neon); margin-bottom: 0.3rem; }
+    .eservice-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .eservice-card .icon { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.3rem; }
     .legal-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.5rem;
     }
     .legal-card {
-      background: rgba(14, 23, 31, 0.7);
-      border-radius: 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
       padding: 1.4rem;
-      border: 1px solid var(--border-dim);
-      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-color);
     }
-    .legal-card h3 { color: var(--neon); margin-bottom: 0.6rem; font-size: 1.2rem; }
+    .legal-card h3 { color: var(--accent); margin-bottom: 0.6rem; font-size: 1.2rem; }
     .legal-card ul { list-style: none; padding: 0; }
-    .legal-card ul li { padding: 0.2rem 0; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.02); }
-    .legal-card ul li strong { color: var(--neon); }
+    .legal-card ul li { padding: 0.2rem 0; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+    .legal-card ul li strong { color: var(--accent); }
     .kra-careers {
-      background: rgba(26, 58, 46, 0.15);
-      border: 1px solid var(--neon);
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
       border-radius: 16px;
       padding: 0.8rem 1.2rem;
       margin: 1rem 0;
@@ -851,32 +1013,33 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 0.8rem;
+      transition: background var(--transition), border var(--transition);
     }
-    .kra-careers a { color: var(--neon); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--neon); }
-    .kra-careers a:hover { color: #fff; border-bottom-color: #fff; }
+    .kra-careers a { color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); }
+    .kra-careers a:hover { opacity: 0.8; }
     .messaging-section {
-      background: rgba(11, 20, 26, 0.5);
-      border-radius: 24px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
       padding: 1.5rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-color);
       max-width: 760px;
       margin: 0 auto;
-      backdrop-filter: blur(4px);
     }
     .messaging-section textarea {
       width: 100%;
       padding: 0.8rem 1rem;
-      background: rgba(15, 30, 36, 0.6);
-      border: 1px solid #2a4a4a;
-      border-radius: 12px;
-      color: #eef;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
       font-size: 1rem;
       min-height: 100px;
       resize: vertical;
       font-family: inherit;
+      transition: border var(--transition), background var(--transition);
     }
-    .messaging-section textarea:focus { border-color: var(--neon); outline: none; }
-    .course-card { border-left: 3px solid var(--neon); }
+    .messaging-section textarea:focus { border-color: var(--accent); outline: none; }
+    .course-card { border-left: 3px solid var(--accent); }
     .course-card .topics {
       font-size: 0.7rem;
       color: var(--text-muted);
@@ -886,116 +1049,115 @@
       gap: 0.2rem;
     }
     .course-card .topics span {
-      background: rgba(26, 58, 46, 0.2);
+      background: var(--accent-light);
       padding: 0.05rem 0.5rem;
       border-radius: 20px;
-      border: 1px solid rgba(13, 240, 122, 0.05);
+      border: 1px solid var(--accent);
     }
-    .ai-float {
+
+    /* ============================================================
+       MODALS
+    ============================================================ */
+    .modal-overlay {
+      display: none;
       position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 300;
-      background: var(--neon);
-      color: #051008;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 600;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg-surface);
+      max-width: 560px;
+      width: 100%;
+      border-radius: var(--radius);
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      max-height: 90vh;
+      overflow-y: auto;
+      transition: background var(--transition), border var(--transition);
+    }
+    .modal-box h2 { color: var(--accent); margin-bottom: 0.4rem; }
+    .modal-box .close-btn {
+      float: right;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.6rem;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      cursor: pointer;
-      box-shadow: 0 0 30px rgba(13, 240, 122, 0.2);
-      transition: 0.3s;
-      border: none;
+      border-radius: 50%;
     }
-    .ai-float:hover { transform: scale(1.08); box-shadow: 0 0 50px rgba(13, 240, 122, 0.3); }
-    .ai-widget {
-      position: fixed;
-      bottom: 5.5rem;
-      right: 1.5rem;
-      z-index: 299;
-      width: 340px;
-      max-height: 460px;
-      background: #0d181e;
-      border-radius: 24px;
-      border: 1px solid var(--border-dim);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
+    .modal-box .close-btn:hover {
+      background: var(--accent-light);
+      color: var(--accent);
     }
-    .ai-widget.open { display: flex; }
-    .ai-header {
+    .form-group { margin: 1rem 0; }
+    .form-group label {
+      display: block;
+      color: var(--text-secondary);
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
       padding: 0.6rem 1rem;
-      background: #0c1a20;
-      border-bottom: 1px solid var(--border-dim);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: var(--font);
+      transition: 0.2s;
     }
-    .ai-header span { font-weight: 600; color: var(--neon); }
-    .ai-body {
-      padding: 0.8rem;
-      overflow-y: auto;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      max-height: 280px;
-    }
-    .ai-msg {
-      padding: 0.4rem 0.8rem;
-      border-radius: 16px;
-      max-width: 88%;
-      font-size: 0.85rem;
-      background: #1a2a30;
-      color: #dce8e8;
-    }
-    .ai-msg.user { align-self: flex-end; background: #1a4a3a; color: #e0f5ed; }
-    .ai-input-row {
-      display: flex;
-      gap: 0.3rem;
-      padding: 0.4rem 0.8rem;
-      border-top: 1px solid var(--border-dim);
-    }
-    .ai-input-row input {
-      flex: 1;
-      background: #142228;
-      border: 1px solid #2a4a4a;
-      border-radius: 40px;
-      padding: 0.4rem 0.8rem;
-      color: #eef;
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
       outline: none;
-      font-size: 0.85rem;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
-    .ai-input-row input:focus { border-color: var(--neon); }
-    .ai-input-row button {
-      background: var(--neon);
-      border: none;
-      border-radius: 40px;
-      padding: 0 1rem;
-      font-weight: 700;
-      color: #041008;
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .file-upload {
+      background: var(--bg-input);
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
       cursor: pointer;
+      transition: 0.2s;
+      color: var(--text-muted);
     }
+    .file-upload:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .file-upload input[type="file"] { display: none; }
+    .file-upload .file-name { color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
   </style>
 </head>
 <body>
 
-  <!-- ===== KENYA FLAG ANIMATION ===== -->
-  <div class="flag-strip">
-    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
+  <!-- ===== KENYA FLAG ===== -->
+  <div class="flag-strip"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
 
   <!-- ===== HEADER ===== -->
   <header>
     <div class="container header-inner">
       <div class="logo">Manlung <span>Tech City</span></div>
       <div class="nav-row">
-        <div class="nav-links" id="navLinks">
+        <div class="nav-links">
           <a class="active" data-section="home-section">Home</a>
           <a data-section="courses-section">Courses</a>
           <a data-section="tools-section">Tools</a>
@@ -1008,6 +1170,9 @@
           <input type="text" id="searchInput" placeholder="Search..." autocomplete="off" />
           <button id="searchBtn"><i class="fas fa-search"></i></button>
         </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-sun" id="themeIcon"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -1016,7 +1181,7 @@
   <section class="hero page-section active" id="home-section">
     <div class="container hero-grid">
       <div>
-        <h1>Advanced <span>Cyber</span> Security <span>Hub</span> <span style="color:var(--ke-red);">🇰🇪</span></h1>
+        <h1>Advanced <span>Cyber</span> Security <span>Hub</span> <span style="color:#bb0000;">🇰🇪</span></h1>
         <p>30+ courses, enterprise tools, government e-services, and KRA assistance. Secure payments via Paystack.</p>
         <div class="hero-buttons">
           <a data-section="courses-section" class="btn-primary"><i class="fas fa-graduation-cap"></i> View Courses</a>
@@ -1028,13 +1193,11 @@
           <div class="stat"><strong>13</strong> Tools</div>
           <div class="stat"><strong id="revenueDisplay">KES 53,000</strong></div>
         </div>
-        <div class="trust-banner">
-          <i class="fas fa-shield-halved"></i> Kenya's #1 Trusted Cyber Hub
-        </div>
+        <div class="trust-banner"><i class="fas fa-shield-halved"></i> Kenya's #1 Trusted Cyber Hub</div>
         <div class="career-banner">
           <div>
             <span class="title"><i class="fas fa-bullhorn"></i> We're Hiring!</span>
-            <span style="color:var(--text-muted); font-size:0.85rem;"> Cyber Security Engineer · Cyber Cafe Attendant · Shop Attendant — <strong style="color:var(--ke-red);">Deadline: Sept 5, 2026</strong></span>
+            <span style="color:var(--text-muted); font-size:0.85rem;"> Cyber Security Engineer · Cyber Cafe Attendant · Shop Attendant — <strong style="color:#bb0000;">Deadline: Sept 5, 2026</strong></span>
           </div>
           <button onclick="openCareerForm()" class="apply-link">Apply Now <i class="fas fa-arrow-right"></i></button>
         </div>
@@ -1047,160 +1210,105 @@
   </section>
 
   <!-- ===== COURSES ===== -->
-  <section id="courses-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Cyber Security Courses</h2>
-      <p class="section-sub">30+ comprehensive courses with fair pricing. Click any course to enroll.</p>
-      <div class="grid-3" id="coursesGrid"></div>
-      <div style="text-align:center; margin-top:2rem;">
-        <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Questions? Chat on Telegram</a>
-      </div>
+  <section id="courses-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Cyber Security Courses</h2>
+    <p class="section-sub">30+ comprehensive courses with fair pricing. Click any course to enroll.</p>
+    <div class="grid-3" id="coursesGrid"></div>
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Questions? Chat on Telegram</a>
     </div>
-  </section>
+  </div></section>
 
   <!-- ===== TOOLS ===== -->
-  <section id="tools-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-tools"></i> Cyber Tools</h2>
-      <p class="section-sub">Click any tool to purchase securely via Paystack.</p>
-      <div class="grid-4" id="toolsGrid"></div>
-      <div style="text-align:center; margin-top:2rem;">
-        <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-primary"><i class="fas fa-store"></i> Full Store</a>
-      </div>
+  <section id="tools-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-tools"></i> Cyber Tools</h2>
+    <p class="section-sub">Click any tool to purchase securely via Paystack.</p>
+    <div class="grid-4" id="toolsGrid"></div>
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="https://cybersecuritytools.manlungshop.co.ke" target="_blank" class="btn-primary"><i class="fas fa-store"></i> Full Store</a>
     </div>
-  </section>
+  </div></section>
 
   <!-- ===== E-SERVICES ===== -->
-  <section id="eservices-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-id-card"></i> Government E-Services</h2>
-      <p class="section-sub">Passport, Good Conduct, eCitizen, NTSA Services, and more.</p>
-      <div style="margin-bottom:1.5rem;">
-        <h3 style="color:var(--neon); margin-bottom:0.6rem;"><i class="fas fa-flag"></i> eCitizen & Passport</h3>
-        <div class="grid-3" id="ecitizenGrid"></div>
-      </div>
-      <div style="margin-bottom:1.5rem;">
-        <h3 style="color:var(--neon); margin-bottom:0.6rem;"><i class="fas fa-car"></i> NTSA Services</h3>
-        <div class="ntsa-list" id="ntsaGrid"></div>
-      </div>
-      <div>
-        <h3 style="color:var(--neon); margin-bottom:0.6rem;">Other Government Services</h3>
-        <div class="grid-3" id="eservicesGrid"></div>
-      </div>
+  <section id="eservices-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-id-card"></i> Government E-Services</h2>
+    <p class="section-sub">Passport, Good Conduct, eCitizen, NTSA Services, and more.</p>
+    <div style="margin-bottom:1.5rem;">
+      <h3 style="color:var(--accent); margin-bottom:0.6rem;"><i class="fas fa-flag"></i> eCitizen & Passport</h3>
+      <div class="grid-3" id="ecitizenGrid"></div>
     </div>
-  </section>
+    <div style="margin-bottom:1.5rem;">
+      <h3 style="color:var(--accent); margin-bottom:0.6rem;"><i class="fas fa-car"></i> NTSA Services</h3>
+      <div class="ntsa-list" id="ntsaGrid"></div>
+    </div>
+    <div>
+      <h3 style="color:var(--accent); margin-bottom:0.6rem;">Other Government Services</h3>
+      <div class="grid-3" id="eservicesGrid"></div>
+    </div>
+  </div></section>
 
   <!-- ===== KRA ===== -->
-  <section id="kra-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-landmark"></i> KRA Services</h2>
-      <p class="section-sub">Complete KRA assistance — PIN, tax filing, TCC, and more.</p>
-      <div class="kra-careers">
-        <span><i class="fas fa-briefcase" style="color:var(--neon);"></i> Join the KRA Team</span>
-        <a href="https://www.kra.go.ke/careers" target="_blank">View KRA Careers <i class="fas fa-external-link-alt"></i></a>
-      </div>
-      <div class="grid-3" id="kraGrid"></div>
-      <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center;">
-        <button onclick="openKRAForm()" class="btn-primary"><i class="fas fa-file-alt"></i> Request KRA Assistance</button>
-        <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Chat on Telegram</a>
-      </div>
+  <section id="kra-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-landmark"></i> KRA Services</h2>
+    <p class="section-sub">Complete KRA assistance — PIN, tax filing, TCC, and more.</p>
+    <div class="kra-careers">
+      <span><i class="fas fa-briefcase" style="color:var(--accent);"></i> Join the KRA Team</span>
+      <a href="https://www.kra.go.ke/careers" target="_blank">View KRA Careers <i class="fas fa-external-link-alt"></i></a>
     </div>
-  </section>
+    <div class="grid-3" id="kraGrid"></div>
+    <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center;">
+      <button onclick="openKRAForm()" class="btn-primary"><i class="fas fa-file-alt"></i> Request KRA Assistance</button>
+      <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Chat on Telegram</a>
+    </div>
+  </div></section>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-envelope"></i> Send Us a Message</h2>
-      <p class="section-sub">Have a question? Send us a message and we'll respond via Telegram.</p>
-      <div class="messaging-section">
-        <form id="messageForm" onsubmit="sendMessage(event)">
-          <div class="form-group"><label>Your Name</label><input type="text" id="msgName" placeholder="John Doe" required /></div>
-          <div class="form-group"><label>Email</label><input type="email" id="msgEmail" placeholder="john@example.com" required /></div>
-          <div class="form-group"><label>Phone</label><input type="tel" id="msgPhone" placeholder="+254 700 000 000" required /></div>
-          <div class="form-group"><label>Your Message</label><textarea id="msgText" placeholder="Type your message..." required></textarea></div>
-          <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button>
-        </form>
-        <div id="msgResponse" style="margin-top:1rem; display:none; padding:0.8rem; border-radius:12px; text-align:center;"></div>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.8rem; text-align:center;">
-          <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> All messages go to our <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--neon);">Telegram support</a>.
-        </p>
-      </div>
+  <section id="contact-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-envelope"></i> Send Us a Message</h2>
+    <p class="section-sub">Have a question? Send us a message and we'll respond via Telegram.</p>
+    <div class="messaging-section">
+      <form id="messageForm" onsubmit="sendMessage(event)">
+        <div class="form-group"><label>Your Name</label><input type="text" id="msgName" placeholder="John Doe" required /></div>
+        <div class="form-group"><label>Email</label><input type="email" id="msgEmail" placeholder="john@example.com" required /></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="msgPhone" placeholder="+254 700 000 000" required /></div>
+        <div class="form-group"><label>Your Message</label><textarea id="msgText" placeholder="Type your message..." required></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button>
+      </form>
+      <div id="msgResponse" style="margin-top:1rem; display:none; padding:0.8rem; border-radius:12px; text-align:center;"></div>
+      <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.8rem; text-align:center;">
+        <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> All messages go to our <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--accent);">Telegram support</a>.
+      </p>
     </div>
-  </section>
+  </div></section>
 
   <!-- ===== MORE ===== -->
-  <section id="more-section" class="page-section">
-    <div class="container">
-      <h2 class="section-title"><i class="fas fa-file-contract"></i> More</h2>
-      <p class="section-sub">Our policies, terms, and legal information.</p>
-      <div class="legal-grid">
-        <div class="legal-card">
-          <h3><i class="fas fa-lock" style="color:var(--neon);"></i> Privacy Policy</h3>
-          <p>We collect minimal data for transaction processing and service delivery.</p>
-          <ul><li><strong>Data:</strong> Name, email, phone, service details</li><li><strong>Use:</strong> Processing requests & payments</li><li><strong>Security:</strong> AES-256, TLS 1.3</li></ul>
-        </div>
-        <div class="legal-card">
-          <h3><i class="fas fa-gavel" style="color:var(--neon);"></i> Terms of Service</h3>
-          <p>By using our services, you agree to these terms.</p>
-          <ul><li><strong>1.</strong> Educational use only</li><li><strong>2.</strong> Payments via Paystack</li><li><strong>3.</strong> Refunds within 7 days</li><li><strong>4.</strong> Comply with Kenya laws</li></ul>
-        </div>
-        <div class="legal-card">
-          <h3><i class="fas fa-info-circle" style="color:var(--neon);"></i> About Us</h3>
-          <p>Manlung Tech City — Nairobi's premier cyber security hub.</p>
-          <ul><li><strong>📚</strong> 30+ Courses</li><li><strong>🛠️</strong> 13 Tools</li><li><strong>🏛️</strong> E-Services</li><li><strong>🔐</strong> ISO 27001 compliant</li></ul>
-        </div>
-        <div class="legal-card">
-          <h3><i class="fas fa-shield-alt" style="color:var(--neon);"></i> Security & Compliance</h3>
-          <ul><li><strong>🔐</strong> AES-256, TLS 1.3</li><li><strong>📋</strong> ISO 27001, NIST CSF</li><li><strong>🛡️</strong> 24/7 monitoring</li><li><strong>✅</strong> Kenya Data Protection Act</li></ul>
-        </div>
-      </div>
-      <div style="margin-top:2rem; text-align:center; background:rgba(14,23,31,0.4); border-radius:20px; padding:1.2rem; border:1px solid var(--border-dim);">
-        <p style="color:var(--text-muted);">
-          <i class="fas fa-phone" style="color:var(--neon);"></i> +254 724 356 178 &nbsp;|&nbsp;
-          <i class="fas fa-envelope" style="color:var(--neon);"></i> info@manlung.co.ke &nbsp;|&nbsp;
-          <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--neon);">@manlungtechcitybot</a>
-        </p>
-        <p style="color:var(--text-muted); margin-top:0.3rem; font-size:0.8rem;">Paybill: <strong style="color:var(--neon);">522522</strong> Account: <strong style="color:var(--neon);">1336980125</strong></p>
-      </div>
+  <section id="more-section" class="page-section"><div class="container">
+    <h2 class="section-title"><i class="fas fa-file-contract"></i> More</h2>
+    <p class="section-sub">Our policies, terms, and legal information.</p>
+    <div class="legal-grid">
+      <div class="legal-card"><h3><i class="fas fa-lock" style="color:var(--accent);"></i> Privacy Policy</h3><p>We collect minimal data for transaction processing and service delivery.</p><ul><li><strong>Data:</strong> Name, email, phone, service details</li><li><strong>Use:</strong> Processing requests & payments</li><li><strong>Security:</strong> AES-256, TLS 1.3</li></ul></div>
+      <div class="legal-card"><h3><i class="fas fa-gavel" style="color:var(--accent);"></i> Terms of Service</h3><p>By using our services, you agree to these terms.</p><ul><li><strong>1.</strong> Educational use only</li><li><strong>2.</strong> Payments via Paystack</li><li><strong>3.</strong> Refunds within 7 days</li><li><strong>4.</strong> Comply with Kenya laws</li></ul></div>
+      <div class="legal-card"><h3><i class="fas fa-info-circle" style="color:var(--accent);"></i> About Us</h3><p>Manlung Tech City — Nairobi's premier cyber security hub.</p><ul><li><strong>📚</strong> 30+ Courses</li><li><strong>🛠️</strong> 13 Tools</li><li><strong>🏛️</strong> E-Services</li><li><strong>🔐</strong> ISO 27001 compliant</li></ul></div>
+      <div class="legal-card"><h3><i class="fas fa-shield-alt" style="color:var(--accent);"></i> Security & Compliance</h3><ul><li><strong>🔐</strong> AES-256, TLS 1.3</li><li><strong>📋</strong> ISO 27001, NIST CSF</li><li><strong>🛡️</strong> 24/7 monitoring</li><li><strong>✅</strong> Kenya Data Protection Act</li></ul></div>
     </div>
-  </section>
+    <div style="margin-top:2rem; text-align:center; background:var(--bg-card); border-radius:var(--radius); padding:1.2rem; border:1px solid var(--border-color);">
+      <p style="color:var(--text-muted);">
+        <i class="fas fa-phone" style="color:var(--accent);"></i> +254 724 356 178 &nbsp;|&nbsp;
+        <i class="fas fa-envelope" style="color:var(--accent);"></i> info@manlung.co.ke &nbsp;|&nbsp;
+        <i class="fab fa-telegram-plane" style="color:#0088cc;"></i> <a href="https://t.me/manlungtechcitybot" target="_blank" style="color:var(--accent);">@manlungtechcitybot</a>
+      </p>
+      <p style="color:var(--text-muted); margin-top:0.3rem; font-size:0.8rem;">Paybill: <strong style="color:var(--accent);">522522</strong> Account: <strong style="color:var(--accent);">1336980125</strong></p>
+    </div>
+  </div></section>
 
   <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <h4>Quick Links</h4>
-          <a data-section="home-section">Home</a>
-          <a data-section="courses-section">Courses</a>
-          <a data-section="tools-section">Tools</a>
-          <a data-section="eservices-section">E-Services</a>
-          <a data-section="kra-section">KRA</a>
-          <a data-section="contact-section">Contact</a>
-          <a data-section="more-section">More</a>
-        </div>
-        <div>
-          <h4>Contact</h4>
-          <a href="#"><i class="fas fa-phone" style="color:var(--neon);"></i> +254 724 356 178</a>
-          <a href="#"><i class="fas fa-envelope" style="color:var(--neon);"></i> info@manlung.co.ke</a>
-          <a href="https://t.me/manlungtechcitybot" target="_blank"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i> @manlungtechcitybot</a>
-        </div>
-        <div>
-          <h4>Legal</h4>
-          <a data-section="more-section">Privacy Policy</a>
-          <a data-section="more-section">Terms of Service</a>
-          <a data-section="more-section">Security</a>
-        </div>
-        <div>
-          <h4>Follow Us</h4>
-          <div class="footer-social">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="https://t.me/manlungtechcitybot" target="_blank"><i class="fab fa-telegram-plane"></i></a>
-          </div>
-          <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i> Back to Top</button>
-        </div>
+        <div><h4>Quick Links</h4><a data-section="home-section">Home</a><a data-section="courses-section">Courses</a><a data-section="tools-section">Tools</a><a data-section="eservices-section">E-Services</a><a data-section="kra-section">KRA</a><a data-section="contact-section">Contact</a><a data-section="more-section">More</a></div>
+        <div><h4>Contact</h4><a href="#"><i class="fas fa-phone" style="color:var(--accent);"></i> +254 724 356 178</a><a href="#"><i class="fas fa-envelope" style="color:var(--accent);"></i> info@manlung.co.ke</a><a href="https://t.me/manlungtechcitybot" target="_blank"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i> @manlungtechcitybot</a></div>
+        <div><h4>Legal</h4><a data-section="more-section">Privacy Policy</a><a data-section="more-section">Terms of Service</a><a data-section="more-section">Security</a></div>
+        <div><h4>Follow Us</h4><div class="footer-social"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-github"></i></a><a href="https://t.me/manlungtechcitybot" target="_blank"><i class="fab fa-telegram-plane"></i></a></div><button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i> Back to Top</button></div>
       </div>
       <div class="footer-bottom">
         <span>&copy; 2026 <span class="highlight">Manlung Tech City</span>. All rights reserved.</span>
@@ -1210,139 +1318,63 @@
     </div>
   </footer>
 
-  <!-- ===== AI ===== -->
-  <button class="ai-float" id="aiFloatBtn"><i class="fas fa-robot"></i></button>
+  <!-- ============================================================
+       MANLUNG AI — FLOATING BUTTON & CHAT WIDGET
+  ============================================================ -->
+  <button class="ai-float" id="aiFloatBtn">
+    <i class="fas fa-robot"></i> <span>Manlung AI</span>
+  </button>
+
   <div class="ai-widget" id="aiWidget">
-    <div class="ai-header" id="aiToggle">
-      <span><i class="fas fa-robot" style="color:var(--neon);"></i> Manlung AI</span>
-      <span><i class="fas fa-times" id="aiClose" style="cursor:pointer;"></i></span>
+    <div class="ai-header">
+      <div class="ai-title"><i class="fas fa-robot"></i> Manlung AI</div>
+      <div class="ai-actions">
+        <button id="aiMinimize" title="Minimize"><i class="fas fa-minus"></i></button>
+        <button id="aiMaximize" title="Maximize"><i class="fas fa-expand"></i></button>
+        <button id="aiCloseBtn" title="Close"><i class="fas fa-times"></i></button>
+      </div>
     </div>
     <div class="ai-body" id="aiBody">
-      <div class="ai-msg">Hello! 👋 I'm Manlung AI. Ask me about any course, price, service, or cybersecurity topic.</div>
+      <div class="ai-msg assistant">
+        👋 Hello! I'm Manlung AI. Ask me about cybersecurity, courses, KRA services, or any tech topic.
+        <span class="timestamp">Just now</span>
+      </div>
     </div>
     <div class="ai-input-row">
       <input type="text" id="aiInput" placeholder="Ask me anything..." autocomplete="off" />
-      <button id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+      <button class="ai-clear-btn" id="aiClearBtn" title="Clear chat"><i class="fas fa-eraser"></i></button>
+      <button class="ai-send-btn" id="aiSendBtn"><i class="fas fa-paper-plane"></i> Send</button>
     </div>
   </div>
 
   <!-- ===== MODALS ===== -->
-  <!-- Payment -->
-  <div class="modal-overlay" id="serviceModal">
-    <div class="modal-box">
-      <button class="close-btn" id="modalClose">&times;</button>
-      <h2 id="modalTitle">Service Request</h2>
-      <p id="modalDesc" style="color:var(--text-muted); margin-bottom:1rem;">Complete the form to proceed with Paystack payment.</p>
-      <form id="paymentForm">
-        <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="John Doe" required /></div>
-        <div class="form-group"><label>Email</label><input type="email" id="custEmail" placeholder="john@example.com" required /></div>
-        <div class="form-group"><label>Phone</label><input type="tel" id="custPhone" placeholder="+254 700 000 000" required /></div>
-        <div class="form-group"><label>Service Type</label><input type="text" id="serviceName" readonly style="background:#1a2a2a;" /></div>
-        <div class="form-group"><label>Amount (KES)</label><input type="number" id="amountInput" placeholder="0.00" required /></div>
-        <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-credit-card"></i> Pay with Paystack</button>
-      </form>
-      <p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.8rem; text-align:center;"><i class="fas fa-lock"></i> Secured by Paystack</p>
-    </div>
-  </div>
+  <div class="modal-overlay" id="serviceModal"><div class="modal-box"><button class="close-btn" id="modalClose">&times;</button><h2 id="modalTitle">Service Request</h2><p id="modalDesc" style="color:var(--text-muted); margin-bottom:1rem;">Complete the form to proceed with Paystack payment.</p><form id="paymentForm"><div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="John Doe" required /></div><div class="form-group"><label>Email</label><input type="email" id="custEmail" placeholder="john@example.com" required /></div><div class="form-group"><label>Phone</label><input type="tel" id="custPhone" placeholder="+254 700 000 000" required /></div><div class="form-group"><label>Service Type</label><input type="text" id="serviceName" readonly style="background:var(--bg-input);" /></div><div class="form-group"><label>Amount (KES)</label><input type="number" id="amountInput" placeholder="0.00" required /></div><button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-credit-card"></i> Pay with Paystack</button></form><p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.8rem; text-align:center;"><i class="fas fa-lock"></i> Secured by Paystack</p></div></div>
 
-  <!-- KRA -->
-  <div class="modal-overlay" id="kraFormModal">
-    <div class="modal-box">
-      <button class="close-btn" onclick="closeModal('kraFormModal')">&times;</button>
-      <h2 style="color:var(--neon);">KRA Service Request</h2>
-      <p style="color:var(--text-muted); margin-bottom:1rem;">Select a service and fill in your details.</p>
-      <form id="kraForm" onsubmit="submitKRAForm(event)">
-        <div class="form-group"><label>Full Name</label><input type="text" id="kraName" placeholder="John Doe" required /></div>
-        <div class="form-group"><label>Email</label><input type="email" id="kraEmail" placeholder="john@example.com" required /></div>
-        <div class="form-group"><label>Phone</label><input type="tel" id="kraPhone" placeholder="+254 700 000 000" required /></div>
-        <div class="form-group">
-          <label>KRA Service Needed</label>
-          <select id="kraService" required>
-            <option value="">Select...</option>
-            <option value="KRA PIN Registration">KRA PIN Registration</option>
-            <option value="KRA PIN Retrieval">PIN Retrieval</option>
-            <option value="Tax Return Filing">Tax Return Filing</option>
-            <option value="Tax Compliance Certificate">Tax Compliance Certificate</option>
-            <option value="VAT Registration">VAT Registration</option>
-            <option value="PAYE Services">PAYE Services</option>
-            <option value="Withholding Tax">Withholding Tax</option>
-            <option value="Business Tax Registration">Business Tax Registration</option>
-            <option value="Rental Income Tax">Rental Income Tax</option>
-            <option value="Turnover Tax">Turnover Tax (TOT)</option>
-            <option value="Objection and Appeals">Objection and Appeals</option>
-            <option value="iTax assistance">iTax assistance</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Additional Details</label><textarea id="kraDetails" placeholder="Any specific details..."></textarea></div>
-        <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button>
-      </form>
-    </div>
-  </div>
+  <div class="modal-overlay" id="kraFormModal"><div class="modal-box"><button class="close-btn" onclick="closeModal('kraFormModal')">&times;</button><h2 style="color:var(--accent);">KRA Service Request</h2><p style="color:var(--text-muted); margin-bottom:1rem;">Select a service and fill in your details.</p><form id="kraForm" onsubmit="submitKRAForm(event)"><div class="form-group"><label>Full Name</label><input type="text" id="kraName" placeholder="John Doe" required /></div><div class="form-group"><label>Email</label><input type="email" id="kraEmail" placeholder="john@example.com" required /></div><div class="form-group"><label>Phone</label><input type="tel" id="kraPhone" placeholder="+254 700 000 000" required /></div><div class="form-group"><label>KRA Service Needed</label><select id="kraService" required><option value="">Select...</option><option value="KRA PIN Registration">KRA PIN Registration</option><option value="KRA PIN Retrieval">PIN Retrieval</option><option value="Tax Return Filing">Tax Return Filing</option><option value="Tax Compliance Certificate">Tax Compliance Certificate</option><option value="VAT Registration">VAT Registration</option><option value="PAYE Services">PAYE Services</option><option value="Withholding Tax">Withholding Tax</option><option value="Business Tax Registration">Business Tax Registration</option><option value="Rental Income Tax">Rental Income Tax</option><option value="Turnover Tax">Turnover Tax (TOT)</option><option value="Objection and Appeals">Objection and Appeals</option><option value="iTax assistance">iTax assistance</option></select></div><div class="form-group"><label>Additional Details</label><textarea id="kraDetails" placeholder="Any specific details..."></textarea></div><button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button></form></div></div>
 
-  <!-- Career -->
-  <div class="modal-overlay career-modal" id="careerModal">
-    <div class="modal-box">
-      <button class="close-btn" onclick="closeModal('careerModal')">&times;</button>
-      <h2 style="color:var(--neon);"><i class="fas fa-briefcase"></i> Apply for a Position</h2>
-      <p style="color:var(--text-muted); margin-bottom:1rem;">
-        Positions: <strong style="color:var(--neon);">Cyber Security Engineer</strong> |
-        <strong style="color:var(--neon);">Cyber Cafe Attendant</strong> |
-        <strong style="color:var(--neon);">Shop Attendant</strong>
-      </p>
-      <form id="careerForm" onsubmit="submitCareerForm(event)">
-        <div class="form-group"><label>Full Name</label><input type="text" id="careerName" placeholder="John Doe" required /></div>
-        <div class="form-group"><label>Email</label><input type="email" id="careerEmail" placeholder="john@example.com" required /></div>
-        <div class="form-group"><label>Phone</label><input type="tel" id="careerPhone" placeholder="+254 700 000 000" required /></div>
-        <div class="form-group">
-          <label>Position</label>
-          <select id="careerPosition" required>
-            <option value="">Select...</option>
-            <option value="Cyber Security Engineer">Cyber Security Engineer</option>
-            <option value="Cyber Cafe Attendant">Cyber Cafe Attendant</option>
-            <option value="Shop Attendant">Shop Attendant</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Date of Birth</label><input type="date" id="careerDob" required /></div>
-        <div class="form-group">
-          <label>Gender</label>
-          <select id="careerGender" required><option value="">Select...</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select>
-        </div>
-        <div class="form-group">
-          <label>Education</label>
-          <select id="careerEducation" required>
-            <option value="">Select...</option>
-            <option value="Certificate">Certificate</option><option value="Diploma">Diploma</option>
-            <option value="Bachelor's Degree">Bachelor's</option><option value="Master's Degree">Master's</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Years of Experience</label><input type="number" id="careerExperience" placeholder="0" min="0" required /></div>
-        <div class="form-group"><label>Certifications</label><input type="text" id="careerCerts" placeholder="CEH, CISSP, etc." /></div>
-        <div class="form-group">
-          <label>Upload CV (PDF, DOC, DOCX)</label>
-          <div class="file-upload" onclick="document.getElementById('careerFile').click()">
-            <i class="fas fa-cloud-upload-alt" style="font-size:1.5rem;"></i>
-            <p>Click to upload</p>
-            <div class="file-name" id="careerFileName">No file selected</div>
-            <input type="file" id="careerFile" accept=".pdf,.doc,.docx" onchange="updateFileName(this)" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Upload Certificates</label>
-          <div class="file-upload" onclick="document.getElementById('careerCertsFile').click()">
-            <i class="fas fa-cloud-upload-alt" style="font-size:1.5rem;"></i>
-            <p>Click to upload</p>
-            <div class="file-name" id="careerCertsFileName">No file selected</div>
-            <input type="file" id="careerCertsFile" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="updateCertsFileName(this)" />
-          </div>
-        </div>
-        <div class="form-group"><label>Cover Letter</label><textarea id="careerCover" placeholder="Why you'd be a great fit..."></textarea></div>
-        <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Submit Application</button>
-      </form>
-      <div id="careerResponse" style="margin-top:1rem; display:none; padding:0.8rem; border-radius:12px; text-align:center;"></div>
-    </div>
-  </div>
+  <div class="modal-overlay career-modal" id="careerModal"><div class="modal-box"><button class="close-btn" onclick="closeModal('careerModal')">&times;</button><h2 style="color:var(--accent);"><i class="fas fa-briefcase"></i> Apply for a Position</h2><p style="color:var(--text-muted); margin-bottom:1rem;">Positions: <strong style="color:var(--accent);">Cyber Security Engineer</strong> | <strong style="color:var(--accent);">Cyber Cafe Attendant</strong> | <strong style="color:var(--accent);">Shop Attendant</strong></p><form id="careerForm" onsubmit="submitCareerForm(event)"><div class="form-group"><label>Full Name</label><input type="text" id="careerName" placeholder="John Doe" required /></div><div class="form-group"><label>Email</label><input type="email" id="careerEmail" placeholder="john@example.com" required /></div><div class="form-group"><label>Phone</label><input type="tel" id="careerPhone" placeholder="+254 700 000 000" required /></div><div class="form-group"><label>Position</label><select id="careerPosition" required><option value="">Select...</option><option value="Cyber Security Engineer">Cyber Security Engineer</option><option value="Cyber Cafe Attendant">Cyber Cafe Attendant</option><option value="Shop Attendant">Shop Attendant</option></select></div><div class="form-group"><label>Date of Birth</label><input type="date" id="careerDob" required /></div><div class="form-group"><label>Gender</label><select id="careerGender" required><option value="">Select...</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div><div class="form-group"><label>Education</label><select id="careerEducation" required><option value="">Select...</option><option value="Certificate">Certificate</option><option value="Diploma">Diploma</option><option value="Bachelor's Degree">Bachelor's</option><option value="Master's Degree">Master's</option></select></div><div class="form-group"><label>Years of Experience</label><input type="number" id="careerExperience" placeholder="0" min="0" required /></div><div class="form-group"><label>Certifications</label><input type="text" id="careerCerts" placeholder="CEH, CISSP, etc." /></div><div class="form-group"><label>Upload CV (PDF, DOC, DOCX)</label><div class="file-upload" onclick="document.getElementById('careerFile').click()"><i class="fas fa-cloud-upload-alt" style="font-size:1.5rem;"></i><p>Click to upload</p><div class="file-name" id="careerFileName">No file selected</div><input type="file" id="careerFile" accept=".pdf,.doc,.docx" onchange="updateFileName(this)" /></div></div><div class="form-group"><label>Upload Certificates</label><div class="file-upload" onclick="document.getElementById('careerCertsFile').click()"><i class="fas fa-cloud-upload-alt" style="font-size:1.5rem;"></i><p>Click to upload</p><div class="file-name" id="careerCertsFileName">No file selected</div><input type="file" id="careerCertsFile" accept=".pdf,.jpg,.jpeg,.png" multiple onchange="updateCertsFileName(this)" /></div></div><div class="form-group"><label>Cover Letter</label><textarea id="careerCover" placeholder="Why you'd be a great fit..."></textarea></div><button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Submit Application</button></form><div id="careerResponse" style="margin-top:1rem; display:none; padding:0.8rem; border-radius:12px; text-align:center;"></div></div></div>
 
   <script>
+    // ============================================================
+    //  THEME SWITCHER
+    // ============================================================
+    (function theme() {
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const html = document.documentElement;
+      const saved = localStorage.getItem('manlung-theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      icon.className = saved === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('manlung-theme', next);
+        icon.className = next === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+      });
+    })();
+
     // ============================================================
     //  SECTION NAVIGATION
     // ============================================================
@@ -1409,7 +1441,7 @@
     // ============================================================
     const rates = { KES: 1, USD: 0.0077, EUR: 0.0072, GBP: 0.0061 };
     let currentCurrency = 'KES';
-    // We keep currency selector hidden in this redesign, but we keep the display update
+
     function updateCurrencyDisplay() {
       const rate = rates[currentCurrency];
       const symbol = currentCurrency === 'KES' ? 'KES ' : currentCurrency === 'USD' ? '$ ' : currentCurrency === 'EUR' ?
@@ -1421,7 +1453,6 @@
       const rev = document.getElementById('revenueDisplay');
       rev.textContent = symbol + (53000 * rate).toFixed(currentCurrency === 'KES' ? 0 : 2);
     }
-    // Default KES
     currentCurrency = 'KES';
     updateCurrencyDisplay();
 
@@ -1461,7 +1492,7 @@
       results.slice(0, 15).forEach(item => {
         const priceText = item.price ? ` — ${currentCurrency} ${(item.price * rates[currentCurrency]).toFixed(currentCurrency === 'KES' ? 0 : 2)}` :
           '';
-        html += `<div class="result-item" onclick="selectResult('${item.name.replace(/'/g, "\\'")}', '${item.section}')" style="padding:0.5rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; color:var(--text-light); border-radius:8px; transition:0.2s;">
+        html += `<div class="result-item" onclick="selectResult('${item.name.replace(/'/g, "\\'")}', '${item.section}')" style="padding:0.5rem 0.8rem; border-bottom:1px solid var(--border-color); cursor:pointer; color:var(--text-primary); border-radius:8px; transition:0.2s;">
           <strong>${item.name}</strong> <small style="color:var(--text-muted);">${item.type}</small>${priceText}
           <br><span style="font-size:0.75rem; color:var(--text-muted);">${item.desc.substring(0,60)}${item.desc.length>60?'...':''}</span>
         </div>`;
@@ -1480,7 +1511,7 @@
           if (card.textContent.trim() === name || card.textContent.trim().includes(name)) {
             const parent = card.closest('.card') || card.closest('.ntsa-item') || card.closest('.eservice-card');
             if (parent) { parent.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              parent.style.borderColor = 'var(--neon)';
+              parent.style.borderColor = 'var(--accent)';
               setTimeout(() => parent.style.borderColor = '', 2000); }
             break;
           }
@@ -1490,13 +1521,12 @@
     document.getElementById('searchInput').addEventListener('input', function() { performSearch(this.value); });
     document.getElementById('searchBtn').addEventListener('click', function() { performSearch(document.getElementById(
       'searchInput').value); });
-    // make search results container
     const sr = document.createElement('div');
     sr.className = 'search-results';
     sr.id = 'searchResults';
-    document.querySelector('.search-wrap').appendChild(sr);
     sr.style.cssText =
-      'position:absolute; top:100%; left:0; right:0; background:rgba(14,23,31,0.98); border:1px solid var(--border-dim); border-radius:16px; padding:0.5rem; max-height:300px; overflow-y:auto; display:none; z-index:300; margin-top:0.3rem;';
+      'position:absolute; top:100%; left:0; right:0; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:16px; padding:0.5rem; max-height:300px; overflow-y:auto; display:none; z-index:300; margin-top:0.3rem; box-shadow:var(--shadow);';
+    document.querySelector('.search-wrap').appendChild(sr);
 
     // ============================================================
     //  LOGS & BINARY
@@ -1532,9 +1562,9 @@
         if (log.type === 'error') msg = msg.replace('ALERT', '<span class="error">ALERT</span>');
         else if (log.type === 'warn') msg = msg.replace('WARN', '<span class="warn">WARN</span>');
         else if (log.type === 'success') { msg = msg.replace('OK', '<span class="highlight">OK</span>');
-          msg = msg.replace(/(\d+)%/, '<span class="percent">$1%</span>'); } else if (log.type === 'purple') { msg = msg
+          msg = msg.replace(/(\d+)%/, '<span class="highlight">$1%</span>'); } else if (log.type === 'purple') { msg = msg
             .replace('HACK', '<span class="purple">HACK</span>');
-          msg = msg.replace(/(\d+)%/, '<span class="percent">$1%</span>'); } else { msg = msg.replace('INFO',
+          msg = msg.replace(/(\d+)%/, '<span class="highlight">$1%</span>'); } else { msg = msg.replace('INFO',
             '<span class="info">INFO</span>');
           msg = msg.replace('LOG', '<span class="info">LOG</span>'); }
         el.innerHTML = msg;
@@ -1657,7 +1687,7 @@
             <span class="badge">Course ${i+1}</span>
             <span style="font-size:0.65rem; color:var(--text-muted);">${c.topics.split(',').length} topics</span>
           </div>
-          <h3 style="margin:0.3rem 0 0.1rem 0; color:var(--neon); font-size:1rem;">${c.name}</h3>
+          <h3 style="margin:0.3rem 0 0.1rem 0; color:var(--accent); font-size:1rem;">${c.name}</h3>
           <div class="topics">${c.topics.split(',').map(t => `<span>${t.trim()}</span>`).join('')}</div>
           <div style="margin-top:0.6rem;"><span class="price" data-base="${c.price}">KES ${c.price.toLocaleString()}</span></div>
         </div>
@@ -1686,9 +1716,9 @@
       grid.innerHTML = eservices.map(s => `
         <div class="eservice-card clickable" onclick="openPayment('${s.name}', 0, 'E-Service')">
           <div class="icon"><i class="fas ${s.icon}"></i></div>
-          <h4 style="color:var(--text-light); font-size:0.95rem;">${s.name}</h4>
+          <h4 style="color:var(--text-primary); font-size:0.95rem;">${s.name}</h4>
           <p style="color:var(--text-muted); font-size:0.8rem;">${s.desc}</p>
-          <span class="badge" style="background:#1a3a2a; margin-top:0.3rem;">Request</span>
+          <span class="badge" style="margin-top:0.3rem;">Request</span>
         </div>
       `).join('');
     }
@@ -1698,7 +1728,7 @@
       grid.innerHTML = ecitizenServices.map(s => `
         <div class="eservice-card clickable" onclick="openPayment('${s.name}', ${s.price || 0}, 'eCitizen')">
           <div class="icon"><i class="fas ${s.icon}"></i></div>
-          <h4 style="color:var(--text-light); font-size:0.95rem;">${s.name}</h4>
+          <h4 style="color:var(--text-primary); font-size:0.95rem;">${s.name}</h4>
           <p style="color:var(--text-muted); font-size:0.8rem;">${s.desc}</p>
           <div style="margin-top:0.2rem;"><span class="price" style="font-size:1rem;" data-base="${s.price || 0}">KES ${(s.price || 0).toLocaleString()}</span></div>
         </div>
@@ -1719,9 +1749,9 @@
       const grid = document.getElementById('kraGrid');
       grid.innerHTML = kraServices.map(k => `
         <div class="card clickable" onclick="openKRAForm('${k.name}')">
-          <h3 style="color:var(--neon); margin-bottom:0.2rem; font-size:1rem;">${k.name}</h3>
+          <h3 style="color:var(--accent); margin-bottom:0.2rem; font-size:1rem;">${k.name}</h3>
           <p style="color:var(--text-muted); font-size:0.85rem; flex:1;">${k.desc}</p>
-          <span class="badge" style="background:#1a3a2a; margin-top:0.4rem;">Request</span>
+          <span class="badge" style="margin-top:0.4rem;">Request</span>
         </div>
       `).join('');
     }
@@ -1757,8 +1787,8 @@
       const response = document.getElementById('careerResponse');
       if (!name || !email || !phone || !position || !dob || !gender || !education || !experience) {
         response.style.display = 'block';
-        response.style.background = 'rgba(255,107,90,0.2)';
-        response.style.color = '#ff6b5a';
+        response.style.background = 'rgba(200,50,50,0.12)';
+        response.style.color = '#bb0000';
         response.textContent = '❌ Please fill all required fields.';
         return;
       }
@@ -1772,8 +1802,8 @@
       sendToTelegram(msg).then(data => {
         if (data.ok) {
           response.style.display = 'block';
-          response.style.background = 'rgba(13,240,122,0.12)';
-          response.style.color = '#0df07a';
+          response.style.background = 'rgba(0,102,0,0.10)';
+          response.style.color = '#006600';
           response.textContent = '✅ Application submitted! We will contact you shortly.';
           document.getElementById('careerForm').reset();
           document.getElementById('careerFileName').textContent = 'No file selected';
@@ -1782,8 +1812,8 @@
         } else throw new Error();
       }).catch(() => {
         response.style.display = 'block';
-        response.style.background = 'rgba(255,107,90,0.2)';
-        response.style.color = '#ff6b5a';
+        response.style.background = 'rgba(200,50,50,0.12)';
+        response.style.color = '#bb0000';
         response.textContent = '❌ Failed to submit. Please try again.';
       });
     }
@@ -1814,8 +1844,8 @@
       const response = document.getElementById('msgResponse');
       if (!name || !email || !phone || !message) {
         response.style.display = 'block';
-        response.style.background = 'rgba(255,107,90,0.2)';
-        response.style.color = '#ff6b5a';
+        response.style.background = 'rgba(200,50,50,0.12)';
+        response.style.color = '#bb0000';
         response.textContent = '❌ Please fill all fields.';
         return;
       }
@@ -1824,15 +1854,15 @@
       sendToTelegram(tgMsg).then(data => {
         if (data.ok) {
           response.style.display = 'block';
-          response.style.background = 'rgba(13,240,122,0.12)';
-          response.style.color = '#0df07a';
+          response.style.background = 'rgba(0,102,0,0.10)';
+          response.style.color = '#006600';
           response.textContent = '✅ Message sent! We will respond via Telegram.';
           document.getElementById('messageForm').reset();
         } else throw new Error();
       }).catch(() => {
         response.style.display = 'block';
-        response.style.background = 'rgba(255,107,90,0.2)';
-        response.style.color = '#ff6b5a';
+        response.style.background = 'rgba(200,50,50,0.12)';
+        response.style.color = '#bb0000';
         response.textContent = '❌ Error sending message. Please try again.';
       });
     }
@@ -1912,100 +1942,196 @@
     }
 
     // ============================================================
-    //  AI CHAT
+    //  MANLUNG AI — FULL CHAT IMPLEMENTATION
     // ============================================================
-    const aiFloat = document.getElementById('aiFloatBtn'),
-      aiWidget = document.getElementById('aiWidget');
-    const aiClose = document.getElementById('aiClose'),
-      aiInput = document.getElementById('aiInput');
-    const aiSend = document.getElementById('aiSendBtn'),
-      aiBody = document.getElementById('aiBody');
+    (function manlungAI() {
+      const floatBtn = document.getElementById('aiFloatBtn');
+      const widget = document.getElementById('aiWidget');
+      const closeBtn = document.getElementById('aiCloseBtn');
+      const minBtn = document.getElementById('aiMinimize');
+      const maxBtn = document.getElementById('aiMaximize');
+      const body = document.getElementById('aiBody');
+      const input = document.getElementById('aiInput');
+      const sendBtn = document.getElementById('aiSendBtn');
+      const clearBtn = document.getElementById('aiClearBtn');
 
-    aiFloat.addEventListener('click', () => aiWidget.classList.toggle('open'));
-    aiClose.addEventListener('click', () => aiWidget.classList.remove('open'));
+      let isMinimized = false;
+      let isMaximized = false;
+      let chatHistory = []; // {role: 'user'|'assistant', content: string, timestamp: string}
 
-    const priceDB = {
-      'introduction to cybersecurity': 8500,
-      'computer networking': 9500,
-      'operating systems security': 8500,
-      'programming for cybersecurity': 12000,
-      'cryptography': 9500,
-      'ethical hacking': 14000,
-      'penetration testing': 16000,
-      'web application security': 12000,
-      'malware analysis': 13000,
-      'digital forensics': 14000,
-      'incident response': 12000,
-      'threat intelligence': 11000,
-      'security operations center': 13000,
-      'cloud security': 14000,
-      'network security': 11000,
-      'wireless security': 9500,
-      'mobile security': 10000,
-      'application security': 12000,
-      'identity and access management': 10000,
-      'governance risk and compliance': 11000,
-      'industrial control systems security': 13000,
-      'iot security': 11000,
-      'artificial intelligence security': 14000,
-      'devsecops': 13000,
-      'security automation': 11000,
-      'bug bounty hunting': 12000,
-      'red team operations': 16000,
-      'blue team operations': 14000,
-      'purple teaming': 15000,
-      'security awareness': 7000,
-      'crimson hat': 7000,
-      'azure disk': 9000,
-      'obsidian core': 10000,
-      'pearl ios': 24000,
-      'wireshark': 4500,
-      'wazuh': 5500,
-      'suricata': 5200,
-      'nmap': 2700,
-      'passport application': 500,
-      'ecitizen & immigration': 200,
-      'good conduct certificate': 200,
-    };
-
-    function getAIResponse(msg) {
-      const q = msg.toLowerCase().trim();
-      const greetings = ['hello', 'hi', 'good morning', 'good afternoon', 'hey', 'greetings'];
-      for (const g of greetings) { if (q.includes(g)) return 'Hello! 👋 Welcome to Manlung Tech City. I can help with course prices, tool prices, passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. For detailed assistance, contact us on Telegram: https://t.me/manlungtechcitybot'; }
-      for (const [key, val] of Object.entries(priceDB)) {
-        if (q.includes(key)) {
-          const sym = 'KES ';
-          return `💰 ${key.charAt(0).toUpperCase() + key.slice(1)} costs ${sym}${val}.`;
+      // ---- UI Controls ----
+      function toggleWidget(open) {
+        if (open) {
+          widget.classList.add('open');
+          widget.classList.remove('minimized');
+          isMinimized = false;
+          floatBtn.style.display = 'none';
+        } else {
+          widget.classList.remove('open');
+          floatBtn.style.display = 'flex';
         }
       }
-      if (q.includes('ntsa') || q.includes('driving') || q.includes('license') || q.includes('psv') || q.includes(
-        'vehicle'))
-        return 'We offer full NTSA services: Driver PSV Badge, Provisional License, PDL Endorsement, DL Copy of Record, Instructor License, Foreign DL Conversion, Motor Vehicle Records, Smart Driving License, Duplicate Smart DL, Personalized Plates, New & Second Hand Vehicle Registration, and Alternative Transfer. Click "E-Services" to apply.';
-      if (q.includes('course') || q.includes('training'))
-        return 'We offer 30+ cybersecurity courses from KES 8,500 to KES 16,000. Click "Courses" to see all.';
-      if (q.includes('telegram') || q.includes('contact') || q.includes('chat'))
-        return 'For immediate assistance, contact us on Telegram: https://t.me/manlungtechcitybot';
-      return 'I can help with: Course prices, Tool prices, Passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, contact us on Telegram: https://t.me/manlungtechcitybot';
-    }
 
-    function addAIMessage(text, isUser = false) {
-      const div = document.createElement('div');
-      div.className = `ai-msg ${isUser ? 'user' : ''}`;
-      div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g,
-        '<a href="$1" target="_blank" style="color:var(--neon);">$1</a>');
-      aiBody.appendChild(div);
-      aiBody.scrollTop = aiBody.scrollHeight;
-    }
+      floatBtn.addEventListener('click', () => toggleWidget(true));
+      closeBtn.addEventListener('click', () => toggleWidget(false));
+      minBtn.addEventListener('click', () => {
+        isMinimized = !isMinimized;
+        widget.classList.toggle('minimized', isMinimized);
+        minBtn.innerHTML = isMinimized ? '<i class="fas fa-plus"></i>' : '<i class="fas fa-minus"></i>';
+      });
+      maxBtn.addEventListener('click', () => {
+        isMaximized = !isMaximized;
+        widget.style.width = isMaximized ? 'calc(100vw - 2rem)' : '';
+        widget.style.height = isMaximized ? 'calc(100vh - 6rem)' : '';
+        widget.style.maxWidth = isMaximized ? '100%' : '';
+        widget.style.maxHeight = isMaximized ? '100%' : '';
+        widget.style.right = isMaximized ? '1rem' : '';
+        widget.style.bottom = isMaximized ? '5rem' : '';
+        maxBtn.innerHTML = isMaximized ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+      });
 
-    function handleAI() {
-      const msg = aiInput.value.trim();
-      if (!msg) return;
-      addAIMessage(msg, true);
-      aiInput.value = '';
-      setTimeout(() => addAIMessage(getAIResponse(msg)), 300);
-    }
-    aiSend.addEventListener('click', handleAI);
-    aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAI(); });
+      // ---- Render messages ----
+      function renderMessages() {
+        // Keep the first welcome message if history is empty
+        if (chatHistory.length === 0) {
+          body.innerHTML = `
+            <div class="ai-msg assistant">
+              👋 Hello! I'm Manlung AI. Ask me about cybersecurity, courses, KRA services, or any tech topic.
+              <span class="timestamp">Just now</span>
+            </div>
+          `;
+          return;
+        }
+        body.innerHTML = chatHistory.map(msg => {
+          const isUser = msg.role === 'user';
+          const time = msg.timestamp || new Date().toLocaleTimeString();
+          return `
+            <div class="ai-msg ${isUser ? 'user' : 'assistant'}">
+              ${msg.content}
+              <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.textContent.replace('Copy', '').trim())"><i class="fas fa-copy"></i></button>
+              <span class="timestamp">${time}</span>
+            </div>
+          `;
+        }).join('');
+        body.scrollTop = body.scrollHeight;
+      }
+
+      // ---- Add message ----
+      function addMessage(role, content) {
+        const timestamp = new Date().toLocaleTimeString();
+        chatHistory.push({ role, content, timestamp });
+        renderMessages();
+      }
+
+      // ---- Typing indicator ----
+      function showTyping() {
+        const el = document.createElement('div');
+        el.className = 'typing-indicator';
+        el.id = 'typingIndicator';
+        el.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(el);
+        body.scrollTop = body.scrollHeight;
+      }
+
+      function hideTyping() {
+        const el = document.getElementById('typingIndicator');
+        if (el) el.remove();
+      }
+
+      // ---- Clear chat ----
+      clearBtn.addEventListener('click', () => {
+        if (chatHistory.length === 0) return;
+        if (confirm('Clear all chat history?')) {
+          chatHistory = [];
+          renderMessages();
+        }
+      });
+
+      // ---- Send message ----
+      async function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        addMessage('user', text);
+
+        showTyping();
+
+        try {
+          // --- BACKEND INTEGRATION POINT ---
+          // Replace this fetch with your actual backend endpoint.
+          // The backend should forward to OpenAI, Gemini, Claude, or DeepSeek.
+          // Example: const response = await fetch('/api/ai/chat', {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({ message: text, history: chatHistory.slice(0, -1) })
+          // });
+          // const data = await response.json();
+          // const reply = data.reply || 'Sorry, I could not process that.';
+
+          // --- SIMULATED RESPONSE (replace with real API) ---
+          // This simulates a real AI response. Remove this block and use the fetch above.
+          const simulatedReply = await simulateAIResponse(text);
+          // --- END SIMULATION ---
+
+          hideTyping();
+          addMessage('assistant', simulatedReply);
+        } catch (err) {
+          hideTyping();
+          addMessage('assistant', '⚠️ Sorry, I encountered an error. Please try again later.');
+          console.error('AI Error:', err);
+        }
+      }
+
+      // ---- Simulated AI (replace with real API) ----
+      function simulateAIResponse(query) {
+        return new Promise((resolve) => {
+          const q = query.toLowerCase();
+          let reply = '';
+
+          // Simple keyword matching for demo
+          if (q.includes('course') || q.includes('training')) {
+            reply =
+              'We offer 30+ cybersecurity courses ranging from KES 8,500 to KES 16,000. Popular courses include Ethical Hacking (KES 14,000), Penetration Testing (KES 16,000), and Introduction to Cybersecurity (KES 8,500). Click "Courses" to see the full list.';
+          } else if (q.includes('kra') || q.includes('pin') || q.includes('tax')) {
+            reply =
+              'We provide full KRA assistance: PIN registration, tax return filing, TCC applications, VAT registration, PAYE services, and more. Click "KRA" and select a service to request help.';
+          } else if (q.includes('ntsa') || q.includes('driving') || q.includes('license') || q.includes('psv')) {
+            reply =
+              'We offer NTSA services: Driver PSV Badge, Provisional License, PDL Endorsement, DL Copy of Record, Instructor License, Foreign DL Conversion, Motor Vehicle Records, Smart Driving License, Duplicate Smart DL, Personalized Plates, and Vehicle Registration. Click "E-Services" to apply.';
+          } else if (q.includes('passport') || q.includes('ecitizen')) {
+            reply =
+              'We assist with Passport applications (new, renewal, replacement) for KES 500, and eCitizen services for KES 200. Click "E-Services" to get started.';
+          } else if (q.includes('python') || q.includes('javascript') || q.includes('html') || q.includes('css')) {
+            reply =
+              'Great! We have courses covering Programming for Cybersecurity (Python, Bash, SQL, C, Go) and Web Application Security. Check out the "Courses" section for details.';
+          } else if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
+            reply =
+              'Hello! 👋 I\'m Manlung AI. I can help with cybersecurity, courses, KRA services, e-services, and more. What would you like to know?';
+          } else if (q.includes('price') || q.includes('cost') || q.includes('fee')) {
+            reply =
+              'Course prices range from KES 8,500 to KES 16,000. Tools range from KES 2,700 to KES 24,000. Passport services are KES 500, eCitizen KES 200, Good Conduct KES 200. What specific service are you interested in?';
+          } else {
+            reply =
+              `I understand you're asking about "${query}". I can help with cybersecurity courses, KRA services, NTSA services, eCitizen, passport applications, tools, and general tech questions. Could you be more specific? For immediate assistance, you can also reach our team on Telegram: https://t.me/manlungtechcitybot`;
+          }
+          setTimeout(() => resolve(reply), 400 + Math.random() * 600);
+        });
+      }
+
+      // ---- Event listeners ----
+      sendBtn.addEventListener('click', sendMessage);
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+      // ---- Init ----
+      renderMessages();
+
+      // Expose to window for debugging
+      window.manlungAI = { chatHistory, addMessage, sendMessage, clear: () => { chatHistory = [];
+          renderMessages(); } };
+
+      console.log('🧠 Manlung AI initialized. Connect to your preferred LLM API by replacing the simulateAIResponse function with a fetch to your backend.');
+      console.log('📡 Supported providers: OpenAI, Gemini, Claude, DeepSeek. Store API keys securely on the backend.');
+    })();
 
     // ============================================================
     //  INIT
@@ -2017,11 +2143,12 @@
     renderEcitizen();
     renderNTSA();
     renderKRA();
-    // Load Paystack
+
     const ps = document.createElement('script');
     ps.src = 'https://js.paystack.co/v1/inline.js';
     document.head.appendChild(ps);
-    console.log('Manlung Tech City — Kenya Cyber Hub, fully responsive, production-ready.');
+
+    console.log('✅ Manlung Tech City — fully responsive, theme-aware, AI-ready.');
   </script>
 </body>
 </html>
