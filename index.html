@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Manlung Tech City | Cyber Security Hub</title>
     <meta name="description" content="Manlung Tech City: 30+ cyber security courses, tools, e-services, KRA assistance, and secure Paystack payments.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="theme-color" content="#050a10">
+    <meta property="og:title" content="Manlung Tech City | Cyber Security Hub">
+    <meta property="og:description" content="30+ cyber security courses, enterprise tools, government e-services, and KRA assistance in Nairobi, Kenya.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23050a10'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%230df07a' font-family='Arial, sans-serif' font-weight='bold'%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
         }
         :root {
             --neon: #0df07a;
@@ -24,10 +29,16 @@
             --gold: #f5c542;
             --cyan: #5ac8fa;
             --purple: #b06aff;
+            --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
         body {
             background: var(--dark);
             color: var(--text-light);
+            font-family: var(--font);
             line-height: 1.6;
             overflow-x: hidden;
             background-image: url('https://i.postimg.cc/LX3Lgp4q/anonymous-hacker-data-breach-5k-1280x1280-7.jpg');
@@ -35,21 +46,24 @@
             background-attachment: fixed;
             background-position: center;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: rgba(5, 10, 16, 0.82);
+            background: rgba(5, 10, 16, 0.85);
             z-index: -1;
         }
         .container {
             max-width: 1340px;
             margin: 0 auto;
-            padding: 0 1.8rem;
+            padding: 0 clamp(1rem, 4vw, 1.8rem);
         }
         .section-title {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             font-weight: 700;
             color: var(--neon);
             margin-bottom: 0.5rem;
@@ -57,7 +71,7 @@
         }
         .section-sub {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
             max-width: 720px;
             margin-bottom: 2.2rem;
             border-left: 3px solid var(--neon);
@@ -65,231 +79,72 @@
         }
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.8rem;
         }
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
-        }
-        .grid-5 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
         }
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
         }
-
-        /* HEADER */
-        header {
-            background: rgba(5, 10, 16, 0.96);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border-dim);
-            padding: 0.7rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 200;
-        }
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--neon);
-            text-shadow: 0 0 20px rgba(13, 240, 122, 0.2);
-        }
-        .logo span {
-            color: #9ac8c0;
-            font-weight: 300;
-        }
-        .nav-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-        .nav-links {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        nav a {
-            color: #c0d8de;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.92rem;
-            transition: 0.2s;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 3px;
-            cursor: pointer;
-            position: relative;
-        }
-        nav a:hover {
-            color: var(--neon);
-            border-bottom-color: var(--neon);
-        }
-        nav a.active {
-            color: var(--neon);
-            border-bottom-color: var(--neon);
-        }
-        .currency-selector {
-            background: #1a2a2a;
-            padding: 0.2rem 0.8rem;
-            border-radius: 40px;
-            border: 1px solid #2a5a4a;
-            color: var(--neon);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .currency-selector select {
-            background: transparent;
-            border: none;
-            color: var(--neon);
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-            font-size: 0.8rem;
-        }
-        .currency-selector select option {
-            background: #0a141c;
-            color: #eef;
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        /* Compact Search */
-        .search-wrapper {
-            display: flex;
+        /* ===== BUTTONS ===== */
+        .btn-primary,
+        .btn-outline {
+            display: inline-flex;
             align-items: center;
-            background: #0f1e24;
-            border: 1px solid var(--border-dim);
-            border-radius: 40px;
-            padding: 0.2rem 0.2rem 0.2rem 0.8rem;
-            transition: 0.3s;
-            max-width: 160px;
-        }
-        .search-wrapper:focus-within {
-            border-color: var(--neon);
-            max-width: 260px;
-        }
-        .search-wrapper input {
-            background: transparent;
-            border: none;
-            color: #eef;
-            padding: 0.3rem 0;
-            font-size: 0.85rem;
-            width: 0;
-            transition: 0.3s;
-            outline: none;
-        }
-        .search-wrapper:focus-within input {
-            width: 100px;
-        }
-        .search-wrapper input::placeholder {
-            color: #5a7a7a;
-        }
-        .search-wrapper button {
-            background: var(--neon);
-            border: none;
-            border-radius: 40px;
-            padding: 0.3rem 0.8rem;
-            font-weight: 700;
-            color: #041008;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: 0.2s;
-            flex-shrink: 0;
-        }
-        .search-wrapper button:hover {
-            background: #0ac86e;
-        }
-        .search-results {
-            background: rgba(14, 23, 31, 0.98);
-            border: 1px solid var(--border-dim);
-            border-radius: 16px;
-            padding: 0.8rem;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            position: absolute;
-            z-index: 300;
-            width: 100%;
-            left: 0;
-            margin-top: 0.5rem;
-        }
-        .search-results .result-item {
-            padding: 0.5rem 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer;
-            color: var(--text-light);
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-        .search-results .result-item:hover {
-            background: rgba(13, 240, 122, 0.1);
-            color: var(--neon);
-        }
-        .search-results .result-item small {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-        }
-        .search-container {
-            position: relative;
-            flex: 1;
-            max-width: 260px;
-        }
-
-        /* BUTTONS */
-        .btn-primary {
-            display: inline-block;
-            background: var(--neon);
-            color: #051008;
+            justify-content: center;
+            gap: 0.5rem;
             font-weight: 700;
             padding: 0.7rem 2rem;
             border-radius: 60px;
             text-decoration: none;
-            transition: 0.25s;
+            transition: 0.25s ease;
             border: none;
             cursor: pointer;
+            min-height: 44px;
+            font-family: var(--font);
+            font-size: 0.95rem;
+        }
+        .btn-primary {
+            background: var(--neon);
+            color: #051008;
             box-shadow: 0 0 24px rgba(13, 240, 122, 0.12);
         }
         .btn-primary:hover {
             transform: scale(1.03);
             box-shadow: 0 0 40px rgba(13, 240, 122, 0.25);
         }
-        .btn-primary:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .btn-primary:active {
+            transform: scale(0.97);
         }
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--neon);
             color: var(--neon);
-            font-weight: 600;
-            padding: 0.6rem 1.8rem;
-            border-radius: 60px;
-            text-decoration: none;
-            transition: 0.2s;
-            cursor: pointer;
         }
         .btn-outline:hover {
             background: rgba(13, 240, 122, 0.08);
         }
+        .btn-primary:disabled,
+        .btn-outline:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
+        /* ===== CARD ===== */
         .card {
             background: rgba(14, 23, 31, 0.9);
             border-radius: 20px;
@@ -341,7 +196,191 @@
             color: #6a6a6a;
         }
 
-        /* HERO */
+        /* ===== HEADER / NAV ===== */
+        header {
+            background: rgba(5, 10, 16, 0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-dim);
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            transition: box-shadow 0.25s ease;
+        }
+        header.scrolled {
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .logo {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 800;
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(13, 240, 122, 0.2);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .logo span {
+            color: #9ac8c0;
+            font-weight: 300;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            flex: 1;
+        }
+        .menu-toggle {
+            display: none;
+            background: #0f1e24;
+            border: 1px solid var(--border-dim);
+            color: var(--neon);
+            font-size: 1.3rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #c0d8de;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.92rem;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon);
+            border-bottom-color: var(--neon);
+        }
+
+        .currency-selector {
+            background: #1a2a2a;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid #2a5a4a;
+            color: var(--neon);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .currency-selector select {
+            background: transparent;
+            border: none;
+            color: var(--neon);
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            font-size: 0.8rem;
+        }
+        .currency-selector select option {
+            background: #0a141c;
+            color: #eef;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #0f1e24;
+            border: 1px solid var(--border-dim);
+            border-radius: 40px;
+            padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+            transition: 0.3s;
+            max-width: 160px;
+        }
+        .search-wrapper:focus-within {
+            border-color: var(--neon);
+            max-width: 260px;
+        }
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            color: #eef;
+            padding: 0.3rem 0;
+            font-size: 0.85rem;
+            width: 0;
+            transition: 0.3s;
+            outline: none;
+        }
+        .search-wrapper:focus-within input {
+            width: 100px;
+        }
+        .search-wrapper input::placeholder {
+            color: #5a7a7a;
+        }
+        .search-wrapper button {
+            background: var(--neon);
+            border: none;
+            border-radius: 40px;
+            padding: 0.3rem 0.8rem;
+            font-weight: 700;
+            color: #041008;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .search-wrapper button:hover {
+            background: #0ac86e;
+        }
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 260px;
+        }
+        .search-results {
+            background: rgba(14, 23, 31, 0.98);
+            border: 1px solid var(--border-dim);
+            border-radius: 16px;
+            padding: 0.8rem;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            position: absolute;
+            z-index: 300;
+            width: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+        }
+        .search-results .result-item {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .search-results .result-item:hover {
+            background: rgba(13, 240, 122, 0.1);
+            color: var(--neon);
+        }
+        .search-results .result-item small {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        /* ===== HERO ===== */
         .hero {
             padding: 3rem 0 2.5rem 0;
             background: radial-gradient(ellipse at 60% 10%, rgba(15, 40, 40, 0.5), rgba(5, 10, 16, 0.85) 85%);
@@ -356,7 +395,7 @@
             align-items: center;
         }
         .hero h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             line-height: 1.1;
         }
@@ -391,8 +430,22 @@
         .hero-stats .stat strong {
             color: var(--neon);
         }
+        .trust-banner {
+            background: rgba(13, 240, 122, 0.08);
+            border: 2px solid var(--neon);
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 700;
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(13, 240, 122, 0.15);
+        }
+        .trust-banner i {
+            margin-right: 0.5rem;
+        }
 
-        /* BINARY & LOGS */
         .binary-container {
             background: rgba(10, 20, 28, 0.9);
             border-radius: 20px;
@@ -420,8 +473,12 @@
             animation: binaryScroll 0.6s linear infinite;
         }
         @keyframes binaryScroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
         }
         .system-logs {
             position: relative;
@@ -444,18 +501,39 @@
             flex-shrink: 0;
             padding: 0.05rem 0;
         }
-        .log-entry .highlight { color: var(--neon); font-weight: bold; }
-        .log-entry .error { color: #ff6b5a; font-weight: bold; }
-        .log-entry .info { color: #5ac8fa; }
-        .log-entry .warn { color: #f5c542; }
-        .log-entry .purple { color: #b06aff; }
-        .log-entry .percent { color: var(--neon); font-weight: bold; }
+        .log-entry .highlight {
+            color: var(--neon);
+            font-weight: bold;
+        }
+        .log-entry .error {
+            color: #ff6b5a;
+            font-weight: bold;
+        }
+        .log-entry .info {
+            color: #5ac8fa;
+        }
+        .log-entry .warn {
+            color: #f5c542;
+        }
+        .log-entry .purple {
+            color: #b06aff;
+        }
+        .log-entry .percent {
+            color: var(--neon);
+            font-weight: bold;
+        }
         @keyframes logFade {
-            from { opacity: 0; transform: translateX(-5px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        /* PAGE SECTIONS */
+        /* ===== PAGE SECTIONS ===== */
         .page-section {
             padding: 3rem 0;
             border-bottom: 1px solid var(--border-dim);
@@ -463,13 +541,20 @@
             animation: fadeIn 0.5s ease;
             background: rgba(5, 10, 16, 0.5);
             backdrop-filter: blur(2px);
+            flex: 1;
         }
         .page-section.active {
             display: block;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .page-section h2 {
             color: var(--neon);
@@ -482,7 +567,7 @@
             line-height: 1.8;
         }
 
-        /* NTSA SERVICE CARDS */
+        /* ===== NTSA ===== */
         .ntsa-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -513,6 +598,7 @@
             font-size: 0.75rem;
             cursor: pointer;
             transition: 0.2s;
+            min-height: 36px;
         }
         .ntsa-item .apply-btn:hover {
             opacity: 0.8;
@@ -527,7 +613,6 @@
             display: block;
         }
 
-        /* CAREER BANNER */
         .career-banner {
             background: rgba(13, 240, 122, 0.08);
             border: 2px solid var(--gold);
@@ -561,43 +646,111 @@
             transition: 0.2s;
             cursor: pointer;
             border: none;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font);
+            font-size: 0.95rem;
         }
         .career-banner .apply-link:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(245, 197, 66, 0.3);
         }
 
-        /* CAREER APPLICATION MODAL */
-        .career-modal .modal-box {
-            max-width: 700px;
-        }
-        .career-modal .form-group textarea {
-            min-height: 100px;
-        }
-        .file-upload {
-            background: #0f1e24;
-            border: 2px dashed var(--border-dim);
-            border-radius: 12px;
-            padding: 1.5rem;
+        /* ===== E-SERVICE CARDS ===== */
+        .eservice-card {
+            background: rgba(14, 23, 31, 0.9);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid var(--border-dim);
             text-align: center;
-            cursor: pointer;
+            backdrop-filter: blur(4px);
             transition: 0.2s;
-            color: var(--text-muted);
+            cursor: pointer;
         }
-        .file-upload:hover {
+        .eservice-card:hover {
             border-color: var(--neon);
-            color: var(--neon);
+            transform: translateY(-3px);
         }
-        .file-upload input[type="file"] {
-            display: none;
-        }
-        .file-upload .file-name {
+        .eservice-card .icon {
+            font-size: 2rem;
             color: var(--neon);
-            font-weight: 600;
-            margin-top: 0.3rem;
+            margin-bottom: 0.4rem;
         }
 
-        /* MESSAGING SECTION */
+        .legal-card {
+            background: rgba(14, 23, 31, 0.9);
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid var(--border-dim);
+            backdrop-filter: blur(4px);
+        }
+        .legal-card h3 {
+            color: var(--neon);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .legal-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .legal-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .legal-card ul li {
+            padding: 0.3rem 0;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .legal-card ul li strong {
+            color: var(--neon);
+        }
+
+        .kra-careers {
+            background: rgba(26, 58, 46, 0.3);
+            border: 1px solid var(--neon);
+            border-radius: 16px;
+            padding: 1.2rem 1.8rem;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .kra-careers a {
+            color: var(--neon);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid var(--neon);
+        }
+        .kra-careers a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        .telegram-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0088cc;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            border: 2px solid #0088cc;
+        }
+        .telegram-contact:hover {
+            background: #0077b5;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
+            color: #fff;
+        }
+
         .messaging-section {
             background: rgba(11, 20, 26, 0.6);
             border-radius: 24px;
@@ -623,7 +776,6 @@
             outline: none;
         }
 
-        /* COURSE CARD */
         .course-card {
             border-left: 3px solid var(--neon);
         }
@@ -642,41 +794,7 @@
             border: 1px solid rgba(13, 240, 122, 0.1);
         }
 
-        .legal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .legal-card {
-            background: rgba(14, 23, 31, 0.9);
-            border-radius: 20px;
-            padding: 1.8rem;
-            border: 1px solid var(--border-dim);
-            backdrop-filter: blur(4px);
-        }
-        .legal-card h3 {
-            color: var(--neon);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-        .legal-card p {
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-        .legal-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        .legal-card ul li {
-            padding: 0.3rem 0;
-            color: var(--text-muted);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-        .legal-card ul li strong {
-            color: var(--neon);
-        }
-
-        /* AI */
+        /* ===== AI ===== */
         .ai-float {
             position: fixed;
             bottom: 2rem;
@@ -700,7 +818,6 @@
             transform: scale(1.1);
             box-shadow: 0 0 50px rgba(13, 240, 122, 0.5);
         }
-
         .ai-widget {
             position: fixed;
             bottom: 6rem;
@@ -782,102 +899,14 @@
             cursor: pointer;
         }
 
-        .telegram-contact {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #0088cc;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.3s;
-            border: 2px solid #0088cc;
-        }
-        .telegram-contact:hover {
-            background: #0077b5;
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
-            color: #fff;
-        }
-
-        /* KRA CAREERS */
-        .kra-careers {
-            background: rgba(26, 58, 46, 0.3);
-            border: 1px solid var(--neon);
-            border-radius: 16px;
-            padding: 1.2rem 1.8rem;
-            margin: 1.5rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .kra-careers a {
-            color: var(--neon);
-            font-weight: 700;
-            text-decoration: none;
-            border-bottom: 2px solid var(--neon);
-        }
-        .kra-careers a:hover {
-            color: #fff;
-            border-bottom-color: #fff;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border-dim);
-            padding: 2rem 0;
-            margin-top: 2rem;
-            background: rgba(8, 12, 16, 0.95);
-        }
-        .footer-flex {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .footer-flex a {
-            color: #8ab0b8;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .footer-flex a:hover {
-            color: var(--neon);
-        }
-
-        .footer-bottom {
-            margin-top: 1.2rem;
-            border-top: 1px solid #1a2a2a;
-            padding-top: 1rem;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            font-size: 0.75rem;
-            color: #4a6a6a;
-        }
-        .footer-bottom .highlight {
-            color: var(--neon);
-        }
-        .footer-bottom a {
-            color: #0088cc;
-            text-decoration: none;
-        }
-        .footer-bottom a:hover {
-            text-decoration: underline;
-        }
-
-        /* MODAL */
+        /* ===== MODAL ===== */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(6px);
-            z-index: 400;
+            z-index: 600;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
@@ -906,6 +935,16 @@
             color: var(--text-muted);
             font-size: 1.6rem;
             cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .modal-box .close-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
         }
         .form-group {
             margin: 1rem 0;
@@ -914,6 +953,7 @@
             display: block;
             color: #b0ccd0;
             margin-bottom: 0.3rem;
+            font-weight: 500;
         }
         .form-group input,
         .form-group select,
@@ -925,6 +965,7 @@
             border-radius: 12px;
             color: #eef;
             font-size: 1rem;
+            font-family: var(--font);
         }
         .form-group input:focus,
         .form-group select:focus,
@@ -936,83 +977,180 @@
             min-height: 80px;
             resize: vertical;
         }
-
-        .trust-banner {
-            background: rgba(13, 240, 122, 0.08);
-            border: 2px solid var(--neon);
-            border-radius: 16px;
-            padding: 1.2rem 1.8rem;
-            margin: 1.5rem 0;
+        .file-upload {
+            background: #0f1e24;
+            border: 2px dashed var(--border-dim);
+            border-radius: 12px;
+            padding: 1.5rem;
             text-align: center;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--neon);
-            text-shadow: 0 0 20px rgba(13, 240, 122, 0.15);
-        }
-        .trust-banner i {
-            margin-right: 0.5rem;
-        }
-
-        /* E-Service Cards */
-        .eservice-card {
-            background: rgba(14, 23, 31, 0.9);
-            border-radius: 16px;
-            padding: 1.2rem;
-            border: 1px solid var(--border-dim);
-            text-align: center;
-            backdrop-filter: blur(4px);
+            cursor: pointer;
             transition: 0.2s;
+            color: var(--text-muted);
+        }
+        .file-upload:hover {
+            border-color: var(--neon);
+            color: var(--neon);
+        }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        .file-upload .file-name {
+            color: var(--neon);
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border-dim);
+            padding: 2rem 0;
+            margin-top: auto;
+            background: rgba(8, 12, 16, 0.95);
+            width: 100%;
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-flex a {
+            color: #8ab0b8;
+            text-decoration: none;
             cursor: pointer;
         }
-        .eservice-card:hover {
-            border-color: var(--neon);
-            transform: translateY(-3px);
-        }
-        .eservice-card .icon {
-            font-size: 2rem;
+        .footer-flex a:hover {
             color: var(--neon);
-            margin-bottom: 0.4rem;
+        }
+        .footer-bottom {
+            margin-top: 1.2rem;
+            border-top: 1px solid #1a2a2a;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.75rem;
+            color: #4a6a6a;
+        }
+        .footer-bottom .highlight {
+            color: var(--neon);
+        }
+        .footer-bottom a {
+            color: #0088cc;
+            text-decoration: none;
+        }
+        .footer-bottom a:hover {
+            text-decoration: underline;
         }
 
-        /* RESPONSIVE */
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1180px) {
+            .container {
+                padding: 0 1.4rem;
+            }
+            .hero-grid {
+                gap: 2rem;
+            }
+        }
         @media (max-width: 900px) {
+            .menu-toggle {
+                display: flex;
+            }
             .hero-grid {
                 grid-template-columns: 1fr;
             }
+            .hero-grid>div:first-child {
+                order: 1;
+            }
+            .binary-container {
+                order: 2;
+                height: 260px;
+            }
             .hero h1 {
-                font-size: 2.5rem;
-            }
-            .search-wrapper {
-                max-width: 140px;
-            }
-            .search-wrapper:focus-within {
-                max-width: 180px;
-            }
-            .search-wrapper:focus-within input {
-                width: 70px;
+                font-size: clamp(1.8rem, 6vw, 2.5rem);
             }
             .nav-wrapper {
-                gap: 0.5rem;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: min(320px, 85vw);
+                height: 100vh;
+                height: 100dvh;
+                background: #0a1319;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                padding: 5.5rem 1.5rem 2rem;
+                gap: 1.5rem;
+                transition: right 0.3s ease;
+                z-index: 400;
+                overflow-y: auto;
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+                border-left: 1px solid var(--border-dim);
             }
-            .header-flex {
-                flex-direction: row;
-                flex-wrap: wrap;
+            .nav-wrapper.open {
+                right: 0;
+            }
+            .nav-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+                z-index: 399;
+            }
+            .nav-backdrop.open {
+                display: block;
+            }
+            .nav-links {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.2rem;
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.85rem 0.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                width: 100%;
+            }
+            .nav-links a.active {
+                background: rgba(13, 240, 122, 0.08);
+                border-radius: 8px;
+            }
+            .search-container {
+                max-width: 100%;
+                width: 100%;
+            }
+            .search-wrapper {
+                max-width: 100% !important;
+                width: 100%;
+            }
+            .search-wrapper input {
+                width: 100% !important;
+                flex: 1;
+            }
+            .currency-selector {
+                width: 100%;
+                text-align: center;
+            }
+            .currency-selector select {
+                width: 100%;
+                text-align: center;
             }
             .ai-widget {
-                width: 300px;
+                width: min(340px, 92vw);
                 right: 1rem;
                 bottom: 5.5rem;
             }
             .ai-float {
-                width: 50px;
-                height: 50px;
-                font-size: 1.4rem;
-                bottom: 1.5rem;
-                right: 1.5rem;
+                width: 54px;
+                height: 54px;
+                font-size: 1.5rem;
+                bottom: 1.3rem;
+                right: 1.3rem;
             }
             .grid-3,
-            .grid-4,
-            .grid-5 {
+            .grid-4 {
                 grid-template-columns: 1fr 1fr;
             }
             .legal-grid {
@@ -1023,16 +1161,11 @@
                 padding: 0.8rem 1rem;
             }
             .hero-stats {
-                gap: 0.8rem;
+                gap: 0.6rem;
             }
             .hero-stats .stat {
-                padding: 0.2rem 1rem;
+                padding: 0.3rem 1rem;
                 font-size: 0.8rem;
-            }
-            .hero-buttons .btn-primary,
-            .hero-buttons .btn-outline {
-                padding: 0.5rem 1.2rem;
-                font-size: 0.9rem;
             }
             .ntsa-list {
                 grid-template-columns: 1fr 1fr;
@@ -1041,98 +1174,65 @@
                 flex-direction: column;
                 text-align: center;
             }
-            .nav-links {
-                gap: 0.7rem;
-            }
-            nav a {
-                font-size: 0.8rem;
-            }
-            .currency-selector {
-                font-size: 0.7rem;
-                padding: 0.15rem 0.6rem;
-            }
-            .currency-selector select {
-                font-size: 0.7rem;
-            }
         }
         @media (max-width: 650px) {
-            .nav-links {
-                gap: 0.4rem;
-            }
-            nav a {
-                font-size: 0.7rem;
-                padding-bottom: 2px;
-            }
-            .currency-selector {
-                font-size: 0.6rem;
-                padding: 0.1rem 0.4rem;
-            }
-            .currency-selector select {
-                font-size: 0.6rem;
-            }
-            .search-wrapper {
-                max-width: 100px;
-            }
-            .search-wrapper:focus-within {
-                max-width: 140px;
-            }
-            .search-wrapper:focus-within input {
-                width: 50px;
-            }
-            .search-wrapper input {
-                font-size: 0.7rem;
-            }
-            .search-wrapper button {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.6rem;
-            }
             .logo {
                 font-size: 1.3rem;
             }
             .hero h1 {
                 font-size: 1.8rem;
             }
-            .hero-buttons .btn-primary,
-            .hero-buttons .btn-outline {
-                font-size: 0.8rem;
-                padding: 0.4rem 1rem;
-            }
-            .hero-stats .stat {
-                font-size: 0.7rem;
-                padding: 0.15rem 0.8rem;
+            .modal-box {
+                padding: 1.4rem;
+                border-radius: 20px;
             }
         }
         @media (max-width: 500px) {
             .grid-3,
             .grid-4,
-            .grid-5,
             .grid-2 {
                 grid-template-columns: 1fr;
             }
             .btn-primary,
             .btn-outline {
-                display: block;
+                width: 100%;
                 text-align: center;
-                margin: 0.3rem 0;
-            }
-            .ai-widget {
-                width: 280px;
-                right: 0.5rem;
-                bottom: 5rem;
-            }
-            .messaging-section {
-                padding: 1.2rem;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
+                min-height: 44px;
             }
             .hero-buttons {
                 flex-direction: column;
                 align-items: stretch;
             }
+            .ai-widget {
+                width: calc(100vw - 1.5rem);
+                right: 0.75rem;
+                left: 0.75rem;
+                bottom: 5rem;
+                max-height: 70vh;
+            }
+            .ai-body {
+                max-height: 45vh;
+            }
+            .messaging-section {
+                padding: 1.2rem;
+                border-radius: 18px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-flex {
+                text-align: center;
+                justify-content: center;
+            }
+            .footer-flex>div {
+                width: 100%;
+            }
             .hero h1 {
                 font-size: 1.6rem;
+            }
+            .hero p {
+                font-size: 0.95rem;
             }
             .hero-stats {
                 justify-content: center;
@@ -1142,76 +1242,102 @@
                 min-width: 80px;
                 text-align: center;
             }
-            .nav-links {
-                gap: 0.3rem;
-            }
-            nav a {
-                font-size: 0.6rem;
-                padding-bottom: 1px;
-            }
-            .search-wrapper {
-                max-width: 80px;
-            }
-            .search-wrapper:focus-within {
-                max-width: 120px;
-            }
-            .search-wrapper:focus-within input {
-                width: 40px;
-            }
-            .trust-banner {
-                font-size: 0.8rem;
-                padding: 0.5rem;
-            }
             .ntsa-list {
                 grid-template-columns: 1fr;
             }
-            .ntsa-item {
-                padding: 0.6rem 1rem;
+            .career-banner .apply-link {
+                width: 100%;
+                justify-content: center;
             }
-            .career-banner .title {
-                font-size: 1rem;
+            .modal-overlay {
+                padding: 0;
+                align-items: flex-end;
             }
-            .career-modal .modal-box {
-                padding: 1.2rem;
+            .modal-box {
+                max-width: 100%;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                max-height: 92vh;
+                padding: 1.3rem 1.2rem 2rem;
             }
-            .currency-selector {
-                font-size: 0.55rem;
-                padding: 0.1rem 0.3rem;
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px;
+                padding: 0.8rem 1rem;
             }
-            .currency-selector select {
-                font-size: 0.55rem;
+        }
+        @media (max-width: 380px) {
+            .container {
+                padding: 0 0.9rem;
             }
             .logo {
+                font-size: 1rem;
+            }
+            .menu-toggle {
+                width: 38px;
+                height: 38px;
                 font-size: 1.1rem;
+            }
+            .hero h1 {
+                font-size: 1.4rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .ai-float {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+        }
+        @supports (padding: max(0px)) {
+            .ai-float {
+                bottom: max(1.3rem, env(safe-area-inset-bottom));
+                right: max(1.3rem, env(safe-area-inset-right));
+            }
+            header {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- ===== HEADER ===== -->
     <header>
         <div class="container header-flex">
             <div class="logo">Manlung <span>Tech City</span></div>
-            <div class="nav-wrapper">
-                <div class="nav-links">
-                    <a class="active" onclick="showSection('home-section', this)">Home</a>
-                    <a onclick="showSection('courses-section', this)">Courses</a>
-                    <a onclick="showSection('tools-section', this)">Tools</a>
-                    <a onclick="showSection('eservices-section', this)">E-Services</a>
-                    <a onclick="showSection('kra-section', this)">KRA</a>
-                    <a onclick="showSection('contact-section', this)">Contact</a>
-                    <a onclick="showSection('more-section', this)">More</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
+            <div class="nav-wrapper" id="navWrapper">
+                <div class="nav-links" id="navLinks">
+                    <a class="active" data-section="home-section">Home</a>
+                    <a data-section="courses-section">Courses</a>
+                    <a data-section="tools-section">Tools</a>
+                    <a data-section="eservices-section">E-Services</a>
+                    <a data-section="kra-section">KRA</a>
+                    <a data-section="contact-section">Contact</a>
+                    <a data-section="more-section">More</a>
                 </div>
                 <div class="search-container">
                     <div class="search-wrapper">
-                        <input type="text" id="searchInput" placeholder="Search..." onkeyup="performSearch(this.value)" onfocus="this.parentElement.style.maxWidth='280px'" onblur="setTimeout(()=>{ if(!this.value) this.parentElement.style.maxWidth='160px' },200)">
-                        <button onclick="performSearch(document.getElementById('searchInput').value)"><i class="fas fa-search"></i></button>
+                        <input type="text" id="searchInput" placeholder="Search..." autocomplete="off">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
                     </div>
                     <div class="search-results" id="searchResults"></div>
                 </div>
                 <div class="currency-selector">
-                    <select id="currencySelect" onchange="updateCurrency()">
+                    <select id="currencySelect">
                         <option value="KES">KES</option>
                         <option value="USD">USD</option>
                         <option value="EUR">EUR</option>
@@ -1221,16 +1347,17 @@
             </div>
         </div>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
 
-    <!-- ===== HOME SECTION ===== -->
+    <!-- ===== HOME ===== -->
     <section class="hero page-section active" id="home-section">
         <div class="container hero-grid">
             <div>
                 <h1>Advanced <span>Cyber</span> Security <span>Hub</span></h1>
                 <p>30+ comprehensive courses, enterprise tools, government e-services, and KRA assistance. Secure payments via Paystack.</p>
                 <div class="hero-buttons">
-                    <a onclick="showSection('courses-section', document.querySelector('nav a[onclick*="courses-section"]'))" class="btn-primary"><i class="fas fa-graduation-cap"></i> View Courses</a>
-                    <a onclick="showSection('contact-section', document.querySelector('nav a[onclick*="contact-section"]'))" class="btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
+                    <a data-section="courses-section" class="btn-primary"><i class="fas fa-graduation-cap"></i> View Courses</a>
+                    <a data-section="contact-section" class="btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
                     <a href="https://t.me/manlungtechcitybot" target="_blank" class="btn-outline" style="border-color:#0088cc; color:#0088cc;"><i class="fab fa-telegram-plane"></i> Telegram</a>
                 </div>
                 <div class="hero-stats">
@@ -1241,13 +1368,12 @@
                 <div class="trust-banner">
                     <i class="fas fa-shield-halved"></i> Kenyans Number 1 Trusted Online Cyber Hub
                 </div>
-                <!-- Career Banner -->
                 <div class="career-banner">
                     <div>
                         <span class="title"><i class="fas fa-bullhorn"></i> We're Hiring!</span>
                         <span class="deadline">
-                            <strong>Cyber Security Engineer</strong> | 
-                            <strong>Cyber Cafe Attendant</strong> | 
+                            <strong>Cyber Security Engineer</strong> |
+                            <strong>Cyber Cafe Attendant</strong> |
                             <strong>Shop Attendant</strong> — Deadline: <strong>September 5th, 2026</strong>
                         </span>
                     </div>
@@ -1261,8 +1387,8 @@
         </div>
     </section>
 
-    <!-- ===== COURSES SECTION ===== -->
-    <section id="courses-section" class="page-section" style="padding:3rem 0;">
+    <!-- ===== COURSES ===== -->
+    <section id="courses-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-graduation-cap" style="margin-right:10px;"></i> Cyber Security Courses</h2>
             <p class="section-sub">30+ comprehensive courses with fair pricing. Click any course to enroll and pay securely via Paystack.</p>
@@ -1273,8 +1399,8 @@
         </div>
     </section>
 
-    <!-- ===== TOOLS SECTION ===== -->
-    <section id="tools-section" class="page-section" style="padding:3rem 0 2rem 0; background:rgba(11,20,26,0.6);">
+    <!-- ===== TOOLS ===== -->
+    <section id="tools-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-tools" style="margin-right:10px;"></i> Cyber Tools</h2>
             <p class="section-sub">Click any tool to purchase securely via Paystack. Out of stock items are disabled.</p>
@@ -1285,25 +1411,19 @@
         </div>
     </section>
 
-    <!-- ===== E-SERVICES SECTION ===== -->
-    <section id="eservices-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
+    <!-- ===== E-SERVICES ===== -->
+    <section id="eservices-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-id-card" style="margin-right:10px;"></i> Government E-Services</h2>
             <p class="section-sub">Passport, Good Conduct, eCitizen, NTSA Services, and more. Click to request service.</p>
-
-            <!-- eCitizen Services -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;"><i class="fas fa-flag"></i> eCitizen & Passport Services</h3>
                 <div class="grid-3" id="ecitizenGrid"></div>
             </div>
-
-            <!-- NTSA Services -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;"><i class="fas fa-car" style="margin-right:8px;"></i> NTSA Services — Apply With Us</h3>
                 <div class="ntsa-list" id="ntsaGrid"></div>
             </div>
-
-            <!-- Other E-Services -->
             <div style="margin-bottom:2rem;">
                 <h3 style="color:var(--neon); margin-bottom:0.8rem;">Other Government Services</h3>
                 <div class="grid-3" id="eservicesGrid"></div>
@@ -1311,47 +1431,44 @@
         </div>
     </section>
 
-    <!-- ===== KRA SERVICES SECTION ===== -->
-    <section id="kra-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
+    <!-- ===== KRA ===== -->
+    <section id="kra-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-landmark" style="margin-right:10px;"></i> KRA Services</h2>
             <p class="section-sub">Complete KRA assistance — PIN registration, tax filing, TCC, and more.</p>
-
             <div class="kra-careers">
                 <span><i class="fas fa-briefcase" style="color:var(--neon);"></i> Join the KRA Team</span>
                 <a href="https://www.kra.go.ke/careers" target="_blank">View KRA Careers <i class="fas fa-external-link-alt"></i></a>
             </div>
-
             <div class="grid-3" id="kraGrid"></div>
             <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
-                <a onclick="openKRAForm()" class="btn-primary"><i class="fas fa-file-alt"></i> Request KRA Assistance</a>
+                <button onclick="openKRAForm()" class="btn-primary"><i class="fas fa-file-alt"></i> Request KRA Assistance</button>
                 <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact"><i class="fab fa-telegram-plane"></i> Chat on Telegram</a>
             </div>
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION ===== -->
-    <section id="contact-section" class="page-section" style="padding:3rem 0;">
+    <!-- ===== CONTACT ===== -->
+    <section id="contact-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-envelope" style="margin-right:10px;"></i> Send Us a Message</h2>
             <p class="section-sub">Have a question about courses, services, or need assistance? Send us a message and we'll respond via Telegram.</p>
-
             <div class="messaging-section">
                 <form id="messageForm" onsubmit="sendMessage(event)">
                     <div class="form-group">
-                        <label style="color:#b0ccd0;">Your Name</label>
-                        <input type="text" id="msgName" placeholder="John Doe" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                        <label>Your Name</label>
+                        <input type="text" id="msgName" placeholder="John Doe" required>
                     </div>
                     <div class="form-group">
-                        <label style="color:#b0ccd0;">Email</label>
-                        <input type="email" id="msgEmail" placeholder="john@example.com" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                        <label>Email</label>
+                        <input type="email" id="msgEmail" placeholder="john@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label style="color:#b0ccd0;">Phone</label>
-                        <input type="tel" id="msgPhone" placeholder="+254 700 000 000" required style="width:100%; padding:0.7rem 1rem; background:#0f1e24; border:1px solid #2a4a4a; border-radius:12px; color:#eef; font-size:1rem;">
+                        <label>Phone</label>
+                        <input type="tel" id="msgPhone" placeholder="+254 700 000 000" required>
                     </div>
                     <div class="form-group">
-                        <label style="color:#b0ccd0;">Your Message</label>
+                        <label>Your Message</label>
                         <textarea id="msgText" placeholder="Type your message here..." required></textarea>
                     </div>
                     <button type="submit" class="btn-primary" style="width:100%;"><i class="fab fa-telegram-plane"></i> Send to Telegram</button>
@@ -1364,17 +1481,16 @@
         </div>
     </section>
 
-    <!-- ===== MORE SECTION ===== -->
-    <section id="more-section" class="page-section" style="padding:3rem 0; background:rgba(11,20,26,0.6);">
+    <!-- ===== MORE ===== -->
+    <section id="more-section" class="page-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-file-contract" style="margin-right:10px;"></i> More</h2>
             <p class="section-sub">Our policies, terms, and legal information.</p>
-
             <div class="legal-grid">
                 <div class="legal-card">
                     <h3><i class="fas fa-lock" style="margin-right:8px; color:var(--neon);"></i> Privacy Policy</h3>
                     <p>Manlung Tech City respects your privacy. We collect minimal data for transaction processing and service delivery.</p>
-                    <ul style="margin-top:0.8rem;">
+                    <ul>
                         <li><strong>Data Collection:</strong> Name, email, phone, and service details</li>
                         <li><strong>Data Use:</strong> Only for processing requests and payments</li>
                         <li><strong>Data Sharing:</strong> We do not share your data with third parties</li>
@@ -1382,11 +1498,10 @@
                         <li><strong>Your Rights:</strong> Request data deletion anytime</li>
                     </ul>
                 </div>
-
                 <div class="legal-card">
                     <h3><i class="fas fa-gavel" style="margin-right:8px; color:var(--neon);"></i> Terms of Service</h3>
                     <p>By using our services, you agree to these terms.</p>
-                    <ul style="margin-top:0.8rem;">
+                    <ul>
                         <li><strong>1. Educational Use:</strong> All tools are for educational and authorized security testing only</li>
                         <li><strong>2. Payments:</strong> All payments processed via Paystack. Currency can be changed</li>
                         <li><strong>3. Refund Policy:</strong> Digital products non-refundable. Courses refundable within 7 days</li>
@@ -1394,11 +1509,10 @@
                         <li><strong>5. Compliance:</strong> Adhere to Kenya's Data Protection Act and ISO 27001</li>
                     </ul>
                 </div>
-
                 <div class="legal-card">
                     <h3><i class="fas fa-info-circle" style="margin-right:8px; color:var(--neon);"></i> About Us</h3>
                     <p>Manlung Tech City is a premier cyber security and digital services hub based in Nairobi, Kenya.</p>
-                    <ul style="margin-top:0.8rem;">
+                    <ul>
                         <li><strong>📚 30+ Courses:</strong> From beginner to advanced cyber security</li>
                         <li><strong>🛠️ 13 Tools:</strong> Enterprise-grade security tools</li>
                         <li><strong>🏛️ E-Services:</strong> Passport, KRA, Good Conduct, eCitizen, NTSA</li>
@@ -1406,11 +1520,10 @@
                         <li><strong>📞 Support:</strong> 24/7 tech support via Telegram</li>
                     </ul>
                 </div>
-
                 <div class="legal-card">
                     <h3><i class="fas fa-shield-alt" style="margin-right:8px; color:var(--neon);"></i> Security & Compliance</h3>
                     <p>We follow industry standards to protect your data.</p>
-                    <ul style="margin-top:0.8rem;">
+                    <ul>
                         <li><strong>🔐 Encryption:</strong> AES-256 at rest, TLS 1.3 in transit</li>
                         <li><strong>📋 Standards:</strong> ISO 27001, NIST CSF, PCI DSS</li>
                         <li><strong>🛡️ Security Controls:</strong> Preventive, Detective, Corrective</li>
@@ -1419,7 +1532,6 @@
                     </ul>
                 </div>
             </div>
-
             <div style="margin-top:2rem; text-align:center; background:rgba(14,23,31,0.6); border-radius:20px; padding:1.5rem; border:1px solid var(--border-dim);">
                 <p style="color:var(--text-muted);">
                     <i class="fas fa-phone" style="color:var(--neon);"></i> +254 724 356 178 &nbsp;|&nbsp;
@@ -1433,7 +1545,7 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container footer-flex">
             <div>
@@ -1441,13 +1553,13 @@
                 <p style="margin-top:0.2rem; font-size:0.9rem; color:var(--text-muted);">30+ Courses · Tools · E-Services · Training</p>
             </div>
             <div style="display:flex; gap:1.4rem; flex-wrap:wrap;">
-                <a onclick="showSection('home-section', this)">Home</a>
-                <a onclick="showSection('courses-section', this)">Courses</a>
-                <a onclick="showSection('tools-section', this)">Tools</a>
-                <a onclick="showSection('eservices-section', this)">E-Services</a>
-                <a onclick="showSection('kra-section', this)">KRA</a>
-                <a onclick="showSection('contact-section', this)">Contact</a>
-                <a onclick="showSection('more-section', this)">More</a>
+                <a data-section="home-section">Home</a>
+                <a data-section="courses-section">Courses</a>
+                <a data-section="tools-section">Tools</a>
+                <a data-section="eservices-section">E-Services</a>
+                <a data-section="kra-section">KRA</a>
+                <a data-section="contact-section">Contact</a>
+                <a data-section="more-section">More</a>
                 <a href="https://t.me/manlungtechcitybot" target="_blank" class="telegram-contact" style="padding:0.3rem 1rem; font-size:0.75rem;"><i class="fab fa-telegram-plane"></i> Telegram</a>
             </div>
             <div style="color:var(--text-muted); font-size:0.85rem;">
@@ -1461,12 +1573,8 @@
         </div>
     </footer>
 
-    <!-- AI FLOATING ICON -->
-    <button class="ai-float" id="aiFloatBtn" title="AI Assistant">
-        <i class="fas fa-robot"></i>
-    </button>
-
-    <!-- AI CHAT WIDGET -->
+    <!-- ===== AI ===== -->
+    <button class="ai-float" id="aiFloatBtn" title="AI Assistant"><i class="fas fa-robot"></i></button>
     <div class="ai-widget" id="aiWidget">
         <div class="ai-header" id="aiToggle">
             <span><i class="fas fa-robot" style="color:var(--neon);"></i> Manlung AI</span>
@@ -1484,7 +1592,8 @@
         </div>
     </div>
 
-    <!-- PAYSTACK MODAL -->
+    <!-- ===== MODALS ===== -->
+    <!-- Payment Modal -->
     <div class="modal-overlay" id="serviceModal">
         <div class="modal-box">
             <button class="close-btn" id="modalClose">&times;</button>
@@ -1513,16 +1622,14 @@
                 </div>
                 <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-credit-card"></i> Pay with Paystack</button>
             </form>
-            <p style="font-size:0.7rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
-                <i class="fas fa-lock"></i> Secured by Paystack
-            </p>
+            <p style="font-size:0.7rem; color:var(--text-muted); margin-top:1rem; text-align:center;"><i class="fas fa-lock"></i> Secured by Paystack</p>
         </div>
     </div>
 
-    <!-- KRA FORM MODAL -->
+    <!-- KRA Form Modal -->
     <div class="modal-overlay" id="kraFormModal">
         <div class="modal-box">
-            <button class="close-btn" onclick="document.getElementById('kraFormModal').classList.remove('active')">&times;</button>
+            <button class="close-btn" onclick="closeModal('kraFormModal')">&times;</button>
             <h2 style="color:var(--neon);">KRA Service Request</h2>
             <p style="color:var(--text-muted); margin-bottom:1rem;">Select a service and fill in your details. This will be sent to our team for assistance.</p>
             <form id="kraForm" onsubmit="submitKRAForm(event)">
@@ -1573,14 +1680,14 @@
         </div>
     </div>
 
-    <!-- CAREER APPLICATION MODAL -->
+    <!-- Career Modal -->
     <div class="modal-overlay career-modal" id="careerModal">
         <div class="modal-box">
-            <button class="close-btn" onclick="document.getElementById('careerModal').classList.remove('active')">&times;</button>
+            <button class="close-btn" onclick="closeModal('careerModal')">&times;</button>
             <h2 style="color:var(--neon);"><i class="fas fa-briefcase"></i> Apply for a Position</h2>
             <p style="color:var(--text-muted); margin-bottom:1rem;">
-                Positions: <strong style="color:var(--neon);">Cyber Security Engineer</strong> | 
-                <strong style="color:var(--neon);">Cyber Cafe Attendant</strong> | 
+                Positions: <strong style="color:var(--neon);">Cyber Security Engineer</strong> |
+                <strong style="color:var(--neon);">Cyber Cafe Attendant</strong> |
                 <strong style="color:var(--neon);">Shop Attendant</strong>
                 <br>Fill in your details and upload your certificates. All applications are sent via Telegram.
             </p>
@@ -1667,262 +1774,245 @@
     </div>
 
     <script>
-        // ============================
-        //  SECTION TOGGLE
-        // ============================
-        function showSection(id, navElement) {
+        // ============================================================
+        //  SECTION NAVIGATION
+        // ============================================================
+        const sectionMap = {
+            'home-section': 'home',
+            'courses-section': 'courses',
+            'tools-section': 'tools',
+            'eservices-section': 'eservices',
+            'kra-section': 'kra',
+            'contact-section': 'contact',
+            'more-section': 'more'
+        };
+
+        function showSection(id, pushHistory = true) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(id);
             if (target) target.classList.add('active');
-            document.querySelectorAll('nav a, .footer-flex a').forEach(a => a.classList.remove('active'));
-            if (navElement) {
-                navElement.classList.add('active');
-            } else {
-                document.querySelectorAll('nav a, .footer-flex a').forEach(a => {
-                    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
-                        a.classList.add('active');
-                    }
-                });
-            }
+
+            document.querySelectorAll('.nav-links a, .footer-flex a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll(`.nav-links a[data-section="${id}"], .footer-flex a[data-section="${id}"]`).forEach(a => a
+                .classList.add('active'));
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeMobileMenu();
+
+            if (pushHistory) {
+                const hash = '#' + (sectionMap[id] || 'home');
+                if (window.location.hash !== hash) history.pushState({ section: id }, '', hash);
+            }
         }
 
-        // ============================
-        //  CURRENCY SYSTEM
-        // ============================
-        const exchangeRates = { KES: 1, USD: 0.0077, EUR: 0.0072, GBP: 0.0061 };
+        function handleNavClick(e) {
+            const section = e.currentTarget.dataset.section;
+            if (section) {
+                e.preventDefault();
+                showSection(section);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-links a[data-section], .footer-flex a[data-section]').forEach(el => {
+                el.addEventListener('click', handleNavClick);
+            });
+            // Homepage buttons
+            document.querySelectorAll('.hero-buttons a[data-section]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(el.dataset.section);
+                });
+            });
+            // Hash routing
+            window.addEventListener('popstate', () => {
+                const hash = window.location.hash.replace('#', '');
+                const id = Object.keys(sectionMap).find(k => sectionMap[k] === hash);
+                if (id) showSection(id, false);
+            });
+            // Initial load
+            const hash = window.location.hash.replace('#', '');
+            const initialId = Object.keys(sectionMap).find(k => sectionMap[k] === hash);
+            if (initialId) showSection(initialId, false);
+        });
+
+        // ============================================================
+        //  MOBILE MENU
+        // ============================================================
+        const menuToggle = document.getElementById('menuToggle');
+        const menuIcon = document.getElementById('menuIcon');
+        const navWrapper = document.getElementById('navWrapper');
+        const navBackdrop = document.getElementById('navBackdrop');
+
+        function openMobileMenu() {
+            navWrapper.classList.add('open');
+            navBackdrop.classList.add('open');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            menuIcon.className = 'fas fa-times';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            navWrapper.classList.remove('open');
+            navBackdrop.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuIcon.className = 'fas fa-bars';
+            document.body.style.overflow = '';
+        }
+        menuToggle.addEventListener('click', () => navWrapper.classList.contains('open') ? closeMobileMenu() :
+        openMobileMenu());
+        navBackdrop.addEventListener('click', closeMobileMenu);
+        window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMobileMenu(); });
+
+        // ============================================================
+        //  HEADER SCROLL
+        // ============================================================
+        const headerEl = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            headerEl.classList.toggle('scrolled', window.scrollY > 10);
+        }, { passive: true });
+
+        // ============================================================
+        //  MODAL HELPERS
+        // ============================================================
+        function openModal(id) {
+            closeMobileMenu();
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        //  CURRENCY
+        // ============================================================
+        const rates = { KES: 1, USD: 0.0077, EUR: 0.0072, GBP: 0.0061 };
         let currentCurrency = 'KES';
 
         function updateCurrency() {
             const select = document.getElementById('currencySelect');
             currentCurrency = select.value;
-            const rate = exchangeRates[currentCurrency];
-
+            const rate = rates[currentCurrency];
+            const symbol = currentCurrency === 'KES' ? 'KES ' : currentCurrency === 'USD' ? '$ ' : currentCurrency ===
+                'EUR' ? '€ ' : '£ ';
             document.querySelectorAll('[data-base]').forEach(el => {
                 const base = parseFloat(el.dataset.base);
-                const converted = base * rate;
-                const symbol = currentCurrency === 'KES' ? 'KES ' :
-                               currentCurrency === 'USD' ? '$ ' :
-                               currentCurrency === 'EUR' ? '€ ' : '£ ';
-                el.textContent = symbol + converted.toFixed(currentCurrency === 'KES' ? 0 : 2);
+                if (!isNaN(base)) {
+                    el.textContent = symbol + (base * rate).toFixed(currentCurrency === 'KES' ? 0 : 2);
+                }
             });
+            const rev = document.getElementById('revenueDisplay');
+            rev.textContent = symbol + (53000 * rate).toFixed(currentCurrency === 'KES' ? 0 : 2);
+        }
+        document.getElementById('currencySelect').addEventListener('change', updateCurrency);
 
-            document.querySelectorAll('.tool-price, .course-price').forEach(el => {
-                const base = parseFloat(el.dataset.base);
-                const converted = base * rate;
-                const symbol = currentCurrency === 'KES' ? 'KES ' :
-                               currentCurrency === 'USD' ? '$ ' :
-                               currentCurrency === 'EUR' ? '€ ' : '£ ';
-                el.textContent = symbol + converted.toFixed(currentCurrency === 'KES' ? 0 : 2);
-            });
+        // ============================================================
+        //  SEARCH
+        // ============================================================
+        const searchData = [];
 
-            const revenue = document.getElementById('revenueDisplay');
-            const symbol = currentCurrency === 'KES' ? 'KES ' :
-                          currentCurrency === 'USD' ? '$ ' :
-                          currentCurrency === 'EUR' ? '€ ' : '£ ';
-            revenue.textContent = symbol + (53000 * rate).toFixed(currentCurrency === 'KES' ? 0 : 2);
+        function buildSearchIndex() {
+            courses.forEach(c => searchData.push({ name: c.name, desc: c.topics, type: 'Course', section: 'courses-section',
+                price: c.price }));
+            tools.forEach(t => searchData.push({ name: t.name, desc: t.desc, type: 'Tool', section: 'tools-section',
+                price: t.price }));
+            eservices.forEach(e => searchData.push({ name: e.name, desc: e.desc, type: 'E-Service', section: 'eservices-section',
+                price: null }));
+            kraServices.forEach(k => searchData.push({ name: k.name, desc: k.desc, type: 'KRA Service', section: 'kra-section',
+                price: null }));
+            ntsaServices.forEach(n => searchData.push({ name: n.name, desc: n.desc, type: 'NTSA Service',
+                section: 'eservices-section', price: null }));
+            ecitizenServices.forEach(e => searchData.push({ name: e.name, desc: e.desc, type: 'eCitizen',
+                section: 'eservices-section', price: e.price || null }));
         }
 
-        // ============================
-        //  SEARCH
-        // ============================
-        let searchResultsVisible = false;
-
         function performSearch(query) {
-            const resultsDiv = document.getElementById('searchResults');
             const q = query.toLowerCase().trim();
-
-            if (!q) {
-                resultsDiv.style.display = 'none';
-                resultsDiv.innerHTML = '';
-                searchResultsVisible = false;
-                return;
-            }
-
-            const allItems = [];
-
-            courses.forEach(c => {
-                allItems.push({
-                    name: c.name,
-                    type: 'Course',
-                    desc: c.topics,
-                    price: c.price,
-                    keywords: c.name + ' ' + c.topics,
-                    section: 'courses-section'
-                });
-            });
-
-            tools.forEach(t => {
-                allItems.push({
-                    name: t.name,
-                    type: 'Tool',
-                    desc: t.desc,
-                    price: t.price,
-                    keywords: t.name + ' ' + t.desc,
-                    section: 'tools-section'
-                });
-            });
-
-            eservices.forEach(e => {
-                allItems.push({
-                    name: e.name,
-                    type: 'E-Service',
-                    desc: e.desc,
-                    price: null,
-                    keywords: e.name + ' ' + e.desc,
-                    section: 'eservices-section'
-                });
-            });
-
-            kraServices.forEach(k => {
-                allItems.push({
-                    name: k.name,
-                    type: 'KRA Service',
-                    desc: k.desc,
-                    price: null,
-                    keywords: k.name + ' ' + k.desc,
-                    section: 'kra-section'
-                });
-            });
-
-            ntsaServices.forEach(n => {
-                allItems.push({
-                    name: n.name,
-                    type: 'NTSA Service',
-                    desc: n.desc,
-                    price: null,
-                    keywords: n.name + ' ' + n.desc,
-                    section: 'eservices-section'
-                });
-            });
-
-            ecitizenServices.forEach(e => {
-                allItems.push({
-                    name: e.name,
-                    type: 'eCitizen',
-                    desc: e.desc,
-                    price: e.price || null,
-                    keywords: e.name + ' ' + e.desc,
-                    section: 'eservices-section'
-                });
-            });
-
-            const results = allItems.filter(item => {
-                return item.keywords.toLowerCase().includes(q);
-            });
-
-            if (results.length === 0) {
-                resultsDiv.innerHTML = '<div style="padding:0.8rem; color:var(--text-muted);">No results found for "' + q + '"</div>';
+            const resultsDiv = document.getElementById('searchResults');
+            if (!q) { resultsDiv.style.display = 'none';
+                resultsDiv.innerHTML = ''; return; }
+            const results = searchData.filter(item => (item.name + ' ' + item.desc).toLowerCase().includes(q));
+            if (!results.length) {
+                resultsDiv.innerHTML = '<div style="padding:0.8rem; color:var(--text-muted);">No results found for "' + q +
+                    '"</div>';
                 resultsDiv.style.display = 'block';
-                searchResultsVisible = true;
                 return;
             }
-
             let html = '';
             results.slice(0, 15).forEach(item => {
-                const priceText = item.price ? ` — ${currentCurrency} ${(item.price * exchangeRates[currentCurrency]).toFixed(currentCurrency === 'KES' ? 0 : 2)}` : '';
-                html += `<div class="result-item" onclick="selectSearchResult('${item.name.replace(/'/g, "\\'")}', '${item.section}')">
+                const priceText = item.price ? ` — ${currentCurrency} ${(item.price * rates[currentCurrency]).toFixed(currentCurrency === 'KES' ? 0 : 2)}` :
+                    '';
+                html += `<div class="result-item" onclick="selectResult('${item.name.replace(/'/g, "\\'")}', '${item.section}')">
                     <strong>${item.name}</strong> <small>${item.type}</small>${priceText}
                     <br><span style="font-size:0.75rem; color:var(--text-muted);">${item.desc.substring(0, 60)}${item.desc.length > 60 ? '...' : ''}</span>
                 </div>`;
             });
             resultsDiv.innerHTML = html;
             resultsDiv.style.display = 'block';
-            searchResultsVisible = true;
         }
 
-        function selectSearchResult(name, sectionId) {
+        function selectResult(name, section) {
             document.getElementById('searchInput').value = name;
-            // Keep search results visible but highlight the selected item
-            const resultsDiv = document.getElementById('searchResults');
-            const items = resultsDiv.querySelectorAll('.result-item');
-            items.forEach(item => {
-                item.style.background = 'transparent';
-                if (item.textContent.includes(name)) {
-                    item.style.background = 'rgba(13, 240, 122, 0.15)';
-                }
-            });
-            // Navigate to section
-            showSection(sectionId, document.querySelector(`nav a[onclick*="${sectionId}"]`));
+            showSection(section);
             setTimeout(() => {
                 const cards = document.querySelectorAll('.course-card h3, .card h3, .ntsa-item span, .eservice-card h4');
                 for (const card of cards) {
                     if (card.textContent.trim() === name || card.textContent.trim().includes(name)) {
-                        const parent = card.closest('.card') || card.closest('.ntsa-item') || card.closest('.eservice-card');
+                        const parent = card.closest('.card') || card.closest('.ntsa-item') || card.closest(
+                        '.eservice-card');
                         if (parent) {
                             parent.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             parent.style.borderColor = 'var(--neon)';
-                            setTimeout(() => { parent.style.borderColor = ''; }, 2000);
+                            setTimeout(() => parent.style.borderColor = '', 2000);
                         }
                         break;
                     }
                 }
             }, 300);
+            document.getElementById('searchResults').style.display = 'none';
         }
 
-        // Close search on click outside - but keep results visible if clicked inside
-        document.addEventListener('click', function(e) {
-            const container = document.querySelector('.search-container');
-            if (container && !container.contains(e.target)) {
-                // Don't hide results, just keep them
-                // Only hide if clicking on a result item that navigates
-            }
-        });
+        document.getElementById('searchInput').addEventListener('input', function() { performSearch(this.value); });
+        document.getElementById('searchBtn').addEventListener('click', function() { performSearch(document.getElementById(
+            'searchInput').value); });
 
-        // ============================
-        //  ADVANCED LOGS
-        // ============================
-        (function advancedLogs() {
-            const logContainer = document.getElementById('systemLogs');
-            const logPool = [
+        // ============================================================
+        //  LOGS & BINARY
+        // ============================================================
+        (function logs() {
+            const container = document.getElementById('systemLogs');
+            const pool = [
                 { type: 'info', msg: '[INFO] System memory: 8.2GB free' },
                 { type: 'success', msg: '[OK] All services running' },
                 { type: 'info', msg: '[LOG] User session: admin@10.0.0.1' },
-                { type: 'info', msg: '[INFO] IDS signature update applied' },
-                { type: 'success', msg: '[OK] Backup completed successfully' },
-                { type: 'info', msg: '[LOG] Real-time monitoring active' },
-                { type: 'info', msg: '[INFO] CPU utilization: 42%' },
-                { type: 'success', msg: '[OK] Network latency: 12ms' },
-                { type: 'info', msg: '[LOG] Firewall rules updated' },
+                { type: 'success', msg: '[OK] Backup completed' },
                 { type: 'warn', msg: '[WARN] Brute force attempt blocked' },
                 { type: 'error', msg: '[ALERT] Malware signature detected: Trojan.Hydra' },
-                { type: 'warn', msg: '[WARN] Port 445 scanning in progress 23%' },
-                { type: 'info', msg: '[INFO] Analyzing packet capture 56%' },
-                { type: 'success', msg: '[OK] Threat neutralized 100%' },
-                { type: 'error', msg: '[ALERT] Ransomware payload detected 12%' },
                 { type: 'purple', msg: '[HACK] Injecting reverse shell 34%' },
                 { type: 'purple', msg: '[HACK] Privilege escalation 67%' },
-                { type: 'purple', msg: '[HACK] Root access acquired 89%' },
                 { type: 'success', msg: '[OK] Exploit completed 100%' },
                 { type: 'info', msg: '[INFO] System hardening applied' },
-                { type: 'warn', msg: '[WARN] Suspicious outbound traffic 45%' },
                 { type: 'error', msg: '[ALERT] DDoS attack detected 67%' },
                 { type: 'success', msg: '[OK] Attack mitigated 100%' },
                 { type: 'purple', msg: '[HACK] Data exfiltration 78%' },
-                { type: 'purple', msg: '[HACK] Database dump 92%' },
-                { type: 'success', msg: '[OK] Exfiltration complete 100%' },
-                { type: 'info', msg: '[INFO] Log rotation completed' },
                 { type: 'warn', msg: '[WARN] Failed login attempts 3' },
                 { type: 'error', msg: '[ALERT] Zero-day exploit detected 41%' },
                 { type: 'success', msg: '[OK] Patch applied 100%' },
-                { type: 'purple', msg: '[HACK] Credential harvesting 56%' },
-                { type: 'purple', msg: '[HACK] Session hijacking 73%' },
-                { type: 'success', msg: '[OK] Session secured 100%' },
             ];
-            let index = 0;
+            let idx = 0;
 
             function addLog() {
-                const entry = document.createElement('div');
-                entry.className = 'log-entry';
-                const log = logPool[index % logPool.length];
+                const el = document.createElement('div');
+                el.className = 'log-entry';
+                let log = pool[idx % pool.length];
+                idx++;
                 let msg = log.msg;
-                index++;
-
-                if (log.type === 'error') {
-                    msg = msg.replace('ALERT', '<span class="error">ALERT</span>');
-                } else if (log.type === 'warn') {
-                    msg = msg.replace('WARN', '<span class="warn">WARN</span>');
-                } else if (log.type === 'success') {
+                if (log.type === 'error') msg = msg.replace('ALERT', '<span class="error">ALERT</span>');
+                else if (log.type === 'warn') msg = msg.replace('WARN', '<span class="warn">WARN</span>');
+                else if (log.type === 'success') {
                     msg = msg.replace('OK', '<span class="highlight">OK</span>');
                     msg = msg.replace(/(\d+)%/, '<span class="percent">$1%</span>');
                 } else if (log.type === 'purple') {
@@ -1932,42 +2022,37 @@
                     msg = msg.replace('INFO', '<span class="info">INFO</span>');
                     msg = msg.replace('LOG', '<span class="info">LOG</span>');
                 }
-                entry.innerHTML = msg;
-                logContainer.appendChild(entry);
-                if (logContainer.children.length > 30) logContainer.removeChild(logContainer.children[0]);
-                logContainer.scrollTop = logContainer.scrollHeight;
+                el.innerHTML = msg;
+                container.appendChild(el);
+                if (container.children.length > 30) container.removeChild(container.children[0]);
+                container.scrollTop = container.scrollHeight;
             }
-
             for (let i = 0; i < 20; i++) addLog();
             setInterval(addLog, 100);
         })();
 
-        // ============================
-        //  BINARY RAIN
-        // ============================
-        (function binaryRain() {
-            const container = document.getElementById('binaryRain');
-            const chars = '01';
-            let lines = '';
+        (function binary() {
+            const c = document.getElementById('binaryRain');
+            let s = '';
             for (let i = 0; i < 400; i++) {
-                let line = '';
-                for (let j = 0; j < 90; j++) {
-                    line += chars[Math.floor(Math.random() * chars.length)] + ' ';
-                }
-                lines += line + '\n';
+                for (let j = 0; j < 90; j++) s += Math.random() > 0.5 ? '1 ' : '0 ';
+                s += '\n';
             }
-            container.textContent = lines;
+            c.textContent = s;
         })();
 
-        // ============================
+        // ============================================================
         //  DATA
-        // ============================
+        // ============================================================
         const tools = [
-            { name: "Crimson Hat", desc: "iOS kernel exploit · basic jailbreak", price: 7000, stock: 0, badge: "🔥 Hot" },
+            { name: "Crimson Hat", desc: "iOS kernel exploit · basic jailbreak", price: 7000, stock: 0,
+            badge: "🔥 Hot" },
             { name: "Azure Disk", desc: "Advanced recovery & root access", price: 9000, stock: 6, badge: "⭐ Featured" },
-            { name: "Obsidian Core", desc: "Full iCloud bypass · signature", price: 10000, stock: 3, badge: "⚡ Best Seller" },
+            { name: "Obsidian Core", desc: "Full iCloud bypass · signature", price: 10000, stock: 3,
+            badge: "⚡ Best Seller" },
             { name: "Pearl iOS", desc: "Ultimate · untethered + forensics", price: 24000, stock: 4, badge: "🔥 Hot" },
-            { name: "Wireshark", desc: "Network protocol analyzer · deep inspection", price: 4500, stock: 12, badge: "🔍 Network" },
+            { name: "Wireshark", desc: "Network protocol analyzer · deep inspection", price: 4500, stock: 12,
+                badge: "🔍 Network" },
             { name: "Wazuh", desc: "Open source SIEM · XDR platform", price: 5500, stock: 9, badge: "📊 SIEM" },
             { name: "Suricata", desc: "IDS/IPS · high performance engine", price: 5200, stock: 6, badge: "🛡️ IDS/IPS" },
             { name: "Nmap", desc: "Network discovery · security scanner", price: 2700, stock: 15, badge: "📡 Scanner" },
@@ -1986,7 +2071,8 @@
         const ecitizenServices = [
             { name: "Passport Application", desc: "New, renewal, and replacement", icon: "fa-passport", price: 500 },
             { name: "eCitizen & Immigration", desc: "ID, driver's license, foreigner", icon: "fa-id-card", price: 200 },
-            { name: "Good Conduct Certificate", desc: "Police clearance certificate", icon: "fa-file-shield", price: 200 },
+            { name: "Good Conduct Certificate", desc: "Police clearance certificate", icon: "fa-file-shield",
+            price: 200 },
         ];
 
         const ntsaServices = [
@@ -2026,21 +2112,24 @@
             { name: "Printing KRA certificates", desc: "Print KRA certificates and receipts" },
         ];
 
-        // ===== 30 COURSES =====
         const courses = [
-            { name: "Introduction to Cybersecurity", topics: "CIA Triad, Cyber Ethics, Basic Networking, Linux/Windows", price: 8500 },
+            { name: "Introduction to Cybersecurity", topics: "CIA Triad, Cyber Ethics, Basic Networking, Linux/Windows",
+                price: 8500 },
             { name: "Computer Networking", topics: "OSI, TCP/IP, DNS, DHCP, VPN, Wireless Security", price: 9500 },
             { name: "Operating Systems Security", topics: "Windows/Linux/macOS, Permissions, Hardening", price: 8500 },
-            { name: "Programming for Cybersecurity", topics: "Python, Bash, PowerShell, SQL, C, C++, Go, Rust", price: 12000 },
+            { name: "Programming for Cybersecurity", topics: "Python, Bash, PowerShell, SQL, C, C++, Go, Rust",
+                price: 12000 },
             { name: "Cryptography", topics: "AES, RSA, ECC, Hashing, PKI, SSL/TLS", price: 9500 },
             { name: "Ethical Hacking", topics: "Footprinting, Recon, Exploitation, Privilege Escalation", price: 14000 },
             { name: "Penetration Testing", topics: "Network, Web, Wireless, Mobile, Cloud, API, AD", price: 16000 },
             { name: "Web Application Security", topics: "OWASP Top 10, SQL Injection, XSS, CSRF, SSRF", price: 12000 },
             { name: "Malware Analysis", topics: "Virus, Worm, Trojan, Ransomware, Reverse Engineering", price: 13000 },
             { name: "Digital Forensics", topics: "Disk, Memory, Mobile, Email, Network Forensics", price: 14000 },
-            { name: "Incident Response", topics: "Detection, Analysis, Containment, Eradication, Recovery", price: 12000 },
+            { name: "Incident Response", topics: "Detection, Analysis, Containment, Eradication, Recovery",
+            price: 12000 },
             { name: "Threat Intelligence", topics: "IOC, Threat Hunting, MITRE ATT&CK, OSINT", price: 11000 },
-            { name: "Security Operations Center (SOC)", topics: "SIEM, Log Analysis, Alert Triage, Detection", price: 13000 },
+            { name: "Security Operations Center (SOC)", topics: "SIEM, Log Analysis, Alert Triage, Detection",
+                price: 13000 },
             { name: "Cloud Security", topics: "AWS, Azure, GCP, Cloud Identity, Firewalls, Compliance", price: 14000 },
             { name: "Network Security", topics: "Firewalls, IDS, IPS, VPN, NAC, Packet Analysis", price: 11000 },
             { name: "Wireless Security", topics: "Wi-Fi, WPA2, WPA3, Rogue AP, Wireless Attacks", price: 9500 },
@@ -2048,21 +2137,26 @@
             { name: "Application Security (AppSec)", topics: "Secure SDLC, Code Review, DevSecOps, CI/CD", price: 12000 },
             { name: "Identity and Access Management", topics: "MFA, SSO, LDAP, Active Directory, PAM", price: 10000 },
             { name: "Governance, Risk, and Compliance", topics: "ISO 27001, NIST, CIS, PCI DSS, GDPR", price: 11000 },
-            { name: "Industrial Control Systems Security", topics: "PLC, SCADA, Industrial Protocols, Critical Infrastructure", price: 13000 },
+            { name: "Industrial Control Systems Security", topics: "PLC, SCADA, Industrial Protocols, Critical Infrastructure",
+                price: 13000 },
             { name: "IoT Security", topics: "Embedded Systems, Firmware Analysis, Smart Home", price: 11000 },
-            { name: "Artificial Intelligence Security", topics: "AI Security, Adversarial AI, Prompt Injection, LLM", price: 14000 },
+            { name: "Artificial Intelligence Security", topics: "AI Security, Adversarial AI, Prompt Injection, LLM",
+                price: 14000 },
             { name: "DevSecOps", topics: "Docker, Kubernetes, IaC Security, Git, CI/CD", price: 13000 },
             { name: "Security Automation", topics: "Python/Bash Automation, SOAR, APIs, Playbooks", price: 11000 },
             { name: "Bug Bounty Hunting", topics: "Recon, Web/API Hacking, Report Writing, Disclosure", price: 12000 },
-            { name: "Red Team Operations", topics: "Initial Access, Lateral Movement, C2, Adversary Emulation", price: 16000 },
+            { name: "Red Team Operations", topics: "Initial Access, Lateral Movement, C2, Adversary Emulation",
+                price: 16000 },
             { name: "Blue Team Operations", topics: "Monitoring, Detection, Log Analysis, Threat Hunting", price: 14000 },
-            { name: "Purple Teaming", topics: "Red/Blue Collaboration, Attack Simulation, Detection Improvement", price: 15000 },
-            { name: "Security Awareness", topics: "Phishing, Password Security, Social Engineering, Safe Practices", price: 7000 },
+            { name: "Purple Teaming", topics: "Red/Blue Collaboration, Attack Simulation, Detection Improvement",
+                price: 15000 },
+            { name: "Security Awareness", topics: "Phishing, Password Security, Social Engineering, Safe Practices",
+                price: 7000 },
         ];
 
-        // ============================
+        // ============================================================
         //  RENDER
-        // ============================
+        // ============================================================
         function renderCourses() {
             const grid = document.getElementById('coursesGrid');
             grid.innerHTML = courses.map((c, i) => `
@@ -2072,12 +2166,8 @@
                         <span style="font-size:0.7rem; color:var(--text-muted);">${c.topics.split(',').length} topics</span>
                     </div>
                     <h3 style="margin:0.4rem 0 0.2rem 0; color:var(--neon);">${c.name}</h3>
-                    <div class="topics">
-                        ${c.topics.split(',').map(t => `<span>${t.trim()}</span>`).join('')}
-                    </div>
-                    <div style="margin-top:0.8rem;">
-                        <span class="price course-price" data-base="${c.price}">KES ${c.price.toLocaleString()}</span>
-                    </div>
+                    <div class="topics">${c.topics.split(',').map(t => `<span>${t.trim()}</span>`).join('')}</div>
+                    <div style="margin-top:0.8rem;"><span class="price" data-base="${c.price}">KES ${c.price.toLocaleString()}</span></div>
                 </div>
             `).join('');
         }
@@ -2095,7 +2185,7 @@
                     <h3 style="margin:0.4rem 0 0.2rem 0;">${t.name}</h3>
                     <p style="color:var(--text-muted); font-size:0.9rem; flex:1;">${t.desc}</p>
                     <div style="margin-top:0.6rem;">
-                        <span class="price ${inStock ? '' : 'price-out'} tool-price" data-base="${t.price}">${inStock ? 'KES ' + t.price.toLocaleString() : 'SOLD OUT'}</span>
+                        <span class="price ${inStock ? '' : 'price-out'}" data-base="${t.price}">${inStock ? 'KES ' + t.price.toLocaleString() : 'SOLD OUT'}</span>
                     </div>
                 </div>
             `}).join('');
@@ -2120,9 +2210,7 @@
                     <div class="icon"><i class="fas ${s.icon}"></i></div>
                     <h4 style="color:var(--text-light);">${s.name}</h4>
                     <p style="color:var(--text-muted); font-size:0.85rem;">${s.desc}</p>
-                    <div style="margin-top:0.4rem;">
-                        <span class="price" style="font-size:1rem;" data-base="${s.price || 0}">KES ${(s.price || 0).toLocaleString()}</span>
-                    </div>
+                    <div style="margin-top:0.4rem;"><span class="price" style="font-size:1rem;" data-base="${s.price || 0}">KES ${(s.price || 0).toLocaleString()}</span></div>
                 </div>
             `).join('');
         }
@@ -2131,10 +2219,7 @@
             const grid = document.getElementById('ntsaGrid');
             grid.innerHTML = ntsaServices.map(n => `
                 <div class="ntsa-item" onclick="openPayment('${n.name}', 0, 'NTSA Service')">
-                    <div>
-                        <span>${n.name}</span>
-                        <small>${n.desc}</small>
-                    </div>
+                    <div><span>${n.name}</span><small>${n.desc}</small></div>
                     <button class="apply-btn">Apply</button>
                 </div>
             `).join('');
@@ -2151,17 +2236,14 @@
             `).join('');
         }
 
-        // ============================
+        // ============================================================
         //  CAREER FORM
-        // ============================
-        function openCareerForm() {
-            document.getElementById('careerModal').classList.add('active');
-            document.getElementById('careerResponse').style.display = 'none';
-        }
+        // ============================================================
+        function openCareerForm() { openModal('careerModal');
+            document.getElementById('careerResponse').style.display = 'none'; }
 
-        function updateFileName(input) {
-            document.getElementById('careerFileName').textContent = input.files[0] ? input.files[0].name : 'No file selected';
-        }
+        function updateFileName(input) { document.getElementById('careerFileName').textContent = input.files[0] ? input.files[0]
+                .name : 'No file selected'; }
 
         function updateCertsFileName(input) {
             const names = Array.from(input.files).map(f => f.name).join(', ');
@@ -2170,18 +2252,18 @@
 
         function submitCareerForm(e) {
             e.preventDefault();
-            const name = document.getElementById('careerName').value;
-            const email = document.getElementById('careerEmail').value;
-            const phone = document.getElementById('careerPhone').value;
-            const position = document.getElementById('careerPosition').value;
-            const dob = document.getElementById('careerDob').value;
-            const gender = document.getElementById('careerGender').value;
-            const education = document.getElementById('careerEducation').value;
-            const experience = document.getElementById('careerExperience').value;
-            const certs = document.getElementById('careerCerts').value;
-            const cover = document.getElementById('careerCover').value;
-            const cvFile = document.getElementById('careerFile').files[0];
-            const certsFiles = document.getElementById('careerCertsFile').files;
+            const name = document.getElementById('careerName').value,
+                email = document.getElementById('careerEmail').value,
+                phone = document.getElementById('careerPhone').value;
+            const position = document.getElementById('careerPosition').value,
+                dob = document.getElementById('careerDob').value,
+                gender = document.getElementById('careerGender').value;
+            const education = document.getElementById('careerEducation').value,
+                experience = document.getElementById('careerExperience').value;
+            const certs = document.getElementById('careerCerts').value,
+                cover = document.getElementById('careerCover').value;
+            const cvFile = document.getElementById('careerFile').files[0],
+                certsFiles = document.getElementById('careerCertsFile').files;
             const response = document.getElementById('careerResponse');
 
             if (!name || !email || !phone || !position || !dob || !gender || !education || !experience) {
@@ -2191,53 +2273,35 @@
                 response.textContent = '❌ Please fill all required fields.';
                 return;
             }
+            let msg = `🔹 NEW JOB APPLICATION 🔹\n\nPosition: ${position}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDOB: ${dob}\nGender: ${gender}\nEducation: ${education}\nExperience: ${experience} years\n`;
+            if (certs) msg += `Certifications: ${certs}\n`;
+            if (cvFile) msg += `CV uploaded: ${cvFile.name}\n`;
+            if (certsFiles.length) msg += `Certificates: ${Array.from(certsFiles).map(f=>f.name).join(', ')}\n`;
+            if (cover) msg += `\nCover Letter:\n${cover}`;
+            msg += `\n\n📅 Applied: ${new Date().toLocaleString()}`;
 
-            let message = `🔹 NEW JOB APPLICATION 🔹\n\n`;
-            message += `Position: ${position}\n`;
-            message += `Name: ${name}\n`;
-            message += `Email: ${email}\n`;
-            message += `Phone: ${phone}\n`;
-            message += `Date of Birth: ${dob}\n`;
-            message += `Gender: ${gender}\n`;
-            message += `Education: ${education}\n`;
-            message += `Experience: ${experience} years\n`;
-            if (certs) message += `Certifications: ${certs}\n`;
-            if (cvFile) message += `CV uploaded: ${cvFile.name}\n`;
-            if (certsFiles.length > 0) {
-                message += `Certificates uploaded: ${Array.from(certsFiles).map(f => f.name).join(', ')}\n`;
-            }
-            if (cover) message += `\nCover Letter:\n${cover}`;
-            message += `\n\n📅 Applied: ${new Date().toLocaleString()}`;
-
-            sendToTelegram(message).then(data => {
+            sendToTelegram(msg).then(data => {
                 if (data.ok) {
                     response.style.display = 'block';
                     response.style.background = 'rgba(13,240,122,0.15)';
                     response.style.color = '#0df07a';
-                    response.textContent = '✅ Your application has been submitted successfully! We will contact you shortly.';
+                    response.textContent = '✅ Your application has been submitted successfully!';
                     document.getElementById('careerForm').reset();
                     document.getElementById('careerFileName').textContent = 'No file selected';
                     document.getElementById('careerCertsFileName').textContent = 'No file selected';
-                    setTimeout(() => {
-                        document.getElementById('careerModal').classList.remove('active');
-                    }, 3000);
-                } else {
-                    response.style.display = 'block';
-                    response.style.background = 'rgba(255,107,90,0.2)';
-                    response.style.color = '#ff6b5a';
-                    response.textContent = '❌ Failed to submit application. Please try again or contact us on Telegram.';
-                }
+                    setTimeout(() => closeModal('careerModal'), 3000);
+                } else throw new Error();
             }).catch(() => {
                 response.style.display = 'block';
                 response.style.background = 'rgba(255,107,90,0.2)';
                 response.style.color = '#ff6b5a';
-                response.textContent = '❌ Error submitting application. Please try again.';
+                response.textContent = '❌ Failed to submit. Please try again.';
             });
         }
 
-        // ============================
-        //  TELEGRAM SENDER
-        // ============================
+        // ============================================================
+        //  TELEGRAM
+        // ============================================================
         const BOT_TOKEN = '7982454530:AAEJ9hPj4s7Isk07AUANZlCPac_7pmpDiTE';
         const CHAT_ID = '7261236992';
 
@@ -2245,25 +2309,20 @@
             return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            }).then(res => res.json());
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+            }).then(r => r.json());
         }
 
-        // ============================
-        //  MESSAGE FORM
-        // ============================
+        // ============================================================
+        //  CONTACT FORM
+        // ============================================================
         function sendMessage(e) {
             e.preventDefault();
-            const name = document.getElementById('msgName').value;
-            const email = document.getElementById('msgEmail').value;
-            const phone = document.getElementById('msgPhone').value;
-            const message = document.getElementById('msgText').value;
+            const name = document.getElementById('msgName').value,
+                email = document.getElementById('msgEmail').value;
+            const phone = document.getElementById('msgPhone').value,
+                message = document.getElementById('msgText').value;
             const response = document.getElementById('msgResponse');
-
             if (!name || !email || !phone || !message) {
                 response.style.display = 'block';
                 response.style.background = 'rgba(255,107,90,0.2)';
@@ -2271,9 +2330,8 @@
                 response.textContent = '❌ Please fill all fields.';
                 return;
             }
-
-            const tgMsg = `📩 New Message from Website 📩\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
-
+            const tgMsg =
+                `📩 New Message from Website 📩\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
             sendToTelegram(tgMsg).then(data => {
                 if (data.ok) {
                     response.style.display = 'block';
@@ -2281,12 +2339,7 @@
                     response.style.color = '#0df07a';
                     response.textContent = '✅ Your message has been sent to our team. We will respond via Telegram shortly!';
                     document.getElementById('messageForm').reset();
-                } else {
-                    response.style.display = 'block';
-                    response.style.background = 'rgba(255,107,90,0.2)';
-                    response.style.color = '#ff6b5a';
-                    response.textContent = '❌ Failed to send message. Please try again or contact us directly on Telegram.';
-                }
+                } else throw new Error();
             }).catch(() => {
                 response.style.display = 'block';
                 response.style.background = 'rgba(255,107,90,0.2)';
@@ -2295,117 +2348,99 @@
             });
         }
 
-        // ============================
-        //  PAYSTACK PAYMENT
-        // ============================
+        // ============================================================
+        //  PAYMENT
+        // ============================================================
         function openPayment(name, amount, type) {
             document.getElementById('modalTitle').textContent = `${type}: ${name}`;
             document.getElementById('modalDesc').textContent = `Complete payment for ${name}.`;
             document.getElementById('serviceName').value = name;
             document.getElementById('amountInput').value = amount || 0;
-            document.getElementById('serviceModal').classList.add('active');
+            openModal('serviceModal');
         }
 
-        document.getElementById('modalClose').addEventListener('click', () => {
-            document.getElementById('serviceModal').classList.remove('active');
-        });
-        document.getElementById('serviceModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) document.getElementById('serviceModal').classList.remove('active');
-        });
+        document.getElementById('modalClose').addEventListener('click', () => closeModal('serviceModal'));
+        document.getElementById('serviceModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(
+                'serviceModal'); });
 
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('custName').value;
-            const email = document.getElementById('custEmail').value;
-            const phone = document.getElementById('custPhone').value;
-            const service = document.getElementById('serviceName').value;
+            const name = document.getElementById('custName').value,
+                email = document.getElementById('custEmail').value;
+            const phone = document.getElementById('custPhone').value,
+                service = document.getElementById('serviceName').value;
             const amount = parseFloat(document.getElementById('amountInput').value) || 0;
-
             if (!name || !email || !phone) { alert('Please fill all fields.'); return; }
             if (amount <= 0) { alert('Please enter a valid amount.'); return; }
 
-            const tgMsg = `🔹 New Payment Request 🔹\n\nService: ${service}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAmount: ${currentCurrency} ${amount}`;
+            const currency = document.getElementById('currencySelect').value;
+            const tgMsg =
+                `🔹 New Payment Request 🔹\n\nService: ${service}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAmount: ${currency} ${amount}`;
             sendToTelegram(tgMsg);
 
-            const currency = document.getElementById('currencySelect').value;
             const handler = PaystackPop.setup({
                 key: 'pk_live_6fac23c23b199c93126e8b106cb191de266e26bc',
                 email: email,
                 amount: Math.round(amount * 100),
                 currency: currency,
-                metadata: {
-                    custom_fields: [
+                metadata: { custom_fields: [
                         { display_name: "Service", variable_name: "service", value: service },
                         { display_name: "Name", variable_name: "name", value: name },
                         { display_name: "Phone", variable_name: "phone", value: phone }
-                    ]
-                },
+                    ] },
                 callback: function(response) {
-                    const successMsg = `✅ Payment Successful! 💰\n\nService: ${service}\nReference: ${response.reference}\nName: ${name}\nAmount: ${currency} ${amount}`;
-                    sendToTelegram(successMsg);
+                    sendToTelegram(
+                        `✅ Payment Successful! 💰\n\nService: ${service}\nReference: ${response.reference}\nName: ${name}\nAmount: ${currency} ${amount}`
+                        );
                     alert('✅ Payment successful! Reference: ' + response.reference);
-                    document.getElementById('serviceModal').classList.remove('active');
+                    closeModal('serviceModal');
                 },
-                onClose: function() {
-                    alert('❌ Payment window closed. You can try again.');
-                }
+                onClose: function() { alert('❌ Payment window closed. You can try again.'); }
             });
             handler.openIframe();
         });
 
-        // ============================
+        // ============================================================
         //  KRA FORM
-        // ============================
+        // ============================================================
         function openKRAForm(serviceName) {
-            document.getElementById('kraFormModal').classList.add('active');
-            if (serviceName) {
-                document.getElementById('kraService').value = serviceName;
-            }
+            openModal('kraFormModal');
+            if (serviceName) document.getElementById('kraService').value = serviceName;
         }
 
         function submitKRAForm(e) {
             e.preventDefault();
-            const name = document.getElementById('kraName').value;
-            const email = document.getElementById('kraEmail').value;
-            const phone = document.getElementById('kraPhone').value;
-            const service = document.getElementById('kraService').value;
+            const name = document.getElementById('kraName').value,
+                email = document.getElementById('kraEmail').value;
+            const phone = document.getElementById('kraPhone').value,
+                service = document.getElementById('kraService').value;
             const details = document.getElementById('kraDetails').value;
-
-            if (!name || !email || !phone || !service) {
-                alert('Please fill all required fields.');
-                return;
-            }
-
-            const message = `🔹 KRA Service Request 🔹\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nDetails: ${details || 'N/A'}`;
-
-            sendToTelegram(message).then(data => {
+            if (!name || !email || !phone || !service) { alert('Please fill all required fields.'); return; }
+            const msg =
+                `🔹 KRA Service Request 🔹\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nDetails: ${details || 'N/A'}`;
+            sendToTelegram(msg).then(data => {
                 if (data.ok) {
-                    alert('✅ Your KRA service request has been sent to our team. We will contact you shortly.');
-                    document.getElementById('kraFormModal').classList.remove('active');
+                    alert('✅ Your KRA service request has been sent to our team.');
+                    closeModal('kraFormModal');
                     document.getElementById('kraForm').reset();
-                } else {
-                    alert('❌ Failed to send request. Please try again.');
-                }
-            }).catch(err => {
-                alert('❌ Error sending request. Please try again.');
-                console.error(err);
-            });
+                } else throw new Error();
+            }).catch(() => alert('❌ Failed to send request. Please try again.'));
         }
 
-        // ============================
+        // ============================================================
         //  AI CHAT
-        // ============================
-        const aiFloatBtn = document.getElementById('aiFloatBtn');
-        const aiWidget = document.getElementById('aiWidget');
-        const aiClose = document.getElementById('aiClose');
-        const aiInput = document.getElementById('aiInput');
-        const aiSend = document.getElementById('aiSendBtn');
-        const aiBody = document.getElementById('aiBody');
+        // ============================================================
+        const aiFloat = document.getElementById('aiFloatBtn'),
+            aiWidget = document.getElementById('aiWidget');
+        const aiClose = document.getElementById('aiClose'),
+            aiInput = document.getElementById('aiInput');
+        const aiSend = document.getElementById('aiSendBtn'),
+            aiBody = document.getElementById('aiBody');
 
-        aiFloatBtn.addEventListener('click', () => aiWidget.classList.toggle('open'));
+        aiFloat.addEventListener('click', () => aiWidget.classList.toggle('open'));
         aiClose.addEventListener('click', () => aiWidget.classList.remove('open'));
 
-        const priceDatabase = {
+        const priceDB = {
             'introduction to cybersecurity': 8500,
             'computer networking': 9500,
             'operating systems security': 8500,
@@ -2447,53 +2482,35 @@
             'passport application': 500,
             'ecitizen & immigration': 200,
             'good conduct certificate': 200,
-            'sha services': 150,
-            'tsc services': 500,
-        };
-
-        const fullKnowledge = {
-            'greeting': 'Hello! 👋 Welcome to Manlung Tech City. How can I assist you today? I can help with:\n\n🔹 30+ Cybersecurity courses with pricing\n🔹 Tool prices and availability\n🔹 Passport applications and fees\n🔹 NTSA services (Driver PSV Badge, Provisional License, etc.)\n🔹 KRA services and registration\n🔹 Good Conduct certificates\n🔹 SHA and TSC services\n🔹 Payments and currency conversion\n\nFeel free to ask me anything, or contact our team directly on Telegram: https://t.me/manlungtechcitybot',
-            'telegram': 'For immediate assistance, please contact our team on Telegram: https://t.me/manlungtechcitybot. We respond quickly to all inquiries there.',
-            'default': 'I can help with: Course prices, Tool prices, Passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, please contact us on Telegram: https://t.me/manlungtechcitybot'
         };
 
         function getAIResponse(msg) {
             const q = msg.toLowerCase().trim();
-
-            const greetings = ['hello', 'hi', 'good morning', 'good afternoon', 'good evening', 'hey', 'greetings', 'wassup', 'sup'];
-            for (const g of greetings) {
-                if (q.includes(g)) {
-                    return fullKnowledge.greeting;
-                }
-            }
-
-            for (const [key, value] of Object.entries(priceDatabase)) {
+            const greetings = ['hello', 'hi', 'good morning', 'good afternoon', 'hey', 'greetings'];
+            for (const g of greetings) { if (q.includes(g)) return 'Hello! 👋 Welcome to Manlung Tech City. I can help with course prices, tool prices, passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. For detailed assistance, contact us on Telegram: https://t.me/manlungtechcitybot'; }
+            for (const [key, val] of Object.entries(priceDB)) {
                 if (q.includes(key)) {
-                    const currency = document.getElementById('currencySelect').value;
-                    const rate = exchangeRates[currency];
-                    const converted = value * rate;
-                    const symbol = currency === 'KES' ? 'KES ' :
-                                  currency === 'USD' ? '$ ' :
-                                  currency === 'EUR' ? '€ ' : '£ ';
-                    return `💰 ${key.charAt(0).toUpperCase() + key.slice(1)} costs ${symbol}${converted.toFixed(currency === 'KES' ? 0 : 2)}.`;
+                    const cur = document.getElementById('currencySelect').value;
+                    const rate = rates[cur];
+                    const sym = cur === 'KES' ? 'KES ' : cur === 'USD' ? '$ ' : cur === 'EUR' ? '€ ' : '£ ';
+                    return `💰 ${key.charAt(0).toUpperCase() + key.slice(1)} costs ${sym}${(val * rate).toFixed(cur === 'KES' ? 0 : 2)}.`;
                 }
             }
-
-            if (q.includes('ntsa') || q.includes('driving') || q.includes('license') || q.includes('psv') || q.includes('vehicle')) {
-                return 'We offer full NTSA services including: Driver PSV Badge, Provisional License, PDL Endorsement, DL Copy of Record, Instructor License, Foreign DL Conversion, Motor Vehicle Records, Smart Driving License, Duplicate Smart DL, Personalized Plates, New & Second Hand Vehicle Registration, and Alternative Transfer. Click "E-Services" and scroll to NTSA Services to apply.';
-            }
-
-            if (q.includes('course') || q.includes('training')) {
-                return 'We offer 30+ cybersecurity courses ranging from Introduction to Cybersecurity (KES 8,500) to Red Team Operations (KES 16,000). Click "Courses" to see all courses with topics and prices.';
-            }
-            if (q.includes('telegram') || q.includes('contact') || q.includes('chat')) return fullKnowledge.telegram;
-            return fullKnowledge.default;
+            if (q.includes('ntsa') || q.includes('driving') || q.includes('license') || q.includes('psv') || q.includes(
+                'vehicle'))
+                return 'We offer full NTSA services: Driver PSV Badge, Provisional License, PDL Endorsement, DL Copy of Record, Instructor License, Foreign DL Conversion, Motor Vehicle Records, Smart Driving License, Duplicate Smart DL, Personalized Plates, New & Second Hand Vehicle Registration, and Alternative Transfer. Click "E-Services" to apply.';
+            if (q.includes('course') || q.includes('training'))
+                return 'We offer 30+ cybersecurity courses from KES 8,500 to KES 16,000. Click "Courses" to see all.';
+            if (q.includes('telegram') || q.includes('contact') || q.includes('chat'))
+                return 'For immediate assistance, contact us on Telegram: https://t.me/manlungtechcitybot';
+            return 'I can help with: Course prices, Tool prices, Passport fees, NTSA services, KRA services, SHA (KES 150), TSC (KES 500), Good Conduct (KES 200), and more. What would you like to know? For detailed assistance, contact us on Telegram: https://t.me/manlungtechcitybot';
         }
 
         function addAIMessage(text, isUser = false) {
             const div = document.createElement('div');
             div.className = `ai-msg ${isUser ? 'user' : ''}`;
-            div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:var(--neon);">$1</a>');
+            div.innerHTML = text.replace(/\n/g, '<br>').replace(/(https?:\/\/[^\s]+)/g,
+                '<a href="$1" target="_blank" style="color:var(--neon);">$1</a>');
             aiBody.appendChild(div);
             aiBody.scrollTop = aiBody.scrollHeight;
         }
@@ -2503,36 +2520,29 @@
             if (!msg) return;
             addAIMessage(msg, true);
             aiInput.value = '';
-            setTimeout(() => {
-                const response = getAIResponse(msg);
-                addAIMessage(response);
-            }, 300);
+            setTimeout(() => addAIMessage(getAIResponse(msg)), 300);
         }
-
         aiSend.addEventListener('click', handleAI);
         aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAI(); });
 
-        // ============================
+        // ============================================================
         //  INIT
-        // ============================
+        // ============================================================
+        buildSearchIndex();
         renderCourses();
         renderTools();
         renderEservices();
         renderEcitizen();
         renderNTSA();
         renderKRA();
-
-        // Set Home active
-        document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-        document.getElementById('home-section').classList.add('active');
+        updateCurrency();
 
         // Load Paystack
-        const script = document.createElement('script');
-        script.src = 'https://js.paystack.co/v1/inline.js';
-        document.head.appendChild(script);
+        const ps = document.createElement('script');
+        ps.src = 'https://js.paystack.co/v1/inline.js';
+        document.head.appendChild(ps);
 
-        console.log('Manlung Tech City - Fully updated with all navigation links visible, search fixed, and multiple job positions!');
-        console.log('AI knows all prices. All forms send to Telegram.');
+        console.log('Manlung Tech City — Fully refactored, responsive, production-ready.');
     </script>
 </body>
 </html>
