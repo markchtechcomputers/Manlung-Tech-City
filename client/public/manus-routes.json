@@ -1,0 +1,80 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "Online eCitizen, KRA & Cyber Support | Manlung Tech City"
+    },
+    {
+      "path": "/services",
+      "title": "Online Cyber & Digital Services in Kenya | Manlung Tech City"
+    },
+    {
+      "path": "/courses",
+      "title": "Online Cybersecurity Courses in Kenya | Manlung Tech City"
+    },
+    {
+      "path": "/about",
+      "title": "About Manlung Tech City | Online Services in Kenya"
+    },
+    {
+      "path": "/contact",
+      "title": "Contact Manlung Tech City | Online Support Kenya"
+    },
+    {
+      "path": "/review",
+      "title": "Leave a Service Review | Manlung Tech City"
+    },
+    {
+      "path": "/insights",
+      "title": "Cybersecurity Insights & Resources | Manlung Tech City"
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Information | Manlung Tech City Kenya"
+    },
+    {
+      "path": "/terms",
+      "title": "Website & Service Inquiry Terms | Manlung Tech City"
+    },
+    {
+      "path": "/services/cybersecurity-support",
+      "title": "Cybersecurity support | Manlung Tech City"
+    },
+    {
+      "path": "/services/cybersecurity-courses",
+      "title": "Cybersecurity courses | Manlung Tech City"
+    },
+    {
+      "path": "/services/government-e-services",
+      "title": "Government e-services | Manlung Tech City"
+    },
+    {
+      "path": "/services/kra-itax-assistance",
+      "title": "KRA & iTax assistance | Manlung Tech City"
+    },
+    {
+      "path": "/services/security-tool-setup",
+      "title": "Security tool setup | Manlung Tech City"
+    },
+    {
+      "path": "/services/whatsapp-bot-hosting",
+      "title": "WhatsApp bot hosting & deployment | Manlung Tech City"
+    },
+    {
+      "path": "/services/it-digital-support",
+      "title": "IT & digital support | Manlung Tech City"
+    },
+    {
+      "path": "/insights/spot-phishing-before-you-click",
+      "title": "Spot phishing before you click | Manlung Tech City"
+    },
+    {
+      "path": "/insights/your-first-steps-into-cybersecurity",
+      "title": "Your first steps into cybersecurity | Manlung Tech City"
+    },
+    {
+      "path": "/insights/get-ready-for-a-government-e-service-request",
+      "title": "Government E-service Checklist | Manlung Tech City"
+    }
+  ]
+}
