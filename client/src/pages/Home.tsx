@@ -94,7 +94,7 @@ const serviceRequestHref = (slug: string, task: string) =>
 
 const featuredApplications = [
   {
-    image: "/manus-storage/async-images/mgtkdDvs4TJUH6B4ccx2Vn/image-1.webp",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519664072188572/mWAOfGzvUbbODxiB.webp",
     imageAlt:
       "A Kenyan customer getting independent help with a generic online passport application at a local cyber café",
     label: "PASSPORT GUIDANCE",
@@ -107,7 +107,7 @@ const featuredApplications = [
     task: "Passport application guidance",
   },
   {
-    image: "/manus-storage/async-images/mgtkdDvs4TJUH6B4ccx2Vn/image-2.webp",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519664072188572/ChWAGKQIRWMCkajX.webp",
     imageAlt:
       "An adult Kenyan wheelchair user confidently working through a generic online application with respectful support",
     label: "ACCESSIBLE SERVICE GUIDANCE",
@@ -120,7 +120,7 @@ const featuredApplications = [
     task: "Persons with Disabilities (PWD) application / registration guidance",
   },
   {
-    image: "/manus-storage/async-images/mgtkdDvs4TJUH6B4ccx2Vn/image-3.webp",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519664072188572/HBNawgknQTiKxMvx.webp",
     imageAlt:
       "Kenyan customers using a laptop to get independent guidance with a generic digital health-service registration",
     label: "DIGITAL HEALTH SERVICE",
@@ -309,7 +309,7 @@ export default function Home() {
           </div>
           <div className="hero-visual awareness-visual">
             <img
-              src="/manus-storage/async-images/SBkUnZJFb7WxbwBatlzT6o/image-1.webp"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519664072188572/kznLbGrcFwzslSUM.webp"
               alt="A welcoming Kenyan cyber café attendant assisting a customer with online services"
               width="1536"
               height="1024"
